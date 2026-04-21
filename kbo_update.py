@@ -2,8 +2,6 @@ from selenium import webdriver
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
-from webdriver_manager.chrome import ChromeDriverManager
-from selenium.webdriver.chrome.service import Service
 import pandas as pd
 import time, os
 
@@ -12,11 +10,27 @@ CSV_PATH = 'kbo_odds.csv'
 
 def get_driver():
     options = webdriver.ChromeOptions()
+    options.add_argument('--headless')
+    options.add_argument('--no-sandbox')
+    options.add_argument('--disable-dev-shm-usage')
     options.add_argument('--disable-blink-features=AutomationControlled')
     options.add_experimental_option('excludeSwitches', ['enable-automation'])
     options.add_experimental_option('useAutomationExtension', False)
-    driver = webdriver.Chrome(
-        service=Service(ChromeDriverManager().install()), options=options)
+
+    import os
+    if os.environ.get('CI'):
+        from selenium.webdriver.chrome.service import Service
+        options.binary_location = '/usr/bin/chromium-browser'
+        driver = webdriver.Chrome(
+            service=Service('/usr/bin/chromedriver'),
+            options=options)
+    else:
+        from webdriver_manager.chrome import ChromeDriverManager
+        from selenium.webdriver.chrome.service import Service
+        driver = webdriver.Chrome(
+            service=Service(ChromeDriverManager().install()),
+            options=options)
+
     driver.execute_script(
         "Object.defineProperty(navigator,'webdriver',{get:()=>undefined})")
     return driver
@@ -26,6 +40,7 @@ def get_match_urls(driver):
     WebDriverWait(driver, 15).until(
         EC.presence_of_element_located((By.CSS_SELECTOR, 'div.eventRow')))
     time.sleep(3)
+
     match_list = driver.execute_script("""
         const results=[], seen=new Set();
         let currentDate='';
@@ -54,6 +69,7 @@ def get_match_urls(driver):
         });
         return results;
     """)
+
     date_counter = {}
     for m in match_list:
         d = m['date']
@@ -73,6 +89,7 @@ def scrape_match(driver, url, winner_is_home=True):
 
     name_els = driver.find_elements(By.CSS_SELECTOR, 'p.height-content.pl-4')
     results = []
+
     for name_el in name_els:
         name = name_el.text.strip()
         if name in EXCLUDE: continue
@@ -114,15 +131,18 @@ def scrape_match(driver, url, winner_is_home=True):
                 change=(closeVal-openVal).toFixed(2);}
             return{openVal,closeVal,direction,change};
         """)
+
         if data['direction'] is None:
             try: driver.execute_script("arguments[0].click();", odds_el); time.sleep(0.3)
             except: pass
             continue
+
         results.append({
             'match_id': url.split('#')[-1], 'bookmaker': name,
             'open': data['openVal'], 'close': data['closeVal'],
             'direction': data['direction'], 'change': data['change']
         })
+
         try:
             driver.execute_script("arguments[0].click();", odds_el)
             for _ in range(5):
@@ -130,45 +150,77 @@ def scrape_match(driver, url, winner_is_home=True):
                     "return document.querySelectorAll('.bg-gray-light').length;") <= 2: break
                 time.sleep(0.3)
         except: pass
+
     return results
 
 # ── 메인 ──────────────────────────────────────────────
-def get_driver():
-    options = webdriver.ChromeOptions()
-    options.add_argument('--headless')
-    options.add_argument('--no-sandbox')
-    options.add_argument('--disable-dev-shm-usage')
-    options.add_argument('--disable-blink-features=AutomationControlled')
-    options.add_experimental_option('excludeSwitches', ['enable-automation'])
-    options.add_experimental_option('useAutomationExtension', False)
+driver = get_driver()
+new_rows = []
 
-    import os
-    if os.environ.get('CI'):
-        # GitHub Actions 환경
-        options.binary_location = '/usr/bin/chromium-browser'
-        from selenium.webdriver.chrome.service import Service
-        driver = webdriver.Chrome(
-            service=Service('/usr/bin/chromedriver'),
-            options=options
-        )
+try:
+    # 기존 CSV 로드
+    if os.path.exists(CSV_PATH):
+        existing = pd.read_csv(CSV_PATH)
+        existing_ids = set(existing['match_id'].unique())
+        print(f'기존 데이터: {len(existing)}행, {len(existing_ids)}개 경기')
     else:
-        # 로컬 환경
-        from webdriver_manager.chrome import ChromeDriverManager
-        from selenium.webdriver.chrome.service import Service
-        driver = webdriver.Chrome(
-            service=Service(ChromeDriverManager().install()),
-            options=options
-        )
+        existing = pd.DataFrame()
+        existing_ids = set()
+        print('기존 데이터 없음')
 
-    driver.execute_script(
-        "Object.defineProperty(navigator,'webdriver',{get:()=>undefined})")
-    return driver
+    # 경기 목록 수집
+    print('경기 목록 수집 중...')
+    match_list = get_match_urls(driver)
+    print(f'전체 경기: {len(match_list)}개')
+
+    # 새 경기만 필터링
+    new_matches = []
+    for m in match_list:
+        if not m['finished']:
+            print(f"  스킵 (미완료): {m['date']} slot{m['slot']} {m['home']} vs {m['away']}")
+            continue
+        if m['match_id'] in existing_ids:
+            print(f"  스킵 (기존): {m['date']} slot{m['slot']} {m['home']} vs {m['away']}")
+            continue
+        new_matches.append(m)
+
+    print(f'새로 수집할 경기: {len(new_matches)}개')
+
+    # 새 경기 수집
+    for match in new_matches:
+        print(f"수집: {match['date']} slot{match['slot']} {match['home']} vs {match['away']}")
+        rows = []
+        for attempt in range(3):
+            rows = scrape_match(driver, match['url'], winner_is_home=match['winner_is_home'])
+            if rows: break
+            print(f'  재시도 {attempt+1}...')
+            time.sleep(3)
+
+        for row in rows:
+            row.update({
+                'date': match['date'], 'slot': match['slot'],
+                'home': match['home'], 'away': match['away'],
+                'winner': match['home'] if match['winner_is_home'] else match['away'],
+                'home_score': match['home_score'], 'away_score': match['away_score']
+            })
+        new_rows.extend(rows)
+        print(f'  → {len(rows)}행 수집')
+        time.sleep(2)
+
+except Exception as e:
+    print(f'오류 발생: {e}')
+
+finally:
+    driver.quit()
 
 # CSV 저장
 if new_rows:
     new_df = pd.DataFrame(new_rows)
-    combined = pd.concat([existing, new_df], ignore_index=True) if len(existing) > 0 else new_df
+    if len(existing) > 0:
+        combined = pd.concat([existing, new_df], ignore_index=True)
+    else:
+        combined = new_df
     combined.to_csv(CSV_PATH, index=False, encoding='utf-8-sig')
-    print(f'\n완료: {len(new_rows)}행 추가 (총 {len(combined)}행)')
+    print(f'완료: {len(new_rows)}행 추가 (총 {len(combined)}행)')
 else:
-    print('\n새 데이터 없음')
+    print('새 데이터 없음')
