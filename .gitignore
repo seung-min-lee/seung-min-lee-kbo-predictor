@@ -1,0 +1,12 @@
+*
+!kbo_update.py
+!kbo_predict.py
+!kbo_verify.py
+!kbo_schedule.py
+!kbo_odds.csv
+!kbo_predictions.json
+!kbo_verify_log.csv
+!.github/
+!.github/workflows/
+!.github/workflows/kbo_daily.yml
+!.gitignore
