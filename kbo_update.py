@@ -5,7 +5,7 @@ from selenium.webdriver.support import expected_conditions as EC
 import pandas as pd
 import time, os
 
-EXCLUDE = {'My coupon', 'User Predictions'}
+EXCLUDE  = {'My coupon', 'User Predictions'}
 CSV_PATH = 'kbo_odds.csv'
 
 def get_driver():
@@ -17,19 +17,16 @@ def get_driver():
     options.add_experimental_option('excludeSwitches', ['enable-automation'])
     options.add_experimental_option('useAutomationExtension', False)
 
-    import os
     if os.environ.get('CI'):
         from selenium.webdriver.chrome.service import Service
         options.binary_location = '/usr/bin/chromium-browser'
         driver = webdriver.Chrome(
-            service=Service('/usr/bin/chromedriver'),
-            options=options)
+            service=Service('/usr/bin/chromedriver'), options=options)
     else:
         from webdriver_manager.chrome import ChromeDriverManager
         from selenium.webdriver.chrome.service import Service
         driver = webdriver.Chrome(
-            service=Service(ChromeDriverManager().install()),
-            options=options)
+            service=Service(ChromeDriverManager().install()), options=options)
 
     driver.execute_script(
         "Object.defineProperty(navigator,'webdriver',{get:()=>undefined})")
@@ -77,7 +74,61 @@ def get_match_urls(driver):
         m['slot'] = date_counter[d]
     return match_list
 
+def scrape_team_odds(driver, odds_el):
+    """특정 팀 배당 클릭 후 open/close/direction/change 수집"""
+    try:
+        driver.execute_script("arguments[0].scrollIntoView(true);", odds_el)
+        driver.execute_script("window.scrollBy(0,-100);")
+        time.sleep(0.3)
+        driver.execute_script("arguments[0].click();", odds_el)
+        time.sleep(2.0)
+    except:
+        return None
+
+    data = driver.execute_script("""
+        const panels=document.querySelectorAll('.bg-gray-light');
+        let openVal=null,closeVal=null,direction=null,change=null;
+        for(const panel of panels){
+            const h1=panel.querySelector('h1');
+            if(h1){
+                const ce=panel.querySelector('.text-green-dark,.text-red-dark');
+                if(ce){
+                    change=ce.innerText.trim();
+                    direction=ce.classList.contains('text-green-dark')?1:0;
+                }
+                for(const el of panel.querySelectorAll('.font-bold')){
+                    const v=parseFloat(el.innerText);
+                    if(!isNaN(v)&&v>1){closeVal=v;break;}
+                }
+            }else{
+                for(const el of panel.querySelectorAll('.font-bold')){
+                    const v=parseFloat(el.innerText);
+                    if(!isNaN(v)&&v>1){openVal=v;break;}
+                }
+            }
+        }
+        if(direction===null&&openVal&&closeVal&&openVal!==closeVal){
+            direction=closeVal>openVal?1:0;
+            change=(closeVal-openVal).toFixed(2);
+        }
+        return{openVal,closeVal,direction,change};
+    """)
+
+    # 패널 닫기
+    try:
+        driver.execute_script("arguments[0].click();", odds_el)
+        for _ in range(5):
+            if driver.execute_script(
+                "return document.querySelectorAll('.bg-gray-light').length;") <= 2:
+                break
+            time.sleep(0.3)
+    except:
+        pass
+
+    return data
+
 def scrape_match(driver, url, winner_is_home=True):
+    """한 경기의 모든 북메이커 양팀 배당 수집"""
     driver.get(url)
     try:
         WebDriverWait(driver, 15).until(
@@ -92,135 +143,158 @@ def scrape_match(driver, url, winner_is_home=True):
 
     for name_el in name_els:
         name = name_el.text.strip()
-        if name in EXCLUDE: continue
-        try:
-            row = name_el
-            for _ in range(3): row = row.find_element(By.XPATH, '..')
-        except: continue
-        try:
-            odds_els = row.find_elements(By.CSS_SELECTOR, 'p.odds-text')
-            if not odds_els: continue
-            odds_el = odds_els[0] if winner_is_home else odds_els[-1]
-            driver.execute_script("arguments[0].scrollIntoView(true);", odds_el)
-            driver.execute_script("window.scrollBy(0,-100);")
-            time.sleep(0.3)
-            driver.execute_script("arguments[0].click();", odds_el)
-            time.sleep(2.0)
-        except: continue
-
-        data = driver.execute_script("""
-            const panels=document.querySelectorAll('.bg-gray-light');
-            let openVal=null,closeVal=null,direction=null,change=null;
-            for(const panel of panels){
-                const h1=panel.querySelector('h1');
-                if(h1){
-                    const ce=panel.querySelector('.text-green-dark,.text-red-dark');
-                    if(ce){change=ce.innerText.trim();
-                           direction=ce.classList.contains('text-green-dark')?1:0;}
-                    for(const el of panel.querySelectorAll('.font-bold')){
-                        const v=parseFloat(el.innerText);
-                        if(!isNaN(v)&&v>1){closeVal=v;break;}}
-                }else{
-                    for(const el of panel.querySelectorAll('.font-bold')){
-                        const v=parseFloat(el.innerText);
-                        if(!isNaN(v)&&v>1){openVal=v;break;}}
-                }
-            }
-            if(direction===null&&openVal&&closeVal&&openVal!==closeVal){
-                direction=closeVal>openVal?1:0;
-                change=(closeVal-openVal).toFixed(2);}
-            return{openVal,closeVal,direction,change};
-        """)
-
-        if data['direction'] is None:
-            try: driver.execute_script("arguments[0].click();", odds_el); time.sleep(0.3)
-            except: pass
+        if name in EXCLUDE:
             continue
 
-        results.append({
-            'match_id': url.split('#')[-1], 'bookmaker': name,
-            'open': data['openVal'], 'close': data['closeVal'],
-            'direction': data['direction'], 'change': data['change']
-        })
-
         try:
-            driver.execute_script("arguments[0].click();", odds_el)
-            for _ in range(5):
-                if driver.execute_script(
-                    "return document.querySelectorAll('.bg-gray-light').length;") <= 2: break
-                time.sleep(0.3)
-        except: pass
+            row = name_el
+            for _ in range(3):
+                row = row.find_element(By.XPATH, '..')
+        except:
+            continue
+
+        odds_els = row.find_elements(By.CSS_SELECTOR, 'p.odds-text')
+        if len(odds_els) < 2:
+            continue
+
+        home_odds_el = odds_els[0]   # 홈팀 배당
+        away_odds_el = odds_els[-1]  # 원정팀 배당
+
+        # 홈팀 배당 수집
+        home_data = scrape_team_odds(driver, home_odds_el)
+        if not home_data:
+            continue
+
+        # 원정팀 배당 수집
+        away_data = scrape_team_odds(driver, away_odds_el)
+        if not away_data:
+            continue
+
+        # direction이 둘 다 없으면 스킵
+        if home_data['direction'] is None and away_data['direction'] is None:
+            continue
+
+        # 배당 비율 (홈/원정)
+        odds_ratio = None
+        if home_data['closeVal'] and away_data['closeVal']:
+            odds_ratio = round(home_data['closeVal'] / away_data['closeVal'], 4)
+
+        # 북메이커가 예상하는 승자 (배당 낮은 쪽 = 페이보릿)
+        consensus = None
+        if home_data['closeVal'] and away_data['closeVal']:
+            consensus = 'home' if home_data['closeVal'] < away_data['closeVal'] else 'away'
+
+        # 승리팀 배당 방향
+        winner_direction = home_data['direction'] if winner_is_home else away_data['direction']
+
+        results.append({
+            'match_id':         url.split('#')[-1],
+            'bookmaker':        name,
+            # 홈팀
+            'home_open':        home_data['openVal'],
+            'home_close':       home_data['closeVal'],
+            'home_change':      home_data['change'],
+            'home_direction':   home_data['direction'],
+            # 원정팀
+            'away_open':        away_data['openVal'],
+            'away_close':       away_data['closeVal'],
+            'away_change':      away_data['change'],
+            'away_direction':   away_data['direction'],
+            # 파생 피처
+            'winner_direction': winner_direction,
+            'odds_ratio':       odds_ratio,
+            'consensus':        consensus,
+        })
 
     return results
 
 # ── 메인 ──────────────────────────────────────────────
-driver = get_driver()
+driver  = get_driver()
 new_rows = []
 
 try:
-    # 기존 CSV 로드
     if os.path.exists(CSV_PATH):
-        existing = pd.read_csv(CSV_PATH)
+        existing    = pd.read_csv(CSV_PATH)
         existing_ids = set(existing['match_id'].unique())
         print(f'기존 데이터: {len(existing)}행, {len(existing_ids)}개 경기')
     else:
-        existing = pd.DataFrame()
+        existing     = pd.DataFrame()
         existing_ids = set()
-        print('기존 데이터 없음')
+        print('기존 데이터 없음 → 새로 수집')
 
-    # 경기 목록 수집
     print('경기 목록 수집 중...')
     match_list = get_match_urls(driver)
     print(f'전체 경기: {len(match_list)}개')
 
-    # 새 경기만 필터링
     new_matches = []
     for m in match_list:
         if not m['finished']:
-            print(f"  스킵 (미완료): {m['date']} slot{m['slot']} {m['home']} vs {m['away']}")
             continue
         if m['match_id'] in existing_ids:
-            print(f"  스킵 (기존): {m['date']} slot{m['slot']} {m['home']} vs {m['away']}")
+            print(f"  스킵: {m['date']} slot{m['slot']} {m['home']} vs {m['away']}")
             continue
         new_matches.append(m)
 
     print(f'새로 수집할 경기: {len(new_matches)}개')
 
-    # 새 경기 수집
     for match in new_matches:
-        print(f"수집: {match['date']} slot{match['slot']} {match['home']} vs {match['away']}")
+        print(f"수집: {match['date']} slot{match['slot']} "
+              f"{match['home']} vs {match['away']}")
         rows = []
         for attempt in range(3):
-            rows = scrape_match(driver, match['url'], winner_is_home=match['winner_is_home'])
-            if rows: break
+            rows = scrape_match(driver, match['url'],
+                                winner_is_home=match['winner_is_home'])
+            if rows:
+                break
             print(f'  재시도 {attempt+1}...')
             time.sleep(3)
 
         for row in rows:
             row.update({
-                'date': match['date'], 'slot': match['slot'],
-                'home': match['home'], 'away': match['away'],
-                'winner': match['home'] if match['winner_is_home'] else match['away'],
-                'home_score': match['home_score'], 'away_score': match['away_score']
+                'date':       match['date'],
+                'slot':       match['slot'],
+                'home':       match['home'],
+                'away':       match['away'],
+                'winner':     match['home'] if match['winner_is_home'] else match['away'],
+                'winner_is_home': match['winner_is_home'],
+                'home_score': match['home_score'],
+                'away_score': match['away_score'],
             })
         new_rows.extend(rows)
-        print(f'  → {len(rows)}행 수집')
+        print(f'  → {len(rows)}개 북메이커 수집')
         time.sleep(2)
 
 except Exception as e:
-    print(f'오류 발생: {e}')
+    print(f'오류: {e}')
+    import traceback
+    traceback.print_exc()
 
 finally:
     driver.quit()
 
-# CSV 저장
 if new_rows:
     new_df = pd.DataFrame(new_rows)
+    # 컬럼 순서 정리
+    cols = [
+        'match_id','date','slot','home','away',
+        'winner','winner_is_home','home_score','away_score',
+        'bookmaker',
+        'home_open','home_close','home_change','home_direction',
+        'away_open','away_close','away_change','away_direction',
+        'winner_direction','odds_ratio','consensus'
+    ]
+    new_df = new_df[[c for c in cols if c in new_df.columns]]
+
     if len(existing) > 0:
+        # 기존 CSV에 새 컬럼 없으면 추가
+        for col in new_df.columns:
+            if col not in existing.columns:
+                existing[col] = None
         combined = pd.concat([existing, new_df], ignore_index=True)
     else:
         combined = new_df
+
     combined.to_csv(CSV_PATH, index=False, encoding='utf-8-sig')
-    print(f'완료: {len(new_rows)}행 추가 (총 {len(combined)}행)')
+    print(f'\n완료: {len(new_rows)}행 추가 (총 {len(combined)}행)')
 else:
-    print('새 데이터 없음')
+    print('\n새 데이터 없음')
