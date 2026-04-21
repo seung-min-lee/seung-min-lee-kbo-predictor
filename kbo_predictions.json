@@ -1,0 +1,116 @@
+{
+  "slot_1": {
+    "slot": 1,
+    "last_home": "Lotte Giants",
+    "last_away": "Doosan Bears",
+    "consensus_seq": [
+      0,
+      0,
+      0,
+      1,
+      0,
+      0,
+      1,
+      1,
+      1,
+      1
+    ],
+    "recommendation": "HOME(1)",
+    "confidence": 0.935,
+    "ml_home_prob": 0.37,
+    "ml_away_prob": 0.63,
+    "verified": false,
+    "actual": null
+  },
+  "slot_2": {
+    "slot": 2,
+    "last_home": "LG Twins",
+    "last_away": "Hanwha Eagles",
+    "consensus_seq": [
+      0,
+      0,
+      1,
+      1,
+      0,
+      1,
+      1,
+      1,
+      0,
+      0
+    ],
+    "recommendation": "AWAY(0)",
+    "confidence": 0.876,
+    "ml_home_prob": 0.215,
+    "ml_away_prob": 0.785,
+    "verified": false,
+    "actual": null
+  },
+  "slot_3": {
+    "slot": 3,
+    "last_home": "KT Wiz Suwon",
+    "last_away": "KIA Tigers",
+    "consensus_seq": [
+      1,
+      1,
+      1,
+      0,
+      0,
+      0,
+      1,
+      0,
+      1,
+      0
+    ],
+    "recommendation": "AWAY(0)",
+    "confidence": 0.933,
+    "ml_home_prob": 0.245,
+    "ml_away_prob": 0.755,
+    "verified": false,
+    "actual": null
+  },
+  "slot_4": {
+    "slot": 4,
+    "last_home": "Kiwoom Heroes",
+    "last_away": "NC Dinos",
+    "consensus_seq": [
+      1,
+      0,
+      1,
+      0,
+      1,
+      1,
+      0,
+      0,
+      1
+    ],
+    "recommendation": "HOME(1)",
+    "confidence": 1.0,
+    "ml_home_prob": 0.71,
+    "ml_away_prob": 0.29,
+    "verified": false,
+    "actual": null
+  },
+  "slot_5": {
+    "slot": 5,
+    "last_home": "Samsung Lions",
+    "last_away": "SSG Landers",
+    "consensus_seq": [
+      0,
+      1,
+      0,
+      0,
+      1,
+      0,
+      0,
+      0,
+      0,
+      0
+    ],
+    "recommendation": "AWAY(0)",
+    "confidence": 0.593,
+    "ml_home_prob": 0.47,
+    "ml_away_prob": 0.53,
+    "verified": false,
+    "actual": null
+  }
+}
