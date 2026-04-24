@@ -10,12 +10,15 @@ CSV_PATH = 'kbo_odds.csv'
 
 def get_driver():
     options = webdriver.ChromeOptions()
-    options.add_argument('--headless')
+    options.add_argument('--headless=new')
     options.add_argument('--no-sandbox')
     options.add_argument('--disable-dev-shm-usage')
-    options.add_argument('--disable-blink-features=AutomationControlled')
+    options.add_argument('--window-size=1920,1080')
+    options.add_argument(
+        '--user-agent=Mozilla/5.0 (Windows NT 10.0; Win64; x64) '
+        'AppleWebKit/537.36 (KHTML, like Gecko) '
+        'Chrome/124.0.0.0 Safari/537.36')
     options.add_experimental_option('excludeSwitches', ['enable-automation'])
-    options.add_experimental_option('useAutomationExtension', False)
 
     if os.environ.get('CI'):
         from selenium.webdriver.chrome.service import Service
@@ -34,7 +37,8 @@ def get_driver():
 
 def get_match_urls(driver):
     driver.get('https://www.oddsportal.com/baseball/south-korea/kbo/results/')
-    WebDriverWait(driver, 15).until(
+    time.sleep(3)
+    WebDriverWait(driver, 30).until(
         EC.presence_of_element_located((By.CSS_SELECTOR, 'div.eventRow')))
     time.sleep(3)
 
@@ -128,7 +132,7 @@ def scrape_team_odds(driver, odds_el):
     return data
 
 def scrape_match(driver, url, winner_is_home=True):
-    """한 경기의 모든 북메이커 양팀 배당 수집"""
+    """한 경기의 모든 북메이커 closing 배당 수집 (open/direction은 UI 변경으로 None)"""
     driver.get(url)
     try:
         WebDriverWait(driver, 15).until(
@@ -143,7 +147,7 @@ def scrape_match(driver, url, winner_is_home=True):
 
     for name_el in name_els:
         name = name_el.text.strip()
-        if name in EXCLUDE:
+        if name in EXCLUDE or not name:
             continue
 
         try:
@@ -157,51 +161,27 @@ def scrape_match(driver, url, winner_is_home=True):
         if len(odds_els) < 2:
             continue
 
-        home_odds_el = odds_els[0]   # 홈팀 배당
-        away_odds_el = odds_els[-1]  # 원정팀 배당
-
-        # 홈팀 배당 수집
-        home_data = scrape_team_odds(driver, home_odds_el)
-        if not home_data:
+        try:
+            home_close = float(odds_els[0].text.strip())
+            away_close = float(odds_els[-1].text.strip())
+        except (ValueError, IndexError):
             continue
 
-        # 원정팀 배당 수집
-        away_data = scrape_team_odds(driver, away_odds_el)
-        if not away_data:
-            continue
-
-        # direction이 둘 다 없으면 스킵
-        if home_data['direction'] is None and away_data['direction'] is None:
-            continue
-
-        # 배당 비율 (홈/원정)
-        odds_ratio = None
-        if home_data['closeVal'] and away_data['closeVal']:
-            odds_ratio = round(home_data['closeVal'] / away_data['closeVal'], 4)
-
-        # 북메이커가 예상하는 승자 (배당 낮은 쪽 = 페이보릿)
-        consensus = None
-        if home_data['closeVal'] and away_data['closeVal']:
-            consensus = 'home' if home_data['closeVal'] < away_data['closeVal'] else 'away'
-
-        # 승리팀 배당 방향
-        winner_direction = home_data['direction'] if winner_is_home else away_data['direction']
+        odds_ratio = round(home_close / away_close, 4) if away_close else None
+        consensus = 'home' if home_close < away_close else 'away'
 
         results.append({
             'match_id':         url.split('#')[-1],
             'bookmaker':        name,
-            # 홈팀
-            'home_open':        home_data['openVal'],
-            'home_close':       home_data['closeVal'],
-            'home_change':      home_data['change'],
-            'home_direction':   home_data['direction'],
-            # 원정팀
-            'away_open':        away_data['openVal'],
-            'away_close':       away_data['closeVal'],
-            'away_change':      away_data['change'],
-            'away_direction':   away_data['direction'],
-            # 파생 피처
-            'winner_direction': winner_direction,
+            'home_open':        None,
+            'home_close':       home_close,
+            'home_change':      None,
+            'home_direction':   None,
+            'away_open':        None,
+            'away_close':       away_close,
+            'away_change':      None,
+            'away_direction':   None,
+            'winner_direction': None,
             'odds_ratio':       odds_ratio,
             'consensus':        consensus,
         })
