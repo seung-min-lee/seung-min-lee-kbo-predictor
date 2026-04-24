@@ -1,3 +1,4 @@
+import os
 import pandas as pd
 import numpy as np
 import warnings
@@ -193,6 +194,168 @@ if len(rlm_signal) > 0:
     print(rlm_bin_result.to_string())
 else:
     print('  RLM 분석 대상 데이터 없음 (open 데이터 필요)')
+
+print()
+
+
+# ─────────────────────────────────────────────────────────
+# ④ 승패 + 정배/역배 결합 패턴 (정배 미끄러짐 분석)
+# ─────────────────────────────────────────────────────────
+print('=' * 60)
+print('④ 승패 + 정배/역배 결합 패턴')
+print('   1=정배승, 0=역배승(정배패)')
+print('   "정배가 연속으로 맞은 후 얼마나 미끄러지는가"')
+print('=' * 60)
+
+# kbo_games.csv가 있으면 결합, 없으면 odds 데이터만 사용
+GAMES_CSV = 'kbo_games.csv'
+if os.path.exists(GAMES_CSV):
+    games_df = pd.read_csv(GAMES_CSV)
+    # 날짜 정규화: kbo_odds는 "22 Apr 2026", kbo_games는 "2026-04-22"
+    # game_df의 날짜를 yyyy-mm-dd로 변환
+    from datetime import datetime
+    def normalize_date(d):
+        for fmt in ('%d %b %Y', '%Y-%m-%d'):
+            try:
+                return datetime.strptime(d.split(' - ')[0].strip(), fmt).strftime('%Y-%m-%d')
+            except:
+                continue
+        return None
+    game_df['date_norm'] = game_df['date'].apply(normalize_date)
+    games_df['date_norm'] = games_df['date']
+    # 두 데이터 병합: 날짜+홈팀 기준
+    merged = games_df.merge(
+        game_df[['date_norm', 'home', 'away', 'consensus', 'consensus_win']],
+        on=['date_norm', 'home', 'away'], how='inner'
+    )
+    pattern_source = merged.copy()
+    print(f'  KBO 게임 데이터 로드: {len(games_df)}경기 → 배당 매칭: {len(merged)}경기')
+else:
+    pattern_source = game_df.copy()
+    print(f'  kbo_games.csv 없음 → odds 데이터만 사용 ({len(game_df)}경기)')
+    print('  (python kbo_games.py 실행 시 2024~2026 전체 시즌 분석 가능)')
+
+import os
+
+# 슬롯별 정배승(1)/역배승(0) 시퀀스 생성
+print()
+slip_results = []
+
+if 'slot' in pattern_source.columns:
+    group_col = 'slot'
+    groups = sorted(pattern_source[group_col].unique())
+    get_seq = lambda g: (
+        pattern_source[pattern_source['slot'] == g]
+        .sort_values('date_order')['consensus_win'].tolist()
+    )
+else:
+    # kbo_games 기반: home팀별 그룹
+    group_col = 'home'
+    groups = pattern_source['home'].unique()
+    get_seq = lambda g: (
+        pattern_source[pattern_source['home'] == g]
+        .sort_values('date_norm')['consensus_win'].tolist()
+    )
+
+for g in groups:
+    seq = [x for x in get_seq(g) if pd.notna(x)]
+    seq = [int(x) for x in seq]
+    if len(seq) < 4:
+        continue
+
+    # 연속 정배승 후 역배승 발생 분석
+    for streak_len in range(2, 6):
+        for i in range(len(seq) - streak_len):
+            window = seq[i:i+streak_len]
+            nxt = seq[i+streak_len]
+            if all(x == 1 for x in window):  # 연속 정배승
+                slip_results.append({
+                    'group': g,
+                    'streak': streak_len,
+                    'pattern': '1' * streak_len,
+                    'next': nxt,
+                    'slip': int(nxt == 0),  # 다음에 역배승(=정배 미끄러짐)
+                })
+
+slip_df = pd.DataFrame(slip_results)
+if len(slip_df) > 0:
+    print('  연속 정배승 후 미끄러짐(역배승) 확률:')
+    print(f'  {"연속 정배승":>10} {"발생":>6} {"다음 역배":>8} {"미끄러짐률":>10}')
+    print('  ' + '-' * 40)
+    for streak_len, group_data in slip_df.groupby('streak'):
+        slip_rate = group_data['slip'].mean()
+        count = len(group_data)
+        print(f'  {"1"*streak_len:>10} {count:>6} {group_data["slip"].sum():>8} {slip_rate:>10.1%}')
+
+    # 반대: 연속 역배승 후 정배승 확률
+    recovery_results = []
+    for g in groups:
+        seq = [x for x in get_seq(g) if pd.notna(x)]
+        seq = [int(x) for x in seq]
+        if len(seq) < 4:
+            continue
+        for streak_len in range(2, 5):
+            for i in range(len(seq) - streak_len):
+                window = seq[i:i+streak_len]
+                nxt = seq[i+streak_len]
+                if all(x == 0 for x in window):
+                    recovery_results.append({'streak': streak_len, 'next': nxt})
+
+    rec_df = pd.DataFrame(recovery_results)
+    if len(rec_df) > 0:
+        print()
+        print('  연속 역배승 후 정배승(회복) 확률:')
+        print(f'  {"연속 역배승":>10} {"발생":>6} {"다음 정배":>8} {"회복률":>10}')
+        print('  ' + '-' * 40)
+        for streak_len, group_data in rec_df.groupby('streak'):
+            rec_rate = (group_data['next'] == 1).mean()
+            print(f'  {"0"*streak_len:>10} {len(group_data):>6} {(group_data["next"]==1).sum():>8} {rec_rate:>10.1%}')
+
+    # 슬롯별 시퀀스 (슬롯 있을 때만)
+    if group_col == 'slot':
+        print()
+        print('  슬롯별 최근 시퀀스 (1=정배승, 0=역배승):')
+        for g in groups:
+            seq = [x for x in get_seq(g) if pd.notna(x)]
+            seq_str = ''.join(str(int(x)) for x in seq)
+            last_game = pattern_source[pattern_source['slot']==g].sort_values('date_order').iloc[-1]
+            print(f'    Slot{g} [{seq_str}] 최근: {last_game["home"]} vs {last_game["away"]}')
+else:
+    print('  분석 데이터 부족')
+
+# KBO 전체 경기 연승/연패 분석 (순수 홈팀 기준)
+if os.path.exists(GAMES_CSV):
+    print()
+    print('─' * 60)
+    print('  [KBO 전체 경기 홈팀 연승/연패 미끄러짐 분석]')
+    print(f'  ({len(games_df)}경기, 2024~2026 정규시즌)')
+    print('─' * 60)
+    home_slip, home_rec = [], []
+    for team in games_df['home'].unique():
+        team_games = games_df[games_df['home'] == team].sort_values('date')
+        hw = team_games['winner_is_home'].astype(int).tolist()
+        for streak_len in range(2, 8):
+            for i in range(len(hw) - streak_len):
+                window, nxt = hw[i:i+streak_len], hw[i+streak_len]
+                if all(x == 1 for x in window):
+                    home_slip.append({'streak': streak_len, 'next': nxt})
+                if all(x == 0 for x in window):
+                    home_rec.append({'streak': streak_len, 'next': nxt})
+
+    slip2 = pd.DataFrame(home_slip)
+    if len(slip2) > 0:
+        print(f'  {"홈팀 연승":>8} {"발생":>6} {"다음 패":>8} {"미끄러짐률":>10}')
+        print('  ' + '-' * 36)
+        for sl, gd in slip2.groupby('streak'):
+            print(f'  {"1"*sl:>8} {len(gd):>6} {(gd["next"]==0).sum():>8} {(gd["next"]==0).mean():>10.1%}')
+
+    rec2 = pd.DataFrame(home_rec)
+    if len(rec2) > 0:
+        print()
+        print(f'  {"홈팀 연패":>8} {"발생":>6} {"다음 승":>8} {"회복률":>10}')
+        print('  ' + '-' * 36)
+        for sl, gd in rec2.groupby('streak'):
+            print(f'  {"0"*sl:>8} {len(gd):>6} {(gd["next"]==1).sum():>8} {(gd["next"]==1).mean():>10.1%}')
 
 print()
 
