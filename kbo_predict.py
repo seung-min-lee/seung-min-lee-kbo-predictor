@@ -322,30 +322,35 @@ print(f'데이터 로드: {len(df)}행 | {len(date_map)}일치 | {len(game_df)}�
 
 
 # ── 팀 기반 시퀀스 함수 ───────────────────────────────────
-def get_team_win_seq(team, before_date_order, window=WINDOW):
-    """팀의 최근 경기 승패 시퀀스 (1=승, 0=패), before_date_order 이전만"""
+def get_team_triple_seq(team, before_date_order, window=WINDOW):
+    """팀 최근 경기 3개 이진 시퀀스 반환:
+    - direction : 팀이 정배(1) or 역배(0)
+    - fav_win   : 정배팀 승(1) or 역배팀 승(0)
+    - team_win  : 해당 팀 승(1) or 패(0)
+    """
     mask = (
         ((game_df['home'] == team) | (game_df['away'] == team)) &
         (game_df['date_order'] < before_date_order)
     )
     recent = game_df[mask].sort_values('date_order').tail(window)
-    return [1 if r['winner'] == team else 0 for _, r in recent.iterrows()]
-
-def get_team_fav_seq(team, before_date_order, window=WINDOW):
-    """팀이 정배(1)였는지 역배(0)였는지 시퀀스"""
-    mask = (
-        ((game_df['home'] == team) | (game_df['away'] == team)) &
-        (game_df['date_order'] < before_date_order)
-    )
-    recent = game_df[mask].sort_values('date_order').tail(window)
-    result = []
+    direction_seq, fav_win_seq, team_win_seq = [], [], []
     for _, r in recent.iterrows():
         is_fav = (
             (r['consensus'] == 'home' and r['home'] == team) or
             (r['consensus'] == 'away' and r['away'] == team)
         )
-        result.append(1 if is_fav else 0)
-    return result
+        direction_seq.append(1 if is_fav else 0)
+        fav_win_seq.append(int(r['consensus_win']))
+        team_win_seq.append(1 if r['winner'] == team else 0)
+    return direction_seq, fav_win_seq, team_win_seq
+
+def get_team_win_seq(team, before_date_order, window=WINDOW):
+    _, _, team_win = get_team_triple_seq(team, before_date_order, window)
+    return team_win
+
+def get_team_fav_seq(team, before_date_order, window=WINDOW):
+    direction, _, _ = get_team_triple_seq(team, before_date_order, window)
+    return direction
 
 def make_feat_team(home, away, before_date_order):
     """홈팀 + 원정팀의 최근 승패/정배 시퀀스 피처 벡터 (4 × WINDOW)"""
@@ -357,6 +362,17 @@ def make_feat_team(home, away, before_date_order):
     hf = get_team_fav_seq(home, before_date_order)
     af = get_team_fav_seq(away, before_date_order)
     return pad(hw) + pad(aw) + pad(hf) + pad(af)
+
+def seq_str(seq):
+    return ''.join(str(x) for x in seq) if seq else '-'
+
+def pat_rec(seq):
+    """시퀀스 패턴 분석 → (추천값 or None, 설명문자열)"""
+    if len(seq) < 3:
+        return None, '데이터 부족'
+    pa = analyze_pattern(seq)
+    rec = pa['rec'] if not pa.get('pass') else None
+    return rec, pa['desc']
 
 
 # ── ML 모델 학습 ──────────────────────────────────────────
@@ -461,39 +477,55 @@ for i, game in enumerate(upcoming_games):
     away = game['away']
     slot = game.get('slot', i + 1)
 
-    # 팀별 최근 시퀀스 (승패)
-    home_wins = get_team_win_seq(home, max_date_order)
-    away_wins = get_team_win_seq(away, max_date_order)
+    # 팀별 3개 시퀀스 수집
+    h_dir, h_fav_win, h_team_win = get_team_triple_seq(home, max_date_order)
+    a_dir, a_fav_win, a_team_win = get_team_triple_seq(away, max_date_order)
 
-    # 팀별 최근 시퀀스 (정배/역배)
-    home_favs = get_team_fav_seq(home, max_date_order)
-    away_favs = get_team_fav_seq(away, max_date_order)
+    # 패턴 분석 (각 팀 × 3 시퀀스)
+    h_dir_rec,     h_dir_desc     = pat_rec(h_dir)
+    h_fav_win_rec, h_fav_win_desc = pat_rec(h_fav_win)
+    h_win_rec,     h_win_desc     = pat_rec(h_team_win)
 
-    h_win_str = ''.join(str(x) for x in home_wins)
-    a_win_str = ''.join(str(x) for x in away_wins)
-    h_fav_str = ''.join(str(x) for x in home_favs)
-    a_fav_str = ''.join(str(x) for x in away_favs)
+    a_dir_rec,     a_dir_desc     = pat_rec(a_dir)
+    a_fav_win_rec, a_fav_win_desc = pat_rec(a_fav_win)
+    a_win_rec,     a_win_desc     = pat_rec(a_team_win)
 
-    print(f'\n[{home} vs {away}]')
-    print(f'  {home:22s} 최근 승패: [{h_win_str}]  정배여부: [{h_fav_str}]  (1=승/정배, 0=패/역배)')
-    print(f'  {away:22s} 최근 승패: [{a_win_str}]  정배여부: [{a_fav_str}]')
+    def fmt_rec(rec):
+        if rec is None: return ' ?'
+        return f' {rec}'
 
-    # 패턴 분석
-    home_pa = analyze_pattern(home_wins) if len(home_wins) >= 3 else None
-    away_pa = analyze_pattern(away_wins) if len(away_wins) >= 3 else None
+    print(f'\n{"="*62}')
+    print(f'  {home}  vs  {away}')
+    print(f'{"="*62}')
+    print(f'  {"항목":<16} {"홈팀 "+home+" 시퀀스":^22}  {"원정팀 "+away+" 시퀀스":^22}')
+    print(f'  {"-"*60}')
 
-    home_rec = home_pa['rec'] if home_pa and not home_pa.get('pass') else None
-    away_rec = away_pa['rec'] if away_pa and not away_pa.get('pass') else None
+    # 1) 배당 변동 (정배=1, 역배=0)
+    h_d = seq_str(h_dir);     a_d = seq_str(a_dir)
+    print(f'  {"배당 변동":<16} [{h_d}] →{fmt_rec(h_dir_rec):<4}  [{a_d}] →{fmt_rec(a_dir_rec)}')
+    print(f'  {"":16} {h_dir_desc}')
+    print(f'  {"":16} {a_dir_desc}')
+
+    # 2) 정배승(1) / 역배승(0)
+    h_fw = seq_str(h_fav_win); a_fw = seq_str(a_fav_win)
+    print(f'  {"정배승/역배승":<16} [{h_fw}] →{fmt_rec(h_fav_win_rec):<4}  [{a_fw}] →{fmt_rec(a_fav_win_rec)}')
+    print(f'  {"":16} {h_fav_win_desc}')
+    print(f'  {"":16} {a_fav_win_desc}')
+
+    # 3) 팀 승(1) / 패(0)
+    h_tw = seq_str(h_team_win); a_tw = seq_str(a_team_win)
+    print(f'  {"팀 승패":<16} [{h_tw}] →{fmt_rec(h_win_rec):<4}  [{a_tw}] →{fmt_rec(a_win_rec)}')
+    print(f'  {"":16} {h_win_desc}')
+    print(f'  {"":16} {a_win_desc}')
+
+    # 패턴 종합 추천 (팀 승패 기준: h_win_rec=1 → 홈팀 승, a_win_rec=1 → 원정팀 승)
+    home_rec = h_win_rec
+    away_rec = a_win_rec
+    home_pa  = analyze_pattern(h_team_win) if len(h_team_win) >= 3 else None
+    away_pa  = analyze_pattern(a_team_win) if len(a_team_win) >= 3 else None
     home_score = home_pa['score'] if home_pa else 0.5
     away_score = away_pa['score'] if away_pa else 0.5
 
-    if home_pa:
-        print(f'  {home:22s} 패턴: {home_pa["desc"]} → 추천: {home_rec}  (신뢰도: {home_score:.0%})')
-    if away_pa:
-        print(f'  {away:22s} 패턴: {away_pa["desc"]} → 추천: {away_rec}  (신뢰도: {away_score:.0%})')
-
-    # 패턴 기반 최종 추천 조합
-    # home_rec=1 → 홈팀이 이길 것 / away_rec=1 → 원정팀이 이길 것
     final_rec = None
     pattern_confidence = 0.0
     pattern_reason = ''
@@ -501,45 +533,42 @@ for i, game in enumerate(upcoming_games):
     if home_rec == 1 and away_rec == 0:
         final_rec = 1
         pattern_confidence = (home_score + away_score) / 2
-        pattern_reason = f'홈 패턴 승({home_score:.0%}) + 원정 패턴 패({away_score:.0%})'
+        pattern_reason = f'홈 승 패턴({home_score:.0%}) + 원정 패 패턴({away_score:.0%})'
     elif home_rec == 0 and away_rec == 1:
         final_rec = 0
         pattern_confidence = (home_score + away_score) / 2
-        pattern_reason = f'홈 패턴 패({home_score:.0%}) + 원정 패턴 승({away_score:.0%})'
+        pattern_reason = f'홈 패 패턴({home_score:.0%}) + 원정 승 패턴({away_score:.0%})'
     elif home_rec == 1 and away_rec is None:
         final_rec = 1
         pattern_confidence = home_score * 0.8
-        pattern_reason = f'홈 패턴 승({home_score:.0%}) (원정 패턴 없음)'
+        pattern_reason = f'홈 승 패턴({home_score:.0%}) (원정 불규칙)'
     elif home_rec == 0 and away_rec is None:
         final_rec = 0
         pattern_confidence = home_score * 0.8
-        pattern_reason = f'홈 패턴 패({home_score:.0%}) (원정 패턴 없음)'
+        pattern_reason = f'홈 패 패턴({home_score:.0%}) (원정 불규칙)'
     elif home_rec is None and away_rec == 1:
         final_rec = 0
         pattern_confidence = away_score * 0.8
-        pattern_reason = f'원정 패턴 승({away_score:.0%}) (홈 패턴 없음)'
+        pattern_reason = f'원정 승 패턴({away_score:.0%}) (홈 불규칙)'
     elif home_rec is None and away_rec == 0:
         final_rec = 1
         pattern_confidence = away_score * 0.8
-        pattern_reason = f'원정 패턴 패({away_score:.0%}) (홈 패턴 없음)'
+        pattern_reason = f'원정 패 패턴({away_score:.0%}) (홈 불규칙)'
     elif home_rec == 1 and away_rec == 1:
-        pattern_reason = '패턴 충돌 (둘 다 승 예측) → ML 판단'
+        pattern_reason = '팀승패 충돌 (둘 다 승 예측) → ML 판단'
     elif home_rec == 0 and away_rec == 0:
-        pattern_reason = '패턴 충돌 (둘 다 패 예측) → ML 판단'
+        pattern_reason = '팀승패 충돌 (둘 다 패 예측) → ML 판단'
     else:
-        pattern_reason = '패턴 불규칙 → ML 판단'
+        pattern_reason = '팀승패 불규칙 → ML 판단'
 
     # ML 보조
     feat = make_feat_team(home, away, max_date_order)
     X_pred = np.array(feat).reshape(1, -1)
     try:
         ml_proba = model.predict_proba(X_pred)[0]
-        ml_pred = model.predict(X_pred)[0]
     except:
         ml_proba = [0.5, 0.5]
-        ml_pred = None
 
-    # 패턴이 PASS면 ML로 결정
     if final_rec is None:
         if ml_proba[1] >= 0.58:
             final_rec = 1
@@ -548,11 +577,12 @@ for i, game in enumerate(upcoming_games):
             final_rec = 0
             pattern_confidence = float(ml_proba[0])
 
+    print(f'  {"-"*60}')
     print(f'  패턴 판단: {pattern_reason}')
     print(f'  ML 보조:  홈승={ml_proba[1]:.1%} | 원정승={ml_proba[0]:.1%}')
 
     if final_rec is None:
-        print(f'  최종 추천: 패스')
+        print(f'  최종 추천: PASS')
         rec_str = 'PASS'
     else:
         winner_str = f'HOME({home})' if final_rec == 1 else f'AWAY({away})'
@@ -560,22 +590,30 @@ for i, game in enumerate(upcoming_games):
         rec_str = 'HOME(1)' if final_rec == 1 else 'AWAY(0)'
 
     predictions[f'slot_{slot}'] = {
-        'slot':         slot,
-        'home':         home,
-        'away':         away,
-        'pred_date':    pred_date,
-        'home_win_seq': h_win_str,
-        'away_win_seq': a_win_str,
-        'home_fav_seq': h_fav_str,
-        'away_fav_seq': a_fav_str,
-        'home_pattern': home_pa['desc'] if home_pa else None,
-        'away_pattern': away_pa['desc'] if away_pa else None,
-        'recommendation': rec_str,
-        'confidence':   round(pattern_confidence, 3),
-        'ml_home_prob': round(float(ml_proba[1]), 3),
-        'ml_away_prob': round(float(ml_proba[0]), 3),
-        'verified':     False,
-        'actual':       None,
+        'slot':            slot,
+        'home':            home,
+        'away':            away,
+        'pred_date':       pred_date,
+        # 홈팀 3 시퀀스
+        'home_direction':  seq_str(h_dir),
+        'home_fav_win':    seq_str(h_fav_win),
+        'home_team_win':   seq_str(h_team_win),
+        'home_dir_rec':    h_dir_rec,
+        'home_fav_rec':    h_fav_win_rec,
+        'home_win_rec':    h_win_rec,
+        # 원정팀 3 시퀀스
+        'away_direction':  seq_str(a_dir),
+        'away_fav_win':    seq_str(a_fav_win),
+        'away_team_win':   seq_str(a_team_win),
+        'away_dir_rec':    a_dir_rec,
+        'away_fav_rec':    a_fav_win_rec,
+        'away_win_rec':    a_win_rec,
+        'recommendation':  rec_str,
+        'confidence':      round(pattern_confidence, 3),
+        'ml_home_prob':    round(float(ml_proba[1]), 3),
+        'ml_away_prob':    round(float(ml_proba[0]), 3),
+        'verified':        False,
+        'actual':          None,
     }
 
 with open(PRED_PATH, 'w', encoding='utf-8') as f:
