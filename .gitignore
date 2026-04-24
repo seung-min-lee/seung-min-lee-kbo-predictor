@@ -3,6 +3,7 @@
 !kbo_predict.py
 !kbo_verify.py
 !kbo_schedule.py
+!kbo_backtest.py
 !kbo_odds.csv
 !kbo_predictions.json
 !kbo_verify_log.csv
