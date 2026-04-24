@@ -1,18 +1,19 @@
+import os
 import pandas as pd
 import numpy as np
 from sklearn.ensemble import RandomForestClassifier
 from sklearn.model_selection import LeaveOneOut
 from sklearn.metrics import accuracy_score
+from datetime import datetime, timedelta
 import json, warnings
 warnings.filterwarnings('ignore')
 
 CSV_PATH   = 'kbo_odds.csv'
+GAMES_PATH = 'kbo_games.csv'
 PRED_PATH  = 'kbo_predictions.json'
-BOOKMAKERS = ['10x10bet','1xBet','22Bet','Alphabet','BetInAsia','Bets.io',
-              'Cloudbet','GambleCity','Kobet','Melbet','Momobet','Roobet',
-              'Stake.com','VOBET','bwin']
-WINDOW = 3
+WINDOW = 5   # 팀별 최근 N경기 참조
 
+# ── 패턴 분석 함수 (변경 없음) ─────────────────────────────
 def find_runs(seq):
     runs = []
     cur, cnt = seq[0], 1
@@ -298,172 +299,283 @@ def analyze_pattern(seq):
         best['pass'] = True
     return best
 
-def analyze_bookmaker_patterns(df, slot):
-    slot_df = df[df['slot']==slot]
-    dates = sorted(slot_df['date_order'].unique())
-    if len(dates) < 4: return None
-    bk_patterns = {}
-    for bk in BOOKMAKERS:
-        bk_df = slot_df[slot_df['bookmaker']==bk].sort_values('date_order')
-        if len(bk_df) < 4: continue
-        seq = bk_df['direction'].tolist()
-        analysis = analyze_pattern(seq)
-        bk_patterns[bk] = {'seq': seq, 'analysis': analysis}
-    return bk_patterns
 
-def vote_prediction(bk_patterns):
-    votes = {0: 0.0, 1: 0.0}
-    pass_count = 0; total = 0
-    for bk, data in bk_patterns.items():
-        a = data['analysis']
-        if a.get('pass') or a['rec'] is None:
-            pass_count += 1; continue
-        votes[a['rec']] += a['score']
-        total += 1
-    if total == 0 or pass_count > total:
-        return None, 0, '패스 권장 (불규칙/교대 다수)'
-    winner = max(votes, key=votes.get)
-    total_score = votes[0] + votes[1]
-    confidence = votes[winner] / total_score if total_score > 0 else 0
-    reason = f"투표: 1={votes[1]:.2f} vs 0={votes[0]:.2f}"
-    return winner, confidence, reason
-
-# ── 데이터 로드 ───────────────────────────────────────
+# ── 데이터 로드 ───────────────────────────────────────────
 print('데이터 로드 중...')
 df = pd.read_csv(CSV_PATH)
-# consensus(home/away)를 direction 이진값으로 변환 (home=1, away=0)
 df['direction'] = df['consensus'].map({'home': 1, 'away': 0})
 date_map = {d: i for i, d in enumerate(sorted(df['date'].unique()))}
 df['date_order'] = df['date'].map(date_map)
-df = df.sort_values(['slot','bookmaker','date_order']).reset_index(drop=True)
-print(f'데이터 로드: {len(df)}행 | {len(date_map)}일치 | slot: {sorted(df["slot"].unique())}')
+df = df.sort_values(['date_order', 'slot', 'bookmaker']).reset_index(drop=True)
 
-# ── ML 보조 모델 ──────────────────────────────────────
-def make_feat(df, slot, window_dates):
-    slot_df = df[df['slot']==slot]
-    feat = []
-    for d in window_dates:
-        day_df = slot_df[slot_df['date_order']==d]
-        for bk in BOOKMAKERS:
-            r = day_df[day_df['bookmaker']==bk]
-            val = r['direction'].values[0] if len(r)>0 else None
-            feat.append(int(val) if pd.notna(val) else -1)
-    return feat
+# 경기 단위 집계
+game_df = df.drop_duplicates('match_id')[[
+    'match_id', 'date', 'date_order', 'slot',
+    'home', 'away', 'winner', 'winner_is_home', 'consensus'
+]].copy().sort_values('date_order').reset_index(drop=True)
+game_df['consensus_win'] = (
+    ((game_df['consensus'] == 'home') & game_df['winner_is_home']) |
+    ((game_df['consensus'] == 'away') & ~game_df['winner_is_home'])
+).astype(int)
 
+print(f'데이터 로드: {len(df)}행 | {len(date_map)}일치 | {len(game_df)}경기')
+
+
+# ── 팀 기반 시퀀스 함수 ───────────────────────────────────
+def get_team_win_seq(team, before_date_order, window=WINDOW):
+    """팀의 최근 경기 승패 시퀀스 (1=승, 0=패), before_date_order 이전만"""
+    mask = (
+        ((game_df['home'] == team) | (game_df['away'] == team)) &
+        (game_df['date_order'] < before_date_order)
+    )
+    recent = game_df[mask].sort_values('date_order').tail(window)
+    return [1 if r['winner'] == team else 0 for _, r in recent.iterrows()]
+
+def get_team_fav_seq(team, before_date_order, window=WINDOW):
+    """팀이 정배(1)였는지 역배(0)였는지 시퀀스"""
+    mask = (
+        ((game_df['home'] == team) | (game_df['away'] == team)) &
+        (game_df['date_order'] < before_date_order)
+    )
+    recent = game_df[mask].sort_values('date_order').tail(window)
+    result = []
+    for _, r in recent.iterrows():
+        is_fav = (
+            (r['consensus'] == 'home' and r['home'] == team) or
+            (r['consensus'] == 'away' and r['away'] == team)
+        )
+        result.append(1 if is_fav else 0)
+    return result
+
+def make_feat_team(home, away, before_date_order):
+    """홈팀 + 원정팀의 최근 승패/정배 시퀀스 피처 벡터 (4 × WINDOW)"""
+    def pad(seq):
+        return [-1] * (WINDOW - len(seq)) + seq
+
+    hw = get_team_win_seq(home, before_date_order)
+    aw = get_team_win_seq(away, before_date_order)
+    hf = get_team_fav_seq(home, before_date_order)
+    af = get_team_fav_seq(away, before_date_order)
+    return pad(hw) + pad(aw) + pad(hf) + pad(af)
+
+
+# ── ML 모델 학습 ──────────────────────────────────────────
+print('ML 모델 학습 중...')
 X_list, y_list = [], []
-for slot in range(1, 6):
-    slot_df = df[df['slot']==slot]
-    dates = sorted(slot_df['date_order'].unique())
-    if len(dates) < WINDOW+1: continue
-    for i in range(len(dates)-WINDOW):
-        feat = make_feat(df, slot, dates[i:i+WINDOW])
-        t_df = slot_df[slot_df['date_order']==dates[i+WINDOW]]
-        if len(t_df)==0: continue
-        t = t_df.iloc[0]
-        X_list.append(feat)
-        y_list.append(1 if t['winner']==t['home'] else 0)
+for _, g in game_df.sort_values('date_order').iterrows():
+    feat = make_feat_team(g['home'], g['away'], g['date_order'])
+    if feat.count(-1) > WINDOW * 3:  # 데이터 부족 시 스킵
+        continue
+    X_list.append(feat)
+    y_list.append(int(g['winner_is_home']))
 
 X, y = np.array(X_list), np.array(y_list)
 print(f'ML 학습 샘플: {len(X)}개')
 
-preds_loo = []
-for tr, te in LeaveOneOut().split(X):
-    m = RandomForestClassifier(n_estimators=200, random_state=42)
-    m.fit(X[tr], y[tr])
-    preds_loo.append(m.predict(X[te])[0])
-ml_acc = accuracy_score(y, preds_loo)
-print(f'ML 보조 정확도: {ml_acc:.1%} ({int(ml_acc*len(y))}/{len(y)})')
+if len(X) >= 10:
+    preds_loo = []
+    for tr, te in LeaveOneOut().split(X):
+        m = RandomForestClassifier(n_estimators=200, random_state=42)
+        m.fit(X[tr], y[tr])
+        preds_loo.append(m.predict(X[te])[0])
+    ml_acc = accuracy_score(y, preds_loo)
+    print(f'ML 정확도(LOO): {ml_acc:.1%} ({int(ml_acc*len(y))}/{len(y)})')
+else:
+    ml_acc = 0.5
+    print('ML 샘플 부족 → 스킵')
 
 model = RandomForestClassifier(n_estimators=200, random_state=42)
-model.fit(X, y)
+if len(X) >= 2:
+    model.fit(X, y)
 
-# ── 슬롯별 패턴 분석 + 예측 ──────────────────────────
+
+# ── 다음 경기 탐색 ─────────────────────────────────────────
+def parse_odds_date(raw):
+    """Oddsportal 날짜 문자열 → datetime (실패시 None)"""
+    today = datetime.today().replace(hour=0, minute=0, second=0, microsecond=0)
+    s = str(raw).strip()
+    if s.startswith('Today'):
+        return today
+    if s.startswith('Yesterday'):
+        return today - timedelta(days=1)
+    s = s.split(' - ')[0].strip()  # "14 Mar 2026 - Pre-season" → "14 Mar 2026"
+    for fmt in ('%d %b %Y', '%Y-%m-%d', '%d %b'):
+        try:
+            dt = datetime.strptime(s, fmt)
+            if fmt == '%d %b':
+                dt = dt.replace(year=today.year)
+            return dt
+        except:
+            continue
+    return None
+
+def get_latest_odds_date():
+    """kbo_odds.csv 전체 날짜 파싱 후 최대값 반환"""
+    parsed = [parse_odds_date(d) for d in df['date'].unique()]
+    parsed = [d for d in parsed if d is not None]
+    return max(parsed) if parsed else None
+
+def find_upcoming_games():
+    """kbo_games.csv에서 최신 odds 날짜 이후 첫 번째 경기일 탐색"""
+    if not os.path.exists(GAMES_PATH):
+        return [], None
+
+    gdf = pd.read_csv(GAMES_PATH)
+    latest_dt = get_latest_odds_date()
+    if latest_dt is None:
+        return [], None
+
+    # 내일부터 7일 내 최초 경기일 탐색
+    for delta in range(1, 8):
+        target = (latest_dt + timedelta(days=delta)).strftime('%Y-%m-%d')
+        day_games = gdf[gdf['date'] == target]
+        if len(day_games) > 0:
+            return day_games.to_dict('records'), target
+
+    return [], None
+
+upcoming_games, pred_date = find_upcoming_games()
+
+# fallback: kbo_games.csv에 없으면 odds 마지막 날 경기들로 예측
+if not upcoming_games:
+    latest_date_order = game_df['date_order'].max()
+    last_games = game_df[game_df['date_order'] == latest_date_order]
+    upcoming_games = last_games.to_dict('records')
+    pred_date = game_df[game_df['date_order'] == latest_date_order]['date'].iloc[0]
+    print(f'kbo_games.csv 미탐색 → 마지막 기록 경기 재예측 ({pred_date})')
+else:
+    print(f'예측 대상 날짜: {pred_date} ({len(upcoming_games)}경기)')
+
+
+# ── 경기별 예측 ───────────────────────────────────────────
 print('\n' + '='*60)
-print('패턴 분석 및 예측')
+print(f'패턴 분석 및 예측 ({pred_date})')
 print('='*60)
+
+max_date_order = game_df['date_order'].max() + 1  # 미래 date_order
 
 predictions = {}
 
-for slot in range(1, 6):
-    slot_df = df[df['slot']==slot]
-    dates = sorted(slot_df['date_order'].unique())
-    if len(dates) < 4:
-        print(f'\n[SLOT {slot}] 데이터 부족')
-        continue
+for i, game in enumerate(upcoming_games):
+    home = game['home']
+    away = game['away']
+    slot = game.get('slot', i + 1)
 
-    last = slot_df[slot_df['date_order']==dates[-1]].iloc[0]
-    print(f'\n[SLOT {slot}] 최근: {last["home"]} vs {last["away"]} ({last["date"]})')
-    print('-'*55)
+    # 팀별 최근 시퀀스 (승패)
+    home_wins = get_team_win_seq(home, max_date_order)
+    away_wins = get_team_win_seq(away, max_date_order)
 
-    bk_patterns = analyze_bookmaker_patterns(df, slot)
-    if not bk_patterns: continue
+    # 팀별 최근 시퀀스 (정배/역배)
+    home_favs = get_team_fav_seq(home, max_date_order)
+    away_favs = get_team_fav_seq(away, max_date_order)
 
-    consensus_seq = []
-    for di in dates:
-        slot_day = slot_df[slot_df['date_order']==di]
-        vals = []
-        for bk in BOOKMAKERS:
-            r = slot_day[slot_day['bookmaker']==bk]
-            if len(r) > 0:
-                    val = r['direction'].values[0]
-                    if pd.notna(val): vals.append(int(val))
-        if vals:
-            consensus_seq.append(1 if sum(vals) > len(vals)/2 else 0)
+    h_win_str = ''.join(str(x) for x in home_wins)
+    a_win_str = ''.join(str(x) for x in away_wins)
+    h_fav_str = ''.join(str(x) for x in home_favs)
+    a_fav_str = ''.join(str(x) for x in away_favs)
 
-    print(f'  합산 패턴: [{" ".join(str(x) for x in consensus_seq)}]')
-    segs = segment_patterns(consensus_seq)
-    if segs:
-        print(f'  분할 패턴:')
-        for desc, _, rec in segs[:3]:
-            rec_str = f'→ 추천: {rec}' if rec is not None else ''
-            print(f'    {desc} {rec_str}')
+    print(f'\n[{home} vs {away}]')
+    print(f'  {home:22s} 최근 승패: [{h_win_str}]  정배여부: [{h_fav_str}]  (1=승/정배, 0=패/역배)')
+    print(f'  {away:22s} 최근 승패: [{a_win_str}]  정배여부: [{a_fav_str}]')
 
-    key_bks = ['BetInAsia','1xBet','Alphabet','bwin','Stake.com']
-    print()
-    for bk in key_bks:
-        if bk not in bk_patterns: continue
-        data = bk_patterns[bk]
-        seq_str = ''.join(str(x) for x in data['seq'])
-        a = data['analysis']
-        pass_mark = ' [패스]' if a.get('pass') else ''
-        rec_str = f"→ 추천: {a['rec']}" if a['rec'] is not None else '→ 추천없음'
-        print(f"  {bk:12s}: [{seq_str}] {a['desc']}{pass_mark} {rec_str}")
-        if a.get('segments') and a['type'] in ('분할패턴','불규칙'):
-            print(f"  {'':12s}  분할: {a['segments'][0]}")
+    # 패턴 분석
+    home_pa = analyze_pattern(home_wins) if len(home_wins) >= 3 else None
+    away_pa = analyze_pattern(away_wins) if len(away_wins) >= 3 else None
 
-    final_rec, confidence, reason = vote_prediction(bk_patterns)
+    home_rec = home_pa['rec'] if home_pa and not home_pa.get('pass') else None
+    away_rec = away_pa['rec'] if away_pa and not away_pa.get('pass') else None
+    home_score = home_pa['score'] if home_pa else 0.5
+    away_score = away_pa['score'] if away_pa else 0.5
 
-    if len(dates) >= WINDOW:
-        feat = make_feat(df, slot, dates[-WINDOW:])
-        X_pred = np.array(feat).reshape(1,-1)
-        ml_pred = model.predict(X_pred)[0]
-        ml_proba = model.predict_proba(X_pred)[0]
+    if home_pa:
+        print(f'  {home:22s} 패턴: {home_pa["desc"]} → 추천: {home_rec}  (신뢰도: {home_score:.0%})')
+    if away_pa:
+        print(f'  {away:22s} 패턴: {away_pa["desc"]} → 추천: {away_rec}  (신뢰도: {away_score:.0%})')
+
+    # 패턴 기반 최종 추천 조합
+    # home_rec=1 → 홈팀이 이길 것 / away_rec=1 → 원정팀이 이길 것
+    final_rec = None
+    pattern_confidence = 0.0
+    pattern_reason = ''
+
+    if home_rec == 1 and away_rec == 0:
+        final_rec = 1
+        pattern_confidence = (home_score + away_score) / 2
+        pattern_reason = f'홈 패턴 승({home_score:.0%}) + 원정 패턴 패({away_score:.0%})'
+    elif home_rec == 0 and away_rec == 1:
+        final_rec = 0
+        pattern_confidence = (home_score + away_score) / 2
+        pattern_reason = f'홈 패턴 패({home_score:.0%}) + 원정 패턴 승({away_score:.0%})'
+    elif home_rec == 1 and away_rec is None:
+        final_rec = 1
+        pattern_confidence = home_score * 0.8
+        pattern_reason = f'홈 패턴 승({home_score:.0%}) (원정 패턴 없음)'
+    elif home_rec == 0 and away_rec is None:
+        final_rec = 0
+        pattern_confidence = home_score * 0.8
+        pattern_reason = f'홈 패턴 패({home_score:.0%}) (원정 패턴 없음)'
+    elif home_rec is None and away_rec == 1:
+        final_rec = 0
+        pattern_confidence = away_score * 0.8
+        pattern_reason = f'원정 패턴 승({away_score:.0%}) (홈 패턴 없음)'
+    elif home_rec is None and away_rec == 0:
+        final_rec = 1
+        pattern_confidence = away_score * 0.8
+        pattern_reason = f'원정 패턴 패({away_score:.0%}) (홈 패턴 없음)'
+    elif home_rec == 1 and away_rec == 1:
+        pattern_reason = '패턴 충돌 (둘 다 승 예측) → ML 판단'
+    elif home_rec == 0 and away_rec == 0:
+        pattern_reason = '패턴 충돌 (둘 다 패 예측) → ML 판단'
     else:
-        ml_pred, ml_proba = None, [0.5, 0.5]
+        pattern_reason = '패턴 불규칙 → ML 판단'
 
-    print(f'\n  패턴 투표: {reason}')
-    if ml_pred is not None:
-        print(f'  ML 보조:   홈승={ml_proba[1]:.1%} | 원정승={ml_proba[0]:.1%}')
+    # ML 보조
+    feat = make_feat_team(home, away, max_date_order)
+    X_pred = np.array(feat).reshape(1, -1)
+    try:
+        ml_proba = model.predict_proba(X_pred)[0]
+        ml_pred = model.predict(X_pred)[0]
+    except:
+        ml_proba = [0.5, 0.5]
+        ml_pred = None
+
+    # 패턴이 PASS면 ML로 결정
+    if final_rec is None:
+        if ml_proba[1] >= 0.58:
+            final_rec = 1
+            pattern_confidence = float(ml_proba[1])
+        elif ml_proba[0] >= 0.58:
+            final_rec = 0
+            pattern_confidence = float(ml_proba[0])
+
+    print(f'  패턴 판단: {pattern_reason}')
+    print(f'  ML 보조:  홈승={ml_proba[1]:.1%} | 원정승={ml_proba[0]:.1%}')
 
     if final_rec is None:
         print(f'  최종 추천: 패스')
         rec_str = 'PASS'
     else:
-        winner_str = 'HOME(1)' if final_rec==1 else 'AWAY(0)'
-        print(f'  최종 추천: {winner_str} 승리 (신뢰도 {confidence:.1%})')
-        rec_str = winner_str
+        winner_str = f'HOME({home})' if final_rec == 1 else f'AWAY({away})'
+        print(f'  최종 추천: {winner_str} 승리 (신뢰도 {pattern_confidence:.1%})')
+        rec_str = 'HOME(1)' if final_rec == 1 else 'AWAY(0)'
 
     predictions[f'slot_{slot}'] = {
-        'slot': slot,
-        'last_home': last['home'],
-        'last_away': last['away'],
-        'consensus_seq': consensus_seq,
+        'slot':         slot,
+        'home':         home,
+        'away':         away,
+        'pred_date':    pred_date,
+        'home_win_seq': h_win_str,
+        'away_win_seq': a_win_str,
+        'home_fav_seq': h_fav_str,
+        'away_fav_seq': a_fav_str,
+        'home_pattern': home_pa['desc'] if home_pa else None,
+        'away_pattern': away_pa['desc'] if away_pa else None,
         'recommendation': rec_str,
-        'confidence': round(confidence, 3),
+        'confidence':   round(pattern_confidence, 3),
         'ml_home_prob': round(float(ml_proba[1]), 3),
         'ml_away_prob': round(float(ml_proba[0]), 3),
-        'verified': False,
-        'actual': None,
+        'verified':     False,
+        'actual':       None,
     }
 
 with open(PRED_PATH, 'w', encoding='utf-8') as f:
