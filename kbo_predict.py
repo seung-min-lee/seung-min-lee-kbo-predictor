@@ -331,6 +331,8 @@ def vote_prediction(bk_patterns):
 # ── 데이터 로드 ───────────────────────────────────────
 print('데이터 로드 중...')
 df = pd.read_csv(CSV_PATH)
+# consensus(home/away)를 direction 이진값으로 변환 (home=1, away=0)
+df['direction'] = df['consensus'].map({'home': 1, 'away': 0})
 date_map = {d: i for i, d in enumerate(sorted(df['date'].unique()))}
 df['date_order'] = df['date'].map(date_map)
 df = df.sort_values(['slot','bookmaker','date_order']).reset_index(drop=True)
@@ -344,7 +346,8 @@ def make_feat(df, slot, window_dates):
         day_df = slot_df[slot_df['date_order']==d]
         for bk in BOOKMAKERS:
             r = day_df[day_df['bookmaker']==bk]
-            feat.append(int(r['direction'].values[0]) if len(r)>0 else -1)
+            val = r['direction'].values[0] if len(r)>0 else None
+            feat.append(int(val) if pd.notna(val) else -1)
     return feat
 
 X_list, y_list = [], []
@@ -401,7 +404,9 @@ for slot in range(1, 6):
         vals = []
         for bk in BOOKMAKERS:
             r = slot_day[slot_day['bookmaker']==bk]
-            if len(r) > 0: vals.append(int(r['direction'].values[0]))
+            if len(r) > 0:
+                    val = r['direction'].values[0]
+                    if pd.notna(val): vals.append(int(val))
         if vals:
             consensus_seq.append(1 if sum(vals) > len(vals)/2 else 0)
 
