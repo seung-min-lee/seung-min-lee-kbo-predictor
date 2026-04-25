@@ -684,10 +684,10 @@ def find_upcoming_games():
     if latest_dt is None:
         return [], None
 
-    # 오늘~7일 내 최초 경기일 탐색 (delta=0=오늘도 포함)
+    # 오늘~7일 내 결과 없는 경기일 탐색 (winner가 없는 = 예정/미완료 경기)
     for delta in range(0, 8):
         target = (latest_dt + timedelta(days=delta)).strftime('%Y-%m-%d')
-        day_games = gdf[gdf['date'] == target]
+        day_games = gdf[(gdf['date'] == target) & (gdf['winner'].isna())]
         if len(day_games) > 0:
             return day_games.to_dict('records'), target
 
