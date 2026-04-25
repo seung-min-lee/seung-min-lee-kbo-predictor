@@ -496,14 +496,15 @@ def get_slot_bm_odds_seqs(slot, before_date_order, window=WINDOW):
     for _, r in bm_data.iterrows():
         bm  = r['bookmaker']
         mid = r['match_id']
-        home_odds = round(float(r['home_close']), 2)
         if bm not in raw:
             raw[bm] = []
         raw[bm].append({
-            'mid': mid, 'date': dates_map.get(mid, ''),
+            'mid':       mid,
+            'date':      dates_map.get(mid, ''),
             'home':      home_map.get(mid, ''),
-            'home_odds': home_odds,
-            'order': mid_order.get(mid, 99),
+            'home_odds': round(float(r['home_close']), 2),
+            'away_odds': round(float(r['away_close']), 2),
+            'order':     mid_order.get(mid, 99),
         })
 
     result = {}
@@ -511,23 +512,24 @@ def get_slot_bm_odds_seqs(slot, before_date_order, window=WINDOW):
         entries.sort(key=lambda x: x['order'])
         if len(entries) < 2:
             continue
-        # 홈팀이 다른 구간은 비교 제외 (다른 팀 배당 비교 무의미)
         seq        = []
         odds_seq   = []
         date_seq   = []
         for i in range(1, len(entries)):
             if entries[i]['home'] != entries[i-1]['home']:
                 continue   # 홈팀 교체 구간 스킵
-            prev_odds = entries[i-1]['home_odds']
-            curr_odds = entries[i]['home_odds']
-            if curr_odds > prev_odds:
-                seq.append(1)   # 배당 상승 = +
-            elif curr_odds < prev_odds:
-                seq.append(0)   # 배당 하락 = -
-            # 동일하면 추가 안 함
-            odds_seq.append(curr_odds)
+            home_chg = round(entries[i]['home_odds'] - entries[i-1]['home_odds'], 4)
+            away_chg = round(entries[i]['away_odds'] - entries[i-1]['away_odds'], 4)
+            if home_chg == away_chg:
+                seq.append('N')   # 두 배당 모두 동일 변동(무변동 포함)
+            elif home_chg > away_chg:
+                seq.append(1)     # 홈배당이 더 많이 오름(상대적 불리)
+            else:
+                seq.append(0)     # 어웨이배당이 더 많이 오름(상대적 유리)
+            odds_seq.append(entries[i]['home_odds'])
             date_seq.append(entries[i]['date'])
-        if not seq:
+        non_n = [x for x in seq if x != 'N']
+        if not non_n:
             continue
         result[bm] = {
             'seq':          seq,
@@ -542,11 +544,13 @@ def analyze_slot_bm_seqs(slot, before_date_order, window=WINDOW):
     bm_seqs = get_slot_bm_odds_seqs(slot, before_date_order, window)
     results = []
     for bm, data in sorted(bm_seqs.items()):
-        seq  = data['seq']
-        rec, desc = pat_rec(seq)
+        seq = data['seq']
+        # N 제외한 순수 0/1 시퀀스로 패턴 분석
+        seq_clean = [x for x in seq if x != 'N']
+        rec, desc = pat_rec(seq_clean)
         results.append({
             'bm':           bm,
-            'seq':          seq,
+            'seq':          seq,        # N 포함 (표시용)
             'rec':          rec,
             'desc':         desc,
             'odds_full':    data['odds_full'],

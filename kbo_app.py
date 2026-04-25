@@ -353,6 +353,8 @@ else:
                 out += f'<span class="bit-1">1</span>'
             elif ch == '0':
                 out += f'<span class="bit-0">0</span>'
+            elif ch == 'N':
+                out += f'<span style="color:#445566;font-family:Courier New,monospace">N</span>'
             else:
                 out += ch
         return f'<span class="seq-cell">{out}</span>'
@@ -523,6 +525,8 @@ else:
                         out += f'<span style="color:#44ddaa;font-weight:700">{ch}</span>'
                     elif ch == '0':
                         out += f'<span style="color:#ff4466;font-weight:700">{ch}</span>'
+                    elif ch == 'N':
+                        out += f'<span style="color:#445566">{ch}</span>'
                     else:
                         out += ch
                 return f'<span style="font-family:Courier New,monospace;letter-spacing:2px">{out}</span>'
