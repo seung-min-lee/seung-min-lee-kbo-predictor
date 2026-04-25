@@ -12,4 +12,5 @@
 !.github/
 !.github/workflows/
 !.github/workflows/kbo_daily.yml
+!kbo_app.py
 !.gitignore
