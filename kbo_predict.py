@@ -398,6 +398,84 @@ def pat_rec(seq):
     rec = pa['rec'] if not pa.get('pass') else None
     return rec, pa['desc']
 
+def get_bm_direction_seqs(team, before_date_order, window=WINDOW):
+    """북메이커별 해당 팀 정배/역배 시퀀스 반환
+    반환: {bookmaker: [(date, value), ...]}
+    value: 1 = 해당 북메이커가 team을 정배로 선택, 0 = 역배
+    """
+    # 해당 팀 최근 경기 match_id 목록
+    mask = (
+        ((game_df['home'] == team) | (game_df['away'] == team)) &
+        (game_df['date_order'] < before_date_order)
+    )
+    recent_games = game_df[mask].sort_values('date_order').tail(window)
+    if len(recent_games) == 0:
+        return {}
+
+    match_ids = recent_games['match_id'].tolist()
+    dates     = recent_games.set_index('match_id')['date'].to_dict()
+
+    # 해당 경기들의 북메이커별 데이터
+    bm_data = df[df['match_id'].isin(match_ids)][
+        ['match_id', 'bookmaker', 'home', 'away', 'consensus', 'home_close', 'away_close']
+    ].copy()
+
+    result = {}
+    for mid in match_ids:
+        rows = bm_data[bm_data['match_id'] == mid]
+        date = dates.get(mid, '')
+        for _, r in rows.iterrows():
+            bm = r['bookmaker']
+            is_fav = (
+                (r['consensus'] == 'home' and r['home'] == team) or
+                (r['consensus'] == 'away' and r['away'] == team)
+            )
+            val = 1 if is_fav else 0
+            # 실제 배당값도 저장 (팀 기준)
+            if r['home'] == team:
+                team_odds = r['home_close']
+                opp_odds  = r['away_close']
+            else:
+                team_odds = r['away_close']
+                opp_odds  = r['home_close']
+
+            if bm not in result:
+                result[bm] = []
+            result[bm].append({
+                'date': date, 'match_id': mid,
+                'val': val,
+                'team_odds': round(team_odds, 2),
+                'opp_odds':  round(opp_odds, 2),
+            })
+
+    # match_id 순서 보장 (date_order 기준)
+    mid_order = {mid: i for i, mid in enumerate(match_ids)}
+    for bm in result:
+        result[bm].sort(key=lambda x: mid_order.get(x['match_id'], 99))
+
+    return result
+
+def analyze_bm_seqs(team, before_date_order, window=WINDOW):
+    """북메이커별 패턴 분석 결과 반환
+    반환: list of {bm, seq, rec, desc, dates, odds}
+    """
+    bm_seqs = get_bm_direction_seqs(team, before_date_order, window)
+    results = []
+    for bm, entries in sorted(bm_seqs.items()):
+        seq   = [e['val'] for e in entries]
+        dates = [e['date'] for e in entries]
+        odds  = [e['team_odds'] for e in entries]
+        rec, desc = pat_rec(seq)
+        results.append({
+            'bm':    bm,
+            'seq':   seq,
+            'rec':   rec,
+            'desc':  desc,
+            'dates': dates,
+            'odds':  odds,
+        })
+    return results
+
 
 # ── ML 모델 학습 ──────────────────────────────────────────
 print('ML 모델 학습 중...')
@@ -631,6 +709,34 @@ for i, game in enumerate(upcoming_games):
         print(f'  최종 추천: {winner_str} 승리 (신뢰도 {pattern_confidence:.1%})')
         rec_str = 'HOME(1)' if final_rec == 1 else 'AWAY(0)'
 
+    # ── 북메이커별 배당변동 패턴 ─────────────────────────────
+    print(f'\n  ▶ 북메이커별 배당변동 패턴 분석 (1=해당팀 정배, 0=역배)')
+    bm_results = {'home': {}, 'away': {}}
+
+    for side, team in [('home', home), ('away', away)]:
+        print(f'\n  [{team}] 기준:')
+        print(f'  {"북메이커":<16} {"시퀀스":<{WINDOW+2}} {"예측":^5} {"패턴"}')
+        print(f'  {"-"*65}')
+        bm_analyses = analyze_bm_seqs(team, max_date_order)
+        for entry in bm_analyses:
+            s   = seq_str(entry['seq'])
+            rec = entry['rec']
+            rec_sym = f'→{rec}' if rec is not None else '→?'
+            # 마지막 배당값 표시
+            last_odds = f'{entry["odds"][-1]:.2f}' if entry['odds'] else '-'
+            print(f'  {entry["bm"]:<16} [{s}] {rec_sym:<5} {entry["desc"]}  (현재배당:{last_odds})')
+            bm_results[side][entry['bm']] = {
+                'seq': s, 'rec': rec, 'desc': entry['desc'],
+                'dates': entry['dates'], 'odds': entry['odds'],
+            }
+
+        # 북메이커 예측 집계
+        recs = [e['rec'] for e in bm_analyses if e['rec'] is not None]
+        if recs:
+            vote1 = sum(recs)
+            vote0 = len(recs) - vote1
+            print(f'\n  → {team} 집계: 정배 예측 {vote1}개 / 역배 예측 {vote0}개 (총 {len(recs)}개 북메이커)')
+
     predictions[f'slot_{slot}'] = {
         'slot':            slot,
         'home':            home,
@@ -654,6 +760,8 @@ for i, game in enumerate(upcoming_games):
         'away_agr_rec':    a_agr_rec,
         'away_fav_rec':    a_faw_rec,
         'away_win_rec':    a_win_rec,
+        'bm_home':         bm_results.get('home', {}),
+        'bm_away':         bm_results.get('away', {}),
         'recommendation':  rec_str,
         'confidence':      round(pattern_confidence, 3),
         'ml_home_prob':    round(float(ml_proba[1]), 3),
