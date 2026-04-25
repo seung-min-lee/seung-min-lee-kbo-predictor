@@ -255,6 +255,23 @@ PRED_PATH   = 'kbo_predictions.json'
 LOG_PATH    = 'kbo_verify_log.csv'
 
 @st.cache_data(ttl=30)
+def load_bm_data():
+    """북메이커 집계 데이터 로드"""
+    if not os.path.exists('kbo_odds.csv'):
+        return pd.DataFrame()
+    df = pd.read_csv('kbo_odds.csv')
+    date_map = {d: i for i, d in enumerate(sorted(df['date'].unique()))}
+    df['date_order'] = df['date'].map(date_map)
+    meta = df.drop_duplicates('match_id')[
+        ['match_id', 'date', 'date_order', 'home', 'away', 'winner_is_home']
+    ].set_index('match_id')
+    agg = df.groupby('match_id').agg(
+        bm_count=('bookmaker', 'count'),
+        home_pct=('consensus', lambda x: (x == 'home').mean()),
+    )
+    return meta.join(agg).reset_index().sort_values('date_order').reset_index(drop=True)
+
+@st.cache_data(ttl=30)
 def load_predictions():
     if not os.path.exists(PRED_PATH):
         return {}
@@ -359,11 +376,16 @@ else:
 
         card_cls = 'card-home' if rec.startswith('HOME') else ('card-away' if rec.startswith('AWAY') else 'card-draw')
 
-        # 시퀀스 데이터
+        # 시퀀스 데이터 (4개)
         rows = [
-            ("배당 변동",     pred.get('home_direction',''), pred.get('home_dir_rec'),
+            ("배당변동<br><small style='color:#445'>다수결</small>",
+                              pred.get('home_direction',''), pred.get('home_dir_rec'),
                               pred.get('away_direction',''), pred.get('away_dir_rec')),
-            ("정배승/역배승",  pred.get('home_fav_win',''),   pred.get('home_fav_rec'),
+            ("북메이커<br><small style='color:#445'>일치도</small>",
+                              pred.get('home_bm_agree',''),  pred.get('home_agr_rec'),
+                              pred.get('away_bm_agree',''),  pred.get('away_agr_rec')),
+            ("정배승<br><small style='color:#445'>역배승</small>",
+                              pred.get('home_fav_win',''),   pred.get('home_fav_rec'),
                               pred.get('away_fav_win',''),   pred.get('away_fav_rec')),
             ("팀&nbsp;승패",  pred.get('home_team_win',''),  pred.get('home_win_rec'),
                               pred.get('away_team_win',''),  pred.get('away_win_rec')),
@@ -406,6 +428,36 @@ else:
             mark = '✅' if correct else '❌'
             result_badge = f'<span style="font-size:.8rem;margin-left:8px;color:#7788aa">{mark} 실제: {actual}</span>'
 
+        # 현재 경기 북메이커 분포 (가장 최근 동일 매치업 기준)
+        bm_df = load_bm_data()
+        match_bm = bm_df[
+            ((bm_df['home'] == home) & (bm_df['away'] == away)) |
+            ((bm_df['home'] == away) & (bm_df['away'] == home))
+        ].sort_values('date_order').tail(1)
+
+        bm_bar_html = ''
+        if len(match_bm) > 0:
+            h_pct  = float(match_bm['home_pct'].iloc[0])
+            a_pct  = 1 - h_pct
+            bm_cnt = int(match_bm['bm_count'].iloc[0])
+            h_n    = round(h_pct * bm_cnt)
+            a_n    = bm_cnt - h_n
+            bm_bar_html = f"""
+  <div style="margin:10px 0 14px;padding:10px 14px;background:#0a0d1a;border-radius:8px;border:1px solid #1a2040">
+    <div style="display:flex;justify-content:space-between;font-size:.75rem;color:#556688;margin-bottom:6px;font-family:'Noto Sans KR',sans-serif">
+      <span style="color:{hm['color']}">{hm['abbr']} 홈 지지 {h_n}개 ({h_pct:.0%})</span>
+      <span style="color:#334466">북메이커 {bm_cnt}개</span>
+      <span style="color:{am['color']}">{a_n}개 ({a_pct:.0%}) {am['abbr']} 원정 지지</span>
+    </div>
+    <div style="display:flex;height:10px;border-radius:5px;overflow:hidden">
+      <div style="width:{h_pct*100:.1f}%;background:{hm['color']};opacity:.8"></div>
+      <div style="width:{a_pct*100:.1f}%;background:{am['color']};opacity:.8"></div>
+    </div>
+    <div style="font-size:.7rem;color:#334466;margin-top:5px;font-family:'Noto Sans KR',sans-serif">
+      {"⚡ 강한 쏠림" if abs(h_pct-0.5)>=0.3 else "〜 균형 배당"} &nbsp;|&nbsp; 최근 매치업 기준
+    </div>
+  </div>"""
+
         st.markdown(f"""
 <div class="match-card {card_cls}" style="--hcolor:{hm['color']};--acolor:{am['color']}">
   <div class="teams-row">
@@ -419,7 +471,7 @@ else:
       <div class="team-name">{away}</div>
     </div>
   </div>
-
+  {bm_bar_html}
   <table class="seq-table">
     <thead>
       <tr>
