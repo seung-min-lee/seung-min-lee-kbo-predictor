@@ -462,12 +462,12 @@ else:
 <div class="match-card {card_cls}" style="--hcolor:{hm['color']};--acolor:{am['color']}">
   <div class="teams-row">
     <div class="team-block">
-      <div class="team-abbr" style="color:{hm['color']}">{hm['abbr']}</div>
+      <div class="team-abbr" style="color:{hm['color']}">{hm['abbr']} <span style="font-size:.6rem;color:#445566;font-family:'Noto Sans KR',sans-serif;vertical-align:middle">홈</span></div>
       <div class="team-name">{home}</div>
     </div>
     <div class="vs-badge">VS</div>
     <div class="team-block">
-      <div class="team-abbr" style="color:{am['color']}">{am['abbr']}</div>
+      <div class="team-abbr" style="color:{am['color']}">{am['abbr']} <span style="font-size:.6rem;color:#445566;font-family:'Noto Sans KR',sans-serif;vertical-align:middle">원정</span></div>
       <div class="team-name">{away}</div>
     </div>
   </div>
