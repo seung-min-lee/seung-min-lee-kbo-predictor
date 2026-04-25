@@ -377,22 +377,21 @@ else:
         card_cls = 'card-home' if rec.startswith('HOME') else ('card-away' if rec.startswith('AWAY') else 'card-draw')
 
         # 시퀀스 데이터 (4개)
-        rows = [
+        two_col_rows = [
             ("배당변동<br><small style='color:#445'>다수결</small>",
                               pred.get('home_direction',''), pred.get('home_dir_rec'),
                               pred.get('away_direction',''), pred.get('away_dir_rec')),
             ("북메이커<br><small style='color:#445'>일치도</small>",
                               pred.get('home_bm_agree',''),  pred.get('home_agr_rec'),
                               pred.get('away_bm_agree',''),  pred.get('away_agr_rec')),
-            ("정배승<br><small style='color:#445'>역배승</small>",
-                              pred.get('home_fav_win',''),   pred.get('home_fav_rec'),
-                              pred.get('away_fav_win',''),   pred.get('away_fav_rec')),
             ("팀&nbsp;승패",  pred.get('home_team_win',''),  pred.get('home_win_rec'),
                               pred.get('away_team_win',''),  pred.get('away_win_rec')),
         ]
+        slot_fav_seq = pred.get('slot_fav_win', '')
+        slot_fav_rec = pred.get('slot_fav_rec')
 
         table_rows = ''
-        for label, hs, hr, as_, ar in rows:
+        for label, hs, hr, as_, ar in two_col_rows:
             table_rows += f"""
             <tr>
               <td>{label}</td>
@@ -401,6 +400,15 @@ else:
               <td style="color:#1e2040">|</td>
               <td>{render_seq(as_)}</td>
               <td>{render_rec(ar)}</td>
+            </tr>"""
+        # 정배승/역배승: 슬롯 기준 통합 단일 행
+        table_rows += f"""
+            <tr>
+              <td>정배승<br><small style='color:#445'>역배승</small></td>
+              <td colspan="5" style="text-align:left">
+                {render_seq(slot_fav_seq)}&nbsp;{render_rec(slot_fav_rec)}
+                <small style="color:#445566;margin-left:8px">슬롯{pred.get('slot','')} 날짜별</small>
+              </td>
             </tr>"""
 
         if rec.startswith('HOME'):
