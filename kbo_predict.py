@@ -307,8 +307,28 @@ def analyze_pattern(seq):
 
 
 # ── 데이터 로드 ───────────────────────────────────────────
+from datetime import datetime as _dt, timedelta as _td
+
+def normalize_date(raw):
+    """'Today, 25 Apr' / 'Yesterday, 24 Apr' / '21 Apr 2026' → 'YYYY-MM-DD'"""
+    s = str(raw).strip()
+    today = _dt.today()
+    if s.startswith('Today'):
+        return today.strftime('%Y-%m-%d')
+    if s.startswith('Yesterday'):
+        return (today - _td(days=1)).strftime('%Y-%m-%d')
+    # 'DD Mon YYYY' 또는 'DD Mon YYYY - ...' 형태
+    date_part = s.split(' - ')[0].strip()
+    for fmt in ('%d %b %Y', '%d %B %Y'):
+        try:
+            return _dt.strptime(date_part, fmt).strftime('%Y-%m-%d')
+        except ValueError:
+            pass
+    return s  # 변환 불가 시 원본 반환
+
 print('데이터 로드 중...')
 df = pd.read_csv(CSV_PATH)
+df['date'] = df['date'].apply(normalize_date)
 df['direction'] = df['consensus'].map({'home': 1, 'away': 0})
 date_map = {d: i for i, d in enumerate(sorted(df['date'].unique()))}
 df['date_order'] = df['date'].map(date_map)

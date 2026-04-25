@@ -4,6 +4,23 @@ from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 import pandas as pd
 import time, os
+from datetime import datetime as _dt, timedelta as _td
+
+def normalize_date(raw):
+    """'Today, 25 Apr' / 'Yesterday, 24 Apr' / '21 Apr 2026' → 'YYYY-MM-DD'"""
+    s = str(raw).strip()
+    today = _dt.today()
+    if s.startswith('Today'):
+        return today.strftime('%Y-%m-%d')
+    if s.startswith('Yesterday'):
+        return (today - _td(days=1)).strftime('%Y-%m-%d')
+    date_part = s.split(' - ')[0].strip()
+    for fmt in ('%d %b %Y', '%d %B %Y'):
+        try:
+            return _dt.strptime(date_part, fmt).strftime('%Y-%m-%d')
+        except ValueError:
+            pass
+    return s
 
 EXCLUDE  = {'My coupon', 'User Predictions'}
 CSV_PATH = 'kbo_odds.csv'
@@ -271,7 +288,7 @@ try:
 
         for row in rows:
             row.update({
-                'date':       match['date'],
+                'date':       normalize_date(match['date']),
                 'slot':       match['slot'],
                 'home':       match['home'],
                 'away':       match['away'],
