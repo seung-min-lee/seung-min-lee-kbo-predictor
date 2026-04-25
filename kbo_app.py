@@ -376,19 +376,14 @@ else:
 
         card_cls = 'card-home' if rec.startswith('HOME') else ('card-away' if rec.startswith('AWAY') else 'card-draw')
 
-        # 시퀀스 데이터 (4개)
+        # 시퀀스 데이터
         two_col_rows = [
             ("배당변동<br><small style='color:#445'>다수결</small>",
                               pred.get('home_direction',''), pred.get('home_dir_rec'),
                               pred.get('away_direction',''), pred.get('away_dir_rec')),
-            ("북메이커<br><small style='color:#445'>일치도</small>",
-                              pred.get('home_bm_agree',''),  pred.get('home_agr_rec'),
-                              pred.get('away_bm_agree',''),  pred.get('away_agr_rec')),
             ("팀&nbsp;승패",  pred.get('home_team_win',''),  pred.get('home_win_rec'),
                               pred.get('away_team_win',''),  pred.get('away_win_rec')),
         ]
-        slot_fav_seq = pred.get('slot_fav_win', '')
-        slot_fav_rec = pred.get('slot_fav_rec')
 
         table_rows = ''
         for label, hs, hr, as_, ar in two_col_rows:
@@ -401,14 +396,26 @@ else:
               <td>{render_seq(as_)}</td>
               <td>{render_rec(ar)}</td>
             </tr>"""
-        # 정배승/역배승: 슬롯 기준 통합 단일 행
+
+        # 북메이커 일치도: 1/0 비율(%) 표시
+        def agree_pct_html(seq_s):
+            s = str(seq_s)
+            total = len([c for c in s if c in '10'])
+            if total == 0:
+                return '<span style="color:#445566">-</span>'
+            n1 = s.count('1'); n0 = s.count('0')
+            p1 = n1 / total * 100; p0 = n0 / total * 100
+            return (f'<span style="color:#44ddaa;font-weight:700">1:{p1:.0f}%</span>'
+                    f'<span style="color:#556688"> / </span>'
+                    f'<span style="color:#ff4466;font-weight:700">0:{p0:.0f}%</span>'
+                    f'<span style="color:#334455;font-size:.7rem"> ({n1}/{total})</span>')
+
         table_rows += f"""
             <tr>
-              <td>정배승<br><small style='color:#445'>역배승</small></td>
-              <td colspan="5" style="text-align:left">
-                {render_seq(slot_fav_seq)}&nbsp;{render_rec(slot_fav_rec)}
-                <small style="color:#445566;margin-left:8px">슬롯{pred.get('slot','')} 날짜별</small>
-              </td>
+              <td>북메이커<br><small style='color:#445'>일치도</small></td>
+              <td colspan="2" style="text-align:left">{agree_pct_html(pred.get('home_bm_agree',''))}</td>
+              <td style="color:#1e2040">|</td>
+              <td colspan="2" style="text-align:left">{agree_pct_html(pred.get('away_bm_agree',''))}</td>
             </tr>"""
 
         if rec.startswith('HOME'):
@@ -549,7 +556,7 @@ else:
             st.markdown(f"""
 <div style="background:#080c18;border:1px solid #141830;border-radius:10px;padding:16px;margin-bottom:20px">
   <div style="font-size:.8rem;color:#556688;margin-bottom:10px;font-family:'Noto Sans KR',sans-serif;display:flex;justify-content:space-between;align-items:center">
-    <span>📊 <b style="color:#7799bb">슬롯{pred.get('slot','')} 날짜별 북메이커 배당변동</b> &nbsp;(1=홈배당↓, 0=홈배당↑)</span>
+    <span>📊 <b style="color:#7799bb">슬롯{pred.get('slot','')} 날짜별 북메이커 배당변동</b> &nbsp;(1=배당↑, 0=배당↓)</span>
     <span style="color:#aabbdd">홈배당하락 {v1}/{len(votes)}</span>
   </div>
   <table style="width:100%;border-collapse:collapse;font-size:.8rem">

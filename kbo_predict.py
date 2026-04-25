@@ -520,10 +520,10 @@ def get_slot_bm_odds_seqs(slot, before_date_order, window=WINDOW):
                 continue   # 홈팀 교체 구간 스킵
             prev_odds = entries[i-1]['home_odds']
             curr_odds = entries[i]['home_odds']
-            if curr_odds < prev_odds:
-                seq.append(1)
-            elif curr_odds > prev_odds:
-                seq.append(0)
+            if curr_odds > prev_odds:
+                seq.append(1)   # 배당 상승 = +
+            elif curr_odds < prev_odds:
+                seq.append(0)   # 배당 하락 = -
             # 동일하면 추가 안 함
             odds_seq.append(curr_odds)
             date_seq.append(entries[i]['date'])
@@ -818,7 +818,7 @@ for i, game in enumerate(upcoming_games):
         rec_str = 'HOME(1)' if final_rec == 1 else 'AWAY(0)'
 
     # ── 슬롯 기준 북메이커 배당변동 (날짜별 N번째 경기) ────────────
-    print(f'\n  ▶ [슬롯{slot}] 날짜별 북메이커 배당변동 (1=홈배당↓유리, 0=홈배당↑불리)')
+    print(f'\n  ▶ [슬롯{slot}] 날짜별 북메이커 배당변동 (1=배당+오름, 0=배당-내림)')
     print(f'  {"북메이커":<16} {"시퀀스":<{WINDOW+2}} {"예측":^5} {"날짜흐름"}')
     print(f'  {"-"*70}')
     slot_bm_analyses = analyze_slot_bm_seqs(slot, max_date_order)
