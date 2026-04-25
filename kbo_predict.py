@@ -507,10 +507,11 @@ def get_slot_bm_odds_seqs(slot, before_date_order, window=WINDOW):
     mid_order = {mid: i for i, mid in enumerate(match_ids)}
 
     bm_data = df[df['match_id'].isin(match_ids)][
-        ['match_id', 'bookmaker', 'home', 'home_close', 'away_close']
+        ['match_id', 'bookmaker', 'home', 'away', 'home_close', 'away_close']
     ].copy()
 
     home_map = recent_games.set_index('match_id')['home'].to_dict()
+    away_map = recent_games.set_index('match_id')['away'].to_dict()
 
     raw = {}
     for _, r in bm_data.iterrows():
@@ -522,6 +523,7 @@ def get_slot_bm_odds_seqs(slot, before_date_order, window=WINDOW):
             'mid':       mid,
             'date':      dates_map.get(mid, ''),
             'home':      home_map.get(mid, ''),
+            'away':      away_map.get(mid, ''),
             'home_odds': round(float(r['home_close']), 2),
             'away_odds': round(float(r['away_close']), 2),
             'order':     mid_order.get(mid, 99),
@@ -532,28 +534,33 @@ def get_slot_bm_odds_seqs(slot, before_date_order, window=WINDOW):
         entries.sort(key=lambda x: x['order'])
         if len(entries) < 2:
             continue
-        seq        = []
-        odds_seq   = []
-        date_seq   = []
+        seq      = []
+        date_seq = []
+        odds_seq = []   # seq[j]에 대응하는 현재 홈배당 (정확히 정렬)
+        prev_seq = []   # seq[j]에 대응하는 이전 홈배당 (참조용)
         for i in range(1, len(entries)):
-            if entries[i]['home'] != entries[i-1]['home']:
-                continue   # 홈팀 교체 구간 스킵
+            # 홈팀 또는 원정팀이 다른 구간은 비교 무의미 → 스킵
+            if (entries[i]['home'] != entries[i-1]['home'] or
+                    entries[i]['away'] != entries[i-1]['away']):
+                continue
             home_chg = round(entries[i]['home_odds'] - entries[i-1]['home_odds'], 4)
             away_chg = round(entries[i]['away_odds'] - entries[i-1]['away_odds'], 4)
             if home_chg == away_chg:
-                seq.append('N')   # 두 배당 모두 동일 변동(무변동 포함)
+                seq.append('N')
             elif home_chg > away_chg:
-                seq.append(1)     # 홈배당이 더 많이 오름(상대적 불리)
+                seq.append(1)
             else:
-                seq.append(0)     # 어웨이배당이 더 많이 오름(상대적 유리)
-            odds_seq.append(entries[i]['home_odds'])
+                seq.append(0)
             date_seq.append(entries[i]['date'])
+            odds_seq.append(entries[i]['home_odds'])
+            prev_seq.append(entries[i-1]['home_odds'])
         non_n = [x for x in seq if x != 'N']
         if not non_n:
             continue
         result[bm] = {
             'seq':          seq,
-            'odds_full':    [e['home_odds'] for e in entries],
+            'odds':         odds_seq,   # seq와 1:1 대응 현재 배당
+            'prev_odds':    prev_seq,   # seq와 1:1 대응 이전 배당
             'dates':        date_seq,
             'current_odds': entries[-1]['home_odds'],
         }
@@ -570,10 +577,11 @@ def analyze_slot_bm_seqs(slot, before_date_order, window=WINDOW):
         rec, desc = pat_rec(seq_clean)
         results.append({
             'bm':           bm,
-            'seq':          seq,        # N 포함 (표시용)
+            'seq':          seq,
             'rec':          rec,
             'desc':         desc,
-            'odds_full':    data['odds_full'],
+            'odds':         data.get('odds', []),
+            'prev_odds':    data.get('prev_odds', []),
             'dates':        data['dates'],
             'current_odds': data['current_odds'],
         })
@@ -851,10 +859,13 @@ for i, game in enumerate(upcoming_games):
         s   = seq_str(entry['seq'])
         rec = entry['rec']
         rec_sym = f'→{rec}' if rec is not None else '→?'
-        # 날짜 레이블 + 배당값 흐름
+        # 날짜 레이블 + 배당값 흐름 (prev→curr)
         dates_short = [d[-5:] if len(d) >= 5 else d for d in entry['dates']]
+        odds_list  = entry.get('odds', [])
+        prev_list  = entry.get('prev_odds', [])
         date_flow = ' '.join(
-            f'{dates_short[j]}:{entry["odds_full"][j+1]:.2f}' if j < len(dates_short) else ''
+            f'{dates_short[j]}:{prev_list[j]:.2f}→{odds_list[j]:.2f}'
+            if j < len(dates_short) else ''
             for j in range(len(entry['seq']))
         )
         print(f'  {entry["bm"]:<16} [{s}]{rec_sym:<4} {date_flow}')
