@@ -370,6 +370,14 @@ def get_team_triple_seq(team, before_date_order, window=WINDOW):
         team_win_seq.append(1 if r['winner'] == team else 0)
     return direction_seq, agree_seq, fav_win_seq, team_win_seq
 
+def get_slot_fav_win_seq(slot, before_date_order, window=WINDOW):
+    """해당 슬롯(N번째 경기)의 날짜별 정배승(1)/역배승(0) 시퀀스
+    Ex) 2번째 경기: 20일→1, 21일→0, 22일→1, 23일→1, 24일→1 → 오늘 예측
+    """
+    mask = (game_df['slot'] == slot) & (game_df['date_order'] < before_date_order)
+    recent = game_df[mask].sort_values('date_order').tail(window)
+    return recent['consensus_win'].tolist(), recent['date'].tolist()
+
 def get_team_win_seq(team, before_date_order, window=WINDOW):
     _, _, _, team_win = get_team_triple_seq(team, before_date_order, window)
     return team_win
@@ -398,81 +406,161 @@ def pat_rec(seq):
     rec = pa['rec'] if not pa.get('pass') else None
     return rec, pa['desc']
 
-def get_bm_direction_seqs(team, before_date_order, window=WINDOW):
-    """북메이커별 해당 팀 정배/역배 시퀀스 반환
-    반환: {bookmaker: [(date, value), ...]}
-    value: 1 = 해당 북메이커가 team을 정배로 선택, 0 = 역배
+def get_bm_odds_seqs(team, before_date_order, window=WINDOW):
+    """북메이커별 해당 팀 배당 변동 방향 시퀀스 반환
+    - 경기마다 배당이 이전 경기 대비 내렸으면 1(유리해짐), 올랐으면 0(불리해짐)
+    - 첫 경기는 기준점이므로 방향값 없음 → window+1 경기 수집 후 diff
+    반환: {bookmaker: {dates, odds, seq, current_odds}}
     """
-    # 해당 팀 최근 경기 match_id 목록
     mask = (
         ((game_df['home'] == team) | (game_df['away'] == team)) &
         (game_df['date_order'] < before_date_order)
     )
-    recent_games = game_df[mask].sort_values('date_order').tail(window)
-    if len(recent_games) == 0:
+    # window+1 경기 수집 (첫 경기는 기준점용)
+    recent_games = game_df[mask].sort_values('date_order').tail(window + 1)
+    if len(recent_games) < 2:
         return {}
 
     match_ids = recent_games['match_id'].tolist()
-    dates     = recent_games.set_index('match_id')['date'].to_dict()
+    dates_map = recent_games.set_index('match_id')['date'].to_dict()
 
-    # 해당 경기들의 북메이커별 데이터
     bm_data = df[df['match_id'].isin(match_ids)][
-        ['match_id', 'bookmaker', 'home', 'away', 'consensus', 'home_close', 'away_close']
+        ['match_id', 'bookmaker', 'home', 'away', 'home_close', 'away_close']
     ].copy()
 
-    result = {}
-    for mid in match_ids:
-        rows = bm_data[bm_data['match_id'] == mid]
-        date = dates.get(mid, '')
-        for _, r in rows.iterrows():
-            bm = r['bookmaker']
-            is_fav = (
-                (r['consensus'] == 'home' and r['home'] == team) or
-                (r['consensus'] == 'away' and r['away'] == team)
-            )
-            val = 1 if is_fav else 0
-            # 실제 배당값도 저장 (팀 기준)
-            if r['home'] == team:
-                team_odds = r['home_close']
-                opp_odds  = r['away_close']
-            else:
-                team_odds = r['away_close']
-                opp_odds  = r['home_close']
-
-            if bm not in result:
-                result[bm] = []
-            result[bm].append({
-                'date': date, 'match_id': mid,
-                'val': val,
-                'team_odds': round(team_odds, 2),
-                'opp_odds':  round(opp_odds, 2),
-            })
-
-    # match_id 순서 보장 (date_order 기준)
+    # 북메이커별로 경기순 배당값 수집
+    raw = {}  # {bm: [(mid, date, team_odds), ...]}
     mid_order = {mid: i for i, mid in enumerate(match_ids)}
-    for bm in result:
-        result[bm].sort(key=lambda x: mid_order.get(x['match_id'], 99))
+    for _, r in bm_data.iterrows():
+        bm  = r['bookmaker']
+        mid = r['match_id']
+        team_odds = r['home_close'] if r['home'] == team else r['away_close']
+        opp_odds  = r['away_close'] if r['home'] == team else r['home_close']
+        if bm not in raw:
+            raw[bm] = []
+        raw[bm].append({
+            'mid': mid, 'date': dates_map.get(mid, ''),
+            'team_odds': round(float(team_odds), 2),
+            'opp_odds':  round(float(opp_odds),  2),
+            'order': mid_order.get(mid, 99),
+        })
 
+    result = {}
+    for bm, entries in raw.items():
+        entries.sort(key=lambda x: x['order'])
+        if len(entries) < 2:
+            continue
+        odds_list = [e['team_odds'] for e in entries]
+        date_list = [e['date']      for e in entries]
+        opp_list  = [e['opp_odds']  for e in entries]
+        # 방향 시퀀스: 1=내림(유리), 0=오름(불리), -1=동일(제외)
+        seq = []
+        for i in range(1, len(odds_list)):
+            if odds_list[i] < odds_list[i-1]:
+                seq.append(1)   # 배당 하락 = 해당 팀 더 유리
+            elif odds_list[i] > odds_list[i-1]:
+                seq.append(0)   # 배당 상승 = 해당 팀 불리
+            # 동일이면 추가 안 함 (변동 없음)
+        result[bm] = {
+            'seq':          seq,
+            'odds':         odds_list[1:],   # 방향 대응 배당값 (기준점 제외)
+            'odds_full':    odds_list,        # 전체 (기준 포함)
+            'dates':        date_list[1:],
+            'current_odds': odds_list[-1],
+            'opp_odds':     opp_list[-1],
+        }
     return result
 
-def analyze_bm_seqs(team, before_date_order, window=WINDOW):
-    """북메이커별 패턴 분석 결과 반환
-    반환: list of {bm, seq, rec, desc, dates, odds}
+def get_slot_bm_odds_seqs(slot, before_date_order, window=WINDOW):
+    """슬롯(N번째 경기) 기준 날짜별 북메이커 배당 변동 시퀀스
+    같은 슬롯의 날짜별 경기에서 북메이커 홈팀 배당이 전날 동일슬롯 대비
+    내렸으면 1(유리), 올랐으면 0(불리)
+    Ex) 21일 slot2 홈팀 1.85 → 22일 slot2 홈팀 1.80 → seq=1(내림)
     """
-    bm_seqs = get_bm_direction_seqs(team, before_date_order, window)
+    mask = (game_df['slot'] == slot) & (game_df['date_order'] < before_date_order)
+    recent_games = game_df[mask].sort_values('date_order').tail(window + 1)
+    if len(recent_games) < 2:
+        return {}
+
+    match_ids = recent_games['match_id'].tolist()
+    dates_map = recent_games.set_index('match_id')['date'].to_dict()
+    mid_order = {mid: i for i, mid in enumerate(match_ids)}
+
+    bm_data = df[df['match_id'].isin(match_ids)][
+        ['match_id', 'bookmaker', 'home', 'home_close', 'away_close']
+    ].copy()
+
+    raw = {}
+    for _, r in bm_data.iterrows():
+        bm  = r['bookmaker']
+        mid = r['match_id']
+        home_odds = round(float(r['home_close']), 2)
+        if bm not in raw:
+            raw[bm] = []
+        raw[bm].append({
+            'mid': mid, 'date': dates_map.get(mid, ''),
+            'home_odds': home_odds,
+            'order': mid_order.get(mid, 99),
+        })
+
+    result = {}
+    for bm, entries in raw.items():
+        entries.sort(key=lambda x: x['order'])
+        if len(entries) < 2:
+            continue
+        odds_list = [e['home_odds'] for e in entries]
+        date_list = [e['date']      for e in entries]
+        seq = []
+        for i in range(1, len(odds_list)):
+            if odds_list[i] < odds_list[i-1]:
+                seq.append(1)
+            elif odds_list[i] > odds_list[i-1]:
+                seq.append(0)
+        result[bm] = {
+            'seq':          seq,
+            'odds_full':    odds_list,
+            'dates':        date_list[1:],
+            'current_odds': odds_list[-1],
+        }
+    return result
+
+def analyze_slot_bm_seqs(slot, before_date_order, window=WINDOW):
+    """슬롯 기준 북메이커별 배당 변동 패턴 분석"""
+    bm_seqs = get_slot_bm_odds_seqs(slot, before_date_order, window)
     results = []
-    for bm, entries in sorted(bm_seqs.items()):
-        seq   = [e['val'] for e in entries]
-        dates = [e['date'] for e in entries]
-        odds  = [e['team_odds'] for e in entries]
+    for bm, data in sorted(bm_seqs.items()):
+        seq  = data['seq']
         rec, desc = pat_rec(seq)
         results.append({
-            'bm':    bm,
-            'seq':   seq,
-            'rec':   rec,
-            'desc':  desc,
-            'dates': dates,
-            'odds':  odds,
+            'bm':           bm,
+            'seq':          seq,
+            'rec':          rec,
+            'desc':         desc,
+            'odds_full':    data['odds_full'],
+            'dates':        data['dates'],
+            'current_odds': data['current_odds'],
+        })
+    return results
+
+def analyze_bm_seqs(team, before_date_order, window=WINDOW):
+    """북메이커별 배당 변동 패턴 분석
+    반환: list of {bm, seq, rec, desc, odds_full, current_odds, opp_odds}
+    """
+    bm_seqs = get_bm_odds_seqs(team, before_date_order, window)
+    results = []
+    for bm, data in sorted(bm_seqs.items()):
+        seq  = data['seq']
+        rec, desc = pat_rec(seq)
+        results.append({
+            'bm':          bm,
+            'seq':         seq,
+            'rec':         rec,
+            'desc':        desc,
+            'odds_full':   data['odds_full'],
+            'odds':        data['odds'],
+            'dates':       data['dates'],
+            'current_odds': data['current_odds'],
+            'opp_odds':    data['opp_odds'],
         })
     return results
 
@@ -583,11 +671,16 @@ for i, game in enumerate(upcoming_games):
     h_dir, h_agr, h_fav_win, h_team_win = get_team_triple_seq(home, max_date_order)
     a_dir, a_agr, a_fav_win, a_team_win = get_team_triple_seq(away, max_date_order)
 
+    # 슬롯별 정배승/역배승 시퀀스 (N번째 경기 날짜별 추이)
+    slot_fav_seq, slot_fav_dates = get_slot_fav_win_seq(slot, max_date_order)
+
     # 패턴 분석 (각 팀 × 4 시퀀스)
     h_dir_rec,  h_dir_desc  = pat_rec(h_dir)
     h_agr_rec,  h_agr_desc  = pat_rec(h_agr)
     h_faw_rec,  h_faw_desc  = pat_rec(h_fav_win)
     h_win_rec,  h_win_desc  = pat_rec(h_team_win)
+
+    slot_fav_rec, slot_fav_desc = pat_rec(slot_fav_seq)
 
     a_dir_rec,  a_dir_desc  = pat_rec(a_dir)
     a_agr_rec,  a_agr_desc  = pat_rec(a_agr)
@@ -628,9 +721,16 @@ for i, game in enumerate(upcoming_games):
     print(f'  {"북메이커 일치도":<18} [{h_ag}]→{fmt_rec(h_agr_rec):<3}  [{a_ag}]→{fmt_rec(a_agr_rec)}')
     print(f'  {"":18} (1=70%↑ 쏠림, 0=의견분열)')
 
-    # 3) 정배승(1) / 역배승(0)
+    # 3) 정배승(1) / 역배승(0) - 팀별
     h_fw = seq_str(h_fav_win); a_fw = seq_str(a_fav_win)
-    print(f'  {"정배승/역배승":<18} [{h_fw}]→{fmt_rec(h_faw_rec):<3}  [{a_fw}]→{fmt_rec(a_faw_rec)}')
+    print(f'  {"정배승/역배승(팀별)":<18} [{h_fw}]→{fmt_rec(h_faw_rec):<3}  [{a_fw}]→{fmt_rec(a_faw_rec)}')
+
+    # 3b) 슬롯 정배승/역배승 (날짜별 N번째 경기)
+    sf = seq_str(slot_fav_seq)
+    # 날짜 레이블 (짧게)
+    date_labels = ' '.join(d.replace('Yesterday, ','').replace('Today','오늘')[-5:] for d in slot_fav_dates[-len(slot_fav_seq):])
+    print(f'  {"정배승/역배승(슬롯"+str(slot)+")":<18} [{sf}]→{fmt_rec(slot_fav_rec):<3}  (날짜별: {date_labels})')
+    print(f'  {"":18} {slot_fav_desc}')
 
     # 4) 팀 승(1) / 패(0)
     h_tw = seq_str(h_team_win); a_tw = seq_str(a_team_win)
@@ -709,8 +809,35 @@ for i, game in enumerate(upcoming_games):
         print(f'  최종 추천: {winner_str} 승리 (신뢰도 {pattern_confidence:.1%})')
         rec_str = 'HOME(1)' if final_rec == 1 else 'AWAY(0)'
 
-    # ── 북메이커별 배당변동 패턴 ─────────────────────────────
-    print(f'\n  ▶ 북메이커별 배당변동 패턴 분석 (1=해당팀 정배, 0=역배)')
+    # ── 슬롯 기준 북메이커 배당변동 (날짜별 N번째 경기) ────────────
+    print(f'\n  ▶ [슬롯{slot}] 날짜별 북메이커 배당변동 (1=홈배당↓유리, 0=홈배당↑불리)')
+    print(f'  {"북메이커":<16} {"시퀀스":<{WINDOW+2}} {"예측":^5} {"날짜흐름"}')
+    print(f'  {"-"*70}')
+    slot_bm_analyses = analyze_slot_bm_seqs(slot, max_date_order)
+    slot_bm_results = {}
+    for entry in slot_bm_analyses:
+        s   = seq_str(entry['seq'])
+        rec = entry['rec']
+        rec_sym = f'→{rec}' if rec is not None else '→?'
+        # 날짜 레이블 + 배당값 흐름
+        dates_short = [d[-5:] if len(d) >= 5 else d for d in entry['dates']]
+        date_flow = ' '.join(
+            f'{dates_short[j]}:{entry["odds_full"][j+1]:.2f}' if j < len(dates_short) else ''
+            for j in range(len(entry['seq']))
+        )
+        print(f'  {entry["bm"]:<16} [{s}]{rec_sym:<4} {date_flow}')
+        slot_bm_results[entry['bm']] = {
+            'seq': s, 'rec': rec, 'desc': entry['desc'],
+            'current_odds': entry.get('current_odds'),
+        }
+    # 슬롯 북메이커 집계
+    s_recs = [e['rec'] for e in slot_bm_analyses if e['rec'] is not None]
+    if s_recs:
+        sv1 = sum(s_recs); sv0 = len(s_recs) - sv1
+        print(f'\n  → 슬롯{slot} 집계: 홈배당하락(1) {sv1}개 / 홈배당상승(0) {sv0}개 (총 {len(s_recs)}개)')
+
+    # ── 북메이커별 팀 기준 배당변동 패턴 ────────────────────────
+    print(f'\n  ▶ 북메이커별 팀 배당변동 패턴 분석 (1=배당하락↓유리, 0=배당상승↑불리)')
     bm_results = {'home': {}, 'away': {}}
 
     for side, team in [('home', home), ('away', away)]:
@@ -722,12 +849,24 @@ for i, game in enumerate(upcoming_games):
             s   = seq_str(entry['seq'])
             rec = entry['rec']
             rec_sym = f'→{rec}' if rec is not None else '→?'
-            # 마지막 배당값 표시
-            last_odds = f'{entry["odds"][-1]:.2f}' if entry['odds'] else '-'
-            print(f'  {entry["bm"]:<16} [{s}] {rec_sym:<5} {entry["desc"]}  (현재배당:{last_odds})')
+            # 배당 추이: 실제값 + 방향 화살표
+            odds_full = entry.get('odds_full', [])
+            if len(odds_full) >= 2:
+                arrows = []
+                for j in range(1, len(odds_full)):
+                    arrow = '↓' if odds_full[j] < odds_full[j-1] else ('↑' if odds_full[j] > odds_full[j-1] else '→')
+                    arrows.append(f'{odds_full[j]:.2f}{arrow}')
+                odds_trend = f'{odds_full[0]:.2f} ' + ' '.join(arrows)
+            else:
+                odds_trend = str(entry.get('current_odds', '-'))
+            print(f'  {entry["bm"]:<16} [{s}]{rec_sym:<4} {entry["desc"]}')
+            print(f'  {"":16}  배당추이: {odds_trend}')
             bm_results[side][entry['bm']] = {
                 'seq': s, 'rec': rec, 'desc': entry['desc'],
-                'dates': entry['dates'], 'odds': entry['odds'],
+                'dates': entry.get('dates', []),
+                'odds':  entry.get('odds', []),
+                'odds_full': entry.get('odds_full', []),
+                'current_odds': entry.get('current_odds'),
             }
 
         # 북메이커 예측 집계
@@ -762,6 +901,9 @@ for i, game in enumerate(upcoming_games):
         'away_win_rec':    a_win_rec,
         'bm_home':         bm_results.get('home', {}),
         'bm_away':         bm_results.get('away', {}),
+        'slot_fav_win':    seq_str(slot_fav_seq),
+        'slot_fav_rec':    slot_fav_rec,
+        'slot_bm':         slot_bm_results,
         'recommendation':  rec_str,
         'confidence':      round(pattern_confidence, 3),
         'ml_home_prob':    round(float(ml_proba[1]), 3),
