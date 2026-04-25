@@ -17,7 +17,8 @@ warnings.filterwarnings('ignore')
 CSV_PATH   = 'kbo_odds.csv'
 GAMES_PATH = 'kbo_games.csv'
 PRED_PATH  = 'kbo_predictions.json'
-WINDOW = 10   # 팀별 최근 N경기 참조
+WINDOW     = 10   # 팀별 최근 N경기 참조
+BM_SEQ_LEN = 11  # 슬롯별 북메이커 배당변동 시퀀스 길이
 
 # ── 패턴 분석 함수 (변경 없음) ─────────────────────────────
 def find_runs(seq):
@@ -491,27 +492,26 @@ def get_bm_odds_seqs(team, before_date_order, window=WINDOW):
         }
     return result
 
-def get_slot_bm_odds_seqs(slot, before_date_order, window=WINDOW):
+def get_slot_bm_odds_seqs(slot, before_date_order, seq_len=BM_SEQ_LEN):
     """슬롯(N번째 경기) 기준 날짜별 북메이커 배당 변동 시퀀스
-    같은 슬롯의 날짜별 경기에서 북메이커 홈팀 배당이 전날 동일슬롯 대비
-    내렸으면 1(유리), 올랐으면 0(불리)
-    Ex) 21일 slot2 홈팀 1.85 → 22일 slot2 홈팀 1.80 → seq=1(내림)
+    동일 홈팀+원정팀 연속 전환만 유효로 인정, seq_len개 추출
     """
     mask = (game_df['slot'] == slot) & (game_df['date_order'] < before_date_order)
-    recent_games = game_df[mask].sort_values('date_order').tail(window + 1)
-    if len(recent_games) < 2:
+    # 전체 이력 수집 (많은 데이터에서 seq_len개 유효 전환 확보)
+    all_games = game_df[mask].sort_values('date_order')
+    if len(all_games) < 2:
         return {}
 
-    match_ids = recent_games['match_id'].tolist()
-    dates_map = recent_games.set_index('match_id')['date'].to_dict()
+    match_ids = all_games['match_id'].tolist()
+    dates_map = all_games.set_index('match_id')['date'].to_dict()
     mid_order = {mid: i for i, mid in enumerate(match_ids)}
 
     bm_data = df[df['match_id'].isin(match_ids)][
         ['match_id', 'bookmaker', 'home', 'away', 'home_close', 'away_close']
     ].copy()
 
-    home_map = recent_games.set_index('match_id')['home'].to_dict()
-    away_map = recent_games.set_index('match_id')['away'].to_dict()
+    home_map = all_games.set_index('match_id')['home'].to_dict()
+    away_map = all_games.set_index('match_id')['away'].to_dict()
 
     raw = {}
     for _, r in bm_data.iterrows():
@@ -534,10 +534,10 @@ def get_slot_bm_odds_seqs(slot, before_date_order, window=WINDOW):
         entries.sort(key=lambda x: x['order'])
         if len(entries) < 2:
             continue
-        seq      = []
-        date_seq = []
-        odds_seq = []   # seq[j]에 대응하는 현재 홈배당 (정확히 정렬)
-        prev_seq = []   # seq[j]에 대응하는 이전 홈배당 (참조용)
+        all_seq      = []
+        all_date_seq = []
+        all_odds_seq = []
+        all_prev_seq = []
         for i in range(1, len(entries)):
             # 홈팀 또는 원정팀이 다른 구간은 비교 무의미 → 스킵
             if (entries[i]['home'] != entries[i-1]['home'] or
@@ -546,29 +546,37 @@ def get_slot_bm_odds_seqs(slot, before_date_order, window=WINDOW):
             home_chg = round(entries[i]['home_odds'] - entries[i-1]['home_odds'], 4)
             away_chg = round(entries[i]['away_odds'] - entries[i-1]['away_odds'], 4)
             if home_chg == away_chg:
-                seq.append('N')
+                all_seq.append('N')
             elif home_chg > away_chg:
-                seq.append(1)
+                all_seq.append(1)
             else:
-                seq.append(0)
-            date_seq.append(entries[i]['date'])
-            odds_seq.append(entries[i]['home_odds'])
-            prev_seq.append(entries[i-1]['home_odds'])
-        non_n = [x for x in seq if x != 'N']
+                all_seq.append(0)
+            all_date_seq.append(entries[i]['date'])
+            all_odds_seq.append(entries[i]['home_odds'])
+            all_prev_seq.append(entries[i-1]['home_odds'])
+
+        non_n = [x for x in all_seq if x != 'N']
         if not non_n:
             continue
+
+        # 최근 seq_len개만 사용
+        seq      = all_seq[-seq_len:]
+        date_seq = all_date_seq[-seq_len:]
+        odds_seq = all_odds_seq[-seq_len:]
+        prev_seq = all_prev_seq[-seq_len:]
+
         result[bm] = {
             'seq':          seq,
-            'odds':         odds_seq,   # seq와 1:1 대응 현재 배당
-            'prev_odds':    prev_seq,   # seq와 1:1 대응 이전 배당
+            'odds':         odds_seq,
+            'prev_odds':    prev_seq,
             'dates':        date_seq,
             'current_odds': entries[-1]['home_odds'],
         }
     return result
 
-def analyze_slot_bm_seqs(slot, before_date_order, window=WINDOW):
+def analyze_slot_bm_seqs(slot, before_date_order):
     """슬롯 기준 북메이커별 배당 변동 패턴 분석"""
-    bm_seqs = get_slot_bm_odds_seqs(slot, before_date_order, window)
+    bm_seqs = get_slot_bm_odds_seqs(slot, before_date_order)
     results = []
     for bm, data in sorted(bm_seqs.items()):
         seq = data['seq']
@@ -851,7 +859,7 @@ for i, game in enumerate(upcoming_games):
 
     # ── 슬롯 기준 북메이커 배당변동 (날짜별 N번째 경기) ────────────
     print(f'\n  ▶ [슬롯{slot}] 날짜별 북메이커 배당변동 (1=배당+오름, 0=배당-내림)')
-    print(f'  {"북메이커":<16} {"시퀀스":<{WINDOW+2}} {"예측":^5} {"날짜흐름"}')
+    print(f'  {"북메이커":<16} {"시퀀스":<{BM_SEQ_LEN+2}} {"예측":^5} {"날짜흐름"}')
     print(f'  {"-"*70}')
     slot_bm_analyses = analyze_slot_bm_seqs(slot, max_date_order)
     slot_bm_results = {}
