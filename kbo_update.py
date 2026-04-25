@@ -206,6 +206,46 @@ try:
     match_list = get_match_urls(driver)
     print(f'전체 경기: {len(match_list)}개')
 
+    # 미완료 경기도 kbo_games.csv 일정에 추가 (오늘 예측용)
+    GAMES_PATH = 'kbo_games.csv'
+    upcoming = [m for m in match_list if not m['finished'] and m['home'] and m['away']]
+    if upcoming:
+        from datetime import datetime as _dt
+        today_str = _dt.today().strftime('%Y-%m-%d')
+        games_new = []
+        if os.path.exists(GAMES_PATH):
+            gdf = pd.read_csv(GAMES_PATH)
+            existing_game_keys = set(zip(gdf['date'], gdf['home']))
+        else:
+            gdf = pd.DataFrame()
+            existing_game_keys = set()
+        for m in upcoming:
+            # 날짜 문자열을 YYYY-MM-DD로 변환
+            raw_date = m['date']
+            if raw_date.startswith('Today'):
+                norm_date = today_str
+            elif raw_date.startswith('Yesterday'):
+                from datetime import timedelta
+                norm_date = (_dt.today() - timedelta(days=1)).strftime('%Y-%m-%d')
+            else:
+                try:
+                    norm_date = _dt.strptime(raw_date.split(' - ')[0].strip(), '%d %b %Y').strftime('%Y-%m-%d')
+                except:
+                    norm_date = raw_date
+            if (norm_date, m['home']) not in existing_game_keys:
+                games_new.append({
+                    'date': norm_date, 'home': m['home'], 'away': m['away'],
+                    'slot': m['slot'], 'home_score': None, 'away_score': None,
+                    'winner': None, 'winner_is_home': None,
+                })
+        if games_new:
+            new_games_df = pd.DataFrame(games_new)
+            combined_games = pd.concat([gdf, new_games_df], ignore_index=True) if len(gdf) > 0 else new_games_df
+            combined_games.to_csv(GAMES_PATH, index=False, encoding='utf-8-sig')
+            print(f'kbo_games.csv 일정 추가: {len(games_new)}경기')
+            for g in games_new:
+                print(f"  {g['date']} slot{g['slot']} {g['home']} vs {g['away']}")
+
     new_matches = []
     for m in match_list:
         if not m['finished']:

@@ -644,8 +644,8 @@ def find_upcoming_games():
     if latest_dt is None:
         return [], None
 
-    # 내일부터 7일 내 최초 경기일 탐색
-    for delta in range(1, 8):
+    # 오늘~7일 내 최초 경기일 탐색 (delta=0=오늘도 포함)
+    for delta in range(0, 8):
         target = (latest_dt + timedelta(days=delta)).strftime('%Y-%m-%d')
         day_games = gdf[gdf['date'] == target]
         if len(day_games) > 0:
@@ -723,9 +723,9 @@ for i, game in enumerate(upcoming_games):
     print(f'  {"항목":<18} {"홈팀 "+home[:14]+" 시퀀스":^24}  {"원정팀 "+away[:12]+" 시퀀스":^24}')
     print(f'  {"-"*66}')
 
-    # 1) 배당 변동 (북메이커 다수결 정배=1, 역배=0)
+    # 1) 정배여부 (북메이커 다수결: 해당팀 정배=1, 역배=0)
     h_d = seq_str(h_dir); a_d = seq_str(a_dir)
-    print(f'  {"배당변동(다수결)":<18} [{h_d}]→{fmt_rec(h_dir_rec):<3}  [{a_d}]→{fmt_rec(a_dir_rec)}')
+    print(f'  {"정배여부(다수결)":<18} [{h_d}]→{fmt_rec(h_dir_rec):<3}  [{a_d}]→{fmt_rec(a_dir_rec)}')
     print(f'  {"":18} {bm_summary(home, True)}')
     print(f'  {"":18} {bm_summary(away, False)}')
 
@@ -887,7 +887,7 @@ for i, game in enumerate(upcoming_games):
         if recs:
             vote1 = sum(recs)
             vote0 = len(recs) - vote1
-            print(f'\n  → {team} 집계: 정배 예측 {vote1}개 / 역배 예측 {vote0}개 (총 {len(recs)}개 북메이커)')
+            print(f'\n  → {team} 집계: 배당하락(1) {vote1}개 / 배당상승(0) {vote0}개 (총 {len(recs)}개 북메이커)')
 
     predictions[f'slot_{slot}'] = {
         'slot':            slot,
