@@ -734,15 +734,10 @@ for i, game in enumerate(upcoming_games):
     print(f'  {"북메이커 일치도":<18} [{h_ag}]→{fmt_rec(h_agr_rec):<3}  [{a_ag}]→{fmt_rec(a_agr_rec)}')
     print(f'  {"":18} (1=70%↑ 쏠림, 0=의견분열)')
 
-    # 3) 정배승(1) / 역배승(0) - 팀별
-    h_fw = seq_str(h_fav_win); a_fw = seq_str(a_fav_win)
-    print(f'  {"정배승/역배승(팀별)":<18} [{h_fw}]→{fmt_rec(h_faw_rec):<3}  [{a_fw}]→{fmt_rec(a_faw_rec)}')
-
-    # 3b) 슬롯 정배승/역배승 (날짜별 N번째 경기)
+    # 3) 슬롯별 정배승(1)/역배승(0) — 날짜별 N번째 경기 기준 통합
     sf = seq_str(slot_fav_seq)
-    # 날짜 레이블 (짧게)
     date_labels = ' '.join(d.replace('Yesterday, ','').replace('Today','오늘')[-5:] for d in slot_fav_dates[-len(slot_fav_seq):])
-    print(f'  {"정배승/역배승(슬롯"+str(slot)+")":<18} [{sf}]→{fmt_rec(slot_fav_rec):<3}  (날짜별: {date_labels})')
+    print(f'  {"정배승/역배승":<18} [{sf}]→{fmt_rec(slot_fav_rec):<3}  (슬롯{slot} 날짜별: {date_labels})')
     print(f'  {"":18} {slot_fav_desc}')
 
     # 4) 팀 승(1) / 패(0)
