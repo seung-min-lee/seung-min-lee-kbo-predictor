@@ -1,4 +1,10 @@
-import os
+import os, sys
+
+# Anaconda 환경에서 구버전 sklearn 충돌 방지: 로컬 .deps 우선 로드
+_deps = os.path.join(os.path.dirname(os.path.abspath(__file__)), '.deps')
+if os.path.isdir(_deps) and _deps not in sys.path:
+    sys.path.insert(0, _deps)
+
 import pandas as pd
 import numpy as np
 from sklearn.ensemble import RandomForestClassifier
@@ -11,7 +17,7 @@ warnings.filterwarnings('ignore')
 CSV_PATH   = 'kbo_odds.csv'
 GAMES_PATH = 'kbo_games.csv'
 PRED_PATH  = 'kbo_predictions.json'
-WINDOW = 5   # 팀별 최근 N경기 참조
+WINDOW = 10   # 팀별 최근 N경기 참조
 
 # ── 패턴 분석 함수 (변경 없음) ─────────────────────────────
 def find_runs(seq):
