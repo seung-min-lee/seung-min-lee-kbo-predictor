@@ -490,6 +490,8 @@ def get_slot_bm_odds_seqs(slot, before_date_order, window=WINDOW):
         ['match_id', 'bookmaker', 'home', 'home_close', 'away_close']
     ].copy()
 
+    home_map = recent_games.set_index('match_id')['home'].to_dict()
+
     raw = {}
     for _, r in bm_data.iterrows():
         bm  = r['bookmaker']
@@ -499,6 +501,7 @@ def get_slot_bm_odds_seqs(slot, before_date_order, window=WINDOW):
             raw[bm] = []
         raw[bm].append({
             'mid': mid, 'date': dates_map.get(mid, ''),
+            'home':      home_map.get(mid, ''),
             'home_odds': home_odds,
             'order': mid_order.get(mid, 99),
         })
@@ -508,19 +511,29 @@ def get_slot_bm_odds_seqs(slot, before_date_order, window=WINDOW):
         entries.sort(key=lambda x: x['order'])
         if len(entries) < 2:
             continue
-        odds_list = [e['home_odds'] for e in entries]
-        date_list = [e['date']      for e in entries]
-        seq = []
-        for i in range(1, len(odds_list)):
-            if odds_list[i] < odds_list[i-1]:
+        # 홈팀이 다른 구간은 비교 제외 (다른 팀 배당 비교 무의미)
+        seq        = []
+        odds_seq   = []
+        date_seq   = []
+        for i in range(1, len(entries)):
+            if entries[i]['home'] != entries[i-1]['home']:
+                continue   # 홈팀 교체 구간 스킵
+            prev_odds = entries[i-1]['home_odds']
+            curr_odds = entries[i]['home_odds']
+            if curr_odds < prev_odds:
                 seq.append(1)
-            elif odds_list[i] > odds_list[i-1]:
+            elif curr_odds > prev_odds:
                 seq.append(0)
+            # 동일하면 추가 안 함
+            odds_seq.append(curr_odds)
+            date_seq.append(entries[i]['date'])
+        if not seq:
+            continue
         result[bm] = {
             'seq':          seq,
-            'odds_full':    odds_list,
-            'dates':        date_list[1:],
-            'current_odds': odds_list[-1],
+            'odds_full':    [e['home_odds'] for e in entries],
+            'dates':        date_seq,
+            'current_odds': entries[-1]['home_odds'],
         }
     return result
 
