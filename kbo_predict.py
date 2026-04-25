@@ -844,46 +844,6 @@ for i, game in enumerate(upcoming_games):
         sv1 = sum(s_recs); sv0 = len(s_recs) - sv1
         print(f'\n  → 슬롯{slot} 집계: 홈배당하락(1) {sv1}개 / 홈배당상승(0) {sv0}개 (총 {len(s_recs)}개)')
 
-    # ── 북메이커별 팀 기준 배당변동 패턴 ────────────────────────
-    print(f'\n  ▶ 북메이커별 팀 배당변동 패턴 분석 (1=배당하락↓유리, 0=배당상승↑불리)')
-    bm_results = {'home': {}, 'away': {}}
-
-    for side, team in [('home', home), ('away', away)]:
-        print(f'\n  [{team}] 기준:')
-        print(f'  {"북메이커":<16} {"시퀀스":<{WINDOW+2}} {"예측":^5} {"패턴"}')
-        print(f'  {"-"*65}')
-        bm_analyses = analyze_bm_seqs(team, max_date_order)
-        for entry in bm_analyses:
-            s   = seq_str(entry['seq'])
-            rec = entry['rec']
-            rec_sym = f'→{rec}' if rec is not None else '→?'
-            # 배당 추이: 실제값 + 방향 화살표
-            odds_full = entry.get('odds_full', [])
-            if len(odds_full) >= 2:
-                arrows = []
-                for j in range(1, len(odds_full)):
-                    arrow = '↓' if odds_full[j] < odds_full[j-1] else ('↑' if odds_full[j] > odds_full[j-1] else '→')
-                    arrows.append(f'{odds_full[j]:.2f}{arrow}')
-                odds_trend = f'{odds_full[0]:.2f} ' + ' '.join(arrows)
-            else:
-                odds_trend = str(entry.get('current_odds', '-'))
-            print(f'  {entry["bm"]:<16} [{s}]{rec_sym:<4} {entry["desc"]}')
-            print(f'  {"":16}  배당추이: {odds_trend}')
-            bm_results[side][entry['bm']] = {
-                'seq': s, 'rec': rec, 'desc': entry['desc'],
-                'dates': entry.get('dates', []),
-                'odds':  entry.get('odds', []),
-                'odds_full': entry.get('odds_full', []),
-                'current_odds': entry.get('current_odds'),
-            }
-
-        # 북메이커 예측 집계
-        recs = [e['rec'] for e in bm_analyses if e['rec'] is not None]
-        if recs:
-            vote1 = sum(recs)
-            vote0 = len(recs) - vote1
-            print(f'\n  → {team} 집계: 배당하락(1) {vote1}개 / 배당상승(0) {vote0}개 (총 {len(recs)}개 북메이커)')
-
     predictions[f'slot_{slot}'] = {
         'slot':            slot,
         'home':            home,
@@ -907,8 +867,6 @@ for i, game in enumerate(upcoming_games):
         'away_agr_rec':    a_agr_rec,
         'away_fav_rec':    a_faw_rec,
         'away_win_rec':    a_win_rec,
-        'bm_home':         bm_results.get('home', {}),
-        'bm_away':         bm_results.get('away', {}),
         'slot_fav_win':    seq_str(slot_fav_seq),
         'slot_fav_rec':    slot_fav_rec,
         'slot_bm':         slot_bm_results,

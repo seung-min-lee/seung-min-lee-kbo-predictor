@@ -505,13 +505,10 @@ else:
 </div>
 """, unsafe_allow_html=True)
 
-        # ── 북메이커별 배당변동 패턴 ──────────────────────────
-        bm_home = pred.get('bm_home', {})
-        bm_away = pred.get('bm_away', {})
+        # ── 슬롯별 북메이커 배당변동 패턴 ──────────────────────────
+        slot_bm = pred.get('slot_bm', {})
 
-        if bm_home or bm_away:
-            all_bms = sorted(set(list(bm_home.keys()) + list(bm_away.keys())))
-
+        if slot_bm:
             def bm_seq_html(seq_s):
                 out = ''
                 for ch in str(seq_s):
@@ -523,68 +520,46 @@ else:
                         out += ch
                 return f'<span style="font-family:Courier New,monospace;letter-spacing:2px">{out}</span>'
 
-            def rec_badge(rec):
+            def rec_badge_bm(rec):
                 if rec is None:
                     return '<span style="color:#445566">?</span>'
                 if rec == 1:
                     return '<span style="color:#44ddaa;font-weight:900">▲1</span>'
                 return '<span style="color:#ff4466;font-weight:900">▼0</span>'
 
-            # 홈팀 집계
-            h_votes = [v['rec'] for v in bm_home.values() if v['rec'] is not None]
-            h_v1 = sum(h_votes); h_v0 = len(h_votes) - h_v1
-            # 원정팀 집계
-            a_votes = [v['rec'] for v in bm_away.values() if v['rec'] is not None]
-            a_v1 = sum(a_votes); a_v0 = len(a_votes) - a_v1
+            votes = [v['rec'] for v in slot_bm.values() if v['rec'] is not None]
+            v1 = sum(votes)
 
-            # 테이블 행 생성
             bm_rows_html = ''
-            for bm in all_bms:
-                hd = bm_home.get(bm, {})
-                ad = bm_away.get(bm, {})
-                h_seq  = hd.get('seq', '-')
-                h_rec  = hd.get('rec', None)
-                h_odd  = hd.get('odds', [])
-                a_seq  = ad.get('seq', '-')
-                a_rec  = ad.get('rec', None)
-                a_odd  = ad.get('odds', [])
-                h_last = f"{h_odd[-1]:.2f}" if h_odd else '-'
-                a_last = f"{a_odd[-1]:.2f}" if a_odd else '-'
-
-                # 아웃라이어 표시: 홈팀 기준 다수결과 반대면 강조
-                h_outlier = h_rec is not None and h_v1 > h_v0 and h_rec == 0
-                h_outlier = h_outlier or (h_rec is not None and h_v0 > h_v1 and h_rec == 1)
-                row_bg = 'rgba(255,180,0,.06)' if h_outlier else 'transparent'
-
+            for bm_name, bm_data in sorted(slot_bm.items()):
+                seq_s    = bm_data.get('seq', '-')
+                rec_v    = bm_data.get('rec', None)
+                desc     = bm_data.get('desc', '')
+                cur_odds = bm_data.get('current_odds')
+                odds_str = f'{cur_odds:.2f}' if cur_odds else '-'
                 bm_rows_html += f"""
-<tr style="background:{row_bg}">
-  <td style="color:#7788aa;font-size:.78rem;white-space:nowrap;padding:5px 8px">{bm}{"⚠" if h_outlier else ""}</td>
-  <td style="padding:5px 8px">{bm_seq_html(h_seq)}</td>
-  <td style="padding:5px 8px;text-align:center">{rec_badge(h_rec)}</td>
-  <td style="color:#1a2040;padding:5px 4px">│</td>
-  <td style="padding:5px 8px">{bm_seq_html(a_seq)}</td>
-  <td style="padding:5px 8px;text-align:center">{rec_badge(a_rec)}</td>
-  <td style="color:#445566;font-size:.72rem;padding:5px 8px;white-space:nowrap">{h_last} / {a_last}</td>
+<tr>
+  <td style="color:#7788aa;font-size:.78rem;white-space:nowrap;padding:5px 8px">{bm_name}</td>
+  <td style="padding:5px 8px">{bm_seq_html(seq_s)}</td>
+  <td style="padding:5px 8px;text-align:center">{rec_badge_bm(rec_v)}</td>
+  <td style="color:#556688;font-size:.72rem;padding:5px 8px">{desc}</td>
+  <td style="color:#7788aa;font-size:.72rem;padding:5px 8px;text-align:right">{odds_str}</td>
 </tr>"""
 
             st.markdown(f"""
 <div style="background:#080c18;border:1px solid #141830;border-radius:10px;padding:16px;margin-bottom:20px">
   <div style="font-size:.8rem;color:#556688;margin-bottom:10px;font-family:'Noto Sans KR',sans-serif;display:flex;justify-content:space-between;align-items:center">
-    <span>📊 <b style="color:#7799bb">북메이커별 배당변동 패턴</b> &nbsp;(1=해당팀 정배, 0=역배)</span>
-    <span>
-      <span style="color:{hm['color']}">{hm['abbr']} 정배예측 {h_v1}/{len(h_votes)}</span>
-      &nbsp;│&nbsp;
-      <span style="color:{am['color']}">{am['abbr']} 정배예측 {a_v1}/{len(a_votes)}</span>
-    </span>
+    <span>📊 <b style="color:#7799bb">슬롯{pred.get('slot','')} 날짜별 북메이커 배당변동</b> &nbsp;(1=홈배당↓, 0=홈배당↑)</span>
+    <span style="color:#aabbdd">홈배당하락 {v1}/{len(votes)}</span>
   </div>
   <table style="width:100%;border-collapse:collapse;font-size:.8rem">
     <thead>
       <tr style="border-bottom:1px solid #1a2040">
         <th style="text-align:left;color:#445566;padding:4px 8px;font-size:.72rem">북메이커</th>
-        <th colspan="2" style="color:{hm['color']};padding:4px 8px;font-size:.72rem">{hm['abbr']} 시퀀스 → 예측</th>
-        <th></th>
-        <th colspan="2" style="color:{am['color']};padding:4px 8px;font-size:.72rem">{am['abbr']} 시퀀스 → 예측</th>
-        <th style="color:#334455;padding:4px 8px;font-size:.72rem">배당(홈/원정)</th>
+        <th style="color:#7799bb;padding:4px 8px;font-size:.72rem">시퀀스</th>
+        <th style="color:#7799bb;padding:4px 8px;font-size:.72rem;text-align:center">예측</th>
+        <th style="color:#445566;padding:4px 8px;font-size:.72rem">패턴</th>
+        <th style="color:#445566;padding:4px 8px;font-size:.72rem;text-align:right">홈배당</th>
       </tr>
     </thead>
     <tbody>{bm_rows_html}</tbody>
