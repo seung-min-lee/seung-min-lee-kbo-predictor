@@ -393,7 +393,7 @@ else:
 
         table_rows = f"""
             <tr>
-              <td>배당변동<br><small style='color:#445'>북메이커별</small><br><small style='color:#334;font-size:.65rem'>1=상승&nbsp;0=하락</small></td>
+              <td>배당변동 예측<br><small style='color:#445'>북메이커별</small><br><small style='color:#334;font-size:.65rem'>1=상승&nbsp;0=하락</small></td>
               <td colspan="5">{render_seq(_bm_dir_seq) if _bm_dir_seq else '<span style="color:#445566">-</span>'}</td>
             </tr>"""
         for label, hs, hr, as_, ar in two_col_rows:

@@ -519,7 +519,8 @@ def get_slot_bm_odds_seqs(slot, before_date_order, seq_len=BM_SEQ_LEN):
 
     bm_data = df[df['match_id'].isin(match_ids)][
         ['match_id', 'bookmaker',
-         'home_open', 'home_close', 'away_open', 'away_close']
+         'home_open', 'home_close', 'home_direction',
+         'away_open', 'away_close', 'away_direction']
     ].copy()
 
     # 북메이커별 경기 데이터 인덱싱
@@ -532,8 +533,10 @@ def get_slot_bm_odds_seqs(slot, before_date_order, seq_len=BM_SEQ_LEN):
         bm_mid_map[bm][mid] = {
             'h_open':  None if pd.isna(r['home_open'])  else float(r['home_open']),
             'h_close': None if pd.isna(r['home_close']) else float(r['home_close']),
+            'h_dir':   None if pd.isna(r['home_direction']) else int(r['home_direction']),
             'a_open':  None if pd.isna(r['away_open'])  else float(r['away_open']),
             'a_close': None if pd.isna(r['away_close']) else float(r['away_close']),
+            'a_dir':   None if pd.isna(r['away_direction']) else int(r['away_direction']),
         }
 
     result = {}
@@ -555,29 +558,61 @@ def get_slot_bm_odds_seqs(slot, before_date_order, seq_len=BM_SEQ_LEN):
             e = mid_data[mid]
             h_open, h_close = e['h_open'], e['h_close']
             a_open, a_close = e['a_open'], e['a_close']
+            h_dir,  a_dir   = e['h_dir'],  e['a_dir']
 
-            if (h_open is None or h_close is None or
-                    a_open is None or a_close is None):
-                # 조건 1: open 데이터 없음
+            w_is_home = (wih is True or wih == 1)
+
+            # 변동값 계산 (open 없으면 None)
+            h_chg = round(h_close - h_open, 4) if (h_open is not None and h_close is not None) else None
+            a_chg = round(a_close - a_open, 4) if (a_open is not None and a_close is not None) else None
+
+            def dir_fallback():
+                nonlocal sig
+                if h_dir is not None and a_dir is not None:
+                    w_dir = h_dir if w_is_home else a_dir
+                    l_dir = a_dir if w_is_home else h_dir
+                    if w_dir != l_dir:
+                        sig = 1 if w_dir == 1 else 0
+                    elif h_close is not None and a_close is not None and h_close != a_close:
+                        w_close = h_close if w_is_home else a_close
+                        l_close = a_close if w_is_home else h_close
+                        sig = 1 if w_close > l_close else 0
+
+            if h_chg is None and a_chg is None:
+                # 양쪽 open 없음 → direction 폴백
+                dir_fallback()
                 all_seq.append(sig)
                 all_date_seq.append(date)
                 continue
 
-            h_chg = round(h_close - h_open, 4)
-            a_chg = round(a_close - a_open, 4)
+            if h_chg is None or a_chg is None:
+                # 한쪽 open 없음 → 알려진 chg vs 0 비교
+                known_chg = h_chg if h_chg is not None else a_chg
+                known_is_home = h_chg is not None
+                w_chg = known_chg if (known_is_home == w_is_home) else 0
+                l_chg = 0         if (known_is_home == w_is_home) else known_chg
+                if   w_chg > l_chg: sig = 1
+                elif w_chg < l_chg: sig = 0
+                else: dir_fallback()
+                all_seq.append(sig)
+                all_date_seq.append(date)
+                continue
 
             if h_chg == 0 and a_chg == 0:
-                # 조건 2: 양쪽 모두 변동 없음
+                # 양쪽 모두 변동 없음 → direction 폴백
+                dir_fallback()
                 all_seq.append(sig)
                 all_date_seq.append(date)
                 continue
 
-            w_chg = h_chg if (wih is True or wih == 1) else a_chg
-            l_chg = a_chg if (wih is True or wih == 1) else h_chg
+            w_chg = h_chg if w_is_home else a_chg
+            l_chg = a_chg if w_is_home else h_chg
 
             if   w_chg > l_chg: sig = 1
             elif w_chg < l_chg: sig = 0
-            # else: 조건 3 - 변동 동일 → N
+            else:
+                # 변동 동일 → direction 폴백
+                dir_fallback()
 
             all_seq.append(sig)
             all_date_seq.append(date)

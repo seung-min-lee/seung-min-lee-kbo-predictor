@@ -161,13 +161,18 @@ def get_match_urls(driver, stop_before=None):
             print(f'  페이지 이동 실패: {e}')
             break
 
-    # 날짜별 slot 재계산
+    # 날짜별 slot 재계산 (KBO 최대 5경기)
     date_counter = {}
+    valid_matches = []
     for m in all_matches:
         d = normalize_date(m['date'])
         date_counter[d] = date_counter.get(d, 0) + 1
+        if date_counter[d] > 5:
+            print(f'  경고: {d} slot{date_counter[d]} 초과 스킵 ({m["home"]} vs {m["away"]})')
+            continue
         m['slot'] = date_counter[d]
-    return all_matches
+        valid_matches.append(m)
+    return valid_matches
 
 def scrape_team_odds(driver, odds_el):
     """특정 팀 배당 클릭 후 open/close/direction/change 수집"""

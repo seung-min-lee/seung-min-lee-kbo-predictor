@@ -24,93 +24,93 @@
     "slot_fav_rec": 0,
     "slot_bm": {
       "10x10bet": {
-        "seq": "001001NNNNN",
+        "seq": "00100101001",
         "rec": 1,
-        "desc": "[001001] Mirror [0|1]",
+        "desc": "[00100101001] Mirror [0|1]",
         "current_odds": 1.95
       },
       "1xBet": {
-        "seq": "001001NNNNN",
+        "seq": "00100100100",
         "rec": 1,
-        "desc": "[001001] Mirror [0|1]",
+        "desc": "[00100100100] [001]×3 반복",
         "current_odds": 1.94
       },
       "22Bet": {
-        "seq": "001001NNNNN",
+        "seq": "00100100100",
         "rec": 1,
-        "desc": "[001001] Mirror [0|1]",
+        "desc": "[00100100100] [001]×3 반복",
         "current_odds": 1.89
       },
       "Alphabet": {
-        "seq": "001001NNNNN",
+        "seq": "0010010N001",
         "rec": 1,
-        "desc": "[001001] Mirror [0|1]",
+        "desc": "[0010010001] Mirror [0|1]",
         "current_odds": 1.95
       },
       "BetInAsia": {
-        "seq": "001001NNNNN",
+        "seq": "00100111101",
         "rec": 1,
-        "desc": "[001001] Mirror [0|1]",
+        "desc": "[00100111101] Mirror [0|1]",
         "current_odds": 1.92
       },
       "Bets.io": {
-        "seq": "001101NNNNN",
+        "seq": "0011010N101",
         "rec": 1,
-        "desc": "[001101] Mirror [0|1]",
+        "desc": "[0011010101] Mirror [0|1]",
         "current_odds": 1.86
       },
       "Cloudbet": {
-        "seq": "001001NNNNN",
+        "seq": "00100111NNN",
         "rec": 1,
-        "desc": "[001001] Mirror [0|1]",
+        "desc": "[00100111] 반접기[10|01] + 꼬리[11]=반복→1",
         "current_odds": 2.41
       },
       "GambleCity": {
-        "seq": "001N01NNNNN",
+        "seq": "001N0101001",
         "rec": 1,
-        "desc": "[00101] Mirror [0|1]",
+        "desc": "[0010101001] Mirror [0|1]",
         "current_odds": 1.89
       },
       "Kobet": {
-        "seq": "001NN1NNNNN",
-        "rec": 1,
-        "desc": "[0011] Mirror [00|11]",
+        "seq": "0011N110111",
+        "rec": 0,
+        "desc": "[0011110111] 반접기[00|11] + 꼬리[110111]=끝2연속1→0",
         "current_odds": 1.98
       },
       "Melbet": {
-        "seq": "001001NNNNN",
+        "seq": "00100100100",
         "rec": 1,
-        "desc": "[001001] Mirror [0|1]",
+        "desc": "[00100100100] [001]×3 반복",
         "current_odds": 1.89
       },
       "Momobet": {
-        "seq": "001101NNNNN",
+        "seq": "00110101001",
         "rec": 1,
-        "desc": "[001101] Mirror [0|1]",
+        "desc": "[00110101001] Mirror [0|1]",
         "current_odds": 1.95
       },
       "Roobet": {
-        "seq": "0000N1NNNNN",
-        "rec": 1,
-        "desc": "[00001] Mirror [0|1]",
+        "seq": "0000N100100",
+        "rec": 0,
+        "desc": "[0000100100] 반접기[10|01] + 꼬리[00]=반복→0",
         "current_odds": 1.94
       },
       "Stake.com": {
-        "seq": "00100NNNNNN",
+        "seq": "00100N00001",
         "rec": 1,
-        "desc": "[00100] 중간대칭[00100]→다음1",
+        "desc": "[0010000001] Mirror [0|1]",
         "current_odds": 2.0
       },
       "VOBET": {
-        "seq": "001001NNNNN",
+        "seq": "0010010N001",
         "rec": 1,
-        "desc": "[001001] Mirror [0|1]",
+        "desc": "[0010010001] Mirror [0|1]",
         "current_odds": 1.95
       },
       "bwin": {
-        "seq": "001001NNNNN",
-        "rec": 1,
-        "desc": "[001001] Mirror [0|1]",
+        "seq": "00100100N00",
+        "rec": 0,
+        "desc": "[0010010000] 반접기[10|01] + 꼬리[0000]=반복→0",
         "current_odds": 1.87
       }
     },
@@ -146,93 +146,93 @@
     "slot_fav_rec": 1,
     "slot_bm": {
       "10x10bet": {
-        "seq": "101N1NNNNNN",
+        "seq": "101N1N01010",
         "rec": 0,
-        "desc": "[1011] 중간대칭[11]→다음0",
+        "desc": "[101101010] Mirror [1|0]",
         "current_odds": 1.97
       },
       "1xBet": {
-        "seq": "101110NNNNN",
-        "rec": 0,
-        "desc": "[101110] Mirror [1|0]",
+        "seq": "10111000101",
+        "rec": 1,
+        "desc": "[10111000101] Mirror [0|1]",
         "current_odds": 1.97
       },
       "22Bet": {
-        "seq": "101110NNNNN",
+        "seq": "10111010111",
         "rec": 0,
-        "desc": "[101110] Mirror [1|0]",
+        "desc": "[10111010111] 중간대칭[111010111]→다음0",
         "current_odds": 1.92
       },
       "Alphabet": {
-        "seq": "101N10NNNNN",
+        "seq": "101N1001010",
         "rec": 0,
-        "desc": "[10110] Mirror [1|0]",
+        "desc": "[1011001010] Mirror [1|0]",
         "current_odds": 1.97
       },
       "BetInAsia": {
-        "seq": "101010NNNNN",
+        "seq": "10101001010",
         "rec": 0,
-        "desc": "[101010] Mirror [1|0]",
+        "desc": "[10101001010] Mirror [1|0]",
         "current_odds": 1.96
       },
       "Bets.io": {
-        "seq": "101110NNNNN",
+        "seq": "10111001010",
         "rec": 0,
-        "desc": "[101110] Mirror [1|0]",
+        "desc": "[10111001010] Mirror [1|0]",
         "current_odds": 1.88
       },
       "Cloudbet": {
-        "seq": "101010NNNNN",
-        "rec": 0,
-        "desc": "[101010] Mirror [1|0]",
+        "seq": "10101001NNN",
+        "rec": 1,
+        "desc": "[10101001] Mirror [0|1]",
         "current_odds": 1.52
       },
       "GambleCity": {
-        "seq": "101110NNNNN",
+        "seq": "10111001010",
         "rec": 0,
-        "desc": "[101110] Mirror [1|0]",
+        "desc": "[10111001010] Mirror [1|0]",
         "current_odds": 1.91
       },
       "Kobet": {
-        "seq": "110110NNNNN",
-        "rec": 0,
-        "desc": "[110110] Mirror [1|0]",
+        "seq": "11011000100",
+        "rec": 1,
+        "desc": "[11011000100] 반접기[01|10] + 꼬리[00100]=끝2연속0→1",
         "current_odds": 2.2
       },
       "Melbet": {
-        "seq": "101110NNNNN",
-        "rec": 0,
-        "desc": "[101110] Mirror [1|0]",
+        "seq": "10111010101",
+        "rec": 1,
+        "desc": "[10111010101] Mirror [0|1]",
         "current_odds": 1.92
       },
       "Momobet": {
-        "seq": "101110NNNNN",
+        "seq": "10111001010",
         "rec": 0,
-        "desc": "[101110] Mirror [1|0]",
+        "desc": "[10111001010] Mirror [1|0]",
         "current_odds": 1.97
       },
       "Roobet": {
-        "seq": "111110NNNNN",
-        "rec": 0,
-        "desc": "[111110] Mirror [1|0]",
+        "seq": "11111001111",
+        "rec": 1,
+        "desc": "[11111001111] 반접기[11|00] + 꼬리[1111]=반복→1",
         "current_odds": 1.94
       },
       "Stake.com": {
-        "seq": "N01010NNNNN",
-        "rec": 0,
-        "desc": "[01010] Mirror [1|0]",
+        "seq": "N0101000111",
+        "rec": 1,
+        "desc": "[0101000111] Mirror [000|111]",
         "current_odds": 1.97
       },
       "VOBET": {
-        "seq": "101N10NNNNN",
+        "seq": "101N1001010",
         "rec": 0,
-        "desc": "[10110] Mirror [1|0]",
+        "desc": "[1011001010] Mirror [1|0]",
         "current_odds": 1.97
       },
       "bwin": {
-        "seq": "NNN01NNNNNN",
-        "rec": null,
-        "desc": "데이터 부족",
+        "seq": "NNN01N00001",
+        "rec": 1,
+        "desc": "[0100001] Mirror [0|1]",
         "current_odds": 1.9
       }
     },
@@ -268,93 +268,93 @@
     "slot_fav_rec": 0,
     "slot_bm": {
       "10x10bet": {
-        "seq": "N001100NNNN",
-        "rec": 0,
-        "desc": "[001100] Mirror [11|00]",
+        "seq": "N0011001000",
+        "rec": 1,
+        "desc": "[0011001000] 반접기[00|11] + 꼬리[001000]=끝2연속0→1",
         "current_odds": 1.64
       },
       "1xBet": {
-        "seq": "000110NNNNN",
+        "seq": "000110N1110",
         "rec": 0,
-        "desc": "[000110] Mirror [1|0]",
+        "desc": "[0001101110] Mirror [1|0]",
         "current_odds": 1.67
       },
       "22Bet": {
-        "seq": "0001100NNNN",
+        "seq": "00011001110",
         "rec": 0,
-        "desc": "[0001100] Mirror [11|00]",
+        "desc": "[00011001110] Mirror [1|0]",
         "current_odds": 1.63
       },
       "Alphabet": {
-        "seq": "N001100NNNN",
-        "rec": 0,
-        "desc": "[001100] Mirror [11|00]",
+        "seq": "N0011001000",
+        "rec": 1,
+        "desc": "[0011001000] 반접기[00|11] + 꼬리[001000]=끝2연속0→1",
         "current_odds": 1.64
       },
       "BetInAsia": {
-        "seq": "0001100NNNN",
-        "rec": 0,
-        "desc": "[0001100] Mirror [11|00]",
+        "seq": "00011001001",
+        "rec": 1,
+        "desc": "[00011001001] Mirror [0|1]",
         "current_odds": 1.64
       },
       "Bets.io": {
-        "seq": "0000N00NNNN",
-        "rec": 0,
-        "desc": "[000000] [0]×6 반복",
+        "seq": "0000N001000",
+        "rec": 1,
+        "desc": "[0000001000] 중간대칭[0001000]→다음1",
         "current_odds": 1.58
       },
       "Cloudbet": {
-        "seq": "0001100NNNN",
-        "rec": 0,
-        "desc": "[0001100] Mirror [11|00]",
+        "seq": "000110011NN",
+        "rec": 1,
+        "desc": "[000110011] Mirror [00|11]",
         "current_odds": 1.51
       },
       "GambleCity": {
-        "seq": "0001100NNNN",
-        "rec": 0,
-        "desc": "[0001100] Mirror [11|00]",
+        "seq": "00011001000",
+        "rec": 1,
+        "desc": "[00011001000] 반접기[00|11] + 꼬리[001000]=끝2연속0→1",
         "current_odds": 1.6
       },
       "Kobet": {
-        "seq": "0001100NNNN",
-        "rec": 0,
-        "desc": "[0001100] Mirror [11|00]",
+        "seq": "00011000111",
+        "rec": 1,
+        "desc": "[00011000111] Mirror [000|111]",
         "current_odds": 1.68
       },
       "Melbet": {
-        "seq": "0001100NNNN",
+        "seq": "00011001110",
         "rec": 0,
-        "desc": "[0001100] Mirror [11|00]",
+        "desc": "[00011001110] Mirror [1|0]",
         "current_odds": 1.63
       },
       "Momobet": {
-        "seq": "N001100NNNN",
-        "rec": 0,
-        "desc": "[001100] Mirror [11|00]",
+        "seq": "N0011001000",
+        "rec": 1,
+        "desc": "[0011001000] 반접기[00|11] + 꼬리[001000]=끝2연속0→1",
         "current_odds": 1.64
       },
       "Roobet": {
-        "seq": "0000100NNNN",
+        "seq": "00001001101",
         "rec": 1,
-        "desc": "[0000100] 중간대칭[00100]→다음1",
+        "desc": "[00001001101] Mirror [0|1]",
         "current_odds": 1.84
       },
       "Stake.com": {
-        "seq": "0000100NNNN",
-        "rec": 1,
-        "desc": "[0000100] 중간대칭[00100]→다음1",
+        "seq": "00001001100",
+        "rec": 0,
+        "desc": "[00001001100] Mirror [11|00]",
         "current_odds": 1.65
       },
       "VOBET": {
-        "seq": "N001100NNNN",
-        "rec": 0,
-        "desc": "[001100] Mirror [11|00]",
+        "seq": "N0011001000",
+        "rec": 1,
+        "desc": "[0011001000] 반접기[00|11] + 꼬리[001000]=끝2연속0→1",
         "current_odds": 1.64
       },
       "bwin": {
-        "seq": "1001N0NNNNN",
+        "seq": "1001N0NN1N0",
         "rec": 0,
-        "desc": "[10010] Mirror [1|0]",
+        "desc": "[1001010] Mirror [1|0]",
         "current_odds": 1.7
       }
     },
@@ -390,93 +390,93 @@
     "slot_fav_rec": 1,
     "slot_bm": {
       "10x10bet": {
-        "seq": "111001NNNNN",
+        "seq": "11100110011",
         "rec": 1,
-        "desc": "[111001] Mirror [0|1]",
+        "desc": "[11100110011] Mirror [00|11]",
         "current_odds": 2.65
       },
       "1xBet": {
-        "seq": "011001NNNNN",
-        "rec": 1,
-        "desc": "[011001] Mirror [0|1]",
+        "seq": "01100100111",
+        "rec": 0,
+        "desc": "[01100100111] 반접기[01|10] + 꼬리[0100111]=끝2연속1→0",
         "current_odds": 2.6
       },
       "22Bet": {
-        "seq": "011001NNNNN",
-        "rec": 1,
-        "desc": "[011001] Mirror [0|1]",
+        "seq": "01100100111",
+        "rec": 0,
+        "desc": "[01100100111] 반접기[01|10] + 꼬리[0100111]=끝2연속1→0",
         "current_odds": 2.53
       },
       "Alphabet": {
-        "seq": "111001NNNNN",
+        "seq": "11100111111",
         "rec": 1,
-        "desc": "[111001] Mirror [0|1]",
+        "desc": "[11100111111] 반접기[11|00] + 꼬리[111111]=반복→1",
         "current_odds": 2.65
       },
       "BetInAsia": {
-        "seq": "011001NNNNN",
-        "rec": 1,
-        "desc": "[011001] Mirror [0|1]",
+        "seq": "01100100111",
+        "rec": 0,
+        "desc": "[01100100111] 반접기[01|10] + 꼬리[0100111]=끝2연속1→0",
         "current_odds": 2.62
       },
       "Bets.io": {
-        "seq": "1N1001NNNNN",
+        "seq": "1N100110011",
         "rec": 1,
-        "desc": "[11001] Mirror [0|1]",
+        "desc": "[1100110011] Mirror [00|11]",
         "current_odds": 2.45
       },
       "Cloudbet": {
-        "seq": "011001NNNNN",
-        "rec": 1,
-        "desc": "[011001] Mirror [0|1]",
+        "seq": "01100110NNN",
+        "rec": 0,
+        "desc": "[01100110] Mirror [1|0]",
         "current_odds": 3.29
       },
       "GambleCity": {
-        "seq": "1N1001NNNNN",
+        "seq": "1N100110011",
         "rec": 1,
-        "desc": "[11001] Mirror [0|1]",
+        "desc": "[1100110011] Mirror [00|11]",
         "current_odds": 2.51
       },
       "Kobet": {
-        "seq": "N010N1NNNNN",
-        "rec": 1,
-        "desc": "[0101] Mirror [0|1]",
+        "seq": "0010N110010",
+        "rec": 0,
+        "desc": "[0010110010] Mirror [1|0]",
         "current_odds": 2.27
       },
       "Melbet": {
-        "seq": "011001NNNNN",
-        "rec": 1,
-        "desc": "[011001] Mirror [0|1]",
+        "seq": "01100100111",
+        "rec": 0,
+        "desc": "[01100100111] 반접기[01|10] + 꼬리[0100111]=끝2연속1→0",
         "current_odds": 2.53
       },
       "Momobet": {
-        "seq": "111001NNNNN",
-        "rec": 1,
-        "desc": "[111001] Mirror [0|1]",
+        "seq": "11100110111",
+        "rec": 0,
+        "desc": "[11100110111] 반접기[11|00] + 꼬리[110111]=끝2연속1→0",
         "current_odds": 2.65
       },
       "Roobet": {
-        "seq": "011001NNNNN",
+        "seq": "011001N1001",
         "rec": 1,
-        "desc": "[011001] Mirror [0|1]",
+        "desc": "[0110011001] Mirror [0|1]",
         "current_odds": 2.3
       },
       "Stake.com": {
-        "seq": "N11001NNNNN",
-        "rec": 1,
-        "desc": "[11001] Mirror [0|1]",
+        "seq": "N1100110110",
+        "rec": 0,
+        "desc": "[1100110110] Mirror [1|0]",
         "current_odds": 2.45
       },
       "VOBET": {
-        "seq": "111001NNNNN",
-        "rec": 1,
-        "desc": "[111001] Mirror [0|1]",
+        "seq": "11100111011",
+        "rec": 0,
+        "desc": "[11100111011] 반접기[11|00] + 꼬리[111011]=끝2연속1→0",
         "current_odds": 2.65
       },
       "bwin": {
-        "seq": "101001NNNNN",
+        "seq": "1010011N0N1",
         "rec": 1,
-        "desc": "[101001] Mirror [0|1]",
+        "desc": "[101001101] Mirror [0|1]",
         "current_odds": 2.5
       }
     },
@@ -508,97 +508,97 @@
     "away_agr_rec": 1,
     "away_fav_rec": 1,
     "away_win_rec": 1,
-    "slot_fav_win": "1010010100",
+    "slot_fav_win": "0100101000",
     "slot_fav_rec": 1,
     "slot_bm": {
       "10x10bet": {
-        "seq": "0010110NNNN",
-        "rec": 0,
-        "desc": "[0010110] Mirror [1|0]",
+        "seq": "01011001000",
+        "rec": 1,
+        "desc": "[01011001000] 반접기[01|10] + 꼬리[01000]=끝2연속0→1",
         "current_odds": 1.65
       },
       "1xBet": {
-        "seq": "00100N0NNNN",
-        "rec": 0,
-        "desc": "[001000] 중간대칭[010] + 꼬리[00]=반복→0",
+        "seq": "0100N001011",
+        "rec": 1,
+        "desc": "[0100001011] 중간대칭[01000010] + 꼬리[11]=반복→1",
         "current_odds": 1.68
       },
       "22Bet": {
-        "seq": "0010010NNNN",
-        "rec": 0,
-        "desc": "[0010010] Mirror [1|0]",
+        "seq": "01001001011",
+        "rec": 1,
+        "desc": "[01001001011] Mirror [0100|1011]",
         "current_odds": 1.63
       },
       "Alphabet": {
-        "seq": "0010110NNNN",
+        "seq": "01011000000",
         "rec": 0,
-        "desc": "[0010110] Mirror [1|0]",
+        "desc": "[01011000000] 반접기[01|10] + 꼬리[00000]=반복→0",
         "current_odds": 1.65
       },
       "BetInAsia": {
-        "seq": "0010000NNNN",
-        "rec": 0,
-        "desc": "[0010000] 중간대칭[00100] + 꼬리[00]=반복→0",
+        "seq": "01000011101",
+        "rec": 1,
+        "desc": "[01000011101] Mirror [0|1]",
         "current_odds": 1.63
       },
       "Bets.io": {
-        "seq": "00N0N10NNNN",
-        "rec": 0,
-        "desc": "[00010] Mirror [1|0]",
+        "seq": "0N011001000",
+        "rec": 1,
+        "desc": "[0011001000] 반접기[00|11] + 꼬리[001000]=끝2연속0→1",
         "current_odds": 1.59
       },
       "Cloudbet": {
-        "seq": "0010000NNNN",
-        "rec": 0,
-        "desc": "[0010000] 중간대칭[00100] + 꼬리[00]=반복→0",
+        "seq": "01000001NNN",
+        "rec": 1,
+        "desc": "[01000001] Mirror [0|1]",
         "current_odds": 2.2
       },
       "GambleCity": {
-        "seq": "0N100N0NNNN",
-        "rec": 0,
-        "desc": "[01000] 중간대칭[010] + 꼬리[00]=반복→0",
+        "seq": "N100N001000",
+        "rec": 1,
+        "desc": "[100001000] 중간대칭[0001000]→다음1",
         "current_odds": 1.61
       },
       "Kobet": {
-        "seq": "0000N10NNNN",
+        "seq": "000N1010010",
         "rec": 0,
-        "desc": "[000010] Mirror [1|0]",
+        "desc": "[0001010010] Mirror [1|0]",
         "current_odds": 1.74
       },
       "Melbet": {
-        "seq": "0010010NNNN",
-        "rec": 0,
-        "desc": "[0010010] Mirror [1|0]",
+        "seq": "01001001011",
+        "rec": 1,
+        "desc": "[01001001011] Mirror [0100|1011]",
         "current_odds": 1.63
       },
       "Momobet": {
-        "seq": "0010111NNNN",
-        "rec": 1,
-        "desc": "[0010111] 중간대칭[010] + 꼬리[111]=반복→1",
+        "seq": "01011101000",
+        "rec": 0,
+        "desc": "[01011101000] Mirror [10111|01000]",
         "current_odds": 1.65
       },
       "Roobet": {
-        "seq": "00NNN10NNNN",
-        "rec": 0,
-        "desc": "[0010] Mirror [1|0]",
+        "seq": "0NNN1000001",
+        "rec": 1,
+        "desc": "[01000001] Mirror [0|1]",
         "current_odds": 1.63
       },
       "Stake.com": {
-        "seq": "00100N1NNNN",
+        "seq": "0100N111001",
         "rec": 1,
-        "desc": "[001001] Mirror [0|1]",
+        "desc": "[0100111001] Mirror [0|1]",
         "current_odds": 1.6
       },
       "VOBET": {
-        "seq": "0010110NNNN",
+        "seq": "01011000000",
         "rec": 0,
-        "desc": "[0010110] Mirror [1|0]",
+        "desc": "[01011000000] 반접기[01|10] + 꼬리[00000]=반복→0",
         "current_odds": 1.65
       },
       "bwin": {
-        "seq": "0NN000NNNNN",
-        "rec": 0,
-        "desc": "[0000] [0]×4 반복",
+        "seq": "NN000N1N1N1",
+        "rec": 1,
+        "desc": "[000111] Mirror [000|111]",
         "current_odds": 1.6
       }
     },
