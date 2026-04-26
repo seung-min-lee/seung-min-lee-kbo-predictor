@@ -380,14 +380,22 @@ else:
 
         # 시퀀스 데이터
         two_col_rows = [
-            ("배당변동<br><small style='color:#445'>다수결</small>",
-                              pred.get('home_direction',''), pred.get('home_dir_rec'),
-                              pred.get('away_direction',''), pred.get('away_dir_rec')),
             ("팀&nbsp;승패",  pred.get('home_team_win',''),  pred.get('home_win_rec'),
                               pred.get('away_team_win',''),  pred.get('away_win_rec')),
         ]
 
-        table_rows = ''
+        # 슬롯별 북메이커 개별 배당변동 시퀀스 (1=배당↑, 0=배당↓)
+        _slot_bm = pred.get('slot_bm', {})
+        _bm_dir_seq = ''.join(
+            str(v['rec']) if v['rec'] is not None else 'N'
+            for _bm, v in sorted(_slot_bm.items())
+        ) if _slot_bm else ''
+
+        table_rows = f"""
+            <tr>
+              <td>배당변동<br><small style='color:#445'>북메이커별</small><br><small style='color:#334;font-size:.65rem'>1=상승&nbsp;0=하락</small></td>
+              <td colspan="5">{render_seq(_bm_dir_seq) if _bm_dir_seq else '<span style="color:#445566">-</span>'}</td>
+            </tr>"""
         for label, hs, hr, as_, ar in two_col_rows:
             table_rows += f"""
             <tr>
@@ -519,8 +527,9 @@ else:
 
         if slot_bm:
             def bm_seq_html(seq_s):
+                s = str(seq_s)
                 out = ''
-                for ch in str(seq_s):
+                for ch in s:
                     if ch == '1':
                         out += f'<span style="color:#44ddaa;font-weight:700">{ch}</span>'
                     elif ch == '0':
@@ -533,13 +542,22 @@ else:
 
             def rec_badge_bm(rec):
                 if rec is None:
-                    return '<span style="color:#445566">?</span>'
+                    return ''
                 if rec == 1:
-                    return '<span style="color:#44ddaa;font-weight:900">▲1</span>'
-                return '<span style="color:#ff4466;font-weight:900">▼0</span>'
+                    return '<span style="color:#44ddaa;font-weight:900;font-size:.7rem">▲1 배당↑팀 이김 예측</span>'
+                return '<span style="color:#ff4466;font-weight:900;font-size:.7rem">▼0 배당↓팀 이김 예측</span>'
 
             votes = [v['rec'] for v in slot_bm.values() if v['rec'] is not None]
             v1 = sum(votes)
+            v0 = len(votes) - v1
+
+            # 집계 텍스트: 우세한 방향 기준
+            if v1 > v0:
+                trend_txt = f'<span style="color:#44ddaa">배당↑(1) 우세 {v1}개</span> / <span style="color:#556688">배당↓(0) {v0}개</span>'
+            elif v0 > v1:
+                trend_txt = f'<span style="color:#556688">배당↑(1) {v1}개</span> / <span style="color:#ff4466">배당↓(0) 우세 {v0}개</span>'
+            else:
+                trend_txt = f'<span style="color:#7788aa">배당↑(1) {v1}개 / 배당↓(0) {v0}개 동률</span>'
 
             bm_rows_html = ''
             for bm_name, bm_data in sorted(slot_bm.items()):
@@ -548,27 +566,31 @@ else:
                 desc     = bm_data.get('desc', '')
                 cur_odds = bm_data.get('current_odds')
                 odds_str = f'{cur_odds:.2f}' if cur_odds else '-'
+                badge    = rec_badge_bm(rec_v)
+                # 예측 배지를 시퀀스 위에 표시
+                seq_cell = f'<div style="line-height:1.6">{badge}<br>{bm_seq_html(seq_s)}</div>' if badge else bm_seq_html(seq_s)
                 bm_rows_html += f"""
 <tr>
   <td style="color:#7788aa;font-size:.78rem;white-space:nowrap;padding:5px 8px">{bm_name}</td>
-  <td style="padding:5px 8px">{bm_seq_html(seq_s)}</td>
-  <td style="padding:5px 8px;text-align:center">{rec_badge_bm(rec_v)}</td>
+  <td style="padding:5px 8px">{seq_cell}</td>
   <td style="color:#556688;font-size:.72rem;padding:5px 8px">{desc}</td>
   <td style="color:#7788aa;font-size:.72rem;padding:5px 8px;text-align:right">{odds_str}</td>
 </tr>"""
 
             st.markdown(f"""
 <div style="background:#080c18;border:1px solid #141830;border-radius:10px;padding:16px;margin-bottom:20px">
-  <div style="font-size:.8rem;color:#556688;margin-bottom:10px;font-family:'Noto Sans KR',sans-serif;display:flex;justify-content:space-between;align-items:center">
-    <span>📊 <b style="color:#7799bb">슬롯{pred.get('slot','')} 날짜별 북메이커 배당변동</b> &nbsp;(1=배당↑, 0=배당↓)</span>
-    <span style="color:#aabbdd">홈배당하락 {v1}/{len(votes)}</span>
+  <div style="font-size:.8rem;color:#556688;margin-bottom:6px;font-family:'Noto Sans KR',sans-serif;display:flex;justify-content:space-between;align-items:center">
+    <span>📊 <b style="color:#7799bb">슬롯{pred.get('slot','')} 날짜별 북메이커 배당변동</b></span>
+    <span>{trend_txt}</span>
+  </div>
+  <div style="font-size:.68rem;color:#334455;margin-bottom:10px">
+    1 = 이긴 팀 배당변동이 진 팀보다 컸음(상승) &nbsp;|&nbsp; 0 = 이긴 팀 배당변동이 진 팀보다 작았음(하락)
   </div>
   <table style="width:100%;border-collapse:collapse;font-size:.8rem">
     <thead>
       <tr style="border-bottom:1px solid #1a2040">
         <th style="text-align:left;color:#445566;padding:4px 8px;font-size:.72rem">북메이커</th>
-        <th style="color:#7799bb;padding:4px 8px;font-size:.72rem">시퀀스</th>
-        <th style="color:#7799bb;padding:4px 8px;font-size:.72rem;text-align:center">예측</th>
+        <th style="color:#7799bb;padding:4px 8px;font-size:.72rem">예측 &amp; 시퀀스</th>
         <th style="color:#445566;padding:4px 8px;font-size:.72rem">패턴</th>
         <th style="color:#445566;padding:4px 8px;font-size:.72rem;text-align:right">홈배당</th>
       </tr>

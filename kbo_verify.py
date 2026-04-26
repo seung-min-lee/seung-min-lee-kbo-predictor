@@ -38,45 +38,36 @@ print('='*60)
 new_rows = []
 
 for key, pred in predictions.items():
-    slot = pred['slot']
-    rec  = pred['recommendation']
+    slot      = pred['slot']
+    rec       = pred['recommendation']
+    pred_date = pred.get('pred_date', '')
 
     if rec == 'PASS':
         continue
     if pred.get('verified'):
         continue
+    if not pred_date:
+        print(f'[SLOT {slot}] pred_date 없음 → 스킵')
+        continue
 
     # 예측 값 (1=홈승, 0=원정승)
     pred_val = 1 if rec == 'HOME(1)' else 0
 
-    # CSV에서 해당 슬롯의 가장 최신 경기 결과 찾기
-    slot_df = df[df['slot'] == slot].copy()
-    if len(slot_df) == 0:
-        print(f'[SLOT {slot}] 데이터 없음 → 스킵')
-        continue
-
-    # 예측 당시 마지막 날짜보다 이후 경기 (새로 추가된 경기)
-    # predictions에 저장된 consensus_seq 길이 = 예측 당시 경기 수
-    pred_game_count = len(pred.get('consensus_seq', []))
-    dates_sorted = sorted(slot_df['date_order'].unique())
-
-    # 예측 당시보다 새로운 날짜가 있는지 확인
-    if len(dates_sorted) <= pred_game_count:
-        print(f'[SLOT {slot}] 아직 결과 없음 (현재 {len(dates_sorted)}경기, 예측시 {pred_game_count}경기)')
-        continue
-
-    # 예측 대상: pred_game_count번째 날짜 (0-indexed)
-    target_date_order = dates_sorted[pred_game_count]
-    target_df = slot_df[slot_df['date_order'] == target_date_order]
+    # pred_date + slot 기준으로 결과 경기 찾기
+    target_df = df[(df['slot'] == slot) & (df['date'] == pred_date)].copy()
 
     if len(target_df) == 0:
-        print(f'[SLOT {slot}] 대상 경기 데이터 없음')
+        print(f'[SLOT {slot}] {pred_date} 결과 없음 (아직 경기 미완료)')
         continue
 
     target = target_df.iloc[0]
     home   = target['home']
     away   = target['away']
     winner = target['winner']
+
+    if pd.isna(winner):
+        print(f'[SLOT {slot}] {pred_date} {home} vs {away} 결과 미입력')
+        continue
 
     # 실제 결과
     actual_val = 1 if winner == home else 0
@@ -95,7 +86,7 @@ for key, pred in predictions.items():
     pred['correct']   = correct
 
     new_rows.append({
-        'date':          datetime.now().strftime('%Y-%m-%d'),
+        'date':          str(target['date']),
         'slot':          slot,
         'home':          home,
         'away':          away,

@@ -494,83 +494,109 @@ def get_bm_odds_seqs(team, before_date_order, window=WINDOW):
 
 def get_slot_bm_odds_seqs(slot, before_date_order, seq_len=BM_SEQ_LEN):
     """슬롯(N번째 경기) 기준 날짜별 북메이커 배당 변동 시퀀스
-    동일 홈팀+원정팀 연속 전환만 유효로 인정, seq_len개 추출
+
+    신호 추출 (북메이커별):
+      winner_change = home_close-home_open  if 홈승 else away_close-away_open
+      loser_change  = 반대편
+      · winner_change > loser_change → 1
+      · winner_change < loser_change → 0
+      · 그 외(동일값 / open없음 / 둘다변동없음 / 북메이커누락) → N
+
+    N 조건:
+      1. open 데이터 없음 (해당 경기에 open 미수집)
+      2. 홈/원정 둘 다 open==close (양쪽 모두 변동 없음)
+      3. winner_change == loser_change (변동 동일)
+      4. 해당 경기에 북메이커 데이터 자체 없음
     """
     mask = (game_df['slot'] == slot) & (game_df['date_order'] < before_date_order)
-    # 전체 이력 수집 (많은 데이터에서 seq_len개 유효 전환 확보)
     all_games = game_df[mask].sort_values('date_order')
-    if len(all_games) < 2:
+    if len(all_games) < 1:
         return {}
 
-    match_ids = all_games['match_id'].tolist()
-    dates_map = all_games.set_index('match_id')['date'].to_dict()
-    mid_order = {mid: i for i, mid in enumerate(match_ids)}
+    match_ids       = all_games['match_id'].tolist()
+    dates_map       = all_games.set_index('match_id')['date'].to_dict()
+    winner_home_map = all_games.set_index('match_id')['winner_is_home'].to_dict()
 
     bm_data = df[df['match_id'].isin(match_ids)][
-        ['match_id', 'bookmaker', 'home', 'away', 'home_close', 'away_close']
+        ['match_id', 'bookmaker',
+         'home_open', 'home_close', 'away_open', 'away_close']
     ].copy()
 
-    home_map = all_games.set_index('match_id')['home'].to_dict()
-    away_map = all_games.set_index('match_id')['away'].to_dict()
-
-    raw = {}
+    # 북메이커별 경기 데이터 인덱싱
+    bm_mid_map = {}
     for _, r in bm_data.iterrows():
         bm  = r['bookmaker']
         mid = r['match_id']
-        if bm not in raw:
-            raw[bm] = []
-        raw[bm].append({
-            'mid':       mid,
-            'date':      dates_map.get(mid, ''),
-            'home':      home_map.get(mid, ''),
-            'away':      away_map.get(mid, ''),
-            'home_odds': round(float(r['home_close']), 2),
-            'away_odds': round(float(r['away_close']), 2),
-            'order':     mid_order.get(mid, 99),
-        })
+        if bm not in bm_mid_map:
+            bm_mid_map[bm] = {}
+        bm_mid_map[bm][mid] = {
+            'h_open':  None if pd.isna(r['home_open'])  else float(r['home_open']),
+            'h_close': None if pd.isna(r['home_close']) else float(r['home_close']),
+            'a_open':  None if pd.isna(r['away_open'])  else float(r['away_open']),
+            'a_close': None if pd.isna(r['away_close']) else float(r['away_close']),
+        }
 
     result = {}
-    for bm, entries in raw.items():
-        entries.sort(key=lambda x: x['order'])
-        if len(entries) < 2:
-            continue
+    for bm, mid_data in bm_mid_map.items():
         all_seq      = []
         all_date_seq = []
-        all_odds_seq = []
-        all_prev_seq = []
-        for i in range(1, len(entries)):
-            # 홈팀 또는 원정팀이 다른 구간은 비교 무의미 → 스킵
-            if (entries[i]['home'] != entries[i-1]['home'] or
-                    entries[i]['away'] != entries[i-1]['away']):
-                continue
-            home_chg = round(entries[i]['home_odds'] - entries[i-1]['home_odds'], 4)
-            away_chg = round(entries[i]['away_odds'] - entries[i-1]['away_odds'], 4)
-            if home_chg == away_chg:
-                all_seq.append('N')
-            elif home_chg > away_chg:
-                all_seq.append(1)
-            else:
-                all_seq.append(0)
-            all_date_seq.append(entries[i]['date'])
-            all_odds_seq.append(entries[i]['home_odds'])
-            all_prev_seq.append(entries[i-1]['home_odds'])
 
-        non_n = [x for x in all_seq if x != 'N']
-        if not non_n:
+        for mid in match_ids:
+            date = dates_map.get(mid, '')
+            wih  = winner_home_map.get(mid)
+            sig  = 'N'
+
+            if mid not in mid_data:
+                # 조건 4: 해당 경기에 북메이커 데이터 없음
+                all_seq.append(sig)
+                all_date_seq.append(date)
+                continue
+
+            e = mid_data[mid]
+            h_open, h_close = e['h_open'], e['h_close']
+            a_open, a_close = e['a_open'], e['a_close']
+
+            if (h_open is None or h_close is None or
+                    a_open is None or a_close is None):
+                # 조건 1: open 데이터 없음
+                all_seq.append(sig)
+                all_date_seq.append(date)
+                continue
+
+            h_chg = round(h_close - h_open, 4)
+            a_chg = round(a_close - a_open, 4)
+
+            if h_chg == 0 and a_chg == 0:
+                # 조건 2: 양쪽 모두 변동 없음
+                all_seq.append(sig)
+                all_date_seq.append(date)
+                continue
+
+            w_chg = h_chg if (wih is True or wih == 1) else a_chg
+            l_chg = a_chg if (wih is True or wih == 1) else h_chg
+
+            if   w_chg > l_chg: sig = 1
+            elif w_chg < l_chg: sig = 0
+            # else: 조건 3 - 변동 동일 → N
+
+            all_seq.append(sig)
+            all_date_seq.append(date)
+
+        if not any(x != 'N' for x in all_seq):
             continue
 
-        # 최근 seq_len개만 사용
         seq      = all_seq[-seq_len:]
         date_seq = all_date_seq[-seq_len:]
-        odds_seq = all_odds_seq[-seq_len:]
-        prev_seq = all_prev_seq[-seq_len:]
+        current  = next(
+            (mid_data[mid]['h_close'] for mid in reversed(match_ids)
+             if mid in mid_data and mid_data[mid]['h_close'] is not None),
+            None
+        )
 
         result[bm] = {
             'seq':          seq,
-            'odds':         odds_seq,
-            'prev_odds':    prev_seq,
             'dates':        date_seq,
-            'current_odds': entries[-1]['home_odds'],
+            'current_odds': current,
         }
     return result
 
@@ -580,7 +606,6 @@ def analyze_slot_bm_seqs(slot, before_date_order):
     results = []
     for bm, data in sorted(bm_seqs.items()):
         seq = data['seq']
-        # N 제외한 순수 0/1 시퀀스로 패턴 분석
         seq_clean = [x for x in seq if x != 'N']
         rec, desc = pat_rec(seq_clean)
         results.append({
@@ -588,8 +613,6 @@ def analyze_slot_bm_seqs(slot, before_date_order):
             'seq':          seq,
             'rec':          rec,
             'desc':         desc,
-            'odds':         data.get('odds', []),
-            'prev_odds':    data.get('prev_odds', []),
             'dates':        data['dates'],
             'current_odds': data['current_odds'],
         })
@@ -867,15 +890,8 @@ for i, game in enumerate(upcoming_games):
         s   = seq_str(entry['seq'])
         rec = entry['rec']
         rec_sym = f'→{rec}' if rec is not None else '→?'
-        # 날짜 레이블 + 배당값 흐름 (prev→curr)
         dates_short = [d[-5:] if len(d) >= 5 else d for d in entry['dates']]
-        odds_list  = entry.get('odds', [])
-        prev_list  = entry.get('prev_odds', [])
-        date_flow = ' '.join(
-            f'{dates_short[j]}:{prev_list[j]:.2f}→{odds_list[j]:.2f}'
-            if j < len(dates_short) else ''
-            for j in range(len(entry['seq']))
-        )
+        date_flow = ' '.join(dates_short)
         print(f'  {entry["bm"]:<16} [{s}]{rec_sym:<4} {date_flow}')
         slot_bm_results[entry['bm']] = {
             'seq': s, 'rec': rec, 'desc': entry['desc'],
@@ -885,7 +901,7 @@ for i, game in enumerate(upcoming_games):
     s_recs = [e['rec'] for e in slot_bm_analyses if e['rec'] is not None]
     if s_recs:
         sv1 = sum(s_recs); sv0 = len(s_recs) - sv1
-        print(f'\n  → 슬롯{slot} 집계: 홈배당하락(1) {sv1}개 / 홈배당상승(0) {sv0}개 (총 {len(s_recs)}개)')
+        print(f'\n  → 슬롯{slot} 집계: 배당↑(1) {sv1}개 / 배당↓(0) {sv0}개 (총 {len(s_recs)}개)')
 
     predictions[f'slot_{slot}'] = {
         'slot':            slot,

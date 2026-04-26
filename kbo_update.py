@@ -43,57 +43,131 @@ def get_driver():
         driver = webdriver.Chrome(
             service=Service('/usr/bin/chromedriver'), options=options)
     else:
-        from webdriver_manager.chrome import ChromeDriverManager
         from selenium.webdriver.chrome.service import Service
-        driver = webdriver.Chrome(
-            service=Service(ChromeDriverManager().install()), options=options)
+        import glob as _glob, os as _os
+        _cached = _glob.glob(_os.path.join(_os.path.expanduser('~'), '.wdm', 'drivers',
+                             'chromedriver', '**', 'chromedriver.exe'), recursive=True)
+        if _cached:
+            _driver_path = sorted(_cached)[-1]
+        else:
+            from webdriver_manager.chrome import ChromeDriverManager
+            _driver_path = ChromeDriverManager().install()
+        driver = webdriver.Chrome(service=Service(_driver_path), options=options)
 
     driver.execute_script(
         "Object.defineProperty(navigator,'webdriver',{get:()=>undefined})")
     return driver
 
-def get_match_urls(driver):
+SCRAPE_FROM = '2026-03-28'  # 정규시즌 시작일
+
+JS_EXTRACT = """
+    const results=[], seen=new Set();
+    let currentDate='';
+    document.querySelectorAll('div.eventRow').forEach(row=>{
+        const dateEl=row.querySelector('[data-testid="date-header"]');
+        if(dateEl&&dateEl.innerText.trim()) currentDate=dateEl.innerText.trim();
+        const link=row.querySelector('a[href*="/h2h/"]');
+        if(!link) return;
+        const href=link.href;
+        if(!href.includes('#')||seen.has(href)) return;
+        seen.add(href);
+        const teams=[...row.querySelectorAll('p.participant-name')]
+            .map(el=>el.innerText.trim()).filter(Boolean).slice(0,2);
+        const nums=[...row.querySelectorAll('[data-v-115522af]')]
+            .map(el=>el.innerText.trim()).filter(t=>/^\\d+$/.test(t));
+        const homeScore=parseInt(nums[0]);
+        const awayScore=parseInt(nums[2]);
+        results.push({
+            date:currentDate, url:href,
+            match_id:href.split('#')[1],
+            home:teams[0]||'', away:teams[1]||'',
+            home_score:homeScore||0, away_score:awayScore||0,
+            winner_is_home:homeScore>awayScore,
+            finished:!isNaN(homeScore)&&!isNaN(awayScore)&&homeScore!==awayScore
+        });
+    });
+    return results;
+"""
+
+def get_match_urls(driver, stop_before=None):
+    """여러 페이지에서 경기 목록 수집. stop_before 날짜 이전 데이터가 나오면 중단.
+    페이지네이션 버튼(a[data-number])은 페이지 하단 스크롤 후 DOM에 나타남.
+    """
+    all_matches = []
+    seen_ids = set()
+
+    # 첫 페이지 로드
     driver.get('https://www.oddsportal.com/baseball/south-korea/kbo/results/')
     time.sleep(3)
-    WebDriverWait(driver, 30).until(
-        EC.presence_of_element_located((By.CSS_SELECTOR, 'div.eventRow')))
-    time.sleep(3)
+    try:
+        WebDriverWait(driver, 30).until(
+            EC.presence_of_element_located((By.CSS_SELECTOR, 'div.eventRow')))
+    except:
+        print('  결과 페이지 로딩 실패')
+        return []
+    time.sleep(2)
 
-    match_list = driver.execute_script("""
-        const results=[], seen=new Set();
-        let currentDate='';
-        document.querySelectorAll('div.eventRow').forEach(row=>{
-            const dateEl=row.querySelector('[data-testid="date-header"]');
-            if(dateEl&&dateEl.innerText.trim()) currentDate=dateEl.innerText.trim();
-            const link=row.querySelector('a[href*="/h2h/"]');
-            if(!link) return;
-            const href=link.href;
-            if(!href.includes('#')||seen.has(href)) return;
-            seen.add(href);
-            const teams=[...row.querySelectorAll('p.participant-name')]
-                .map(el=>el.innerText.trim()).filter(Boolean).slice(0,2);
-            const nums=[...row.querySelectorAll('[data-v-115522af]')]
-                .map(el=>el.innerText.trim()).filter(t=>/^\\d+$/.test(t));
-            const homeScore=parseInt(nums[0]);
-            const awayScore=parseInt(nums[2]);
-            results.push({
-                date:currentDate, url:href,
-                match_id:href.split('#')[1],
-                home:teams[0]||'', away:teams[1]||'',
-                home_score:homeScore||0, away_score:awayScore||0,
-                winner_is_home:homeScore>awayScore,
-                finished:!isNaN(homeScore)&&!isNaN(awayScore)&&homeScore!==awayScore
-            });
-        });
-        return results;
-    """)
+    for page in range(1, 20):
+        # 하단 스크롤 → 페이지네이션 버튼 렌더링 유도
+        driver.execute_script('window.scrollTo(0, document.body.scrollHeight);')
+        time.sleep(2)
 
+        print(f'  결과 페이지 {page} 수집 중...')
+        page_matches = driver.execute_script(JS_EXTRACT)
+        if not page_matches:
+            print(f'  페이지 {page} 데이터 없음 → 중단')
+            break
+
+        added = 0
+        reached_stop = False
+        for m in page_matches:
+            if m['match_id'] in seen_ids:
+                continue
+            seen_ids.add(m['match_id'])
+            norm = normalize_date(m['date'])
+            # 정상 파싱된 날짜(YYYY-MM-DD 형식)에 대해서만 stop 체크
+            if stop_before and len(norm) == 10 and norm < stop_before:
+                reached_stop = True
+                continue
+            all_matches.append(m)
+            added += 1
+
+        print(f'    → {added}개 경기 추가 (누적 {len(all_matches)}개)')
+
+        if reached_stop:
+            print(f'  {stop_before} 이전 날짜 도달 → 수집 완료')
+            break
+
+        # 다음 페이지 버튼 (스크롤 후 visible)
+        next_btn = driver.execute_script("""
+            const cur = document.querySelector('a[data-number].active');
+            if (!cur) return null;
+            const curNum = parseInt(cur.getAttribute('data-number'));
+            const btns = [...document.querySelectorAll('a[data-number]')];
+            return btns.find(b => parseInt(b.getAttribute('data-number')) === curNum + 1) || null;
+        """)
+
+        if not next_btn:
+            print('  다음 페이지 버튼 없음 → 수집 완료')
+            break
+
+        try:
+            driver.execute_script("arguments[0].click();", next_btn)
+            time.sleep(3)
+            WebDriverWait(driver, 15).until(
+                EC.presence_of_element_located((By.CSS_SELECTOR, 'div.eventRow')))
+            time.sleep(2)
+        except Exception as e:
+            print(f'  페이지 이동 실패: {e}')
+            break
+
+    # 날짜별 slot 재계산
     date_counter = {}
-    for m in match_list:
-        d = m['date']
+    for m in all_matches:
+        d = normalize_date(m['date'])
         date_counter[d] = date_counter.get(d, 0) + 1
         m['slot'] = date_counter[d]
-    return match_list
+    return all_matches
 
 def scrape_team_odds(driver, odds_el):
     """특정 팀 배당 클릭 후 open/close/direction/change 수집"""
@@ -148,8 +222,51 @@ def scrape_team_odds(driver, odds_el):
 
     return data
 
+def get_odds_direction(driver, el):
+    """odds 셀을 클릭하여 팝업에서 방향 감지 (scrape_team_odds 경량화).
+    1 = 배당↑(green), 0 = 배당↓(red), None = 감지 실패
+    """
+    try:
+        driver.execute_script("arguments[0].scrollIntoView(true);", el)
+        driver.execute_script("window.scrollBy(0,-100);")
+        driver.execute_script("arguments[0].click();", el)
+        time.sleep(1.5)
+    except Exception:
+        return None
+
+    direction = driver.execute_script("""
+        const panels = document.querySelectorAll('.bg-gray-light');
+        for (const panel of panels) {
+            const h1 = panel.querySelector('h1');
+            if (!h1) continue;
+            const ce = panel.querySelector('.text-green-dark,.text-red-dark');
+            if (ce) return ce.classList.contains('text-green-dark') ? 1 : 0;
+            // open→close 계산으로 방향 추정
+            const nums = [...panel.querySelectorAll('.font-bold')]
+                .map(e => parseFloat(e.innerText)).filter(v => !isNaN(v) && v > 1);
+            if (nums.length >= 2 && nums[0] !== nums[1]) return nums[1] > nums[0] ? 1 : 0;
+        }
+        return null;
+    """)
+
+    # 팝업 닫기
+    try:
+        driver.execute_script("arguments[0].click();", el)
+        for _ in range(4):
+            if driver.execute_script(
+                    "return document.querySelectorAll('.bg-gray-light').length;") <= 2:
+                break
+            time.sleep(0.2)
+    except Exception:
+        pass
+
+    return direction
+
 def scrape_match(driver, url, winner_is_home=True):
-    """한 경기의 모든 북메이커 closing 배당 수집 (open/direction은 UI 변경으로 None)"""
+    """한 경기의 모든 북메이커 closing 배당 + 방향 수집
+    Pass 1: closing 배당 텍스트 수집 (클릭 없음, 빠름)
+    Pass 2: 배당 방향 수집 (클릭 기반, bookmaker별 element 재탐색)
+    """
     driver.get(url)
     try:
         WebDriverWait(driver, 15).until(
@@ -159,8 +276,10 @@ def scrape_match(driver, url, winner_is_home=True):
         return []
     time.sleep(3)
 
+    # ── Pass 1: closing 배당 수집 ─────────────────────────────
     name_els = driver.find_elements(By.CSS_SELECTOR, 'p.height-content.pl-4')
     results = []
+    bm_order = []   # 순서 보존용
 
     for name_el in name_els:
         name = name_el.text.strip()
@@ -185,7 +304,7 @@ def scrape_match(driver, url, winner_is_home=True):
             continue
 
         odds_ratio = round(home_close / away_close, 4) if away_close else None
-        consensus = 'home' if home_close < away_close else 'away'
+        consensus  = 'home' if home_close < away_close else 'away'
 
         results.append({
             'match_id':         url.split('#')[-1],
@@ -202,11 +321,47 @@ def scrape_match(driver, url, winner_is_home=True):
             'odds_ratio':       odds_ratio,
             'consensus':        consensus,
         })
+        bm_order.append(name)
+
+    if not results:
+        return results
+
+    # ── Pass 2: 방향 수집 (element 재탐색으로 stale 방지) ──────
+    for i, bm in enumerate(bm_order):
+        try:
+            current_name_els = driver.find_elements(By.CSS_SELECTOR, 'p.height-content.pl-4')
+            target_nel = None
+            for nel in current_name_els:
+                if nel.text.strip() == bm:
+                    target_nel = nel
+                    break
+            if target_nel is None:
+                continue
+
+            row = target_nel
+            for _ in range(3):
+                row = row.find_element(By.XPATH, '..')
+            odds_els = row.find_elements(By.CSS_SELECTOR, 'p.odds-text')
+            if len(odds_els) < 2:
+                continue
+
+            home_dir = get_odds_direction(driver, odds_els[0])
+            away_dir = get_odds_direction(driver, odds_els[-1])
+
+            results[i]['home_direction']   = home_dir
+            results[i]['away_direction']   = away_dir
+            results[i]['winner_direction'] = home_dir if winner_is_home else away_dir
+
+        except Exception as e:
+            print(f'    direction 수집 실패 ({bm}): {e}')
+            continue
 
     return results
 
 # ── 메인 ──────────────────────────────────────────────
-driver  = get_driver()
+RESTART_EVERY = 5   # N경기마다 드라이버 재시작 (Chrome 메모리 누수 방지)
+
+driver   = get_driver()
 new_rows = []
 
 try:
@@ -220,7 +375,7 @@ try:
         print('기존 데이터 없음 → 새로 수집')
 
     print('경기 목록 수집 중...')
-    match_list = get_match_urls(driver)
+    match_list = get_match_urls(driver, stop_before=SCRAPE_FROM)
     print(f'전체 경기: {len(match_list)}개')
 
     # 미완료 경기도 kbo_games.csv 일정에 추가 (오늘 예측용)
@@ -263,9 +418,23 @@ try:
             for g in games_new:
                 print(f"  {g['date']} slot{g['slot']} {g['home']} vs {g['away']}")
 
+    # kbo_games.csv 에서 사전 slot 조회 (결과 페이지 순서 대신 경기 시작 순서 사용)
+    pregame_slot = {}
+    if os.path.exists(GAMES_PATH):
+        _gdf = pd.read_csv(GAMES_PATH)
+        for _, _g in _gdf.iterrows():
+            key = (str(_g['date']).strip(), str(_g['home']).strip(), str(_g['away']).strip())
+            if not pd.isna(_g['slot']):
+                pregame_slot[key] = int(_g['slot'])
+
+    today_str_main = _dt.today().strftime('%Y-%m-%d')
     new_matches = []
     for m in match_list:
         if not m['finished']:
+            continue
+        norm_date_check = normalize_date(m['date'])
+        if norm_date_check >= today_str_main:
+            print(f"  오늘 경기 스킵(예측 대상): {norm_date_check} {m['home']} vs {m['away']}")
             continue
         if m['match_id'] in existing_ids:
             print(f"  스킵: {m['date']} slot{m['slot']} {m['home']} vs {m['away']}")
@@ -274,13 +443,42 @@ try:
 
     print(f'새로 수집할 경기: {len(new_matches)}개')
 
-    for match in new_matches:
-        print(f"수집: {match['date']} slot{match['slot']} "
-              f"{match['home']} vs {match['away']}")
+    for idx, match in enumerate(new_matches):
+        # N경기마다 드라이버 재시작 (Chrome 메모리 누수 방지)
+        if idx > 0 and idx % RESTART_EVERY == 0:
+            print(f'\n  [드라이버 재시작] {idx}/{len(new_matches)}경기 완료...')
+            try:
+                driver.quit()
+            except Exception:
+                pass
+            driver = get_driver()
+            time.sleep(2)
+
+        norm_date = normalize_date(match['date'])
+        slot = pregame_slot.get((norm_date, match['home'], match['away']), match['slot'])
+        if slot != match['slot']:
+            print(f"수집: {norm_date} slot{slot}(사전)←결과페이지slot{match['slot']} "
+                  f"{match['home']} vs {match['away']}")
+        else:
+            print(f"수집: {norm_date} slot{slot} {match['home']} vs {match['away']}")
+
         rows = []
         for attempt in range(3):
-            rows = scrape_match(driver, match['url'],
-                                winner_is_home=match['winner_is_home'])
+            try:
+                rows = scrape_match(driver, match['url'],
+                                    winner_is_home=match['winner_is_home'])
+            except Exception as e:
+                err = str(e).lower()
+                if 'invalid session id' in err or 'no such session' in err:
+                    print(f'  세션 오류 → 드라이버 재시작 후 재시도')
+                    try:
+                        driver.quit()
+                    except Exception:
+                        pass
+                    driver = get_driver()
+                    time.sleep(2)
+                    continue
+                print(f'  오류 (attempt {attempt+1}): {e}')
             if rows:
                 break
             print(f'  재시도 {attempt+1}...')
@@ -288,17 +486,18 @@ try:
 
         for row in rows:
             row.update({
-                'date':       normalize_date(match['date']),
-                'slot':       match['slot'],
-                'home':       match['home'],
-                'away':       match['away'],
-                'winner':     match['home'] if match['winner_is_home'] else match['away'],
+                'date':           norm_date,
+                'slot':           slot,
+                'home':           match['home'],
+                'away':           match['away'],
+                'winner':         match['home'] if match['winner_is_home'] else match['away'],
                 'winner_is_home': match['winner_is_home'],
-                'home_score': match['home_score'],
-                'away_score': match['away_score'],
+                'home_score':     match['home_score'],
+                'away_score':     match['away_score'],
             })
         new_rows.extend(rows)
-        print(f'  → {len(rows)}개 북메이커 수집')
+        dir_count = sum(1 for r in rows if r.get('home_direction') is not None)
+        print(f'  → {len(rows)}개 북메이커 수집 (방향 데이터: {dir_count}개)')
         time.sleep(2)
 
 except Exception as e:
