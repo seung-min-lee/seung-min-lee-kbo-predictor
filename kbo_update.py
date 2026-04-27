@@ -176,50 +176,64 @@ def get_match_urls(driver, stop_before=None):
 
 def scrape_team_odds(driver, odds_el):
     """특정 팀 배당 클릭 후 open/close/direction/change 수집"""
+    from selenium.webdriver.common.action_chains import ActionChains
     try:
         driver.execute_script("arguments[0].scrollIntoView(true);", odds_el)
-        driver.execute_script("window.scrollBy(0,-100);")
-        time.sleep(0.3)
-        driver.execute_script("arguments[0].click();", odds_el)
-        time.sleep(2.0)
+        driver.execute_script("window.scrollBy(0,-150);")
+        time.sleep(0.5)
+        ActionChains(driver).move_to_element(odds_el).click().perform()
+        time.sleep(3.0)
     except:
         return None
 
     data = driver.execute_script("""
-        const panels=document.querySelectorAll('.bg-gray-light');
-        let openVal=null,closeVal=null,direction=null,change=null;
-        for(const panel of panels){
-            const h1=panel.querySelector('h1');
-            if(h1){
-                const ce=panel.querySelector('.text-green-dark,.text-red-dark');
-                if(ce){
-                    change=ce.innerText.trim();
-                    direction=ce.classList.contains('text-green-dark')?1:0;
-                }
-                for(const el of panel.querySelectorAll('.font-bold')){
-                    const v=parseFloat(el.innerText);
-                    if(!isNaN(v)&&v>1){closeVal=v;break;}
-                }
-            }else{
-                for(const el of panel.querySelectorAll('.font-bold')){
-                    const v=parseFloat(el.innerText);
-                    if(!isNaN(v)&&v>1){openVal=v;break;}
+        const popup = document.querySelector('div.height-content[class*="bg-gray-med_light"]');
+        if (!popup) return {openVal:null,closeVal:null,direction:null,change:null};
+
+        let openVal=null, closeVal=null, direction=null, change=null;
+
+        // Opening odds: in the mt-2 section
+        const openSection = popup.querySelector('div[class*="mt-2"]');
+        if (openSection) {
+            const boldEls = openSection.querySelectorAll('.font-bold');
+            for (const b of boldEls) {
+                const v = parseFloat(b.innerText);
+                if (!isNaN(v) && v > 1) { openVal = v; break; }
+            }
+        }
+
+        // Closing odds: second column in the flex-row (first numeric bold not red/green)
+        const rowDiv = popup.querySelector('.flex.flex-row');
+        if (rowDiv) {
+            const cols = rowDiv.querySelectorAll(':scope > div');
+            if (cols.length > 1) {
+                const boldEl = cols[1].querySelector('.font-bold');
+                if (boldEl) {
+                    const v = parseFloat(boldEl.innerText);
+                    if (!isNaN(v) && v > 1) closeVal = v;
                 }
             }
         }
-        if(direction===null&&openVal&&closeVal&&openVal!==closeVal){
-            direction=closeVal>openVal?1:0;
-            change=(closeVal-openVal).toFixed(2);
+
+        // Direction and change
+        const redEl = popup.querySelector('[class*="text-red-dark"]');
+        const greenEl = popup.querySelector('[class*="text-green-dark"]');
+        if (redEl) { direction = 0; change = redEl.innerText.trim(); }
+        else if (greenEl) { direction = 1; change = greenEl.innerText.trim(); }
+        else if (openVal && closeVal && openVal !== closeVal) {
+            direction = closeVal > openVal ? 1 : 0;
+            change = (closeVal - openVal).toFixed(2);
         }
-        return{openVal,closeVal,direction,change};
+
+        return {openVal, closeVal, direction, change};
     """)
 
     # 패널 닫기
     try:
         driver.execute_script("arguments[0].click();", odds_el)
         for _ in range(5):
-            if driver.execute_script(
-                "return document.querySelectorAll('.bg-gray-light').length;") <= 2:
+            if not driver.execute_script(
+                "return document.querySelector('div.height-content[class*=\"bg-gray-med_light\"]');"):
                 break
             time.sleep(0.3)
     except:
