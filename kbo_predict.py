@@ -217,6 +217,71 @@ def check_run_mirror_pattern(seq):
     best = max(candidates, key=lambda x: x[2])
     return best[0], best[1], best[2]
 
+def check_staircase_pattern(seq):
+    """런 길이가 등차수열(계단식)인 패턴 감지
+    예: 111001 → runs [(1,3),(0,2),(1,1)] → 길이 [3,2,1] (Δ-1) → 다음 run=(0,0) 완성 → 새 사이클 시작=1
+    예: 000110 → runs [(0,3),(1,2),(0,1)] → 길이 [3,2,1] (Δ-1) → 다음=0
+    """
+    runs = find_runs(seq)
+    if len(runs) < 3:
+        return None, None, 0.0
+    lens = [r[1] for r in runs]
+    diffs = [lens[i+1] - lens[i] for i in range(len(lens)-1)]
+    if len(set(diffs)) != 1 or diffs[0] == 0:
+        return None, None, 0.0
+    step = diffs[0]
+    next_len = lens[-1] + step
+    s = ''.join(str(x) for x in seq)
+    if next_len <= 0:
+        # 계단 완성 → 새 사이클 시작값 = 첫 런 값
+        nv = runs[0][0]
+        return nv, f'계단식[{s}] 런={lens}(Δ{step:+d}) → 사이클완성→{nv}', 0.80
+    nv = 1 - runs[-1][0]
+    return nv, f'계단식[{s}] 런={lens}(Δ{step:+d}) → 다음런={nv}×{next_len}', 0.82
+
+def check_history_match(seq, full_history):
+    """현재 seq tail을 전체 과거 히스토리에서 검색해 다음 값 예측
+    - exact match: 히스토리에서 seq와 동일한 구간 찾기 → 그 다음 값
+    - complement match: seq의 비트반전을 검색 → 예측값도 반전
+    반환: (예측값 or None, 설명 or None, 점수)
+    """
+    clean_h = [x for x in full_history if x in (0, 1)]
+    n = len(seq)
+    if len(clean_h) <= n or n < 3:
+        return None, None, 0.0
+
+    s = ''.join(str(x) for x in seq)
+
+    # Exact match
+    matches = []
+    for i in range(len(clean_h) - n):
+        if clean_h[i:i+n] == list(seq):
+            matches.append(clean_h[i+n])
+
+    label = '히스토리조회'
+    complement = False
+
+    if not matches:
+        comp = [1 - x for x in seq]
+        for i in range(len(clean_h) - n):
+            if clean_h[i:i+n] == comp:
+                matches.append(1 - clean_h[i+n])
+        if matches:
+            complement = True
+            label = '보수조회'
+
+    if not matches:
+        return None, None, 0.0
+
+    ones = sum(matches)
+    zeros = len(matches) - ones
+    nv = 1 if ones > zeros else 0
+    vote_ratio = max(ones, zeros) / len(matches)
+    comp_tag = '(보수)' if complement else ''
+    desc = f'{label}{comp_tag}[{s}] {len(matches)}회매칭→{nv}({vote_ratio:.0%})'
+    score = 0.68 + vote_ratio * 0.16  # 0.68~0.84
+    return nv, desc, score
+
 def tail_recommendation(tail):
     if not tail: return None, None
     s = ''.join(str(x) for x in tail)
@@ -296,7 +361,7 @@ def segment_patterns(seq):
     found.sort(key=lambda x: -x[0].count('='))
     return found[:5]
 
-def analyze_pattern(seq):
+def analyze_pattern(seq, full_history=None):
     n = len(seq)
     s = ''.join(str(x) for x in seq)
     candidates = []
@@ -396,6 +461,28 @@ def analyze_pattern(seq):
                            'desc': run_mir_desc,
                            'rec':  run_mir_val,
                            'score': run_mir_score})
+
+    stair_val, stair_desc, stair_score = check_staircase_pattern(seq)
+    if stair_val is not None:
+        candidates.append({'type':'계단식',
+                           'desc': stair_desc,
+                           'rec':  stair_val,
+                           'score': stair_score})
+
+    if full_history is not None:
+        # 다양한 tail 길이로 히스토리 조회 (최소 4, 최대 현재 seq 길이)
+        best_hm = (None, None, 0.0)
+        for tail_len in range(min(n, 12), 3, -1):
+            tail_seq = seq[-tail_len:]
+            hm_val, hm_desc, hm_score = check_history_match(tail_seq, full_history)
+            if hm_val is not None and hm_score > best_hm[2]:
+                best_hm = (hm_val, hm_desc, hm_score)
+                break  # 가장 긴 tail에서 매칭된 것 우선
+        if best_hm[0] is not None:
+            candidates.append({'type':'짝맞춤',
+                               'desc': best_hm[1],
+                               'rec':  best_hm[0],
+                               'score': best_hm[2]})
 
     segs = segment_patterns(seq)
 
@@ -582,11 +669,11 @@ def make_feat_team(home, away, before_date_order):
 def seq_str(seq):
     return ''.join(str(x) for x in seq) if seq else '-'
 
-def pat_rec(seq):
+def pat_rec(seq, full_history=None):
     """시퀀스 패턴 분석 → (추천값 or None, 설명문자열)"""
     if len(seq) < 3:
         return None, '데이터 부족'
-    pa = analyze_pattern(seq)
+    pa = analyze_pattern(seq, full_history=full_history)
     rec = pa['rec'] if not pa.get('pass') else None
     return rec, pa['desc']
 
@@ -759,6 +846,7 @@ def get_slot_bm_odds_seqs(slot, before_date_order, seq_len=BM_SEQ_LEN):
 
         result[bm] = {
             'seq':          seq,
+            'full_seq':     all_seq,   # 히스토리 조회용 전체 시퀀스
             'dates':        date_seq,
             'current_odds': current,
         }
@@ -769,9 +857,11 @@ def analyze_slot_bm_seqs(slot, before_date_order):
     bm_seqs = get_slot_bm_odds_seqs(slot, before_date_order)
     results = []
     for bm, data in sorted(bm_seqs.items()):
-        seq = data['seq']
-        seq_clean = [x for x in seq if x not in ('N', 'P')]
-        rec, desc = pat_rec(seq_clean)
+        seq       = data['seq']
+        full_seq  = data.get('full_seq', [])
+        seq_clean = [x for x in seq      if x not in ('N', 'P')]
+        full_clean = [x for x in full_seq if x in (0, 1)]
+        rec, desc = pat_rec(seq_clean, full_history=full_clean if len(full_clean) > len(seq_clean) else None)
         results.append({
             'bm':           bm,
             'seq':          seq,
