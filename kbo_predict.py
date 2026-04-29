@@ -18,7 +18,7 @@ CSV_PATH   = 'kbo_odds.csv'
 GAMES_PATH = 'kbo_games.csv'
 PRED_PATH  = 'kbo_predictions.json'
 WINDOW     = 10   # 팀별 최근 N경기 참조
-BM_SEQ_LEN = 11  # 슬롯별 북메이커 배당변동 시퀀스 길이
+BM_SEQ_LEN = 17  # 슬롯별 북메이커 배당변동 시퀀스 길이
 
 # ── 패턴 분석 함수 (변경 없음) ─────────────────────────────
 def find_runs(seq):
@@ -107,6 +107,115 @@ def check_run_shape(seq):
     if mountain: return 'mountain', lens
     if valley:   return 'valley', lens
     return None
+
+def check_run_mirror_pattern(seq):
+    """런-길이 인코딩 기반 Mirror쌍 + 팰린드롬 패턴 분할 예측
+    예: [0,0,1,1,0,0,0,1,0,0,0]
+      runs: [(0,2),(1,2),(0,3),(1,1),(0,3)]
+      → [00|11]=Mirror쌍 + [0001000]=팰린드롬(중심=1) → 다음=1
+    반환: (예측값 or None, 설명 or None, 점수)
+    """
+    n = len(seq)
+    if n < 4:
+        return None, None, 0.0
+
+    # Run-length encoding
+    runs = []
+    i = 0
+    while i < n:
+        j = i
+        while j < n and seq[j] == seq[i]:
+            j += 1
+        runs.append((seq[i], j - i))
+        i = j
+
+    rn = len(runs)
+    if rn < 2:
+        return None, None, 0.0
+
+    vals = [r[0] for r in runs]
+    lens = [r[1] for r in runs]
+
+    def runs_str(rs):
+        return ''.join(''.join([str(r[0])] * r[1]) for r in rs)
+
+    candidates = []
+
+    # ── 1. 앞 K쌍이 Mirror → 나머지 구조 분석 ──────────────────
+    for k in range(1, rn // 2 + 1):
+        if 2 * k > rn:
+            break
+        head = runs[:k]
+        next_k = runs[k:2 * k]
+
+        is_mirror = all(
+            head[i][0] != next_k[i][0] and head[i][1] == next_k[i][1]
+            for i in range(k)
+        )
+        if not is_mirror:
+            continue
+
+        mirror_runs = runs[:2 * k]
+        rest = runs[2 * k:]
+
+        if not rest:
+            # 전체 Mirror쌍 완성 → 새 사이클 첫 값
+            nv = vals[0]
+            candidates.append((
+                nv,
+                f'런분할 [{runs_str(mirror_runs)}]=Mirror완성 → 새사이클={nv}',
+                0.80
+            ))
+            break
+
+        rest_lens = [r[1] for r in rest]
+        rest_vals = [r[0] for r in rest]
+        rest_is_pal = rest_lens == rest_lens[::-1]
+
+        if rest_is_pal:
+            center = rest_vals[len(rest_vals) // 2]
+            nv = center
+            candidates.append((
+                nv,
+                (f'런분할 [{runs_str(mirror_runs)}]=Mirror'
+                 f' + [{runs_str(rest)}]=팰린드롬(중심={center}) → 다음={nv}'),
+                0.85
+            ))
+        else:
+            # Mirror쌍 있고 나머지 비팰린드롬 → 나머지 끝값의 반대
+            nv = 1 - rest_vals[-1]
+            candidates.append((
+                nv,
+                (f'런분할 [{runs_str(mirror_runs)}]=Mirror'
+                 f' + [{runs_str(rest)}] → 다음={nv}'),
+                0.72
+            ))
+
+    # ── 2. 전체 또는 끝 구간이 팰린드롬 (Mirror쌍 없이) ───────────
+    for start in range(rn - 1, -1, -1):
+        sub_lens = lens[start:]
+        if len(sub_lens) < 3:
+            continue
+        if sub_lens != sub_lens[::-1]:
+            continue
+        sub_vals = vals[start:]
+        sub_runs = runs[start:]
+        center = sub_vals[len(sub_vals) // 2]
+        nv = center
+        prefix = runs[:start]
+        if start == 0:
+            desc = f'런분할 [{runs_str(runs)}]=전체팰린드롬(중심={center}) → 다음={nv}'
+        else:
+            desc = (f'런분할 [{runs_str(prefix)}]'
+                    f' + [{runs_str(sub_runs)}]=팰린드롬(중심={center}) → 다음={nv}')
+        candidates.append((nv, desc, 0.78))
+        break
+
+    if not candidates:
+        return None, None, 0.0
+
+    best = max(candidates, key=lambda x: x[2])
+    return best[0], best[1], best[2]
 
 def tail_recommendation(tail):
     if not tail: return None, None
@@ -280,6 +389,13 @@ def analyze_pattern(seq):
                                'desc':f'[{s}] 중간대칭[{chunk_s}]→다음{rec}',
                                'rec': rec, 'score': 0.72})
             break
+
+    run_mir_val, run_mir_desc, run_mir_score = check_run_mirror_pattern(seq)
+    if run_mir_val is not None:
+        candidates.append({'type':'런분할',
+                           'desc': run_mir_desc,
+                           'rec':  run_mir_val,
+                           'score': run_mir_score})
 
     segs = segment_patterns(seq)
 
