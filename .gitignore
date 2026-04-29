@@ -18,3 +18,4 @@
 !.streamlit/config.toml
 !README.md
 !.gitignore
+!requirements.txt
