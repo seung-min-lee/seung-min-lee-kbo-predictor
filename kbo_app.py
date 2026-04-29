@@ -632,23 +632,15 @@ if len(log_df) > 0:
     total_pages   = max(1, (total_records + ROWS_PER_PAGE - 1) // ROWS_PER_PAGE)
 
     if 'hist_page' not in st.session_state or st.session_state.hist_page > total_pages:
-        st.session_state.hist_page = total_pages  # 기본: 마지막 페이지(최신)
+        st.session_state.hist_page = 1  # 기본: 1페이지(최신)
 
-    # ── 페이지 버튼 (1행, 화면 폭에 맞게 균등 분배) ──────────
-    btn_cols = st.columns(total_pages)
-    for i, col in enumerate(btn_cols):
-        p = i + 1
-        label = f'**{p}**' if p == st.session_state.hist_page else str(p)
-        with col:
-            if st.button(label, key=f'hist_p_{p}', use_container_width=True):
-                st.session_state.hist_page = p
-                st.rerun()
-
-    # ── 현재 페이지 레코드 (최신순) ──────────────────────────
-    cur = st.session_state.hist_page
+    # ── 현재 페이지 레코드 (1=최신, last=오래된순) ───────────
+    cur   = st.session_state.hist_page
+    # 전체를 최신순으로 뒤집은 뒤 페이지 슬라이싱
+    _hist_rev = _hist_df.iloc[::-1].reset_index(drop=True)
     start = (cur - 1) * ROWS_PER_PAGE
     end   = start + ROWS_PER_PAGE
-    page_df = _hist_df.iloc[start:end].iloc[::-1]
+    page_df = _hist_rev.iloc[start:end]
 
     for _, row in page_df.iterrows():
         correct_val = row.get('correct')
@@ -670,6 +662,16 @@ if len(log_df) > 0:
   <span style="color:#7788aa">실제 <b style="color:#ccd">{actual_str}</b></span>
   <span style="color:#445566">신뢰도 {conf_str}</span>
 </div>""", unsafe_allow_html=True)
+
+    # ── 페이지 버튼 (1행, 화면 폭에 맞게 균등 분배) ──────────
+    btn_cols = st.columns(total_pages)
+    for i, col in enumerate(btn_cols):
+        p = i + 1
+        label = f'**{p}**' if p == st.session_state.hist_page else str(p)
+        with col:
+            if st.button(label, key=f'hist_p_{p}', use_container_width=True):
+                st.session_state.hist_page = p
+                st.rerun()
 
     # 슬롯별 정확도
     st.markdown('<div class="section-title">📈 슬롯별 / 신뢰도별 정확도</div>', unsafe_allow_html=True)
