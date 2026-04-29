@@ -2,8 +2,8 @@
   "slot_1.0": {
     "slot": 1.0,
     "home": "Doosan Bears",
-    "away": "LG Twins",
-    "pred_date": "2026-04-26",
+    "away": "Samsung Lions",
+    "pred_date": "2026-04-28",
     "home_direction": "0100111000",
     "home_bm_agree": "1111111110",
     "home_fav_win": "1000110110",
@@ -12,21 +12,21 @@
     "home_agr_rec": 0,
     "home_fav_rec": 0,
     "home_win_rec": 1,
-    "away_direction": "1111111111",
-    "away_bm_agree": "1111111110",
-    "away_fav_win": "0101110110",
-    "away_team_win": "0101110110",
+    "away_direction": "0100010111",
+    "away_bm_agree": "1111011111",
+    "away_fav_win": "0101101000",
+    "away_team_win": "1110000000",
     "away_dir_rec": 1,
-    "away_agr_rec": 0,
-    "away_fav_rec": 0,
+    "away_agr_rec": 1,
+    "away_fav_rec": 1,
     "away_win_rec": 0,
-    "slot_fav_win": "1000110110",
-    "slot_fav_rec": 0,
+    "slot_fav_win": "1.00.00.00.01.01.00.01.01.00.0",
+    "slot_fav_rec": 0.0,
     "slot_bm": {
       "10x10bet": {
-        "seq": "00100101100",
-        "rec": 0,
-        "desc": "[00100101100] Mirror [11|00]",
+        "seq": "00100101000",
+        "rec": 1,
+        "desc": "[00100101000] 반접기[10|01] + 꼬리[01000]=끝2연속0→1",
         "current_odds": 1.95
       },
       "1xBet": {
@@ -66,15 +66,15 @@
         "current_odds": 2.41
       },
       "GambleCity": {
-        "seq": "001N0101001",
+        "seq": "00110101000",
         "rec": 1,
-        "desc": "[0010101001] Mirror [0|1]",
+        "desc": "[00110101000] 반접기[00|11] + 꼬리[0101000]=끝2연속0→1",
         "current_odds": 1.89
       },
       "Kobet": {
-        "seq": "0011N110101",
+        "seq": "001NN100101",
         "rec": 1,
-        "desc": "[0011110101] Mirror [0|1]",
+        "desc": "[001100101] Mirror [0|1]",
         "current_odds": 1.98
       },
       "Melbet": {
@@ -84,27 +84,27 @@
         "current_odds": 1.89
       },
       "Momobet": {
-        "seq": "00110101001",
+        "seq": "001101NNNNN",
         "rec": 1,
-        "desc": "[00110101001] Mirror [0|1]",
+        "desc": "[001101] Mirror [0|1]",
         "current_odds": 1.95
       },
       "Roobet": {
-        "seq": "0000N100100",
-        "rec": 0,
-        "desc": "[0000100100] 반접기[10|01] + 꼬리[00]=반복→0",
+        "seq": "0000N1NNNNN",
+        "rec": 1,
+        "desc": "[00001] Mirror [0|1]",
         "current_odds": 1.94
       },
       "Stake.com": {
-        "seq": "00100N00001",
+        "seq": "00100NNNNNN",
         "rec": 1,
-        "desc": "[0010000001] Mirror [0|1]",
+        "desc": "[00100] 중간대칭[00100]→다음1",
         "current_odds": 2.0
       },
       "VOBET": {
-        "seq": "0010010N001",
+        "seq": "001001NNNNN",
         "rec": 1,
-        "desc": "[0010010001] Mirror [0|1]",
+        "desc": "[001001] Mirror [0|1]",
         "current_odds": 1.95
       },
       "bwin": {
@@ -115,17 +115,17 @@
       }
     },
     "recommendation": "HOME(1)",
-    "confidence": 0.85,
-    "ml_home_prob": 0.395,
-    "ml_away_prob": 0.605,
+    "confidence": 0.815,
+    "ml_home_prob": 0.47,
+    "ml_away_prob": 0.53,
     "verified": false,
     "actual": null
   },
   "slot_2.0": {
     "slot": 2.0,
     "home": "Hanwha Eagles",
-    "away": "NC Dinos",
-    "pred_date": "2026-04-26",
+    "away": "SSG Landers",
+    "pred_date": "2026-04-28",
     "home_direction": "1010000100",
     "home_bm_agree": "1111111111",
     "home_fav_win": "0110110001",
@@ -134,138 +134,138 @@
     "home_agr_rec": 1,
     "home_fav_rec": 1,
     "home_win_rec": 0,
-    "away_direction": "1111111011",
-    "away_bm_agree": "1111111111",
-    "away_fav_win": "0001001001",
-    "away_team_win": "0001001101",
-    "away_dir_rec": 0,
+    "away_direction": "1100101001",
+    "away_bm_agree": "1111011111",
+    "away_fav_win": "1101101000",
+    "away_team_win": "1110111110",
+    "away_dir_rec": 1,
     "away_agr_rec": 1,
     "away_fav_rec": 1,
-    "away_win_rec": 1,
-    "slot_fav_win": "0100110001",
-    "slot_fav_rec": 1,
+    "away_win_rec": 0,
+    "slot_fav_win": "0.01.00.00.01.01.00.00.00.01.0",
+    "slot_fav_rec": 1.0,
     "slot_bm": {
       "10x10bet": {
-        "seq": "101N1N0N101",
+        "seq": "01PN1N0N101",
         "rec": 1,
-        "desc": "[10110101] Mirror [0|1]",
+        "desc": "[0110101] Mirror [0|1]",
         "current_odds": 1.97
       },
       "1xBet": {
-        "seq": "10111000101",
+        "seq": "01P11000101",
         "rec": 1,
-        "desc": "[10111000101] Mirror [0|1]",
+        "desc": "[0111000101] Mirror [0|1]",
         "current_odds": 1.97
       },
       "22Bet": {
-        "seq": "10111000101",
+        "seq": "01P11000101",
         "rec": 1,
-        "desc": "[10111000101] Mirror [0|1]",
+        "desc": "[0111000101] Mirror [0|1]",
         "current_odds": 1.92
       },
       "Alphabet": {
-        "seq": "101N1001101",
+        "seq": "01PN1001101",
         "rec": 1,
-        "desc": "[1011001101] Mirror [0|1]",
+        "desc": "[011001101] Mirror [0|1]",
         "current_odds": 1.97
       },
       "BetInAsia": {
-        "seq": "10101000101",
+        "seq": "01P01000101",
         "rec": 1,
-        "desc": "[10101000101] Mirror [0|1]",
+        "desc": "[0101000101] Mirror [0|1]",
         "current_odds": 1.96
       },
       "Bets.io": {
-        "seq": "10111001101",
+        "seq": "01P11001101",
         "rec": 1,
-        "desc": "[10111001101] Mirror [0|1]",
+        "desc": "[0111001101] Mirror [0|1]",
         "current_odds": 1.88
       },
       "Cloudbet": {
-        "seq": "10101011NNN",
+        "seq": "01P01011NNN",
         "rec": 1,
-        "desc": "[10101011] 반접기[101|010] + 꼬리[11]=반복→1",
+        "desc": "[0101011] 중간대칭[01010] + 꼬리[11]=반복→1",
         "current_odds": 1.52
       },
       "GambleCity": {
-        "seq": "10111001100",
-        "rec": 0,
-        "desc": "[10111001100] Mirror [11|00]",
+        "seq": "01P11001101",
+        "rec": 1,
+        "desc": "[0111001101] Mirror [0|1]",
         "current_odds": 1.91
       },
       "Kobet": {
-        "seq": "11011000100",
+        "seq": "10P11000100",
         "rec": 1,
-        "desc": "[11011000100] 반접기[01|10] + 꼬리[00100]=끝2연속0→1",
+        "desc": "[1011000100] 반접기[01|10] + 꼬리[00100]=끝2연속0→1",
         "current_odds": 2.2
       },
       "Melbet": {
-        "seq": "10111010101",
+        "seq": "01P11000101",
         "rec": 1,
-        "desc": "[10111010101] Mirror [0|1]",
+        "desc": "[0111000101] Mirror [0|1]",
         "current_odds": 1.92
       },
       "Momobet": {
-        "seq": "10111001010",
+        "seq": "01P110NNNNN",
         "rec": 0,
-        "desc": "[10111001010] Mirror [1|0]",
+        "desc": "[01110] Mirror [1|0]",
         "current_odds": 1.97
       },
       "Roobet": {
-        "seq": "11111001111",
-        "rec": 1,
-        "desc": "[11111001111] 반접기[11|00] + 꼬리[1111]=반복→1",
+        "seq": "11P110NNNNN",
+        "rec": 0,
+        "desc": "[11110] Mirror [1|0]",
         "current_odds": 1.94
       },
       "Stake.com": {
-        "seq": "N0101000111",
-        "rec": 1,
-        "desc": "[0101000111] Mirror [000|111]",
+        "seq": "01P010NNNNN",
+        "rec": 0,
+        "desc": "[01010] Mirror [1|0]",
         "current_odds": 1.97
       },
       "VOBET": {
-        "seq": "101N1001010",
+        "seq": "01PN10NNNNN",
         "rec": 0,
-        "desc": "[1011001010] Mirror [1|0]",
+        "desc": "[0110] Mirror [1|0]",
         "current_odds": 1.97
       },
       "bwin": {
-        "seq": "NNN01N00N01",
+        "seq": "NNP01N00N01",
         "rec": 1,
         "desc": "[010001] Mirror [0|1]",
         "current_odds": 1.9
       }
     },
-    "recommendation": "AWAY(0)",
-    "confidence": 0.85,
-    "ml_home_prob": 0.47,
-    "ml_away_prob": 0.53,
+    "recommendation": "HOME(1)",
+    "confidence": 0.69,
+    "ml_home_prob": 0.69,
+    "ml_away_prob": 0.31,
     "verified": false,
     "actual": null
   },
   "slot_3.0": {
     "slot": 3.0,
-    "home": "KIA Tigers",
-    "away": "Lotte Giants",
-    "pred_date": "2026-04-26",
-    "home_direction": "1101101011",
+    "home": "NC Dinos",
+    "away": "KIA Tigers",
+    "pred_date": "2026-04-28",
+    "home_direction": "1111111011",
     "home_bm_agree": "1111111111",
-    "home_fav_win": "1100010111",
-    "home_team_win": "1110000011",
+    "home_fav_win": "0001001001",
+    "home_team_win": "0001001101",
     "home_dir_rec": 0,
     "home_agr_rec": 1,
-    "home_fav_rec": 0,
+    "home_fav_rec": 1,
     "home_win_rec": 1,
-    "away_direction": "0000100000",
+    "away_direction": "1101101011",
     "away_bm_agree": "1111111111",
-    "away_fav_win": "1011011011",
-    "away_team_win": "0100000100",
+    "away_fav_win": "1100010111",
+    "away_team_win": "1110000011",
     "away_dir_rec": 0,
     "away_agr_rec": 1,
     "away_fav_rec": 0,
-    "away_win_rec": 0,
-    "slot_fav_win": "1111110111",
-    "slot_fav_rec": 0,
+    "away_win_rec": 1,
+    "slot_fav_win": "1.01.01.01.01.01.00.01.01.01.0",
+    "slot_fav_rec": 0.0,
     "slot_bm": {
       "10x10bet": {
         "seq": "N0011000000",
@@ -286,9 +286,9 @@
         "current_odds": 1.63
       },
       "Alphabet": {
-        "seq": "N0011000000",
+        "seq": "N001100N000",
         "rec": 0,
-        "desc": "[0011000000] 반접기[00|11] + 꼬리[000000]=반복→0",
+        "desc": "[001100000] 반접기[00|11] + 꼬리[00000]=반복→0",
         "current_odds": 1.64
       },
       "BetInAsia": {
@@ -316,39 +316,39 @@
         "current_odds": 1.6
       },
       "Kobet": {
-        "seq": "00011000111",
+        "seq": "00011000100",
         "rec": 1,
-        "desc": "[00011000111] Mirror [000|111]",
+        "desc": "[00011000100] 반접기[00|11] + 꼬리[000100]=끝2연속0→1",
         "current_odds": 1.68
       },
       "Melbet": {
-        "seq": "00011001110",
+        "seq": "00011000000",
         "rec": 0,
-        "desc": "[00011001110] Mirror [1|0]",
+        "desc": "[00011000000] 반접기[00|11] + 꼬리[000000]=반복→0",
         "current_odds": 1.63
       },
       "Momobet": {
-        "seq": "N0011001000",
-        "rec": 1,
-        "desc": "[0011001000] 반접기[00|11] + 꼬리[001000]=끝2연속0→1",
+        "seq": "N001100NNNN",
+        "rec": 0,
+        "desc": "[001100] Mirror [11|00]",
         "current_odds": 1.64
       },
       "Roobet": {
-        "seq": "00001001101",
+        "seq": "0000100NNNN",
         "rec": 1,
-        "desc": "[00001001101] Mirror [0|1]",
+        "desc": "[0000100] 중간대칭[00100]→다음1",
         "current_odds": 1.84
       },
       "Stake.com": {
-        "seq": "00001001100",
-        "rec": 0,
-        "desc": "[00001001100] Mirror [11|00]",
+        "seq": "0000100NNNN",
+        "rec": 1,
+        "desc": "[0000100] 중간대칭[00100]→다음1",
         "current_odds": 1.65
       },
       "VOBET": {
-        "seq": "N0011001000",
-        "rec": 1,
-        "desc": "[0011001000] 반접기[00|11] + 꼬리[001000]=끝2연속0→1",
+        "seq": "N001100NNNN",
+        "rec": 0,
+        "desc": "[001100] Mirror [11|00]",
         "current_odds": 1.64
       },
       "bwin": {
@@ -359,253 +359,253 @@
       }
     },
     "recommendation": "HOME(1)",
-    "confidence": 0.8,
-    "ml_home_prob": 0.485,
-    "ml_away_prob": 0.515,
+    "confidence": 0.625,
+    "ml_home_prob": 0.625,
+    "ml_away_prob": 0.375,
     "verified": false,
     "actual": null
   },
   "slot_4.0": {
     "slot": 4.0,
-    "home": "Kiwoom Heroes",
-    "away": "Samsung Lions",
-    "pred_date": "2026-04-26",
-    "home_direction": "0000000000",
+    "home": "Lotte Giants",
+    "away": "Kiwoom Heroes",
+    "pred_date": "2026-04-28",
+    "home_direction": "0000100000",
     "home_bm_agree": "1111111111",
-    "home_fav_win": "1110001000",
-    "home_team_win": "0001110111",
+    "home_fav_win": "1011011011",
+    "home_team_win": "0100000100",
     "home_dir_rec": 0,
     "home_agr_rec": 1,
-    "home_fav_rec": 1,
+    "home_fav_rec": 0,
     "home_win_rec": 0,
-    "away_direction": "0100010111",
-    "away_bm_agree": "1111011111",
-    "away_fav_win": "0101101000",
-    "away_team_win": "1110000000",
-    "away_dir_rec": 1,
+    "away_direction": "0000000000",
+    "away_bm_agree": "1111111111",
+    "away_fav_win": "1110001000",
+    "away_team_win": "0001110111",
+    "away_dir_rec": 0,
     "away_agr_rec": 1,
     "away_fav_rec": 1,
     "away_win_rec": 0,
-    "slot_fav_win": "0011001000",
-    "slot_fav_rec": 1,
+    "slot_fav_win": "0.00.01.01.00.00.01.00.00.00.0",
+    "slot_fav_rec": 1.0,
     "slot_bm": {
       "10x10bet": {
-        "seq": "11100110111",
+        "seq": "11P00110111",
         "rec": 0,
-        "desc": "[11100110111] 반접기[11|00] + 꼬리[110111]=끝2연속1→0",
+        "desc": "[1100110111] 반접기[11|00] + 꼬리[110111]=끝2연속1→0",
         "current_odds": 2.65
       },
       "1xBet": {
-        "seq": "01100100111",
+        "seq": "11P00100111",
         "rec": 0,
-        "desc": "[01100100111] 반접기[01|10] + 꼬리[0100111]=끝2연속1→0",
+        "desc": "[1100100111] 반접기[11|00] + 꼬리[100111]=끝2연속1→0",
         "current_odds": 2.6
       },
       "22Bet": {
-        "seq": "01100100111",
+        "seq": "11P00100111",
         "rec": 0,
-        "desc": "[01100100111] 반접기[01|10] + 꼬리[0100111]=끝2연속1→0",
+        "desc": "[1100100111] 반접기[11|00] + 꼬리[100111]=끝2연속1→0",
         "current_odds": 2.53
       },
       "Alphabet": {
-        "seq": "11100110111",
+        "seq": "11P00110111",
         "rec": 0,
-        "desc": "[11100110111] 반접기[11|00] + 꼬리[110111]=끝2연속1→0",
+        "desc": "[1100110111] 반접기[11|00] + 꼬리[110111]=끝2연속1→0",
         "current_odds": 2.65
       },
       "BetInAsia": {
-        "seq": "0110010N111",
+        "seq": "11P0010N111",
         "rec": 0,
-        "desc": "[0110010111] 반접기[01|10] + 꼬리[010111]=끝2연속1→0",
+        "desc": "[110010111] 반접기[11|00] + 꼬리[10111]=끝2연속1→0",
         "current_odds": 2.62
       },
       "Bets.io": {
-        "seq": "1N100100111",
+        "seq": "N1P00100111",
         "rec": 0,
-        "desc": "[1100100111] 반접기[11|00] + 꼬리[100111]=끝2연속1→0",
+        "desc": "[100100111] 반접기[10|01] + 꼬리[00111]=연속블록→0",
         "current_odds": 2.45
       },
       "Cloudbet": {
-        "seq": "01100100NNN",
+        "seq": "11P00101NNN",
         "rec": 1,
-        "desc": "[01100100] 반접기[01|10] + 꼬리[0100]=끝2연속0→1",
+        "desc": "[1100101] Mirror [0|1]",
         "current_odds": 3.29
       },
       "GambleCity": {
-        "seq": "1N100110011",
-        "rec": 1,
-        "desc": "[1100110011] Mirror [00|11]",
+        "seq": "N1P00110111",
+        "rec": 0,
+        "desc": "[100110111] 반접기[10|01] + 꼬리[10111]=끝2연속1→0",
         "current_odds": 2.51
       },
       "Kobet": {
-        "seq": "0010N110010",
+        "seq": "01P0N111111",
         "rec": 0,
-        "desc": "[0010110010] Mirror [1|0]",
+        "desc": "[010111111] 중간대칭[111111]→다음0",
         "current_odds": 2.27
       },
       "Melbet": {
-        "seq": "01100100111",
+        "seq": "11P00100111",
         "rec": 0,
-        "desc": "[01100100111] 반접기[01|10] + 꼬리[0100111]=끝2연속1→0",
+        "desc": "[1100100111] 반접기[11|00] + 꼬리[100111]=끝2연속1→0",
         "current_odds": 2.53
       },
       "Momobet": {
-        "seq": "11100110111",
-        "rec": 0,
-        "desc": "[11100110111] 반접기[11|00] + 꼬리[110111]=끝2연속1→0",
+        "seq": "11P001NNNNN",
+        "rec": 1,
+        "desc": "[11001] Mirror [0|1]",
         "current_odds": 2.65
       },
       "Roobet": {
-        "seq": "011001N1001",
+        "seq": "11P001NNNNN",
         "rec": 1,
-        "desc": "[0110011001] Mirror [0|1]",
+        "desc": "[11001] Mirror [0|1]",
         "current_odds": 2.3
       },
       "Stake.com": {
-        "seq": "N1100110110",
-        "rec": 0,
-        "desc": "[1100110110] Mirror [1|0]",
+        "seq": "11P001NNNNN",
+        "rec": 1,
+        "desc": "[11001] Mirror [0|1]",
         "current_odds": 2.45
       },
       "VOBET": {
-        "seq": "11100111011",
-        "rec": 0,
-        "desc": "[11100111011] 반접기[11|00] + 꼬리[111011]=끝2연속1→0",
+        "seq": "11P001NNNNN",
+        "rec": 1,
+        "desc": "[11001] Mirror [0|1]",
         "current_odds": 2.65
       },
       "bwin": {
-        "seq": "1010011N0N1",
+        "seq": "01P0011N0N1",
         "rec": 1,
-        "desc": "[101001101] Mirror [0|1]",
+        "desc": "[01001101] Mirror [0|1]",
         "current_odds": 2.5
       }
     },
     "recommendation": "PASS",
     "confidence": 0.0,
-    "ml_home_prob": 0.435,
-    "ml_away_prob": 0.565,
+    "ml_home_prob": 0.465,
+    "ml_away_prob": 0.535,
     "verified": false,
     "actual": null
   },
   "slot_5.0": {
     "slot": 5.0,
-    "home": "SSG Landers",
-    "away": "KT Wiz Suwon",
-    "pred_date": "2026-04-26",
-    "home_direction": "1100101001",
-    "home_bm_agree": "1111011111",
-    "home_fav_win": "1101101000",
-    "home_team_win": "1110111110",
-    "home_dir_rec": 1,
+    "home": "KT Wiz Suwon",
+    "away": "LG Twins",
+    "pred_date": "2026-04-28",
+    "home_direction": "0111101110",
+    "home_bm_agree": "1111111111",
+    "home_fav_win": "0110101000",
+    "home_team_win": "1110111001",
+    "home_dir_rec": 0,
     "home_agr_rec": 1,
     "home_fav_rec": 1,
-    "home_win_rec": 0,
-    "away_direction": "0111101110",
-    "away_bm_agree": "1111111111",
-    "away_fav_win": "0110101000",
-    "away_team_win": "1110111001",
-    "away_dir_rec": 0,
-    "away_agr_rec": 1,
-    "away_fav_rec": 1,
-    "away_win_rec": 1,
-    "slot_fav_win": "0100101000",
-    "slot_fav_rec": 1,
+    "home_win_rec": 1,
+    "away_direction": "1111111111",
+    "away_bm_agree": "1111111110",
+    "away_fav_win": "0101110110",
+    "away_team_win": "0101110110",
+    "away_dir_rec": 1,
+    "away_agr_rec": 0,
+    "away_fav_rec": 0,
+    "away_win_rec": 0,
+    "slot_fav_win": "0.01.00.00.01.00.01.00.00.00.0",
+    "slot_fav_rec": 1.0,
     "slot_bm": {
       "10x10bet": {
-        "seq": "01011000111",
+        "seq": "10P11000111",
         "rec": 1,
-        "desc": "[01011000111] Mirror [000|111]",
+        "desc": "[1011000111] Mirror [000|111]",
         "current_odds": 1.65
       },
       "1xBet": {
-        "seq": "0100N0011N1",
+        "seq": "10P0N0011N1",
         "rec": 1,
-        "desc": "[010000111] Mirror [000|111]",
+        "desc": "[10000111] Mirror [000|111]",
         "current_odds": 1.68
       },
       "22Bet": {
-        "seq": "010010011N1",
+        "seq": "10P010011N1",
         "rec": 0,
-        "desc": "[0100100111] 반접기[10|01] + 꼬리[00111]=연속블록→0",
+        "desc": "[100100111] 반접기[10|01] + 꼬리[00111]=연속블록→0",
         "current_odds": 1.63
       },
       "Alphabet": {
-        "seq": "01011001111",
+        "seq": "10P11001111",
         "rec": 0,
-        "desc": "[01011001111] 반접기[01|10] + 꼬리[01111]=연속블록→0",
+        "desc": "[1011001111] 반접기[01|10] + 꼬리[01111]=연속블록→0",
         "current_odds": 1.65
       },
       "BetInAsia": {
-        "seq": "01000001101",
+        "seq": "10P00001101",
         "rec": 1,
-        "desc": "[01000001101] Mirror [0|1]",
+        "desc": "[1000001101] Mirror [0|1]",
         "current_odds": 1.63
       },
       "Bets.io": {
-        "seq": "0N011000111",
+        "seq": "N0PN1000111",
         "rec": 1,
-        "desc": "[0011000111] Mirror [000|111]",
+        "desc": "[01000111] Mirror [000|111]",
         "current_odds": 1.59
       },
       "Cloudbet": {
-        "seq": "01000001NNN",
-        "rec": 1,
-        "desc": "[01000001] Mirror [0|1]",
+        "seq": "10P00000NNN",
+        "rec": 0,
+        "desc": "[1000000] 1×1|0×6",
         "current_odds": 2.2
       },
       "GambleCity": {
-        "seq": "N100N001001",
+        "seq": "10P0N000111",
         "rec": 1,
-        "desc": "[100001001] Mirror [0|1]",
+        "desc": "[100000111] Mirror [000|111]",
         "current_odds": 1.61
       },
       "Kobet": {
-        "seq": "000N1000011",
+        "seq": "00PN100100N",
         "rec": 1,
-        "desc": "[0001000011] Mirror [00|11]",
+        "desc": "[00100100] [001]×2 반복",
         "current_odds": 1.74
       },
       "Melbet": {
-        "seq": "01001001011",
-        "rec": 1,
-        "desc": "[01001001011] Mirror [0100|1011]",
+        "seq": "10P010011N1",
+        "rec": 0,
+        "desc": "[100100111] 반접기[10|01] + 꼬리[00111]=연속블록→0",
         "current_odds": 1.63
       },
       "Momobet": {
-        "seq": "01011101000",
-        "rec": 0,
-        "desc": "[01011101000] Mirror [10111|01000]",
+        "seq": "10P111NNNNN",
+        "rec": 1,
+        "desc": "[10111] 중간대칭[101] + 꼬리[11]=반복→1",
         "current_odds": 1.65
       },
       "Roobet": {
-        "seq": "0NNN1000001",
-        "rec": 1,
-        "desc": "[01000001] Mirror [0|1]",
+        "seq": "NNPN10NNNNN",
+        "rec": null,
+        "desc": "데이터 부족",
         "current_odds": 1.63
       },
       "Stake.com": {
-        "seq": "0100N111001",
+        "seq": "10P0N1NNNNN",
         "rec": 1,
-        "desc": "[0100111001] Mirror [0|1]",
+        "desc": "[1001] Mirror [0|1]",
         "current_odds": 1.6
       },
       "VOBET": {
-        "seq": "01011000000",
+        "seq": "10P110NNNNN",
         "rec": 0,
-        "desc": "[01011000000] 반접기[01|10] + 꼬리[00000]=반복→0",
+        "desc": "[10110] Mirror [1|0]",
         "current_odds": 1.65
       },
       "bwin": {
-        "seq": "NN000N0N1N1",
+        "seq": "N0P00N0N1N1",
         "rec": 1,
         "desc": "[000011] Mirror [00|11]",
         "current_odds": 1.6
       }
     },
-    "recommendation": "AWAY(0)",
+    "recommendation": "HOME(1)",
     "confidence": 0.85,
-    "ml_home_prob": 0.51,
-    "ml_away_prob": 0.49,
+    "ml_home_prob": 0.57,
+    "ml_away_prob": 0.43,
     "verified": false,
     "actual": null
   }

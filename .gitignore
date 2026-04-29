@@ -13,4 +13,8 @@
 !.github/workflows/
 !.github/workflows/kbo_daily.yml
 !kbo_app.py
+!kbo_playwright_scrape.py
+!.streamlit/
+!.streamlit/config.toml
+!README.md
 !.gitignore

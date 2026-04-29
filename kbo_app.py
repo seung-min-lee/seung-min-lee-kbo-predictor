@@ -297,15 +297,22 @@ st.markdown("""
 
 # ── 요약 스탯 ────────────────────────────────────────────
 if len(log_df) > 0:
-    total   = len(log_df)
-    correct = int(log_df['correct'].sum())
-    acc     = correct / total
-    streak_val, streak_type = 1, ('O' if log_df['correct'].iloc[-1] else 'X')
-    for i in range(len(log_df)-1, 0, -1):
-        if log_df['correct'].iloc[i] == log_df['correct'].iloc[i-1]:
-            streak_val += 1
-        else:
-            break
+    pred_only = log_df[log_df['prediction'] != 'PASS'].copy()
+    total     = len(pred_only)
+    correct   = int(pred_only['correct'].sum()) if total > 0 else 0
+    acc       = correct / total if total > 0 else 0
+
+    last_valid = pred_only[pred_only['correct'].notna()]
+    if len(last_valid) > 0:
+        streak_val, streak_type = 1, ('O' if last_valid['correct'].iloc[-1] else 'X')
+        vals = last_valid['correct'].tolist()
+        for i in range(len(vals)-1, 0, -1):
+            if vals[i] == vals[i-1]:
+                streak_val += 1
+            else:
+                break
+    else:
+        streak_val, streak_type = 0, 'O'
     streak_label = f"연속 {'정답' if streak_type=='O' else '오답'}"
 
     c1, c2, c3, c4 = st.columns(4)
@@ -330,8 +337,8 @@ if len(log_df) > 0:
           <div class="stat-label">{streak_label}</div>
         </div>""", unsafe_allow_html=True)
     with c4:
-        recent5 = log_df.tail(5)
-        r5_acc  = recent5['correct'].mean()
+        recent5 = pred_only.tail(5)
+        r5_acc  = recent5['correct'].mean() if len(recent5) > 0 else 0
         r5c     = "#44ddaa" if r5_acc >= 0.6 else "#ffaa00" if r5_acc >= 0.4 else "#ff4466"
         st.markdown(f"""
         <div class="stat-card">
@@ -348,15 +355,24 @@ else:
 
     def render_seq(seq_str):
         out = ''
-        for ch in str(seq_str):
-            if ch == '1':
-                out += f'<span class="bit-1">1</span>'
-            elif ch == '0':
-                out += f'<span class="bit-0">0</span>'
-            elif ch == 'N':
-                out += f'<span style="color:#445566;font-family:Courier New,monospace">N</span>'
+        s = str(seq_str)
+        i = 0
+        while i < len(s):
+            if s[i] == 'P':
+                out += '<span style="color:#cc8800;font-size:.72rem;font-family:Courier New,monospace;font-weight:bold">P</span>'
+                i += 1
+            elif s[i] == '1':
+                out += '<span class="bit-1">1</span>'
+                i += 1
+            elif s[i] == '0':
+                out += '<span class="bit-0">0</span>'
+                i += 1
+            elif s[i] == 'N':
+                out += '<span style="color:#445566;font-family:Courier New,monospace">N</span>'
+                i += 1
             else:
-                out += ch
+                out += s[i]
+                i += 1
         return f'<span class="seq-cell">{out}</span>'
 
     def render_rec(rec):
@@ -602,11 +618,22 @@ else:
 
 # ── 히스토리 ─────────────────────────────────────────────
 if len(log_df) > 0:
-    st.markdown('<div class="section-title">📊 최근 예측 기록</div>', unsafe_allow_html=True)
+    _hist_df = log_df[log_df['prediction'] != 'PASS'].copy()
+    date_min = _hist_df['date'].min()[:10] if len(_hist_df) > 0 else ''
+    date_max = _hist_df['date'].max()[:10] if len(_hist_df) > 0 else ''
+    st.markdown(
+        f'<div class="section-title">📊 예측 기록 &nbsp;'
+        f'<span style="color:#445566;font-size:.8rem;font-family:sans-serif">'
+        f'백테스트 {date_min} ~ {date_max}</span></div>',
+        unsafe_allow_html=True)
 
-    for _, row in log_df.tail(10).iloc[::-1].iterrows():
-        mark  = 'O' if row['correct'] else 'X'
-        mcls  = f'hist-mark-{mark}'
+    for _, row in _hist_df.tail(10).iloc[::-1].iterrows():
+        correct_val = row.get('correct')
+        if correct_val is None or (hasattr(correct_val, '__class__') and str(correct_val) == 'nan'):
+            mark = '-'; mcls = 'hist-mark-X'
+        else:
+            mark = 'O' if correct_val else 'X'
+            mcls = f'hist-mark-{mark}'
         pred_str   = row.get('prediction', '')
         actual_str = row.get('actual_winner', '')
         conf_str   = f"{row.get('confidence', 0):.0%}"
@@ -622,14 +649,13 @@ if len(log_df) > 0:
 </div>""", unsafe_allow_html=True)
 
     # 슬롯별 정확도
-    st.markdown('<div class="section-title">📈 팀별 / 신뢰도별 정확도</div>', unsafe_allow_html=True)
+    st.markdown('<div class="section-title">📈 슬롯별 / 신뢰도별 정확도</div>', unsafe_allow_html=True)
     c1, c2 = st.columns(2)
     with c1:
         st.markdown("**슬롯별 정확도**")
-        slot_stats = log_df.groupby('slot')['correct'].agg(['sum','count']).reset_index()
+        slot_stats = _hist_df.groupby('slot')['correct'].agg(['sum','count']).reset_index()
         slot_stats['acc'] = slot_stats['sum'] / slot_stats['count']
         for _, r in slot_stats.iterrows():
-            bar = int(r['acc'] * 10)
             color = "#44ddaa" if r['acc'] >= 0.6 else "#ffaa00" if r['acc'] >= 0.45 else "#ff4466"
             st.markdown(f"""
 <div style="display:flex;align-items:center;gap:10px;margin-bottom:6px;font-family:'Noto Sans KR',sans-serif;font-size:.82rem">
@@ -644,10 +670,10 @@ if len(log_df) > 0:
         st.markdown("**신뢰도별 정확도**")
         bins   = [0, 0.6, 0.7, 0.8, 0.9, 1.01]
         labels = ['~60%','60~70%','70~80%','80~90%','90%~']
-        log_df2 = log_df.copy()
-        log_df2['conf_bin'] = pd.cut(log_df2['confidence'], bins=bins, labels=labels)
+        _hist2 = _hist_df.copy()
+        _hist2['conf_bin'] = pd.cut(_hist2['confidence'], bins=bins, labels=labels)
         for lbl in labels:
-            b = log_df2[log_df2['conf_bin'] == lbl]
+            b = _hist2[_hist2['conf_bin'] == lbl]
             if len(b) == 0: continue
             b_acc = b['correct'].mean()
             color = "#44ddaa" if b_acc >= 0.6 else "#ffaa00" if b_acc >= 0.45 else "#ff4466"
