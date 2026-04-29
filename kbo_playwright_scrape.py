@@ -357,12 +357,19 @@ def main():
                 home_score     = match.get('home_score')
                 away_score     = match.get('away_score')
 
-            # 경기 페이지 로드
-            try:
-                page.goto(match['url'], timeout=45000)
-                page.wait_for_selector('p.height-content.pl-4', timeout=15000)
-            except PWTimeout:
-                print('  → 페이지 로딩 실패, 스킵')
+            # 경기 페이지 로드 (타임아웃/네트워크 오류 재시도)
+            loaded = False
+            for _attempt in range(3):
+                try:
+                    page.goto(match['url'], timeout=45000)
+                    page.wait_for_selector('p.height-content.pl-4', timeout=15000)
+                    loaded = True
+                    break
+                except Exception as _e:
+                    print(f'  → 로딩 실패 (attempt {_attempt+1}): {type(_e).__name__}')
+                    time.sleep(3)
+            if not loaded:
+                print('  → 3회 실패, 스킵')
                 continue
             time.sleep(2)
 
@@ -421,17 +428,22 @@ def main():
 
                 time.sleep(0.5)
 
+            # 경기 단위 중간 저장 (크래시 대비)
+            if updated > 0:
+                _save_df = df if not new_rows else pd.concat(
+                    [df, pd.DataFrame(new_rows)], ignore_index=True)
+                _save_df = _save_df.sort_values(
+                    ['date', 'slot', 'bookmaker']).reset_index(drop=True)
+                _save_df.to_csv(CSV_PATH, index=False, encoding='utf-8-sig')
+                df = _save_df
+                new_rows.clear()
+
             time.sleep(1)
 
         browser.close()
 
-    if new_rows:
-        df = pd.concat([df, pd.DataFrame(new_rows)], ignore_index=True)
-        df = df.sort_values(['date', 'slot', 'bookmaker']).reset_index(drop=True)
-
     if updated > 0:
-        df.to_csv(CSV_PATH, index=False, encoding='utf-8-sig')
-        print(f'\n완료: 업데이트 {updated}건, 신규행 {len(new_rows)}개 → {CSV_PATH} 저장')
+        print(f'\n완료: 업데이트 {updated}건 → {CSV_PATH} 저장')
     else:
         print('\n업데이트 없음')
 
