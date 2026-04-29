@@ -618,7 +618,7 @@ else:
 
 # ── 히스토리 ─────────────────────────────────────────────
 if len(log_df) > 0:
-    _hist_df = log_df[log_df['prediction'] != 'PASS'].copy()
+    _hist_df = log_df[log_df['prediction'] != 'PASS'].copy().reset_index(drop=True)
     date_min = _hist_df['date'].min()[:10] if len(_hist_df) > 0 else ''
     date_max = _hist_df['date'].max()[:10] if len(_hist_df) > 0 else ''
     st.markdown(
@@ -627,7 +627,30 @@ if len(log_df) > 0:
         f'백테스트 {date_min} ~ {date_max}</span></div>',
         unsafe_allow_html=True)
 
-    for _, row in _hist_df.tail(10).iloc[::-1].iterrows():
+    ROWS_PER_PAGE = 10
+    total_records = len(_hist_df)
+    total_pages   = max(1, (total_records + ROWS_PER_PAGE - 1) // ROWS_PER_PAGE)
+
+    if 'hist_page' not in st.session_state or st.session_state.hist_page > total_pages:
+        st.session_state.hist_page = total_pages  # 기본: 마지막 페이지(최신)
+
+    # ── 페이지 버튼 (1행, 화면 폭에 맞게 균등 분배) ──────────
+    btn_cols = st.columns(total_pages)
+    for i, col in enumerate(btn_cols):
+        p = i + 1
+        label = f'**{p}**' if p == st.session_state.hist_page else str(p)
+        with col:
+            if st.button(label, key=f'hist_p_{p}', use_container_width=True):
+                st.session_state.hist_page = p
+                st.rerun()
+
+    # ── 현재 페이지 레코드 (최신순) ──────────────────────────
+    cur = st.session_state.hist_page
+    start = (cur - 1) * ROWS_PER_PAGE
+    end   = start + ROWS_PER_PAGE
+    page_df = _hist_df.iloc[start:end].iloc[::-1]
+
+    for _, row in page_df.iterrows():
         correct_val = row.get('correct')
         if correct_val is None or (hasattr(correct_val, '__class__') and str(correct_val) == 'nan'):
             mark = '-'; mcls = 'hist-mark-X'
