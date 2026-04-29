@@ -16,7 +16,10 @@ _today    = _dt.today()
 FILL_FROM = (_today - _td(days=LOOKBACK_DAYS)).strftime('%Y-%m-%d')
 FILL_TO   = (_today - _td(days=1)).strftime('%Y-%m-%d')
 
-CLICK_BMS  = ['Cloudbet', 'GambleCity', 'Kobet', 'Melbet']    # click → bg-gray-med_light 팝업
+CLICK_BMS  = [                                                  # click → bg-gray-med_light 팝업
+    '10x10bet', '1xBet', '22Bet', 'Alphabet', 'BetInAsia', 'Bets.io', 'bwin',
+    'Cloudbet', 'GambleCity', 'Kobet', 'Melbet',
+]
 HOVER_BMS  = ['Momobet', 'Roobet', 'Stake.com', 'VOBET']     # hover → bg-gray-med absolute 팝업
 POPUP_BMS  = CLICK_BMS + HOVER_BMS
 NO_POPUP   = set()
