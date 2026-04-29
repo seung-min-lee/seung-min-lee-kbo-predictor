@@ -79,12 +79,16 @@ JS_EXTRACT = """
 
 def get_match_urls(page, stop_before=None):
     all_matches, seen_ids = [], set()
-    page.goto('https://www.oddsportal.com/baseball/south-korea/kbo/results/')
-    try:
-        page.wait_for_selector('div.eventRow', timeout=30000)
-    except PWTimeout:
-        print('  결과 페이지 로딩 실패')
-        return []
+    for attempt in range(3):
+        try:
+            page.goto('https://www.oddsportal.com/baseball/south-korea/kbo/results/', timeout=60000)
+            page.wait_for_selector('div.eventRow', timeout=30000)
+            break
+        except PWTimeout:
+            print(f'  결과 페이지 로딩 실패 (attempt {attempt+1})')
+            if attempt == 2:
+                return []
+            time.sleep(3)
     time.sleep(2)
 
     for pg in range(1, 15):
@@ -354,8 +358,8 @@ def main():
                 away_score     = match.get('away_score')
 
             # 경기 페이지 로드
-            page.goto(match['url'])
             try:
+                page.goto(match['url'], timeout=45000)
                 page.wait_for_selector('p.height-content.pl-4', timeout=15000)
             except PWTimeout:
                 print('  → 페이지 로딩 실패, 스킵')

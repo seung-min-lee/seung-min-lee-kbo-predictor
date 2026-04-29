@@ -102,6 +102,8 @@ for key, pred in predictions.items():
 if new_rows:
     new_df = pd.DataFrame(new_rows)
     log_df = pd.concat([log_df, new_df], ignore_index=True)
+    # 동일 date+slot 중복 방지: 첫 번째 기록 유지
+    log_df = log_df.drop_duplicates(subset=['date', 'slot', 'home', 'away'], keep='first')
     log_df.to_csv(RESULT_PATH, index=False, encoding='utf-8-sig')
 
     with open(PRED_PATH, 'w', encoding='utf-8') as f:

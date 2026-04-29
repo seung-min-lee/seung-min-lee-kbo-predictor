@@ -1,4 +1,4 @@
-﻿date,slot,home,away,prediction,actual_winner,correct,confidence,ml_home_prob,ml_away_prob
+date,slot,home,away,prediction,actual_winner,correct,confidence,ml_home_prob,ml_away_prob
 2026-04-02,5.0,NC Dinos,Lotte Giants,AWAY(Lotte Giants),NC Dinos,False,0.75,0.25,0.75
 2026-04-02,3.0,LG Twins,KIA Tigers,HOME(LG Twins),LG Twins,True,0.85,0.425,0.575
 2026-04-02,1.0,Samsung Lions,Doosan Bears,HOME(Samsung Lions),Samsung Lions,True,0.85,0.445,0.555
@@ -104,8 +104,3 @@
 2026-04-28,2.0,Hanwha Eagles,SSG Landers,HOME(1),HOME(1),True,0.69,0.69,0.31
 2026-04-28,3.0,NC Dinos,KIA Tigers,HOME(1),HOME(1),True,0.625,0.625,0.375
 2026-04-28,5.0,KT Wiz Suwon,LG Twins,HOME(1),HOME(1),True,0.85,0.57,0.43
-2026-04-28,1.0,Doosan Bears,Samsung Lions,AWAY(0),AWAY(0),True,0.85,0.395,0.605
-2026-04-28,2.0,Hanwha Eagles,SSG Landers,HOME(1),HOME(1),True,0.85,0.645,0.355
-2026-04-28,3.0,NC Dinos,KIA Tigers,HOME(1),HOME(1),True,0.85,0.635,0.365
-2026-04-28,4.0,Lotte Giants,Kiwoom Heroes,HOME(1),HOME(1),True,0.85,0.665,0.335
-2026-04-28,5.0,KT Wiz Suwon,LG Twins,HOME(1),HOME(1),True,0.85,0.54,0.46
