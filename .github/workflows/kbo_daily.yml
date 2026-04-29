@@ -20,15 +20,19 @@ jobs:
 
     - name: 패키지 설치
       run: |
-        pip install selenium webdriver-manager pandas scikit-learn
+        pip install selenium webdriver-manager pandas scikit-learn playwright
 
-    - name: Chrome 설치
+    - name: Chrome / Playwright 브라우저 설치
       run: |
         sudo apt-get update
         sudo apt-get install -y chromium-browser chromium-chromedriver
+        playwright install --with-deps chromium
 
-    - name: 데이터 업데이트
+    - name: 데이터 업데이트 (Selenium)
       run: python kbo_update.py
+
+    - name: open 배당 수집 (Playwright)
+      run: python kbo_playwright_scrape.py
 
     - name: 예측 검증
       run: python kbo_verify.py

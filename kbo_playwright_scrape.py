@@ -1,9 +1,8 @@
 """
 kbo_playwright_scrape.py
 Playwright 기반 OddsPortal KBO open/close 배당 수집
-대상 기간: 2026-04-22 ~ 2026-04-26
-팝업 BM: Cloudbet, GambleCity, Kobet, Melbet
-NO_POPUP: Momobet, Roobet, Stake.com, VOBET (open=NaN 유지)
+CLICK_BMS: Cloudbet, GambleCity, Kobet, Melbet  (click → bg-gray-med_light 팝업)
+HOVER_BMS: Momobet, Roobet, Stake.com, VOBET    (hover → z-30 absolute 툴팁)
 """
 from playwright.sync_api import sync_playwright, TimeoutError as PWTimeout
 import pandas as pd
@@ -11,8 +10,11 @@ import time
 from datetime import datetime as _dt, timedelta as _td
 
 CSV_PATH  = 'kbo_odds.csv'
-FILL_FROM = '2026-04-22'
-FILL_TO   = '2026-04-26'
+# 동적 날짜: 최근 LOOKBACK_DAYS 일 이내 open 미수집 경기 보충
+LOOKBACK_DAYS = 30
+_today    = _dt.today()
+FILL_FROM = (_today - _td(days=LOOKBACK_DAYS)).strftime('%Y-%m-%d')
+FILL_TO   = (_today - _td(days=1)).strftime('%Y-%m-%d')
 
 CLICK_BMS  = ['Cloudbet', 'GambleCity', 'Kobet', 'Melbet']    # click → bg-gray-med_light 팝업
 HOVER_BMS  = ['Momobet', 'Roobet', 'Stake.com', 'VOBET']     # hover → bg-gray-med absolute 팝업

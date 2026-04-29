@@ -77,13 +77,18 @@ JS_EXTRACT = """
             .map(el=>el.innerText.trim()).filter(t=>/^\\d+$/.test(t));
         const homeScore=parseInt(nums[0]);
         const awayScore=parseInt(nums[2]);
+        // Postp(연기) 감지: score 자리에 'Postp.' 텍스트 여부 확인
+        const allText=row.innerText||'';
+        const isPostp=!(!isNaN(homeScore)&&!isNaN(awayScore))&&/postp/i.test(allText);
         results.push({
             date:currentDate, url:href,
             match_id:href.split('#')[1],
             home:teams[0]||'', away:teams[1]||'',
-            home_score:homeScore||0, away_score:awayScore||0,
-            winner_is_home:homeScore>awayScore,
-            finished:!isNaN(homeScore)&&!isNaN(awayScore)&&homeScore!==awayScore
+            home_score:isPostp?null:(homeScore||0),
+            away_score:isPostp?null:(awayScore||0),
+            winner_is_home:isPostp?null:(homeScore>awayScore),
+            finished:!isNaN(homeScore)&&!isNaN(awayScore)&&homeScore!==awayScore,
+            postp:isPostp
         });
     });
     return results;
@@ -228,9 +233,10 @@ def scrape_team_odds(driver, odds_el):
         return {openVal, closeVal, direction, change};
     """)
 
-    # 패널 닫기
+    # 패널 닫기 (body 클릭으로 닫음 - 같은 element 재클릭 시 팝업 재열림 방지)
     try:
-        driver.execute_script("arguments[0].click();", odds_el)
+        from selenium.webdriver.common.keys import Keys
+        driver.find_element(By.TAG_NAME, 'body').send_keys(Keys.ESCAPE)
         for _ in range(5):
             if not driver.execute_script(
                 "return document.querySelector('div.height-content[class*=\"bg-gray-med_light\"]');"):
