@@ -17,7 +17,7 @@ warnings.filterwarnings('ignore')
 CSV_PATH   = 'kbo_odds.csv'
 GAMES_PATH = 'kbo_games.csv'
 PRED_PATH  = 'kbo_predictions.json'
-WINDOW     = 17   # 팀별 최근 N경기 참조
+WINDOW     = 19   # 팀별 최근 N경기 참조
 BM_SEQ_LEN = 17  # 슬롯별 북메이커 배당변동 시퀀스 길이
 
 # ── 패턴 분석 함수 (변경 없음) ─────────────────────────────
