@@ -20,8 +20,10 @@
     "away_agr_rec": 0,
     "away_fav_rec": 1,
     "away_win_rec": 0,
-    "slot_fav_win": "1.00.00.01.00.01.01.00.00.00.01.01.00.01.01.00.01.01.0",
-    "slot_fav_rec": 0.0,
+    "slot_fav_win": "100101100011011011",
+    "slot_fav_rec": 0,
+    "slot_fav_team_rec": 0,
+    "home_is_fav": true,
     "slot_bm": {
       "10x10bet": {
         "seq": "N1010010010100010",
@@ -142,8 +144,10 @@
     "away_agr_rec": 0,
     "away_fav_rec": 1,
     "away_win_rec": 1,
-    "slot_fav_win": "1.01.01.00.01.01.00.01.00.00.01.01.00.00.00.01.01.01.0",
-    "slot_fav_rec": 1.0,
+    "slot_fav_win": "111011010011000111",
+    "slot_fav_rec": 1,
+    "slot_fav_team_rec": 0,
+    "home_is_fav": false,
     "slot_bm": {
       "10x10bet": {
         "seq": "001101PN1N0N10101",
@@ -264,8 +268,10 @@
     "away_agr_rec": 1,
     "away_fav_rec": 0,
     "away_win_rec": 1,
-    "slot_fav_win": "1.00.00.01.01.01.01.01.01.01.01.01.00.01.01.01.00.00.0",
-    "slot_fav_rec": 0.0,
+    "slot_fav_win": "100111111111011100",
+    "slot_fav_rec": 0,
+    "slot_fav_team_rec": 0,
+    "home_is_fav": true,
     "slot_bm": {
       "10x10bet": {
         "seq": "1101N001100000001",
@@ -386,8 +392,10 @@
     "away_agr_rec": 0,
     "away_fav_rec": 1,
     "away_win_rec": 1,
-    "slot_fav_win": "1.00.01.01.01.00.00.00.01.01.00.00.01.00.00.00.00.00.0",
-    "slot_fav_rec": 1.0,
+    "slot_fav_win": "101110001100100000",
+    "slot_fav_rec": 1,
+    "slot_fav_team_rec": 1,
+    "home_is_fav": true,
     "slot_bm": {
       "10x10bet": {
         "seq": "111111P0011011101",
@@ -508,8 +516,10 @@
     "away_agr_rec": 0,
     "away_fav_rec": 0,
     "away_win_rec": 0,
-    "slot_fav_win": "1.01.01.01.01.01.00.01.00.00.01.00.01.00.00.00.00.00.0",
-    "slot_fav_rec": 1.0,
+    "slot_fav_win": "111111010010100000",
+    "slot_fav_rec": 1,
+    "slot_fav_team_rec": 0,
+    "home_is_fav": false,
     "slot_bm": {
       "10x10bet": {
         "seq": "000010P1100011110",

@@ -407,10 +407,40 @@ else:
             for _bm, v in sorted(_slot_bm.items())
         ) if _slot_bm else ''
 
+        # 슬롯 정배승/역배승 시퀀스
+        _fav_seq       = pred.get('slot_fav_win', '')
+        _fav_rec       = pred.get('slot_fav_rec')        # 1=정배승 예상, 0=역배승 예상, None=불규칙
+        _fav_team_rec  = pred.get('slot_fav_team_rec')   # 1=홈 추천, 0=원정 추천, None=불확실
+        _home_is_fav   = pred.get('home_is_fav')
+
+        if _fav_rec is None:
+            _fav_pred_html = '<span style="color:#445566;font-size:.75rem">불규칙</span>'
+        else:
+            _fav_label = '정배승 예상' if _fav_rec == 1 else '역배승 예상'
+            _fav_color = '#44ddaa' if _fav_rec == 1 else '#ff8844'
+            _fav_pred_html = f'<span style="color:{_fav_color};font-weight:700;font-size:.75rem">{_fav_label}</span>'
+
+        if _fav_team_rec is None:
+            _fav_team_html = ''
+        elif _fav_team_rec == 1:
+            _fav_team_html = f'&nbsp;→&nbsp;<span style="color:{hm[\"color\"]};font-weight:900;font-size:.75rem">홈({hm[\"abbr\"]}) 유리</span>'
+        else:
+            _fav_team_html = f'&nbsp;→&nbsp;<span style="color:{am[\"color\"]};font-weight:900;font-size:.75rem">원정({am[\"abbr\"]}) 유리</span>'
+
+        _fav_who = ('홈=정배' if _home_is_fav else '원정=정배') if _home_is_fav is not None else ''
+        _fav_who_html = f'<span style="color:#334455;font-size:.68rem">&nbsp;({_fav_who})</span>' if _fav_who else ''
+
         table_rows = f"""
             <tr>
               <td>배당변동 예측<br><small style='color:#445'>북메이커별</small><br><small style='color:#334;font-size:.65rem'>1=상승&nbsp;0=하락</small></td>
               <td colspan="5">{render_seq(_bm_dir_seq) if _bm_dir_seq else '<span style="color:#445566">-</span>'}</td>
+            </tr>
+            <tr>
+              <td>슬롯&nbsp;정배승/역배승<br><small style='color:#445'>18경기</small><br><small style='color:#334;font-size:.65rem'>1=정배승&nbsp;0=역배승</small></td>
+              <td colspan="5">
+                {render_seq(_fav_seq) if _fav_seq and _fav_seq != '-' else '<span style="color:#445566">-</span>'}
+                &nbsp;&nbsp;{_fav_pred_html}{_fav_team_html}{_fav_who_html}
+              </td>
             </tr>"""
         for label, hs, hr, as_, ar in two_col_rows:
             table_rows += f"""

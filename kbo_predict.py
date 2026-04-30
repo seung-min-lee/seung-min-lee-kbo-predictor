@@ -735,7 +735,11 @@ def get_slot_fav_win_seq(slot, before_date_order, window=SLOT_FAV_SEQ_LEN):
         (game_df['winner'] != 'Postp')   # Postp 경기는 정배/역배 시퀀스에서 제외
     )
     recent = game_df[mask].sort_values('date_order').tail(window)
-    return recent['consensus_win'].tolist(), recent['date'].tolist()
+    pairs = [(int(cw), dt) for cw, dt in zip(recent['consensus_win'], recent['date']) if not pd.isna(cw)]
+    if pairs:
+        seqs, dates = zip(*pairs)
+        return list(seqs), list(dates)
+    return [], []
 
 def get_team_win_seq(team, before_date_order, window=WINDOW):
     _, _, _, team_win = get_team_triple_seq(team, before_date_order, window)
@@ -1366,6 +1370,8 @@ for i, game in enumerate(upcoming_games):
         'away_win_rec':    a_win_rec,
         'slot_fav_win':    seq_str(slot_fav_seq),
         'slot_fav_rec':    slot_fav_rec,
+        'slot_fav_team_rec': slot_fav_team_rec,
+        'home_is_fav':     bool(home_is_fav_today) if home_is_fav_today is not None else None,
         'slot_bm':         slot_bm_results,
         'recommendation':  rec_str,
         'confidence':      round(pattern_confidence, 3),
