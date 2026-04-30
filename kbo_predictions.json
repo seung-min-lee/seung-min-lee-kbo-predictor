@@ -20,7 +20,7 @@
     "away_agr_rec": 0,
     "away_fav_rec": 1,
     "away_win_rec": 0,
-    "slot_fav_win": "0.01.00.00.01.00.01.01.00.00.00.01.01.00.01.01.00.01.01.0",
+    "slot_fav_win": "1.00.00.01.00.01.01.00.00.00.01.01.00.01.01.00.01.01.0",
     "slot_fav_rec": 0.0,
     "slot_bm": {
       "10x10bet": {
@@ -115,7 +115,7 @@
       }
     },
     "recommendation": "HOME(1)",
-    "confidence": 0.892,
+    "confidence": 0.862,
     "ml_home_prob": 0.57,
     "ml_away_prob": 0.43,
     "verified": false,
@@ -142,7 +142,7 @@
     "away_agr_rec": 0,
     "away_fav_rec": 1,
     "away_win_rec": 1,
-    "slot_fav_win": "1.01.01.01.00.01.01.00.01.00.00.01.01.00.00.00.01.01.01.0",
+    "slot_fav_win": "1.01.01.00.01.01.00.01.00.00.01.01.00.00.00.01.01.01.0",
     "slot_fav_rec": 1.0,
     "slot_bm": {
       "10x10bet": {
@@ -264,7 +264,7 @@
     "away_agr_rec": 1,
     "away_fav_rec": 0,
     "away_win_rec": 1,
-    "slot_fav_win": "1.01.00.00.01.01.01.01.01.01.01.01.01.00.01.01.01.00.00.0",
+    "slot_fav_win": "1.00.00.01.01.01.01.01.01.01.01.01.00.01.01.01.00.00.0",
     "slot_fav_rec": 0.0,
     "slot_bm": {
       "10x10bet": {
@@ -359,7 +359,7 @@
       }
     },
     "recommendation": "AWAY(0)",
-    "confidence": 0.896,
+    "confidence": 0.926,
     "ml_home_prob": 0.5,
     "ml_away_prob": 0.5,
     "verified": false,
@@ -386,7 +386,7 @@
     "away_agr_rec": 0,
     "away_fav_rec": 1,
     "away_win_rec": 1,
-    "slot_fav_win": "0.01.00.01.01.01.00.00.00.01.01.00.00.01.00.00.00.00.00.0",
+    "slot_fav_win": "1.00.01.01.01.00.00.00.01.01.00.00.01.00.00.00.00.00.0",
     "slot_fav_rec": 1.0,
     "slot_bm": {
       "10x10bet": {
@@ -481,7 +481,7 @@
       }
     },
     "recommendation": "AWAY(0)",
-    "confidence": 0.9,
+    "confidence": 0.87,
     "ml_home_prob": 0.57,
     "ml_away_prob": 0.43,
     "verified": false,
@@ -508,7 +508,7 @@
     "away_agr_rec": 0,
     "away_fav_rec": 0,
     "away_win_rec": 0,
-    "slot_fav_win": "1.01.01.01.01.01.01.00.01.00.00.01.00.01.00.00.00.00.00.0",
+    "slot_fav_win": "1.01.01.01.01.01.00.01.00.00.01.00.01.00.00.00.00.00.0",
     "slot_fav_rec": 1.0,
     "slot_bm": {
       "10x10bet": {
@@ -603,7 +603,7 @@
       }
     },
     "recommendation": "AWAY(0)",
-    "confidence": 0.738,
+    "confidence": 0.796,
     "ml_home_prob": 0.525,
     "ml_away_prob": 0.475,
     "verified": false,

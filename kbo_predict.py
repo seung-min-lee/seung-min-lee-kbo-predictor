@@ -18,7 +18,8 @@ CSV_PATH   = 'kbo_odds.csv'
 GAMES_PATH = 'kbo_games.csv'
 PRED_PATH  = 'kbo_predictions.json'
 WINDOW     = 19   # 팀별 최근 N경기 참조
-BM_SEQ_LEN = 17  # 슬롯별 북메이커 배당변동 시퀀스 길이
+BM_SEQ_LEN       = 17  # 슬롯별 북메이커 배당변동 시퀀스 길이
+SLOT_FAV_SEQ_LEN = 18  # 슬롯별 정배/역배 승 시퀀스 길이
 
 # ── 패턴 분석 함수 (변경 없음) ─────────────────────────────
 def find_runs(seq):
@@ -724,7 +725,7 @@ def get_team_triple_seq(team, before_date_order, window=WINDOW):
         team_win_seq.append(1 if r['winner'] == team else 0)
     return direction_seq, agree_seq, fav_win_seq, team_win_seq
 
-def get_slot_fav_win_seq(slot, before_date_order, window=WINDOW):
+def get_slot_fav_win_seq(slot, before_date_order, window=SLOT_FAV_SEQ_LEN):
     """해당 슬롯(N번째 경기)의 날짜별 정배승(1)/역배승(0) 시퀀스
     Ex) 2번째 경기: 20일→1, 21일→0, 22일→1, 23일→1, 24일→1 → 오늘 예측
     """
@@ -1123,6 +1124,15 @@ for i, game in enumerate(upcoming_games):
 
     slot_fav_rec, slot_fav_desc = pat_rec(slot_fav_seq)
 
+    # 오늘 슬롯의 정배팀(홈/원정)을 실제 배당으로 확인 → team 추천 변환
+    _today_row = game_df[(game_df['slot'] == slot) & (game_df['date_order'] == max_date_order - 1)]
+    home_is_fav_today = (_today_row['consensus'].iloc[0] == 'home') if len(_today_row) > 0 else None
+    slot_fav_team_rec = None
+    if slot_fav_rec is not None and home_is_fav_today is not None:
+        # 정배승(1)+홈이정배 → HOME(1), 정배승(1)+원정이정배 → AWAY(0)
+        # 역배승(0)+홈이정배 → AWAY(0), 역배승(0)+원정이정배 → HOME(1)
+        slot_fav_team_rec = 1 if (slot_fav_rec == int(home_is_fav_today)) else 0
+
     a_dir_rec,  a_dir_desc  = pat_rec(a_dir)
     a_agr_rec,  a_agr_desc  = pat_rec(a_agr)
     a_faw_rec,  a_faw_desc  = pat_rec(a_fav_win)
@@ -1165,7 +1175,9 @@ for i, game in enumerate(upcoming_games):
     # 3) 슬롯별 정배승(1)/역배승(0) — 날짜별 N번째 경기 기준 통합
     sf = seq_str(slot_fav_seq)
     date_labels = ' '.join(d.replace('Yesterday, ','').replace('Today','오늘')[-5:] for d in slot_fav_dates[-len(slot_fav_seq):])
-    print(f'  {"정배승/역배승":<18} [{sf}]→{fmt_rec(slot_fav_rec):<3}  (슬롯{slot} 날짜별: {date_labels})')
+    _fav_today_str = ('홈정배' if home_is_fav_today else '원정정배') if home_is_fav_today is not None else '?'
+    _fav_team_str  = f'→{"홈" if slot_fav_team_rec==1 else "원정"}' if slot_fav_team_rec is not None else '→?'
+    print(f'  {"정배승/역배승":<18} [{sf}]→{fmt_rec(slot_fav_rec):<3}  ({SLOT_FAV_SEQ_LEN}경기, 오늘{_fav_today_str}{_fav_team_str})')
     print(f'  {"":18} {slot_fav_desc}')
 
     # 4) 팀 승(1) / 패(0)
@@ -1238,6 +1250,22 @@ for i, game in enumerate(upcoming_games):
         pattern_reason = '팀승패 충돌 (둘 다 패 예측) → ML 판단'
     else:
         pattern_reason = '팀승패 불규칙 → ML 판단'
+
+    # ── 슬롯 정배/역배 패턴 반영 ──────────────────────────────
+    if slot_fav_team_rec is not None:
+        fav_str  = '정배승' if slot_fav_rec == 1 else '역배승'
+        fav_who  = '홈정배' if home_is_fav_today else '원정정배'
+        fav_label = f'{fav_str} {SLOT_FAV_SEQ_LEN}경기({fav_who})'
+        if final_rec is None:
+            final_rec = slot_fav_team_rec
+            pattern_confidence = 0.75
+            pattern_reason = f'슬롯정배패턴({fav_label})'
+        elif final_rec == slot_fav_team_rec:
+            pattern_confidence = min(0.95, pattern_confidence + 0.03)
+            pattern_reason += f' + 정배패턴일치({fav_label})'
+        else:
+            pattern_confidence = max(0.50, pattern_confidence - 0.03)
+            pattern_reason += f' ※정배패턴충돌({fav_label})'
 
     # ── BM 방향 신호 반영 ─────────────────────────────────────
     if bm_team_rec is not None:
