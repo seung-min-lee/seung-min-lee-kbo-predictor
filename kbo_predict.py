@@ -17,7 +17,7 @@ warnings.filterwarnings('ignore')
 CSV_PATH   = 'kbo_odds.csv'
 GAMES_PATH = 'kbo_games.csv'
 PRED_PATH  = 'kbo_predictions.json'
-WINDOW     = 10   # 팀별 최근 N경기 참조
+WINDOW     = 15   # 팀별 최근 N경기 참조
 BM_SEQ_LEN = 17  # 슬롯별 북메이커 배당변동 시퀀스 길이
 
 # ── 패턴 분석 함수 (변경 없음) ─────────────────────────────
@@ -282,6 +282,85 @@ def check_history_match(seq, full_history):
     score = 0.68 + vote_ratio * 0.16  # 0.68~0.84
     return nv, desc, score
 
+def check_meta_alternating(seq, full_history=None):
+    """계단식↔짝맞춤 교대 메타패턴 감지
+
+    현재 seq를 S(계단식)/P(짝맞춤) 구간으로 분할:
+      3분할: S→P→S 또는 P→S→P → 중간 타입이 다음에도 반복 (score 0.85)
+      2분할: S→P 또는 P→S → 처음 타입이 다음에 재등장 (score 0.80)
+    마지막 구간의 반대 타입 예측 로직을 seq에 적용해 다음 값 반환
+    """
+    n = len(seq)
+    if n < 8:
+        return None, None, 0.0
+
+    def _classify(b):
+        if len(b) < 4:
+            return None, 0.0
+        _, _, s_sc = check_staircase_pattern(b)
+        if s_sc >= 0.78:
+            return 'S', s_sc
+        _, _, rm_sc = check_run_mirror_pattern(b)
+        if rm_sc >= 0.78:
+            return 'P', rm_sc
+        rl = [r[1] for r in find_runs(b)]
+        if len(rl) >= 3 and rl == rl[::-1]:
+            return 'P', 0.75
+        return None, 0.0
+
+    clean_h = [x for x in (full_history or []) if x in (0, 1)]
+
+    # ── 3분할: S→P→S 또는 P→S→P ──────────────────────────────
+    found3 = None
+    for i in range(4, n - 8):
+        t1, sc1 = _classify(seq[:i])
+        if t1 is None:
+            continue
+        for j in range(i + 4, n - 4):
+            t2, sc2 = _classify(seq[i:j])
+            t3, sc3 = _classify(seq[j:])
+            if t2 and t3 and t1 != t2 and t2 != t3 and t1 == t3:
+                # (chain, next_t, avg_sc, split_j)
+                found3 = ([t1, t2, t3], t2, (sc1 + sc2 + sc3) / 3, j)
+                break
+        if found3:
+            break
+
+    if found3:
+        chain, next_t, avg_sc, split_j = found3
+        last_seg = list(seq[split_j:])
+        last_t   = chain[-1]   # 마지막 구간 타입
+        base     = min(0.85, avg_sc + 0.03)
+    else:
+        # ── 2분할: S→P 또는 P→S ───────────────────────────────
+        found2 = None
+        for i in range(4, n - 4):
+            t1, sc1 = _classify(seq[:i])
+            t2, sc2 = _classify(seq[i:])
+            if t1 and t2 and t1 != t2:
+                found2 = ([t1, t2], t1, (sc1 + sc2) / 2, i)
+                break
+        if not found2:
+            return None, None, 0.0
+        chain, next_t, avg_sc, split_i = found2
+        last_seg = list(seq[split_i:])
+        last_t   = chain[-1]
+        base     = min(0.80, avg_sc + 0.02)
+
+    chain_str = '→'.join(chain) + f'→[{next_t}]'
+
+    # 마지막 구간의 타입 예측 로직을 last_seg에 적용
+    if last_t == 'S':
+        nv, d, sc = check_staircase_pattern(last_seg)
+    else:  # P
+        nv, d, sc = check_run_mirror_pattern(last_seg)
+        if nv is None and clean_h:
+            nv, d, sc = check_history_match(last_seg, clean_h)
+
+    if nv is None:
+        return None, None, 0.0
+    return nv, f'교대메타[{chain_str}] {d}', base
+
 def tail_recommendation(tail):
     if not tail: return None, None
     s = ''.join(str(x) for x in tail)
@@ -483,6 +562,14 @@ def analyze_pattern(seq, full_history=None):
                                'desc': best_hm[1],
                                'rec':  best_hm[0],
                                'score': best_hm[2]})
+
+        # 교대 메타패턴 (계단식↔짝맞춤 교대)
+        meta_val, meta_desc, meta_score = check_meta_alternating(seq, full_history)
+        if meta_val is not None:
+            candidates.append({'type':'교대메타',
+                               'desc': meta_desc,
+                               'rec':  meta_val,
+                               'score': meta_score})
 
     segs = segment_patterns(seq)
 
