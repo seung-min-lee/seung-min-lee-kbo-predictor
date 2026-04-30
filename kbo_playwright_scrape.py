@@ -406,11 +406,21 @@ def main():
 
                 print(f'  {bm}: h_open={h_open} h_close={h_close} | a_open={a_open} a_close={a_close}')
 
+                h_dir = (1 if h_close > h_open else 0) if (h_open and h_close and h_open != h_close) else None
+                a_dir = (1 if a_close > a_open else 0) if (a_open and a_close and a_open != a_close) else None
+                w_dir = h_dir if winner_is_home else a_dir
+
                 if mask.any():
                     if h_open:
                         df.loc[mask, ['home_open', 'home_close', 'home_change']] = [h_open, h_close, h_chg]
+                        if h_dir is not None:
+                            df.loc[mask, 'home_direction'] = h_dir
                     if a_open:
                         df.loc[mask, ['away_open', 'away_close', 'away_change']] = [a_open, a_close, a_chg]
+                        if a_dir is not None:
+                            df.loc[mask, 'away_direction'] = a_dir
+                    if w_dir is not None:
+                        df.loc[mask, 'winner_direction'] = w_dir
                     if h_open or a_open:
                         updated += 1
                 else:
@@ -421,10 +431,10 @@ def main():
                         'home_score': home_score, 'away_score': away_score,
                         'bookmaker': bm,
                         'home_open': h_open, 'home_close': h_close,
-                        'home_change': h_chg, 'home_direction': None,
+                        'home_change': h_chg, 'home_direction': h_dir,
                         'away_open': a_open, 'away_close': a_close,
-                        'away_change': a_chg, 'away_direction': None,
-                        'winner_direction': None,
+                        'away_change': a_chg, 'away_direction': a_dir,
+                        'winner_direction': w_dir,
                         'odds_ratio': odds_ratio, 'consensus': consensus,
                     })
                     updated += 1
@@ -445,8 +455,35 @@ def main():
 
         browser.close()
 
-    if updated > 0:
-        print(f'\n완료: 업데이트 {updated}건 → {CSV_PATH} 저장')
+    # open/close 있는데 direction 없는 행 일괄 재계산
+    df = pd.read_csv(CSV_PATH)
+    has_h = df['home_open'].notna() & df['home_close'].notna()
+    has_a = df['away_open'].notna() & df['away_close'].notna()
+    miss_h = df['home_direction'].isna() & has_h
+    miss_a = df['away_direction'].isna() & has_a
+    miss_w = df['winner_direction'].isna()
+
+    if miss_h.any():
+        df.loc[miss_h, 'home_direction'] = (
+            df.loc[miss_h, 'home_close'] > df.loc[miss_h, 'home_open']).astype(int)
+    if miss_a.any():
+        df.loc[miss_a, 'away_direction'] = (
+            df.loc[miss_a, 'away_close'] > df.loc[miss_a, 'away_open']).astype(int)
+
+    wih_true  = miss_w & (df['winner_is_home'] == True)  & has_h
+    wih_false = miss_w & (df['winner_is_home'] == False) & has_a
+    if wih_true.any():
+        df.loc[wih_true, 'winner_direction'] = (
+            df.loc[wih_true, 'home_close'] > df.loc[wih_true, 'home_open']).astype(int)
+    if wih_false.any():
+        df.loc[wih_false, 'winner_direction'] = (
+            df.loc[wih_false, 'away_close'] > df.loc[wih_false, 'away_open']).astype(int)
+
+    filled = int(miss_w.sum() - df['winner_direction'].isna().sum())
+    df.to_csv(CSV_PATH, index=False, encoding='utf-8-sig')
+
+    if updated > 0 or filled > 0:
+        print(f'\n완료: 업데이트 {updated}건, direction 재계산 {filled}건 → {CSV_PATH} 저장')
     else:
         print('\n업데이트 없음')
 
