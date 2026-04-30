@@ -779,6 +779,112 @@ def pat_rec(seq, full_history=None):
     rec = pa['rec'] if not pa.get('pass') else None
     return rec, pa['desc']
 
+def collect_pattern_votes(seq, full_history=None):
+    """전체 + 모든 접미사 분할에서 패턴 탐색 → 투표 리스트 반환
+    Returns list of (prediction, weight, description)
+    길이 비율(length_factor)로 가중: 긴 매칭일수록 신뢰도 높음
+    """
+    votes = []
+    n = len(seq)
+
+    def add(p, base_w, d, sub_len):
+        if p is not None:
+            lf = 0.5 + 0.5 * (sub_len / n)   # 길이 가중 0.5~1.0
+            votes.append((p, base_w * lf, d))
+
+    for start in range(n - 1, -1, -1):
+        sub = list(seq[start:])
+        m = len(sub)
+        if m < 3:
+            continue
+
+        # 전체 동일값
+        if len(set(sub)) == 1:
+            add(1 - sub[0], 0.70, f'연속{sub[0]}', m)
+
+        # 교차(1010)
+        if check_alternating(sub):
+            add(1 - sub[-1], 0.75, f'교차', m)
+
+        # Mirror
+        mr = check_mirror(sub)
+        if mr:
+            h, front, back = mr
+            add(front[0], 0.85, f'Mirror[{seq[start:start+h*2]}]', m)
+
+        # 반복블록
+        rb = check_repeat_block(sub)
+        if rb:
+            bl, chunk = rb
+            add(chunk[m % bl], 0.80, f'반복[{"".join(str(x) for x in chunk)}]', m)
+
+        # 블록분할
+        bs = check_block_split(sub)
+        if bs:
+            sp, fv, bv = bs
+            add(fv, 0.82, f'블록분할{fv}→{bv}', m)
+
+        # Fold Mirror
+        for (sp_start, sp_mid, sp_end, front, back, tail) in check_fold_mirror(sub)[:2]:
+            tr, td = tail_recommendation(list(tail))
+            if tr is not None:
+                add(tr, 0.85, f'Fold+꼬리({td})', m)
+
+        # 계단식
+        sv, sd, sw = check_staircase_pattern(sub)
+        if sv is not None:
+            add(sv, sw, f'계단식', m)
+
+        # 런분할
+        rv, rd, rw = check_run_mirror_pattern(sub)
+        if rv is not None:
+            add(rv, rw, f'런분할', m)
+
+    # 분할 패턴 (full seq)
+    for desc, part, rec in segment_patterns(seq):
+        if rec is not None:
+            add(rec, 0.78, f'분할:{desc}', n)
+
+    # 히스토리 + 교대메타 (full seq)
+    if full_history is not None:
+        for tail_len in range(min(n, 12), 3, -1):
+            hv, hd, hw = check_history_match(seq[-tail_len:], full_history)
+            if hv is not None:
+                add(hv, hw, f'짝맞춤:{hd}', n)
+                break
+        mv, md, mw = check_meta_alternating(seq, full_history)
+        if mv is not None:
+            add(mv, mw, f'교대메타:{md}', n)
+
+    return votes
+
+def vote_pat_rec(seq, full_history=None):
+    """다수결 패턴 분석 (팀승패 / BM 방향 전용)"""
+    if len(seq) < 3:
+        return None, '데이터 부족'
+
+    votes = collect_pattern_votes(seq, full_history)
+    if not votes:
+        return None, '불규칙'
+
+    w1 = sum(w for p, w, _ in votes if p == 1)
+    w0 = sum(w for p, w, _ in votes if p == 0)
+    n1 = sum(1 for p, _, _ in votes if p == 1)
+    n0 = sum(1 for p, _, _ in votes if p == 0)
+    total_w = w1 + w0
+    total_n = n1 + n0
+
+    if total_w == 0:
+        return None, '불규칙'
+
+    ratio = max(w1, w0) / total_w
+    if ratio < 0.55:
+        return None, f'균형({n1}↑:{n0}↓) → 불규칙'
+
+    pred = 1 if w1 >= w0 else 0
+    desc = f'다수결 {"↑1" if pred==1 else "↓0"} {n1 if pred==1 else n0}/{total_n}({ratio:.0%})'
+    return pred, desc
+
 def get_bm_odds_seqs(team, before_date_order, window=WINDOW):
     """북메이커별 해당 팀 배당 변동 방향 시퀀스 반환
     - 경기마다 배당이 이전 경기 대비 내렸으면 1(유리해짐), 올랐으면 0(불리해짐)
@@ -972,7 +1078,7 @@ def analyze_slot_bm_seqs(slot, before_date_order):
         full_seq  = data.get('full_seq', [])
         seq_clean  = preprocess_seq(seq)
         full_clean = [x for x in full_seq if x in (0, 1)]
-        rec, desc = pat_rec(seq_clean, full_history=full_clean if len(full_clean) > len(seq_clean) else None)
+        rec, desc = vote_pat_rec(seq_clean, full_history=full_clean if len(full_clean) > len(seq_clean) else None)
         results.append({
             'bm':           bm,
             'seq':          seq,
@@ -991,7 +1097,7 @@ def analyze_bm_seqs(team, before_date_order, window=WINDOW):
     results = []
     for bm, data in sorted(bm_seqs.items()):
         seq  = data['seq']
-        rec, desc = pat_rec(seq)
+        rec, desc = vote_pat_rec(seq)
         results.append({
             'bm':          bm,
             'seq':         seq,
@@ -1124,7 +1230,7 @@ for i, game in enumerate(upcoming_games):
     h_dir_rec,  h_dir_desc  = pat_rec(h_dir)
     h_agr_rec,  h_agr_desc  = pat_rec(h_agr)
     h_faw_rec,  h_faw_desc  = pat_rec(h_fav_win)
-    h_win_rec,  h_win_desc  = pat_rec(h_team_win)
+    h_win_rec,  h_win_desc  = vote_pat_rec(h_team_win)
 
     slot_fav_rec, slot_fav_desc = pat_rec(slot_fav_seq)
 
@@ -1140,7 +1246,7 @@ for i, game in enumerate(upcoming_games):
     a_dir_rec,  a_dir_desc  = pat_rec(a_dir)
     a_agr_rec,  a_agr_desc  = pat_rec(a_agr)
     a_faw_rec,  a_faw_desc  = pat_rec(a_fav_win)
-    a_win_rec,  a_win_desc  = pat_rec(a_team_win)
+    a_win_rec,  a_win_desc  = vote_pat_rec(a_team_win)
 
     # 현재 경기 북메이커 통계 (game_df의 가장 최신 행 재사용)
     def bm_summary(team, is_home):
@@ -1370,8 +1476,6 @@ for i, game in enumerate(upcoming_games):
         'away_win_rec':    a_win_rec,
         'slot_fav_win':    seq_str(slot_fav_seq),
         'slot_fav_rec':    slot_fav_rec,
-        'slot_fav_team_rec': slot_fav_team_rec,
-        'home_is_fav':     bool(home_is_fav_today) if home_is_fav_today is not None else None,
         'slot_bm':         slot_bm_results,
         'recommendation':  rec_str,
         'confidence':      round(pattern_confidence, 3),

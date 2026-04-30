@@ -420,12 +420,14 @@ else:
             _fav_color = '#44ddaa' if _fav_rec == 1 else '#ff8844'
             _fav_pred_html = f'<span style="color:{_fav_color};font-weight:700;font-size:.75rem">{_fav_label}</span>'
 
+        _hc = hm['color']; _ha = hm['abbr']
+        _ac = am['color']; _aa = am['abbr']
         if _fav_team_rec is None:
             _fav_team_html = ''
         elif _fav_team_rec == 1:
-            _fav_team_html = f'&nbsp;→&nbsp;<span style="color:{hm[\"color\"]};font-weight:900;font-size:.75rem">홈({hm[\"abbr\"]}) 유리</span>'
+            _fav_team_html = f'&nbsp;→&nbsp;<span style="color:{_hc};font-weight:900;font-size:.75rem">홈({_ha}) 유리</span>'
         else:
-            _fav_team_html = f'&nbsp;→&nbsp;<span style="color:{am[\"color\"]};font-weight:900;font-size:.75rem">원정({am[\"abbr\"]}) 유리</span>'
+            _fav_team_html = f'&nbsp;→&nbsp;<span style="color:{_ac};font-weight:900;font-size:.75rem">원정({_aa}) 유리</span>'
 
         _fav_who = ('홈=정배' if _home_is_fav else '원정=정배') if _home_is_fav is not None else ''
         _fav_who_html = f'<span style="color:#334455;font-size:.68rem">&nbsp;({_fav_who})</span>' if _fav_who else ''
