@@ -115,7 +115,7 @@
       }
     },
     "recommendation": "HOME(1)",
-    "confidence": 0.85,
+    "confidence": 0.892,
     "ml_home_prob": 0.57,
     "ml_away_prob": 0.43,
     "verified": false,
@@ -236,7 +236,7 @@
         "current_odds": 2.28
       }
     },
-    "recommendation": "AWAY(0)",
+    "recommendation": "HOME(1)",
     "confidence": 0.85,
     "ml_home_prob": 0.615,
     "ml_away_prob": 0.385,
@@ -359,7 +359,7 @@
       }
     },
     "recommendation": "AWAY(0)",
-    "confidence": 0.85,
+    "confidence": 0.896,
     "ml_home_prob": 0.5,
     "ml_away_prob": 0.5,
     "verified": false,
@@ -481,7 +481,7 @@
       }
     },
     "recommendation": "AWAY(0)",
-    "confidence": 0.85,
+    "confidence": 0.9,
     "ml_home_prob": 0.57,
     "ml_away_prob": 0.43,
     "verified": false,
@@ -602,8 +602,8 @@
         "current_odds": 1.98
       }
     },
-    "recommendation": "PASS",
-    "confidence": 0.0,
+    "recommendation": "AWAY(0)",
+    "confidence": 0.738,
     "ml_home_prob": 0.525,
     "ml_away_prob": 0.475,
     "verified": false,

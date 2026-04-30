@@ -1174,6 +1174,28 @@ for i, game in enumerate(upcoming_games):
     print(f'  {"":18} {h_win_desc}')
     print(f'  {"":18} {a_win_desc}')
 
+    # ── BM 배당변동 방향 신호 (final_rec 이전에 계산) ────────────
+    slot_bm_analyses = analyze_slot_bm_seqs(slot, max_date_order)
+    s_recs = [e['rec'] for e in slot_bm_analyses if e['rec'] is not None]
+    sv1 = sum(s_recs) if s_recs else 0
+    sv0 = len(s_recs) - sv1 if s_recs else 0
+
+    # BM 방향 투표: 배당↑팀 이김(1) vs 배당↓팀 이김(0)
+    bm_dir_vote  = None
+    bm_team_rec  = None
+    bm_dir_ratio = 0.0
+    if sv1 + sv0 > 0:
+        bm_dir_ratio = max(sv1, sv0) / (sv1 + sv0)
+        if bm_dir_ratio >= 0.6:
+            bm_dir_vote = 1 if sv1 > sv0 else 0
+        # 팀 매핑: 배당↑팀=언더독
+        # h_dir_rec=1 → 홈이 정배(배당↓) → 배당↑팀=원정
+        # h_dir_rec=0 → 홈이 역배(배당↑) → 배당↑팀=홈
+        if bm_dir_vote is not None and h_dir_rec is not None:
+            bm_team_rec = 1 if (bm_dir_vote != h_dir_rec) else 0
+    bm_label = (f'배당{"↑" if bm_dir_vote==1 else "↓"}팀이김 {max(sv1,sv0)}/{sv1+sv0}({bm_dir_ratio:.0%})'
+                if bm_dir_vote is not None else f'불명확 {sv1}/{sv0}')
+
     # 패턴 종합 추천 (팀 승패 기준: h_win_rec=1 → 홈팀 승, a_win_rec=1 → 원정팀 승)
     home_rec = h_win_rec
     away_rec = a_win_rec
@@ -1217,6 +1239,32 @@ for i, game in enumerate(upcoming_games):
     else:
         pattern_reason = '팀승패 불규칙 → ML 판단'
 
+    # ── BM 방향 신호 반영 ─────────────────────────────────────
+    if bm_team_rec is not None:
+        if final_rec is None:
+            # 팀승패 불규칙: BM 방향으로 결정
+            if bm_dir_ratio >= 0.6:
+                final_rec = bm_team_rec
+                pattern_confidence = bm_dir_ratio * 0.8
+                pattern_reason = f'BM방향({bm_label}) → {"홈" if bm_team_rec==1 else "원정"}'
+        elif final_rec == bm_team_rec:
+            # 팀승패와 BM 방향 일치 → 신뢰도 상향
+            boost = min(0.05, bm_dir_ratio * 0.05)
+            pattern_confidence = min(0.95, pattern_confidence + boost)
+            pattern_reason += f' + BM방향일치({bm_label})'
+        else:
+            # 팀승패와 BM 방향 불일치
+            if bm_dir_ratio >= 0.85:
+                # BM 방향이 압도적(85%+) → BM 방향 우선
+                old_reason = pattern_reason
+                final_rec = bm_team_rec
+                pattern_confidence = bm_dir_ratio * 0.85
+                pattern_reason = f'BM방향압도({bm_label}) ← 팀승패 역전[{old_reason}]'
+            else:
+                # BM 방향 60~85% → 신뢰도 소폭 하향
+                pattern_confidence = max(0.5, pattern_confidence - 0.05)
+                pattern_reason += f' ※BM방향충돌({bm_label})'
+
     # ML 보조
     feat = make_feat_team(home, away, max_date_order)
     X_pred = np.array(feat).reshape(1, -1)
@@ -1249,7 +1297,6 @@ for i, game in enumerate(upcoming_games):
     print(f'\n  ▶ [슬롯{slot}] 날짜별 북메이커 배당변동 (1=배당+오름, 0=배당-내림)')
     print(f'  {"북메이커":<16} {"시퀀스":<{BM_SEQ_LEN+2}} {"예측":^5} {"날짜흐름"}')
     print(f'  {"-"*70}')
-    slot_bm_analyses = analyze_slot_bm_seqs(slot, max_date_order)
     slot_bm_results = {}
     for entry in slot_bm_analyses:
         s   = seq_str(entry['seq'])
@@ -1262,11 +1309,9 @@ for i, game in enumerate(upcoming_games):
             'seq': s, 'rec': rec, 'desc': entry['desc'],
             'current_odds': entry.get('current_odds'),
         }
-    # 슬롯 북메이커 집계
-    s_recs = [e['rec'] for e in slot_bm_analyses if e['rec'] is not None]
-    if s_recs:
-        sv1 = sum(s_recs); sv0 = len(s_recs) - sv1
-        print(f'\n  → 슬롯{slot} 집계: 배당↑(1) {sv1}개 / 배당↓(0) {sv0}개 (총 {len(s_recs)}개)')
+    # 슬롯 북메이커 집계 (sv1/sv0는 위에서 이미 계산됨)
+    if sv1 + sv0 > 0:
+        print(f'\n  → 슬롯{slot} 집계: 배당↑(1) {sv1}개 / 배당↓(0) {sv0}개 (총 {sv1+sv0}개)')
 
     predictions[f'slot_{slot}'] = {
         'slot':            slot,
