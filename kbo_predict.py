@@ -17,7 +17,7 @@ warnings.filterwarnings('ignore')
 CSV_PATH   = 'kbo_odds.csv'
 GAMES_PATH = 'kbo_games.csv'
 PRED_PATH  = 'kbo_predictions.json'
-WINDOW     = 15   # 팀별 최근 N경기 참조
+WINDOW     = 17   # 팀별 최근 N경기 참조
 BM_SEQ_LEN = 17  # 슬롯별 북메이커 배당변동 시퀀스 길이
 
 # ── 패턴 분석 함수 (변경 없음) ─────────────────────────────
@@ -756,6 +756,16 @@ def make_feat_team(home, away, before_date_order):
 def seq_str(seq):
     return ''.join(str(x) for x in seq) if seq else '-'
 
+def preprocess_seq(seq):
+    """P 제거 후, 마지막 N 이후 시퀀스만 사용"""
+    # Step 1: P 제거
+    result = [v for v in seq if v != 'P']
+    # Step 2: 마지막 N 이후만 사용
+    last_n = max((i for i, v in enumerate(result) if v == 'N'), default=-1)
+    if last_n >= 0:
+        result = result[last_n + 1:]
+    return [x for x in result if x in (0, 1)]
+
 def pat_rec(seq, full_history=None):
     """시퀀스 패턴 분석 → (추천값 or None, 설명문자열)"""
     if len(seq) < 3:
@@ -946,7 +956,7 @@ def analyze_slot_bm_seqs(slot, before_date_order):
     for bm, data in sorted(bm_seqs.items()):
         seq       = data['seq']
         full_seq  = data.get('full_seq', [])
-        seq_clean = [x for x in seq      if x not in ('N', 'P')]
+        seq_clean  = preprocess_seq(seq)
         full_clean = [x for x in full_seq if x in (0, 1)]
         rec, desc = pat_rec(seq_clean, full_history=full_clean if len(full_clean) > len(seq_clean) else None)
         results.append({
