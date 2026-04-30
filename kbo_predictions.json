@@ -206,9 +206,9 @@
         "current_odds": 2.27
       },
       "Momobet": {
-        "seq": "001101P110011010N",
-        "rec": null,
-        "desc": "데이터 부족",
+        "seq": "001101P1100110101",
+        "rec": 1,
+        "desc": "[0011011100110101] Mirror [0|1]",
         "current_odds": 2.44
       },
       "Roobet": {
@@ -224,9 +224,9 @@
         "current_odds": 2.55
       },
       "VOBET": {
-        "seq": "001101PN10011010N",
-        "rec": null,
-        "desc": "데이터 부족",
+        "seq": "001101PN100110101",
+        "rec": 1,
+        "desc": "[100110101] Mirror [0|1]",
         "current_odds": 2.42
       },
       "bwin": {
@@ -286,9 +286,9 @@
         "current_odds": 1.49
       },
       "Alphabet": {
-        "seq": "1101N001100N00001",
+        "seq": "1101N001100000001",
         "rec": 1,
-        "desc": "[00001] Mirror [0|1]",
+        "desc": "[001100000001] Mirror [0|1]",
         "current_odds": 1.5
       },
       "BetInAsia": {
@@ -450,9 +450,9 @@
         "current_odds": 1.47
       },
       "Momobet": {
-        "seq": "1N1111P001101110N",
-        "rec": null,
-        "desc": "데이터 부족",
+        "seq": "1N1111P0011011101",
+        "rec": 1,
+        "desc": "[11110011011101] Mirror [0|1]",
         "current_odds": 1.49
       },
       "Roobet": {
@@ -462,9 +462,9 @@
         "current_odds": 1.5
       },
       "Stake.com": {
-        "seq": "111N11P001110110N",
-        "rec": null,
-        "desc": "데이터 부족",
+        "seq": "111N11P0011101101",
+        "rec": 1,
+        "desc": "[110011101101] Mirror [0|1]",
         "current_odds": 1.51
       },
       "VOBET": {
@@ -572,21 +572,21 @@
         "current_odds": 1.98
       },
       "Momobet": {
-        "seq": "000010P111001111N",
-        "rec": null,
-        "desc": "데이터 부족",
+        "seq": "000010P1110011110",
+        "rec": 0,
+        "desc": "[0000101110011110] Mirror [1|0]",
         "current_odds": 1.97
       },
       "Roobet": {
-        "seq": "0N00NNPN100NN011N",
-        "rec": null,
-        "desc": "데이터 부족",
+        "seq": "0N00NNPN100NN0110",
+        "rec": 0,
+        "desc": "[0110] Mirror [1|0]",
         "current_odds": 1.95
       },
       "Stake.com": {
-        "seq": "000010P0N1110011N",
-        "rec": null,
-        "desc": "데이터 부족",
+        "seq": "000010P0N11100111",
+        "rec": 0,
+        "desc": "히스토리조회[100111] 1회매칭→0(100%)",
         "current_odds": 2.0
       },
       "VOBET": {

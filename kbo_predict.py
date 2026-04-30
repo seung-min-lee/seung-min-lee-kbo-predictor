@@ -867,7 +867,8 @@ def get_slot_bm_odds_seqs(slot, before_date_order, seq_len=BM_SEQ_LEN):
     bm_data = df[df['match_id'].isin(match_ids)][
         ['match_id', 'bookmaker',
          'home_open', 'home_close',
-         'away_open', 'away_close']
+         'away_open', 'away_close',
+         'winner_direction']
     ].copy()
 
     # 북메이커별 경기 데이터 인덱싱
@@ -882,6 +883,7 @@ def get_slot_bm_odds_seqs(slot, before_date_order, seq_len=BM_SEQ_LEN):
             'h_close': None if pd.isna(r['home_close']) else float(r['home_close']),
             'a_open':  None if pd.isna(r['away_open'])  else float(r['away_open']),
             'a_close': None if pd.isna(r['away_close']) else float(r['away_close']),
+            'w_dir':   None if pd.isna(r['winner_direction']) else int(r['winner_direction']),
         }
 
     # Postp 경기 match_id 집합
@@ -917,7 +919,14 @@ def get_slot_bm_odds_seqs(slot, before_date_order, seq_len=BM_SEQ_LEN):
             a_chg = round(a_close - a_open, 4) if (a_open is not None and a_close is not None) else None
 
             if h_chg is None or a_chg is None:
-                all_seq.append('N')
+                # 1순위: winner_direction 컬럼 fallback
+                w_dir = e.get('w_dir')
+                # 2순위: h_chg만 있을 때 역방향 추론
+                # (홈배당↓ = 홈유리 = 어웨이승은 뜻밖 → w_dir=1 if away wins)
+                if w_dir is None and h_chg is not None and h_chg != 0:
+                    h_dir = 1 if h_chg > 0 else 0
+                    w_dir = h_dir if w_is_home else (1 - h_dir)
+                all_seq.append(w_dir if w_dir is not None else 'N')
                 all_date_seq.append(date)
                 continue
 
