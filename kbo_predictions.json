@@ -23,8 +23,8 @@
     "slot_fav_win": "010110001101101101",
     "slot_fav_rec": 1,
     "slot_fav_desc": "[010110001101101101] Mirror [0|1]",
-    "slot_fav_team_rec": 0,
-    "home_is_fav": false,
+    "slot_fav_team_rec": 1,
+    "home_is_fav": true,
     "slot_bm": {
       "10x10bet": {
         "seq": "01001001010001000",
@@ -118,8 +118,8 @@
       }
     },
     "recommendation": "HOME(1)",
-    "confidence": 0.785,
-    "pattern_reason": "홈 승 패턴(85%) + 원정 패 패턴(78%) ※정배패턴충돌(정배승 18경기(원정정배))",
+    "confidence": 0.845,
+    "pattern_reason": "홈 승 패턴(85%) + 원정 패 패턴(78%) + 정배패턴일치(정배승 18경기(홈정배))",
     "home_win_desc": "다수결 ↑1 40/61(63%)",
     "away_win_desc": "다수결 ↓0 14/17(83%)",
     "bm_label": "불명확 5/5",
@@ -155,8 +155,8 @@
     "slot_fav_win": "101101001100011101",
     "slot_fav_rec": 1,
     "slot_fav_desc": "[101101001100011101] Mirror [0|1]",
-    "slot_fav_team_rec": 1,
-    "home_is_fav": true,
+    "slot_fav_team_rec": 0,
+    "home_is_fav": false,
     "slot_bm": {
       "10x10bet": {
         "seq": "1101PN1N0N1010111",
@@ -250,8 +250,8 @@
       }
     },
     "recommendation": "HOME(1)",
-    "confidence": 0.76,
-    "pattern_reason": "홈 승 패턴(78%) + 원정 패 패턴(78%) + 정배패턴일치(정배승 18경기(홈정배)) ※BM방향충돌(배당↓팀이김 11/13(85%))",
+    "confidence": 0.7,
+    "pattern_reason": "홈 승 패턴(78%) + 원정 패 패턴(78%) ※정배패턴충돌(정배승 18경기(원정정배)) ※BM방향충돌(배당↓팀이김 11/13(85%))",
     "home_win_desc": "다수결 ↑1 23/26(89%)",
     "away_win_desc": "다수결 ↓0 37/42(89%)",
     "bm_label": "배당↓팀이김 11/13(85%)",
