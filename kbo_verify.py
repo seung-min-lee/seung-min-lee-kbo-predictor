@@ -8,6 +8,7 @@ warnings.filterwarnings('ignore')
 PRED_PATH   = 'kbo_predictions.json'
 RESULT_PATH = 'kbo_verify_log.csv'
 CSV_PATH    = 'kbo_odds.csv'
+GAMES_PATH  = 'kbo_games.csv'
 
 # ── 로드 ─────────────────────────────────────────────
 if not os.path.exists(PRED_PATH):
@@ -20,6 +21,7 @@ with open(PRED_PATH, 'r', encoding='utf-8') as f:
 df = pd.read_csv(CSV_PATH)
 date_map = {d: i for i, d in enumerate(sorted(df['date'].unique()))}
 df['date_order'] = df['date'].map(date_map)
+games_df = pd.read_csv(GAMES_PATH) if os.path.exists(GAMES_PATH) else pd.DataFrame()
 
 if os.path.exists(RESULT_PATH):
     log_df = pd.read_csv(RESULT_PATH)
@@ -28,7 +30,9 @@ else:
         'date', 'slot', 'home', 'away',
         'prediction', 'actual_winner',
         'correct', 'confidence',
-        'ml_home_prob', 'ml_away_prob'
+        'ml_home_prob', 'ml_away_prob',
+        'pattern_reason', 'home_win_desc', 'away_win_desc',
+        'slot_fav_desc', 'bm_label'
     ])
 
 print('='*60)
@@ -55,6 +59,11 @@ for key, pred in predictions.items():
 
     # pred_date + slot 기준으로 결과 경기 찾기
     target_df = df[(df['slot'] == slot) & (df['date'] == pred_date)].copy()
+    if len(target_df) == 0 and len(games_df) > 0:
+        target_df = games_df[
+            (games_df['slot'].astype(float) == float(slot)) &
+            (games_df['date'].astype(str) == str(pred_date))
+        ].copy()
 
     if len(target_df) == 0:
         print(f'[SLOT {slot}] {pred_date} 결과 없음 (아직 경기 미완료)')
@@ -96,6 +105,11 @@ for key, pred in predictions.items():
         'confidence':    pred['confidence'],
         'ml_home_prob':  pred.get('ml_home_prob', 0.5),
         'ml_away_prob':  pred.get('ml_away_prob', 0.5),
+        'pattern_reason': pred.get('pattern_reason', ''),
+        'home_win_desc':  pred.get('home_win_desc', ''),
+        'away_win_desc':  pred.get('away_win_desc', ''),
+        'slot_fav_desc':  pred.get('slot_fav_desc', ''),
+        'bm_label':       pred.get('bm_label', ''),
     })
 
 # ── 저장 ─────────────────────────────────────────────
