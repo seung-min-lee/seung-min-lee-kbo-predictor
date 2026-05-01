@@ -524,18 +524,84 @@ def render_duel_page(predictions, log_df):
             else:
                 st.markdown("결과 대기 중")
 
-    user_score = sum(1 for u, _ in settled_rows if u is True)
-    model_score = sum(1 for _, c in settled_rows if c is True)
-    settled = len(settled_rows)
+    # ── 과거 대결 이력 (user_predictions.json × log_df) ─────────────────
+    st.markdown('<div class="section-title">📋 대결 이력</div>', unsafe_allow_html=True)
 
-    st.markdown('<div class="section-title">🏁 현재 스코어</div>', unsafe_allow_html=True)
-    s1, s2, s3 = st.columns(3)
+    all_user_preds = load_user_predictions()
+    history_rows = []
+    for ukey, udata in sorted(all_user_preds.items(), key=lambda x: x[0], reverse=True):
+        u_date = udata.get('date', '')
+        u_home = udata.get('home', '')
+        u_away = udata.get('away', '')
+        u_pick = udata.get('pick', '')
+        u_slot = udata.get('slot', '')
+
+        # log_df에서 실제 결과 찾기
+        matched = pd.DataFrame()
+        if len(log_df) > 0:
+            matched = log_df[
+                (log_df['date'].astype(str).str[:10] == str(u_date)[:10]) &
+                (log_df['home'] == u_home) & (log_df['away'] == u_away)
+            ]
+
+        if matched.empty:
+            actual_str = '결과 대기'
+            model_pred_str = '—'
+            u_mark = '⏳'; m_mark = '⏳'
+        else:
+            row = matched.iloc[-1]
+            actual_str = str(row.get('actual_winner', ''))
+            model_pred_str = str(row.get('prediction', ''))
+            # 실제 승팀
+            actual_team = parse_actual_team(actual_str, u_home, u_away)
+            user_team   = pick_team_from_value(u_pick)
+            model_team  = parse_prediction_team(model_pred_str, u_home, u_away)
+            u_mark = ('O' if user_team == actual_team else 'X') if user_team and actual_team else '—'
+            m_mark = ('O' if model_team == actual_team else 'X') if model_team and actual_team else '—'
+
+        u_color = '#44ddaa' if u_mark == 'O' else '#ff4466' if u_mark == 'X' else '#7788aa'
+        m_color = '#44ddaa' if m_mark == 'O' else '#ff4466' if m_mark == 'X' else '#7788aa'
+        hm_h = tm(u_home); am_h = tm(u_away)
+
+        history_rows.append((u_mark, m_mark))
+        st.markdown(f"""
+<div class="hist-row" style="flex-wrap:wrap;gap:6px">
+  <span style="color:#556688;min-width:60px;font-size:.75rem">{str(u_date)[:10]}</span>
+  <span style="color:#445566;font-size:.72rem">S{u_slot:.0f}</span>
+  <span style="color:#aabbdd;flex:1;min-width:120px">
+    <span style="color:{hm_h['color']}">{hm_h['abbr']}</span>
+    <span style="color:#334"> vs </span>
+    <span style="color:{am_h['color']}">{am_h['abbr']}</span>
+  </span>
+  <span style="color:#7788aa;font-size:.78rem">내 픽 <b style="color:#ccd">{esc(u_pick)}</b></span>
+  <span style="color:#556688">→</span>
+  <span style="color:#7788aa;font-size:.78rem">실제 <b style="color:#ccd">{esc(actual_str)}</b></span>
+  <span style="font-weight:900;color:{u_color}">나:{u_mark}</span>
+  <span style="font-weight:900;color:{m_color}">AI:{m_mark}</span>
+</div>""", unsafe_allow_html=True)
+
+    # ── 누적 스코어보드 ──────────────────────────────────────
+    settled_hist = [(u, m) for u, m in history_rows if u in ('O', 'X') and m in ('O', 'X')]
+    today_settled = [(u, m) for u, m in settled_rows if u is not None and m is not None]
+    all_settled = settled_hist  # history already includes today via log_df
+
+    u_total = sum(1 for u, _ in all_settled if u == 'O')
+    m_total = sum(1 for _, m in all_settled if m == 'O')
+    n_settled = len(all_settled)
+
+    st.markdown('<div class="section-title">🏆 누적 스코어</div>', unsafe_allow_html=True)
+    s1, s2, s3, s4 = st.columns(4)
+    u_acc = u_total / n_settled if n_settled else 0
+    m_acc = m_total / n_settled if n_settled else 0
+    winner_color = '#44ddaa' if u_total > m_total else '#ff4466' if m_total > u_total else '#ffaa00'
     with s1:
-        st.markdown(f"<div class='stat-card'><div class='stat-num' style='color:#44ddaa'>{user_score}</div><div class='stat-label'>User 적중</div></div>", unsafe_allow_html=True)
+        st.markdown(f"<div class='stat-card'><div class='stat-num' style='color:#44ddaa'>{u_total}/{n_settled}</div><div class='stat-label'>나 적중</div></div>", unsafe_allow_html=True)
     with s2:
-        st.markdown(f"<div class='stat-card'><div class='stat-num' style='color:#ff4466'>{model_score}</div><div class='stat-label'>Model 적중</div></div>", unsafe_allow_html=True)
+        st.markdown(f"<div class='stat-card'><div class='stat-num' style='color:#ff4466'>{m_total}/{n_settled}</div><div class='stat-label'>AI 적중</div></div>", unsafe_allow_html=True)
     with s3:
-        st.markdown(f"<div class='stat-card'><div class='stat-num' style='color:#ffaa00'>{settled}</div><div class='stat-label'>결과 확정 경기</div></div>", unsafe_allow_html=True)
+        st.markdown(f"<div class='stat-card'><div class='stat-num' style='color:#44ddaa'>{u_acc:.0%}</div><div class='stat-label'>나 정확도</div></div>", unsafe_allow_html=True)
+    with s4:
+        st.markdown(f"<div class='stat-card'><div class='stat-num' style='color:#ff4466'>{m_acc:.0%}</div><div class='stat-label'>AI 정확도</div></div>", unsafe_allow_html=True)
 
 predictions = load_predictions()
 log_df      = load_log()
