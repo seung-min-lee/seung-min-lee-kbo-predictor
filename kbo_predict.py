@@ -283,6 +283,80 @@ def check_history_match(seq, full_history):
     score = 0.68 + vote_ratio * 0.16  # 0.68~0.84
     return nv, desc, score
 
+def check_rolling_momentum(seq):
+    """최근 여러 window의 1/0 비율이 같은 방향으로 쏠리는지 확인
+    이미 있는 연속/런/반복 패턴이 아니라, 최근 구간별 다수 방향 자체를 신호로 사용한다.
+    """
+    n = len(seq)
+    if n < 5:
+        return None, None, 0.0
+
+    windows = [w for w in (5, 7, 10, 15, 20) if w <= n]
+    signals = []
+    for w in windows:
+        tail = seq[-w:]
+        ones = sum(tail)
+        ratio = ones / w
+        if ratio >= 0.65:
+            signals.append((1, w, ratio))
+        elif ratio <= 0.35:
+            signals.append((0, w, 1 - ratio))
+
+    if len(signals) < 2:
+        return None, None, 0.0
+
+    s1 = [x for x in signals if x[0] == 1]
+    s0 = [x for x in signals if x[0] == 0]
+    side = 1 if len(s1) > len(s0) else 0
+    chosen = s1 if side == 1 else s0
+    if len(chosen) < 2:
+        return None, None, 0.0
+
+    avg_strength = sum(x[2] for x in chosen) / len(chosen)
+    win_txt = ','.join(str(x[1]) for x in chosen)
+    desc = f'롤링모멘텀[{win_txt}] → {side}({avg_strength:.0%})'
+    score = min(0.74, 0.55 + avg_strength * 0.25)
+    return side, desc, score
+
+def check_similarity_match(seq, full_history):
+    """완전일치가 아닌 유사 패턴 매칭
+    최근 tail과 과거 구간의 Hamming 유사도가 높을 때 다음 값을 다수결로 예측한다.
+    """
+    clean_h = [x for x in full_history if x in (0, 1)]
+    n = len(seq)
+    if len(clean_h) < 12 or n < 5:
+        return None, None, 0.0
+
+    best = (None, None, 0.0)
+    for tail_len in range(min(n, 10), 4, -1):
+        tail = list(seq[-tail_len:])
+        min_same = max(4, int(np.ceil(tail_len * 0.75)))
+        matches = []
+
+        for i in range(len(clean_h) - tail_len):
+            cand = clean_h[i:i + tail_len]
+            same = sum(1 for a, b in zip(tail, cand) if a == b)
+            if same >= min_same:
+                matches.append((clean_h[i + tail_len], same / tail_len))
+
+        if len(matches) < 4:
+            continue
+
+        ones = sum(v for v, _ in matches)
+        zeros = len(matches) - ones
+        nv = 1 if ones > zeros else 0
+        vote_ratio = max(ones, zeros) / len(matches)
+        if vote_ratio < 0.60:
+            continue
+
+        avg_sim = sum(sim for _, sim in matches) / len(matches)
+        score = min(0.82, 0.58 + vote_ratio * 0.16 + avg_sim * 0.08)
+        desc = f'유사매칭[{tail_len}] {len(matches)}회 sim{avg_sim:.0%}→{nv}({vote_ratio:.0%})'
+        if score > best[2]:
+            best = (nv, desc, score)
+
+    return best
+
 def check_meta_alternating(seq, full_history=None):
     """계단식↔짝맞춤 교대 메타패턴 감지
 
@@ -549,6 +623,13 @@ def analyze_pattern(seq, full_history=None):
                            'rec':  stair_val,
                            'score': stair_score})
 
+    roll_val, roll_desc, roll_score = check_rolling_momentum(seq)
+    if roll_val is not None:
+        candidates.append({'type':'롤링모멘텀',
+                           'desc': roll_desc,
+                           'rec':  roll_val,
+                           'score': roll_score})
+
     if full_history is not None:
         # 다양한 tail 길이로 히스토리 조회 (최소 4, 최대 현재 seq 길이)
         best_hm = (None, None, 0.0)
@@ -563,6 +644,13 @@ def analyze_pattern(seq, full_history=None):
                                'desc': best_hm[1],
                                'rec':  best_hm[0],
                                'score': best_hm[2]})
+
+        sim_val, sim_desc, sim_score = check_similarity_match(seq, full_history)
+        if sim_val is not None:
+            candidates.append({'type':'유사매칭',
+                               'desc': sim_desc,
+                               'rec':  sim_val,
+                               'score': sim_score})
 
         # 교대 메타패턴 (계단식↔짝맞춤 교대)
         meta_val, meta_desc, meta_score = check_meta_alternating(seq, full_history)
@@ -653,45 +741,60 @@ game_df['consensus_win'] = (
     ((game_df['consensus'] == 'away') & ~game_df['winner_is_home'])
 ).astype(int)
 
-# ── Postp(연기) 경기를 game_df에 병합 ───────────────────────
-# kbo_games.csv의 과거 날짜 중 winner=null, slot 있는 행 → Postp로 처리
+# ── kbo_games.csv fallback 병합 ────────────────────────────
+# OddsPortal 상세 배당이 아직 없는 완료 경기도 팀승패/ML에는 반영한다.
+# 배당/정배 관련 시퀀스는 bm_count=0 행을 제외해서 오염을 막는다.
 if os.path.exists(GAMES_PATH):
     _gdf = pd.read_csv(GAMES_PATH)
     _today = datetime.today().strftime('%Y-%m-%d')
+    for _d in sorted(_gdf['date'].dropna().astype(str).unique()):
+        if _d not in date_map:
+            date_map[_d] = -1  # 임시값; 아래에서 재정렬
+    # 모든 날짜를 시간순으로 재정렬하여 date_order 재할당
+    # (kbo_games.csv에만 있는 날짜가 kbo_odds.csv 날짜 사이에 끼어야 함)
+    all_sorted_dates = sorted(date_map.keys())
+    date_map = {d: i for i, d in enumerate(all_sorted_dates)}
+    df['date_order'] = df['date'].map(date_map)
+    game_df['date_order'] = game_df['date'].map(date_map)
+
     _existing_slots = set(zip(game_df['date'], game_df['slot'].apply(lambda x: str(float(x)))))
-    _postp = _gdf[
-        _gdf['winner'].isna() &
+    _candidates = _gdf[
         (_gdf['date'] < _today) &
         _gdf['slot'].notna()
     ].copy()
-    _postp_rows = []
-    for _, r in _postp.iterrows():
+    _fallback_rows = []
+    for _, r in _candidates.iterrows():
         key = (r['date'], str(float(r['slot'])))
-        if key not in _existing_slots:
-            _postp_rows.append({
-                'match_id':      f'postp_{r["date"]}_s{int(r["slot"])}',
-                'date':          r['date'],
-                'date_order':    date_map.get(r['date'], -1),
-                'slot':          float(r['slot']),
-                'home':          r['home'],
-                'away':          r['away'],
-                'winner':        'Postp',
-                'winner_is_home': float('nan'),
-                'bm_count':      0,
-                'home_pct':      float('nan'),
-                'avg_home_odds': float('nan'),
-                'avg_away_odds': float('nan'),
-                'std_home_odds': float('nan'),
-                'std_away_odds': float('nan'),
-                'consensus':     'Postp',
-                'consensus_str': float('nan'),
-                'consensus_win': float('nan'),
-            })
-    if _postp_rows:
-        _pdf = pd.DataFrame(_postp_rows)
+        if key in _existing_slots:
+            continue
+        is_postp = pd.isna(r.get('winner'))
+        winner_is_home = float('nan') if is_postp else bool(r['winner'] == r['home'])
+        _fallback_rows.append({
+            'match_id':      f'games_{r["date"]}_s{int(r["slot"])}',
+            'date':          r['date'],
+            'date_order':    date_map.get(r['date'], -1),
+            'slot':          float(r['slot']),
+            'home':          r['home'],
+            'away':          r['away'],
+            'winner':        'Postp' if is_postp else r['winner'],
+            'winner_is_home': winner_is_home,
+            'bm_count':      0,
+            'home_pct':      float('nan'),
+            'avg_home_odds': float('nan'),
+            'avg_away_odds': float('nan'),
+            'std_home_odds': float('nan'),
+            'std_away_odds': float('nan'),
+            'consensus':     'Postp' if is_postp else 'unknown',
+            'consensus_str': float('nan'),
+            'consensus_win': float('nan'),
+        })
+    if _fallback_rows:
+        _pdf = pd.DataFrame(_fallback_rows)
         game_df = pd.concat([game_df, _pdf], ignore_index=True)\
-                    .sort_values('date_order').reset_index(drop=True)
-        print(f'Postp 경기 {len(_postp_rows)}개 병합')
+                    .sort_values(['date_order', 'slot']).reset_index(drop=True)
+        n_done = int((_pdf['winner'] != 'Postp').sum())
+        n_postp = int((_pdf['winner'] == 'Postp').sum())
+        print(f'kbo_games fallback 병합: 완료 {n_done}개 / Postp {n_postp}개')
 
 print(f'데이터 로드: {len(df)}행 | {len(date_map)}일치 | {len(game_df)}경기')
 
@@ -709,7 +812,9 @@ def get_team_triple_seq(team, before_date_order, window=WINDOW):
         (game_df['date_order'] < before_date_order) &
         (game_df['winner'] != 'Postp')   # Postp 경기는 팀 시퀀스에서 제외
     )
-    recent = game_df[mask].sort_values('date_order').tail(window)
+    recent_all = game_df[mask].sort_values('date_order')
+    recent_bm = recent_all[recent_all.get('bm_count', 0) > 0]
+    recent = recent_bm.tail(window)
     direction_seq, agree_seq, fav_win_seq, team_win_seq = [], [], [], []
     for _, r in recent.iterrows():
         is_fav = (
@@ -722,6 +827,7 @@ def get_team_triple_seq(team, before_date_order, window=WINDOW):
         agree_seq.append(1 if (cstr and not pd.isna(cstr) and cstr >= 0.4) else 0)
         cw = r['consensus_win']
         fav_win_seq.append(int(cw) if not pd.isna(cw) else 0)
+    for _, r in recent_all.tail(window).iterrows():
         team_win_seq.append(1 if r['winner'] == team else 0)
     return direction_seq, agree_seq, fav_win_seq, team_win_seq
 
@@ -732,7 +838,8 @@ def get_slot_fav_win_seq(slot, before_date_order, window=SLOT_FAV_SEQ_LEN):
     mask = (
         (game_df['slot'] == slot) &
         (game_df['date_order'] < before_date_order) &
-        (game_df['winner'] != 'Postp')   # Postp 경기는 정배/역배 시퀀스에서 제외
+        (game_df['winner'] != 'Postp') &  # Postp 경기는 정배/역배 시퀀스에서 제외
+        (game_df.get('bm_count', 0) > 0)
     )
     recent = game_df[mask].sort_values('date_order').tail(window)
     pairs = [(int(cw), dt) for cw, dt in zip(recent['consensus_win'], recent['date']) if not pd.isna(cw)]
@@ -840,6 +947,11 @@ def collect_pattern_votes(seq, full_history=None):
         if rv is not None:
             add(rv, rw, f'런분할', m)
 
+        # 롤링 모멘텀
+        roll_v, roll_d, roll_w = check_rolling_momentum(sub)
+        if roll_v is not None:
+            add(roll_v, roll_w, roll_d, m)
+
     # 분할 패턴 (full seq)
     for desc, part, rec in segment_patterns(seq):
         if rec is not None:
@@ -852,6 +964,9 @@ def collect_pattern_votes(seq, full_history=None):
             if hv is not None:
                 add(hv, hw, f'짝맞춤:{hd}', n)
                 break
+        sim_v, sim_d, sim_w = check_similarity_match(seq, full_history)
+        if sim_v is not None:
+            add(sim_v, sim_w, f'유사:{sim_d}', n)
         mv, md, mw = check_meta_alternating(seq, full_history)
         if mv is not None:
             add(mv, mw, f'교대메타:{md}', n)
@@ -1256,6 +1371,8 @@ for i, game in enumerate(upcoming_games):
         if len(last) == 0:
             return ''
         r = last.iloc[0]
+        if pd.isna(r.get('home_pct')) or pd.isna(r.get('bm_count')) or int(r.get('bm_count', 0)) == 0:
+            return '최근경기 북메이커 데이터 없음'
         pct = r['home_pct'] if is_home else 1 - r['home_pct']
         n   = int(r['bm_count'])
         favoring = round(pct * n)
@@ -1476,9 +1593,19 @@ for i, game in enumerate(upcoming_games):
         'away_win_rec':    a_win_rec,
         'slot_fav_win':    seq_str(slot_fav_seq),
         'slot_fav_rec':    slot_fav_rec,
+        'slot_fav_desc':   slot_fav_desc,
+        'slot_fav_team_rec': slot_fav_team_rec,
+        'home_is_fav':     home_is_fav_today,
         'slot_bm':         slot_bm_results,
         'recommendation':  rec_str,
         'confidence':      round(pattern_confidence, 3),
+        'pattern_reason':  pattern_reason,
+        'home_win_desc':   h_win_desc,
+        'away_win_desc':   a_win_desc,
+        'bm_label':        bm_label,
+        'bm_dir_vote':     bm_dir_vote,
+        'bm_team_rec':     bm_team_rec,
+        'bm_dir_ratio':    round(float(bm_dir_ratio), 3),
         'ml_home_prob':    round(float(ml_proba[1]), 3),
         'ml_away_prob':    round(float(ml_proba[0]), 3),
         'verified':        False,
