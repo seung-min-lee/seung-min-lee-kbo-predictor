@@ -488,5 +488,150 @@ def main():
         print('\n업데이트 없음')
 
 
+GAMES_PATH = 'kbo_games.csv'
+GAMES_URL  = 'https://www.oddsportal.com/baseball/south-korea/kbo/'
+
+# OddsPortal 팀명 → 표준 팀명 매핑
+TEAM_MAP = {
+    'Doosan Bears':    'Doosan Bears',
+    'Samsung Lions':   'Samsung Lions',
+    'KIA Tigers':      'KIA Tigers',
+    'LG Twins':        'LG Twins',
+    'Kiwoom Heroes':   'Kiwoom Heroes',
+    'SSG Landers':     'SSG Landers',
+    'Lotte Giants':    'Lotte Giants',
+    'NC Dinos':        'NC Dinos',
+    'KT Wiz Suwon':    'KT Wiz Suwon',
+    'Hanwha Eagles':   'Hanwha Eagles',
+    # 혹시 약칭 사용 시
+    'KT Wiz':          'KT Wiz Suwon',
+}
+
+JS_NEXT_MATCHES = """
+() => {
+    const results = [], seen = new Set();
+    let currentDate = '';
+    document.querySelectorAll('div.eventRow').forEach(row => {
+        const dateEl = row.querySelector('[data-testid="date-header"]');
+        if (dateEl && dateEl.innerText.trim()) currentDate = dateEl.innerText.trim();
+        const link = row.querySelector('a[href*="/h2h/"]');
+        if (!link) return;
+        const href = link.href;
+        if (seen.has(href)) return;
+        seen.add(href);
+        const teams = Array.from(row.querySelectorAll('p.participant-name'))
+            .map(el => el.innerText.trim()).filter(Boolean).slice(0, 2);
+        if (teams.length < 2) return;
+        const mid = href.includes('#') ? href.split('#')[1]
+                  : href.split('/').filter(Boolean).pop();
+        results.push({date: currentDate, home: teams[0], away: teams[1], match_id: mid});
+    });
+    return results;
+}
+"""
+
+def get_next_matches(page):
+    """OddsPortal KBO Next Matches 섹션에서 예정 경기 스크래핑"""
+    for attempt in range(3):
+        try:
+            page.goto(GAMES_URL, timeout=60000)
+            page.wait_for_selector('div.eventRow', timeout=30000)
+            break
+        except PWTimeout:
+            print(f'  Next Matches 페이지 로딩 실패 (attempt {attempt+1})')
+            if attempt == 2:
+                return []
+            time.sleep(3)
+    time.sleep(2)
+    page.evaluate('window.scrollTo(0, document.body.scrollHeight)')
+    time.sleep(2)
+
+    raw = page.evaluate(JS_NEXT_MATCHES)
+    print(f'  Raw 경기 {len(raw)}개 수집')
+
+    today_str = _dt.today().strftime('%Y-%m-%d')
+    seen_games = set()   # (date, home, away) 중복 제거
+    results = []
+    date_counter = {}
+    for m in raw:
+        norm = normalize_date(m['date'])
+        if norm < today_str:
+            continue
+
+        home = TEAM_MAP.get(m['home'], m['home'])
+        away = TEAM_MAP.get(m['away'], m['away'])
+        key  = (norm, home, away)
+        if key in seen_games:
+            continue
+        seen_games.add(key)
+
+        date_counter[norm] = date_counter.get(norm, 0) + 1
+        slot = date_counter[norm]
+        if slot > 5:
+            continue
+        results.append({
+            'date': norm, 'home': home, 'away': away,
+            'away_score': None, 'home_score': None,
+            'winner': None, 'winner_is_home': None,
+            'slot': float(slot),
+        })
+
+    print(f'  필터 후 {len(results)}개 (오늘 이후)')
+    return results
+
+
+def update_games_csv(next_matches):
+    """kbo_games.csv에 새 예정 경기 추가 (중복 제외)"""
+    if not next_matches:
+        print('  추가할 경기 없음')
+        return
+
+    import os
+    if os.path.exists(GAMES_PATH):
+        gdf = pd.read_csv(GAMES_PATH)
+    else:
+        gdf = pd.DataFrame(columns=['date','away','home','away_score','home_score',
+                                     'winner','winner_is_home','slot'])
+
+    # 이미 있는 (date, slot) 쌍
+    existing = set(zip(gdf['date'].astype(str), gdf['slot'].astype(str)))
+    new_rows = []
+    for m in next_matches:
+        key = (str(m['date']), str(m['slot']))
+        if key not in existing:
+            new_rows.append({
+                'date':           m['date'],
+                'away':           m['away'],
+                'home':           m['home'],
+                'away_score':     None,
+                'home_score':     None,
+                'winner':         None,
+                'winner_is_home': None,
+                'slot':           m['slot'],
+            })
+            existing.add(key)
+
+    if new_rows:
+        gdf = pd.concat([gdf, pd.DataFrame(new_rows)], ignore_index=True)
+        gdf = gdf.sort_values(['date', 'slot']).reset_index(drop=True)
+        gdf.to_csv(GAMES_PATH, index=False, encoding='utf-8-sig')
+        print(f'  {len(new_rows)}개 경기 추가 → {GAMES_PATH}')
+    else:
+        print('  신규 경기 없음 (이미 모두 등록)')
+
+
 if __name__ == '__main__':
+    # 1) Next Matches 먼저 업데이트
+    print('\n=== Next Matches 스크래핑 ===')
+    with sync_playwright() as pw:
+        browser = pw.chromium.launch(headless=True, args=['--no-sandbox','--disable-dev-shm-usage'])
+        page = browser.new_page(user_agent=(
+            'Mozilla/5.0 (Windows NT 10.0; Win64; x64) '
+            'AppleWebKit/537.36 (KHTML, like Gecko) '
+            'Chrome/124.0.0.0 Safari/537.36'))
+        next_matches = get_next_matches(page)
+        browser.close()
+    update_games_csv(next_matches)
+
+    # 2) 과거 배당 업데이트
     main()
