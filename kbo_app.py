@@ -2,6 +2,7 @@ import streamlit as st
 import json
 import pandas as pd
 import os
+import html
 from datetime import datetime
 
 st.set_page_config(
@@ -27,6 +28,9 @@ TEAM_META = {
 
 def tm(name):
     return TEAM_META.get(name, {"abbr": name[:3], "color": "#aaaaaa", "bg": "#111111"})
+
+def esc(value):
+    return html.escape('' if value is None else str(value))
 
 # ── CSS ──────────────────────────────────────────────────
 st.markdown("""
@@ -200,6 +204,31 @@ html, body, [data-testid="stAppViewContainer"] {
 .conf-bar-fill { height: 6px; border-radius: 4px; }
 .conf-text { font-size: .78rem; color: #8899bb; margin-top: 3px; text-align: right; }
 .ml-info { font-size: .75rem; color: #556688; text-align: right; white-space: nowrap; }
+.explain-box {
+    background: linear-gradient(160deg, #10172f, #0c1328);
+    border: 1px solid #2d426f;
+    border-radius: 10px;
+    padding: 16px 18px;
+    margin: 0 0 18px;
+    font-family: 'Noto Sans KR', sans-serif;
+    box-shadow: 0 10px 28px rgba(0,0,0,.22);
+}
+.explain-title {
+    color: #e6efff;
+    font-size: .92rem;
+    font-weight: 900;
+    margin-bottom: 10px;
+    letter-spacing: .3px;
+}
+.explain-line {
+    color: #c4d2ee;
+    font-size: .86rem;
+    line-height: 1.75;
+    margin-bottom: 4px;
+}
+.explain-line b { color: #ffffff; font-weight: 900; }
+.explain-good { color: #5dffca; font-weight: 900; }
+.explain-warn { color: #ffaa00; font-weight: 900; }
 
 /* 섹션 헤더 */
 .section-title {
@@ -253,6 +282,7 @@ html, body, [data-testid="stAppViewContainer"] {
 # ── 데이터 로드 ──────────────────────────────────────────
 PRED_PATH   = 'kbo_predictions.json'
 LOG_PATH    = 'kbo_verify_log.csv'
+USER_PRED_PATH = 'kbo_user_predictions.json'
 
 @st.cache_data(ttl=30)
 def load_bm_data():
@@ -284,6 +314,229 @@ def load_log():
         return pd.DataFrame()
     return pd.read_csv(LOG_PATH)
 
+def load_user_predictions():
+    if not os.path.exists(USER_PRED_PATH):
+        return {}
+    with open(USER_PRED_PATH, 'r', encoding='utf-8') as f:
+        return json.load(f)
+
+def save_user_predictions(data):
+    with open(USER_PRED_PATH, 'w', encoding='utf-8') as f:
+        json.dump(data, f, ensure_ascii=False, indent=2)
+
+def make_match_key(pred):
+    return f"{pred.get('pred_date', '')}|{pred.get('slot', '')}|{pred.get('home', '')}|{pred.get('away', '')}"
+
+def pick_team_from_value(pick):
+    if not pick or pick == 'PASS':
+        return None
+    if '(' in pick and ')' in pick:
+        return pick.split('(', 1)[1].split(')', 1)[0]
+    return pick
+
+def model_pick_team(pred):
+    rec = pred.get('recommendation', 'PASS')
+    if rec.startswith('HOME'):
+        return pred.get('home')
+    if rec.startswith('AWAY'):
+        return pred.get('away')
+    return None
+
+def find_actual_winner(log_df, pred):
+    if len(log_df) == 0:
+        return None
+    date = str(pred.get('pred_date', ''))[:10]
+    home = pred.get('home')
+    away = pred.get('away')
+    matched = log_df[
+        (log_df['date'].astype(str).str[:10] == date) &
+        (log_df['home'] == home) &
+        (log_df['away'] == away)
+    ]
+    if len(matched) == 0:
+        return None
+    actual = matched.iloc[-1].get('actual_winner')
+    return None if pd.isna(actual) else actual
+
+def parse_prediction_team(prediction, home, away):
+    if not prediction or pd.isna(prediction) or prediction == 'PASS':
+        return None
+    prediction = str(prediction)
+    if prediction.startswith('HOME'):
+        if '(' in prediction and ')' in prediction and prediction != 'HOME(1)':
+            return prediction.split('(', 1)[1].split(')', 1)[0]
+        return home
+    if prediction.startswith('AWAY'):
+        if '(' in prediction and ')' in prediction and prediction != 'AWAY(0)':
+            return prediction.split('(', 1)[1].split(')', 1)[0]
+        return away
+    return prediction
+
+def parse_actual_team(actual, home, away):
+    if actual is None or pd.isna(actual):
+        return None
+    actual = str(actual)
+    if actual == 'HOME(1)':
+        return home
+    if actual == 'AWAY(0)':
+        return away
+    return actual
+
+def is_false_value(value):
+    if value is False:
+        return True
+    return str(value).strip().lower() == 'false'
+
+def failure_reason(row):
+    home = row.get('home', '')
+    away = row.get('away', '')
+    pred_team = parse_prediction_team(row.get('prediction', ''), home, away)
+    actual_team = parse_actual_team(row.get('actual_winner', ''), home, away)
+    conf = float(row.get('confidence', 0) or 0)
+    ml_home = float(row.get('ml_home_prob', 0.5) or 0.5)
+    ml_away = float(row.get('ml_away_prob', 0.5) or 0.5)
+
+    reasons = []
+    if pred_team and actual_team:
+        reasons.append(f"패턴은 {pred_team} 쪽을 선택했지만 실제 승자는 {actual_team}였습니다.")
+
+    pred_is_home = pred_team == home
+    pred_ml = ml_home if pred_is_home else ml_away
+    opp_ml = ml_away if pred_is_home else ml_home
+    if pred_team:
+        if pred_ml < opp_ml:
+            reasons.append(f"ML은 반대편을 더 높게 봤습니다({pred_ml:.0%} vs {opp_ml:.0%}). 패턴 신호가 ML 경고를 덮은 케이스입니다.")
+        elif abs(pred_ml - opp_ml) < 0.10:
+            reasons.append(f"ML 확률 차이가 작았습니다({ml_home:.0%}/{ml_away:.0%}). 승부가 애초에 박빙 구간이었습니다.")
+        else:
+            reasons.append(f"ML도 예측 방향을 지지했지만 실제 결과가 반대로 나왔습니다. 패턴과 ML이 동시에 놓친 변동성 경기입니다.")
+
+    if conf >= 0.85:
+        reasons.append("고신뢰도 오답입니다. 반복/미러/다수결 패턴이 과거 흐름에 과적합됐을 가능성이 큽니다.")
+    elif conf >= 0.75:
+        reasons.append("중상위 신뢰도 오답입니다. 보조 신호 충돌 여부를 확인할 필요가 있습니다.")
+    else:
+        reasons.append("낮은 신뢰도 구간 오답입니다. PASS 기준을 더 엄격히 하면 줄일 수 있는 유형입니다.")
+
+    pattern_reason = row.get('pattern_reason', '')
+    if isinstance(pattern_reason, str) and pattern_reason:
+        reasons.append(f"당시 패턴 판단: {pattern_reason}")
+    else:
+        reasons.append("과거 로그에 상세 패턴 판단문이 없어, 현재는 예측/실제/ML/신뢰도 기준으로만 원인을 추정합니다.")
+
+    return reasons
+
+def render_duel_page(predictions, log_df):
+    user_preds = load_user_predictions()
+    sorted_preds = sorted(predictions.values(), key=lambda x: x.get('slot', 99))
+
+    st.markdown('<div class="section-title">🥊 예측 대결 &nbsp;<span style="color:#445566;font-size:.85rem;font-family:sans-serif">User vs Model</span></div>', unsafe_allow_html=True)
+    st.info("각 경기에서 홈승/원정승/PASS를 클릭하면 User 예측이 저장됩니다. 결과가 검증 로그에 들어오면 자동으로 스코어를 계산합니다.")
+
+    if not sorted_preds:
+        st.warning("예측 데이터가 없습니다. kbo_predict.py를 먼저 실행하세요.")
+        return
+
+    settled_rows = []
+
+    for pred in sorted_preds:
+        key = make_match_key(pred)
+        home = pred.get('home', '')
+        away = pred.get('away', '')
+        hm = tm(home)
+        am = tm(away)
+        rec = pred.get('recommendation', 'PASS')
+        conf = pred.get('confidence', 0)
+        saved = user_preds.get(key, {})
+        user_pick = saved.get('pick')
+        user_team = pick_team_from_value(user_pick)
+        model_team = model_pick_team(pred)
+        actual = find_actual_winner(log_df, pred)
+
+        user_correct = (user_team == actual) if actual and user_team else None
+        model_correct = (model_team == actual) if actual and model_team else None
+        if actual:
+            settled_rows.append((user_correct, model_correct))
+
+        model_label = 'PASS' if model_team is None else f"{model_team} 승"
+        actual_label = actual if actual else '결과 대기'
+        saved_label = user_pick if user_pick else '아직 선택 안 함'
+
+        st.markdown(f"""
+<div class="match-card card-draw" style="--hcolor:{hm['color']};--acolor:{am['color']};margin-bottom:10px">
+  <div class="teams-row" style="margin-bottom:12px">
+    <div class="team-block">
+      <div class="team-abbr" style="color:{hm['color']}">{hm['abbr']} <span style="font-size:.6rem;color:#445566;font-family:'Noto Sans KR',sans-serif;vertical-align:middle">홈</span></div>
+      <div class="team-name">{esc(home)}</div>
+    </div>
+    <div class="vs-badge">VS</div>
+    <div class="team-block">
+      <div class="team-abbr" style="color:{am['color']}">{am['abbr']} <span style="font-size:.6rem;color:#445566;font-family:'Noto Sans KR',sans-serif;vertical-align:middle">원정</span></div>
+      <div class="team-name">{esc(away)}</div>
+    </div>
+  </div>
+  <div class="explain-line"><b>Model</b> {esc(model_label)} · 신뢰도 {conf:.0%} &nbsp;|&nbsp; <b>User</b> {esc(saved_label)} &nbsp;|&nbsp; <b>실제</b> {esc(actual_label)}</div>
+</div>
+""", unsafe_allow_html=True)
+
+        c1, c2, c3, c4 = st.columns([1, 1, 1, 2])
+        with c1:
+            if st.button(f"{hm['abbr']} 홈승", key=f"duel_home_{key}", use_container_width=True):
+                user_preds[key] = {
+                    "date": pred.get('pred_date', ''),
+                    "slot": pred.get('slot', ''),
+                    "home": home,
+                    "away": away,
+                    "pick": f"HOME({home})",
+                    "saved_at": datetime.now().isoformat(timespec='seconds'),
+                }
+                save_user_predictions(user_preds)
+                st.rerun()
+        with c2:
+            if st.button(f"{am['abbr']} 원정승", key=f"duel_away_{key}", use_container_width=True):
+                user_preds[key] = {
+                    "date": pred.get('pred_date', ''),
+                    "slot": pred.get('slot', ''),
+                    "home": home,
+                    "away": away,
+                    "pick": f"AWAY({away})",
+                    "saved_at": datetime.now().isoformat(timespec='seconds'),
+                }
+                save_user_predictions(user_preds)
+                st.rerun()
+        with c3:
+            if st.button("PASS", key=f"duel_pass_{key}", use_container_width=True):
+                user_preds[key] = {
+                    "date": pred.get('pred_date', ''),
+                    "slot": pred.get('slot', ''),
+                    "home": home,
+                    "away": away,
+                    "pick": "PASS",
+                    "saved_at": datetime.now().isoformat(timespec='seconds'),
+                }
+                save_user_predictions(user_preds)
+                st.rerun()
+        with c4:
+            if actual:
+                user_mark = 'O' if user_correct else ('-' if user_team is None else 'X')
+                model_mark = 'O' if model_correct else ('-' if model_team is None else 'X')
+                st.markdown(f"User **{user_mark}** / Model **{model_mark}**")
+            else:
+                st.markdown("결과 대기 중")
+
+    user_score = sum(1 for u, _ in settled_rows if u is True)
+    model_score = sum(1 for _, c in settled_rows if c is True)
+    settled = len(settled_rows)
+
+    st.markdown('<div class="section-title">🏁 현재 스코어</div>', unsafe_allow_html=True)
+    s1, s2, s3 = st.columns(3)
+    with s1:
+        st.markdown(f"<div class='stat-card'><div class='stat-num' style='color:#44ddaa'>{user_score}</div><div class='stat-label'>User 적중</div></div>", unsafe_allow_html=True)
+    with s2:
+        st.markdown(f"<div class='stat-card'><div class='stat-num' style='color:#ff4466'>{model_score}</div><div class='stat-label'>Model 적중</div></div>", unsafe_allow_html=True)
+    with s3:
+        st.markdown(f"<div class='stat-card'><div class='stat-num' style='color:#ffaa00'>{settled}</div><div class='stat-label'>결과 확정 경기</div></div>", unsafe_allow_html=True)
+
 predictions = load_predictions()
 log_df      = load_log()
 
@@ -294,6 +547,29 @@ st.markdown("""
   <div class="hero-sub">패턴 분석 + ML 하이브리드 예측 엔진 &nbsp;|&nbsp; 배당변동 · 정배승패 · 팀승패 3중 시퀀스 분석</div>
 </div>
 """, unsafe_allow_html=True)
+
+if 'app_page' not in st.session_state:
+    st.session_state.app_page = 'engine'
+
+nav_left, nav_right = st.columns([5, 1])
+with nav_right:
+    if st.session_state.app_page == 'engine':
+        if st.button("예측 대결 →", use_container_width=True, type="primary"):
+            st.session_state.app_page = 'duel'
+            st.rerun()
+    else:
+        if st.button("← 예측 엔진", use_container_width=True, type="primary"):
+            st.session_state.app_page = 'engine'
+            st.rerun()
+
+if st.session_state.app_page == 'duel':
+    render_duel_page(predictions, log_df)
+    st.markdown("""
+<div style="text-align:center;color:#2a3050;font-size:.75rem;margin-top:40px;font-family:'Noto Sans KR',sans-serif">
+  KBO Prediction Duel &nbsp;|&nbsp; User vs Model &nbsp;|&nbsp; 2026
+</div>
+""", unsafe_allow_html=True)
+    st.stop()
 
 # ── 요약 스탯 ────────────────────────────────────────────
 if len(log_df) > 0:
@@ -531,6 +807,44 @@ else:
     </div>
   </div>"""
 
+        pattern_reason = pred.get('pattern_reason', '')
+        home_win_desc = pred.get('home_win_desc', '')
+        away_win_desc = pred.get('away_win_desc', '')
+        slot_fav_desc = pred.get('slot_fav_desc', '')
+        bm_label = pred.get('bm_label', '')
+        if not pattern_reason:
+            _home_flow = '승' if pred.get('home_win_rec') == 1 else ('패' if pred.get('home_win_rec') == 0 else '불규칙')
+            _away_flow = '승' if pred.get('away_win_rec') == 1 else ('패' if pred.get('away_win_rec') == 0 else '불규칙')
+            if rec.startswith('HOME'):
+                pattern_reason = f'홈 추천: 홈팀 {_home_flow} 흐름 / 원정팀 {_away_flow} 흐름'
+            elif rec.startswith('AWAY'):
+                pattern_reason = f'원정 추천: 홈팀 {_home_flow} 흐름 / 원정팀 {_away_flow} 흐름'
+            else:
+                pattern_reason = 'PASS: 패턴 근거 부족 또는 신호 충돌'
+
+        explain_html = ''
+        if pattern_reason:
+            home_flow = '승 흐름' if pred.get('home_win_rec') == 1 else ('패 흐름' if pred.get('home_win_rec') == 0 else '불규칙')
+            away_flow = '승 흐름' if pred.get('away_win_rec') == 1 else ('패 흐름' if pred.get('away_win_rec') == 0 else '불규칙')
+            fav_line = ''
+            if slot_fav_desc:
+                fav_line = f'<div class="explain-line"><b>슬롯 정배/역배</b> {esc(slot_fav_desc)}</div>'
+            bm_line = ''
+            if bm_label:
+                bm_line = f'<div class="explain-line"><b>BM 배당변동</b> {esc(bm_label)}</div>'
+
+            explain_html = f"""
+  <div class="explain-box">
+    <div class="explain-title">패턴 예측 설명</div>
+    <div class="explain-line"><b>최종 판단</b> <span class="explain-good">{esc(pattern_reason)}</span></div>
+    <div class="explain-line"><b>팀 승패</b> {esc(home)}: {home_flow} / {esc(away)}: {away_flow}</div>
+    <div class="explain-line"><b>홈 근거</b> {esc(home_win_desc)}</div>
+    <div class="explain-line"><b>원정 근거</b> {esc(away_win_desc)}</div>
+    {fav_line}
+    {bm_line}
+    <div class="explain-line"><b>ML 보조</b> 홈 {mh:.0%} / 원정 {ma:.0%}</div>
+  </div>"""
+
         st.markdown(f"""
 <div class="match-card {card_cls}" style="--hcolor:{hm['color']};--acolor:{am['color']}">
   <div class="teams-row">
@@ -569,6 +883,9 @@ else:
   </div>
 </div>
 """, unsafe_allow_html=True)
+
+        if explain_html:
+            st.markdown(explain_html, unsafe_allow_html=True)
 
         # ── 슬롯별 북메이커 배당변동 패턴 ──────────────────────────
         slot_bm = pred.get('slot_bm', {})
@@ -704,6 +1021,37 @@ if len(log_df) > 0:
             if st.button(label, key=f'hist_p_{p}', use_container_width=True):
                 st.session_state.hist_page = p
                 st.rerun()
+
+    # 오답 분석
+    failed_df = _hist_df[_hist_df['correct'].apply(is_false_value)].copy()
+    if len(failed_df) > 0:
+        st.markdown('<div class="section-title">🔎 오답 분석</div>', unsafe_allow_html=True)
+        st.markdown(
+            '<div style="color:#7788aa;font-size:.82rem;margin-bottom:10px;font-family:\'Noto Sans KR\',sans-serif">'
+            '최근 오답 경기 기준으로 패턴 예측이 왜 실패했는지 추정합니다. 상세 패턴 판단문은 앞으로 검증되는 경기부터 더 정확히 남습니다.'
+            '</div>',
+            unsafe_allow_html=True,
+        )
+
+        fail_recent = failed_df.iloc[::-1].head(8)
+        for _, row in fail_recent.iterrows():
+            pred_team = parse_prediction_team(row.get('prediction', ''), row.get('home', ''), row.get('away', ''))
+            actual_team = parse_actual_team(row.get('actual_winner', ''), row.get('home', ''), row.get('away', ''))
+            conf = float(row.get('confidence', 0) or 0)
+            ml_home = float(row.get('ml_home_prob', 0.5) or 0.5)
+            ml_away = float(row.get('ml_away_prob', 0.5) or 0.5)
+            reason_lines = ''.join(
+                f'<div class="explain-line">• {esc(reason)}</div>'
+                for reason in failure_reason(row)
+            )
+            st.markdown(f"""
+<div class="explain-box">
+  <div class="explain-title">{esc(str(row.get('date',''))[:10])} · {esc(row.get('home',''))} vs {esc(row.get('away',''))}</div>
+  <div class="explain-line"><b>예측</b> {esc(pred_team)} 승 · <b>실제</b> {esc(actual_team)} 승 · <b>신뢰도</b> {conf:.0%}</div>
+  <div class="explain-line"><b>ML</b> 홈 {ml_home:.0%} / 원정 {ml_away:.0%}</div>
+  {reason_lines}
+</div>
+""", unsafe_allow_html=True)
 
     # 슬롯별 정확도
     st.markdown('<div class="section-title">📈 슬롯별 / 신뢰도별 정확도</div>', unsafe_allow_html=True)
