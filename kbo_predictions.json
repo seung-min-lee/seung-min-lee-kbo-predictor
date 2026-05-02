@@ -419,8 +419,8 @@
     "slot_fav_win": "111000110010000011",
     "slot_fav_rec": 1,
     "slot_fav_desc": "[111000110010000011] Mirror [00|11]",
-    "slot_fav_team_rec": 1,
-    "home_is_fav": true,
+    "slot_fav_team_rec": 0,
+    "home_is_fav": false,
     "slot_bm": {
       "10x10bet": {
         "seq": "1111P001101110100",
