@@ -1,4 +1,4 @@
-﻿date,slot,home,away,prediction,actual_winner,correct,confidence,ml_home_prob,ml_away_prob,pattern_reason,home_win_desc,away_win_desc,slot_fav_desc,bm_label
+date,slot,home,away,prediction,actual_winner,correct,confidence,ml_home_prob,ml_away_prob,pattern_reason,home_win_desc,away_win_desc,slot_fav_desc,bm_label
 2026-04-02,5.0,NC Dinos,Lotte Giants,AWAY(Lotte Giants),NC Dinos,False,0.75,0.25,0.75,,,,,
 2026-04-02,3.0,LG Twins,KIA Tigers,HOME(LG Twins),LG Twins,True,0.85,0.425,0.575,,,,,
 2026-04-02,1.0,Samsung Lions,Doosan Bears,HOME(Samsung Lions),Samsung Lions,True,0.85,0.445,0.555,,,,,
@@ -118,3 +118,8 @@
 2026-05-01,3.0,KIA Tigers,KT Wiz Suwon,HOME(1),AWAY(0),False,0.925,0.56,0.44,홈 승 패턴(85%) + 원정 패 패턴(85%) + 정배패턴일치(역배승 18경기(원정정배)) + BM방향일치(배당↓팀이김 10/11(91%)),다수결 ↑1 47/68(65%),다수결 ↓0 40/64(65%),[001111111110111000] Mirror [111|000],배당↓팀이김 10/11(91%)
 2026-05-01,4.0,LG Twins,NC Dinos,AWAY(0),HOME(1),False,0.87,0.6,0.4,홈 패 패턴(85%) + 원정 승 패턴(85%) ※정배패턴충돌(정배승 18경기(홈정배)) + BM방향일치(배당↑팀이김 14/14(100%)),다수결 ↓0 41/56(72%),다수결 ↑1 31/54(59%),[011100011001000001] Mirror [0|1],배당↑팀이김 14/14(100%)
 2026-05-01,5.0,SSG Landers,Lotte Giants,HOME(1),AWAY(0),False,0.82,0.65,0.35,홈 승 패턴(85%) + 원정 패 패턴(85%) ※정배패턴충돌(정배승 18경기(원정정배)),다수결 ↑1 32/56(58%),다수결 ↓0 52/65(77%),[111110100101000001] Mirror [0|1],불명확 6/7
+2026-05-02,1.0,SSG Landers,Lotte Giants,HOME(1),Lotte Giants,0,0.845,,,,,,,
+2026-05-02,2.0,Kiwoom Heroes,Doosan Bears,HOME(1),Kiwoom Heroes,1,0.7,,,,,,,
+2026-05-02,3.0,Samsung Lions,Hanwha Eagles,AWAY(0),Hanwha Eagles,1,0.743,,,,,,,
+2026-05-02,4.0,KIA Tigers,KT Wiz Suwon,AWAY(0),KIA Tigers,0,0.779,,,,,,,
+2026-05-02,5.0,LG Twins,NC Dinos,AWAY(0),LG Twins,0,0.88,,,,,,,

@@ -1443,11 +1443,17 @@ for i, game in enumerate(upcoming_games):
         bm_dir_ratio = max(sv1, sv0) / (sv1 + sv0)
         if bm_dir_ratio >= 0.6:
             bm_dir_vote = 1 if sv1 > sv0 else 0
-        # 팀 매핑: 배당↑팀=언더독
-        # h_dir_rec=1 → 홈이 정배(배당↓) → 배당↑팀=원정
-        # h_dir_rec=0 → 홈이 역배(배당↑) → 배당↑팀=홈
-        if bm_dir_vote is not None and h_dir_rec is not None:
-            bm_team_rec = 1 if (bm_dir_vote != h_dir_rec) else 0
+        # 팀 매핑: 배당↑팀=역배(언더독) ↔ 정배/역배는 home_is_fav_today 기준
+        # bm_dir_vote=1(배당↑팀이김): 역배팀이 이김
+        #   home_is_fav=True  → HOME=정배, AWAY=역배(배당↑팀) → AWAY 추천(0)
+        #   home_is_fav=False → HOME=역배(배당↑팀)           → HOME 추천(1)
+        # bm_dir_vote=0(배당↓팀이김): 정배팀이 이김
+        #   home_is_fav=True  → HOME=정배(배당↓팀)           → HOME 추천(1)
+        #   home_is_fav=False → AWAY=정배(배당↓팀)           → AWAY 추천(0)
+        # ⇒ bm_team_rec = 1 if (bm_dir_vote != int(home_is_fav_today)) else 0
+        # (h_dir_rec 사용 금지: 방향 패턴 추천값이지 정배/역배 구분자가 아님)
+        if bm_dir_vote is not None and home_is_fav_today is not None:
+            bm_team_rec = 1 if (bm_dir_vote != int(home_is_fav_today)) else 0
     bm_label = (f'배당{"↑" if bm_dir_vote==1 else "↓"}팀이김 {max(sv1,sv0)}/{sv1+sv0}({bm_dir_ratio:.0%})'
                 if bm_dir_vote is not None else f'불명확 {sv1}/{sv0}')
 
