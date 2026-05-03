@@ -1,4 +1,4 @@
-﻿date,away,home,away_score,home_score,winner,winner_is_home,slot
+date,away,home,away_score,home_score,winner,winner_is_home,slot
 2024-04-02,Lotte Giants,Hanwha Eagles,1.0,0.0,Lotte Giants,False,
 2024-04-02,NC Dinos,LG Twins,7.0,5.0,NC Dinos,False,
 2024-04-02,Doosan Bears,SSG Landers,6.0,13.0,SSG Landers,True,
@@ -1426,3 +1426,4 @@
 2026-05-03,Hanwha Eagles,Samsung Lions,,,,,2.0
 2026-05-03,KT Wiz Suwon,KIA Tigers,,,,,3.0
 2026-05-03,NC Dinos,LG Twins,,,,,4.0
+2026-05-03,Lotte Giants,SSG Landers,,,,,5.0
