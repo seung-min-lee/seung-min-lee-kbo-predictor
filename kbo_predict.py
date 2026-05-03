@@ -14,9 +14,10 @@ from datetime import datetime, timedelta
 import json, warnings
 warnings.filterwarnings('ignore')
 
-CSV_PATH   = 'kbo_odds.csv'
-GAMES_PATH = 'kbo_games.csv'
-PRED_PATH  = 'kbo_predictions.json'
+CSV_PATH        = 'kbo_odds.csv'
+GAMES_PATH      = 'kbo_games.csv'
+PRED_PATH       = 'kbo_predictions.json'
+TODAY_ODDS_PATH = 'kbo_today_odds.json'
 WINDOW     = 19   # 팀별 최근 N경기 참조
 BM_SEQ_LEN       = 17  # 슬롯별 북메이커 배당변동 시퀀스 길이
 SLOT_FAV_SEQ_LEN = 18  # 슬롯별 정배/역배 승 시퀀스 길이
@@ -707,6 +708,19 @@ def normalize_date(raw):
     return s  # 변환 불가 시 원본 반환
 
 print('데이터 로드 중...')
+
+# 오늘 개장 배당 로드 (Next Matches에서 수집된 실시간 배당)
+_today_odds = {}
+if os.path.exists(TODAY_ODDS_PATH):
+    with open(TODAY_ODDS_PATH, encoding='utf-8') as _f:
+        _today_odds = json.load(_f)
+    print(f'오늘 개장 배당 로드: {len(_today_odds)}경기')
+
+def get_today_odds(slot, home, away, pred_date):
+    """kbo_today_odds.json에서 해당 경기의 실제 개장 배당 반환"""
+    key = f"{pred_date}|{int(slot)}|{home}|{away}"
+    return _today_odds.get(key)
+
 df = pd.read_csv(CSV_PATH)
 df['date'] = df['date'].apply(normalize_date)
 df['direction'] = df['consensus'].map({'home': 1, 'away': 0})
@@ -1351,23 +1365,28 @@ for i, game in enumerate(upcoming_games):
 
     # 오늘 슬롯의 정배팀(홈/원정)을 실제 배당으로 확인 → team 추천 변환
     # 1순위: 동일 홈/원정 매치업 중 가장 최근 컨센서스 (팀 구성 기반)
-    # 2순위: 홈팀 최근 홈 경기 컨센서스 (매치업 이력 없을 때)
-    # 구 방식(같은 slot 어제 경기)은 팀이 달라 오판 발생
-    _same_matchup = game_df[
-        (game_df['home'] == home) &
-        (game_df['away'] == away) &
-        (game_df['date_order'] < max_date_order) &
-        (game_df['bm_count'] > 0)
-    ].sort_values('date_order').tail(1)
-    if len(_same_matchup) > 0:
-        home_is_fav_today = (_same_matchup['consensus'].iloc[0] == 'home')
+    # 1순위: 오늘 실제 개장 배당 (kbo_today_odds.json)
+    _todayodds = get_today_odds(slot, home, away, pred_date)
+    if _todayodds and _todayodds.get('home_odds') and _todayodds.get('away_odds'):
+        home_is_fav_today = _todayodds['home_odds'] < _todayodds['away_odds']
+        print(f'  [실시간배당] {home}({_todayodds["home_odds"]}) vs {away}({_todayodds["away_odds"]}) → {"홈정배" if home_is_fav_today else "원정정배"}')
     else:
-        _home_recent = game_df[
+        # 2순위: 동일 매치업 최근 컨센서스
+        _same_matchup = game_df[
             (game_df['home'] == home) &
+            (game_df['away'] == away) &
             (game_df['date_order'] < max_date_order) &
             (game_df['bm_count'] > 0)
         ].sort_values('date_order').tail(1)
-        home_is_fav_today = (_home_recent['consensus'].iloc[0] == 'home') if len(_home_recent) > 0 else None
+        if len(_same_matchup) > 0:
+            home_is_fav_today = (_same_matchup['consensus'].iloc[0] == 'home')
+        else:
+            _home_recent = game_df[
+                (game_df['home'] == home) &
+                (game_df['date_order'] < max_date_order) &
+                (game_df['bm_count'] > 0)
+            ].sort_values('date_order').tail(1)
+            home_is_fav_today = (_home_recent['consensus'].iloc[0] == 'home') if len(_home_recent) > 0 else None
     slot_fav_team_rec = None
     if slot_fav_rec is not None and home_is_fav_today is not None:
         # 정배승(1)+홈이정배 → HOME(1), 정배승(1)+원정이정배 → AWAY(0)

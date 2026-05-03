@@ -524,11 +524,19 @@ JS_NEXT_MATCHES = """
         if (teams.length < 2) return;
         const mid = href.includes('#') ? href.split('#')[1]
                   : href.split('/').filter(Boolean).pop();
-        results.push({date: currentDate, home: teams[0], away: teams[1], match_id: mid});
+        // 현재 표시 배당 수집 (첫 번째 숫자 컬럼 = 평균 배당)
+        const oddsEls = Array.from(row.querySelectorAll('p.odds-text, [data-testid="odds"]'))
+            .map(el => parseFloat(el.innerText.trim())).filter(v => !isNaN(v) && v > 1);
+        const home_odds = oddsEls.length >= 1 ? oddsEls[0] : null;
+        const away_odds = oddsEls.length >= 2 ? oddsEls[oddsEls.length - 1] : null;
+        results.push({date: currentDate, home: teams[0], away: teams[1], match_id: mid,
+                      home_odds: home_odds, away_odds: away_odds});
     });
     return results;
 }
 """
+
+TODAY_ODDS_PATH = 'kbo_today_odds.json'
 
 def get_next_matches(page):
     """OddsPortal KBO Next Matches 섹션에서 예정 경기 스크래핑"""
@@ -574,9 +582,29 @@ def get_next_matches(page):
             'away_score': None, 'home_score': None,
             'winner': None, 'winner_is_home': None,
             'slot': float(slot),
+            'home_odds': m.get('home_odds'),
+            'away_odds': m.get('away_odds'),
         })
 
     print(f'  필터 후 {len(results)}개 (오늘 이후)')
+
+    # 오늘 개장 배당을 kbo_today_odds.json에 저장
+    today_str = _dt.today().strftime('%Y-%m-%d')
+    today_odds = {}
+    for r in results:
+        if r['date'] == today_str and r['home_odds'] and r['away_odds']:
+            key = f"{r['date']}|{int(r['slot'])}|{r['home']}|{r['away']}"
+            today_odds[key] = {
+                'date': r['date'], 'slot': r['slot'],
+                'home': r['home'], 'away': r['away'],
+                'home_odds': r['home_odds'], 'away_odds': r['away_odds'],
+            }
+    if today_odds:
+        import json as _json
+        with open(TODAY_ODDS_PATH, 'w', encoding='utf-8') as f:
+            _json.dump(today_odds, f, ensure_ascii=False, indent=2)
+        print(f'  오늘 개장 배당 {len(today_odds)}경기 저장 → {TODAY_ODDS_PATH}')
+
     return results
 
 
