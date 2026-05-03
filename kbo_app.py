@@ -312,7 +312,14 @@ def load_predictions():
 def load_log():
     if not os.path.exists(LOG_PATH):
         return pd.DataFrame()
-    return pd.read_csv(LOG_PATH)
+    df = pd.read_csv(LOG_PATH)
+    # 'True'/'False' 문자열과 0/1 혼재 → 숫자로 정규화
+    if 'correct' in df.columns:
+        df['correct'] = df['correct'].map(
+            lambda x: 1 if str(x).strip() in ('1', 'True', 'true') else
+                      (0 if str(x).strip() in ('0', 'False', 'false') else float('nan'))
+        )
+    return df
 
 def load_user_predictions():
     if not os.path.exists(USER_PRED_PATH):
