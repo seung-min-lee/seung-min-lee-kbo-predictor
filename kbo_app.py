@@ -313,12 +313,12 @@ def load_log():
     if not os.path.exists(LOG_PATH):
         return pd.DataFrame()
     df = pd.read_csv(LOG_PATH)
-    # 'True'/'False' 문자열과 0/1 혼재 → 숫자로 정규화
+    # 'True'/'False' 문자열 → 1/0, 그 외 pd.to_numeric 처리
     if 'correct' in df.columns:
         df['correct'] = df['correct'].map(
-            lambda x: 1 if str(x).strip() in ('1', 'True', 'true') else
-                      (0 if str(x).strip() in ('0', 'False', 'false') else float('nan'))
-        )
+            lambda x: 1 if str(x).strip().lower() in ('1', '1.0', 'true') else
+                      (0 if str(x).strip().lower() in ('0', '0.0', 'false') else None)
+        ).astype(float)
     return df
 
 def load_user_predictions():
