@@ -1126,7 +1126,7 @@ def get_slot_bm_odds_seqs(slot, before_date_order, seq_len=BM_SEQ_LEN):
             'h_close': None if pd.isna(r['home_close']) else float(r['home_close']),
             'a_open':  None if pd.isna(r['away_open'])  else float(r['away_open']),
             'a_close': None if pd.isna(r['away_close']) else float(r['away_close']),
-            'w_dir':   None if pd.isna(r['winner_direction']) else int(r['winner_direction']),
+            'w_dir':   None if str(r['winner_direction']) in ('N', 'nan', '') else int(r['winner_direction']),
         }
 
     # Postp 경기 match_id 집합
