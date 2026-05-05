@@ -1,4 +1,4 @@
-﻿match_id,date,slot,home,away,winner,winner_is_home,home_score,away_score,bookmaker,home_open,home_close,home_change,home_direction,away_open,away_close,away_change,away_direction,winner_direction,odds_ratio,consensus
+match_id,date,slot,home,away,winner,winner_is_home,home_score,away_score,bookmaker,home_open,home_close,home_change,home_direction,away_open,away_close,away_change,away_direction,winner_direction,odds_ratio,consensus
 zNjZ4nJr,2026-03-28,1,NC Dinos,Doosan Bears,NC Dinos,True,6,0,10x10bet,,1.79,,,,2.12,,,,0.8443,home
 zNjZ4nJr,2026-03-28,1,NC Dinos,Doosan Bears,NC Dinos,True,6,0,1xBet,,1.71,,,,2.16,,,,0.7917,home
 zNjZ4nJr,2026-03-28,1,NC Dinos,Doosan Bears,NC Dinos,True,6,0,22Bet,,1.7,,,,2.14,,,,0.7944,home
@@ -1962,7 +1962,7 @@ K2GGJFLq,2026-05-01,1,Kiwoom Heroes,Doosan Bears,Doosan Bears,False,6,16,Momobet
 K2GGJFLq,2026-05-01,1,Kiwoom Heroes,Doosan Bears,Doosan Bears,False,6,16,Roobet,2.04,2.06,0.02,1.0,1.75,1.73,-0.02,0.0,0.0,1.1908,away
 K2GGJFLq,2026-05-01,1,Kiwoom Heroes,Doosan Bears,Doosan Bears,False,6,16,Stake.com,2.07,2.11,0.04,1.0,1.76,1.76,0.0,0.0,0.0,1.1989,away
 K2GGJFLq,2026-05-01,1,Kiwoom Heroes,Doosan Bears,Doosan Bears,False,6,16,VOBET,2.07,2.15,0.08,1.0,1.78,1.77,-0.01,0.0,0.0,1.2147,away
-K2GGJFLq,2026-05-01,1,Kiwoom Heroes,Doosan Bears,Doosan Bears,False,6,16,bwin,2.05,2.05,0.0,0.0,1.75,1.75,0.0,0.0,0.0,1.1714,away
+K2GGJFLq,2026-05-01,1,Kiwoom Heroes,Doosan Bears,Doosan Bears,False,6,16,bwin,,2.05,,,,1.75,,,0.0,1.1714,away
 lEtxRcT9,2026-05-01,2,Samsung Lions,Hanwha Eagles,Samsung Lions,True,4,3,10x10bet,1.58,1.67,0.09,1.0,2.37,2.32,-0.05,0.0,1.0,0.7198,home
 lEtxRcT9,2026-05-01,2,Samsung Lions,Hanwha Eagles,Samsung Lions,True,4,3,1xBet,1.65,1.72,0.07,1.0,2.39,2.26,-0.13,0.0,1.0,0.7611,home
 lEtxRcT9,2026-05-01,2,Samsung Lions,Hanwha Eagles,Samsung Lions,True,4,3,22Bet,1.61,1.68,0.07,1.0,2.33,2.2,-0.13,0.0,1.0,0.7636,home

@@ -111,7 +111,7 @@
         "current_odds": 2.97
       },
       "bwin": {
-        "seq": "100100N00N00N1N0P",
+        "seq": "100100N00N0001N0P",
         "rec": null,
         "desc": "데이터 부족",
         "current_odds": 2.8
