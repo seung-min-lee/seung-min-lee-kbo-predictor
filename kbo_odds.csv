@@ -1986,10 +1986,10 @@ ATUpPybM,2026-05-01,3,KIA Tigers,KT Wiz Suwon,KT Wiz Suwon,False,3,4,Bets.io,1.8
 ATUpPybM,2026-05-01,3,KIA Tigers,KT Wiz Suwon,KT Wiz Suwon,False,3,4,GambleCity,1.88,1.81,-0.07,0.0,1.84,1.95,0.11,1.0,1.0,0.9282,home
 ATUpPybM,2026-05-01,3,KIA Tigers,KT Wiz Suwon,KT Wiz Suwon,False,3,4,Kobet,2.16,1.79,-0.37,0.0,1.68,1.92,0.24,1.0,1.0,0.9323,home
 ATUpPybM,2026-05-01,3,KIA Tigers,KT Wiz Suwon,KT Wiz Suwon,False,3,4,Melbet,1.91,1.8,-0.11,0.0,1.89,2.02,0.13,1.0,1.0,0.8911,home
-ATUpPybM,2026-05-01,3,KIA Tigers,KT Wiz Suwon,KT Wiz Suwon,False,3,4,Momobet,1.94,1.88,-0.06,0.0,1.9,2.01,0.11,1.0,1.0,0.9353,home
-ATUpPybM,2026-05-01,3,KIA Tigers,KT Wiz Suwon,KT Wiz Suwon,False,3,4,Roobet,1.9,1.78,-0.12,0.0,1.86,1.99,0.13,1.0,1.0,0.8945,home
-ATUpPybM,2026-05-01,3,KIA Tigers,KT Wiz Suwon,KT Wiz Suwon,False,3,4,Stake.com,2.14,1.85,-0.29,0.0,1.72,2.01,0.29,1.0,1.0,0.9204,home
-ATUpPybM,2026-05-01,3,KIA Tigers,KT Wiz Suwon,KT Wiz Suwon,False,3,4,VOBET,1.94,1.88,-0.06,0.0,1.9,2.01,0.11,1.0,1.0,0.9353,home
+ATUpPybM,2026-05-01,3,KIA Tigers,KT Wiz Suwon,KT Wiz Suwon,False,3,4,Momobet,1.94,1.88,-0.06,0.0,,2.01,,,,0.9353,home
+ATUpPybM,2026-05-01,3,KIA Tigers,KT Wiz Suwon,KT Wiz Suwon,False,3,4,Roobet,,1.78,,,1.86,1.99,0.13,1.0,1.0,0.8945,home
+ATUpPybM,2026-05-01,3,KIA Tigers,KT Wiz Suwon,KT Wiz Suwon,False,3,4,Stake.com,2.14,1.85,-0.29,0.0,,2.01,,,,0.9204,home
+ATUpPybM,2026-05-01,3,KIA Tigers,KT Wiz Suwon,KT Wiz Suwon,False,3,4,VOBET,,1.88,,,,2.01,,,,0.9353,home
 ATUpPybM,2026-05-01,3,KIA Tigers,KT Wiz Suwon,KT Wiz Suwon,False,3,4,bwin,2.15,1.98,-0.17,0.0,1.67,1.8,0.13,1.0,1.0,1.1,away
 Ques5G6j,2026-05-01,4,LG Twins,NC Dinos,LG Twins,True,5,1,10x10bet,1.65,1.62,-0.03,0.0,2.23,2.42,0.19,1.0,0.0,0.6694,home
 Ques5G6j,2026-05-01,4,LG Twins,NC Dinos,LG Twins,True,5,1,1xBet,1.7,1.66,-0.04,0.0,2.29,2.37,0.08,1.0,0.0,0.7004,home
@@ -2002,7 +2002,7 @@ Ques5G6j,2026-05-01,4,LG Twins,NC Dinos,LG Twins,True,5,1,Kobet,1.56,1.59,0.03,1
 Ques5G6j,2026-05-01,4,LG Twins,NC Dinos,LG Twins,True,5,1,Melbet,1.66,1.62,-0.04,0.0,2.23,2.31,0.08,1.0,0.0,0.7013,home
 Ques5G6j,2026-05-01,4,LG Twins,NC Dinos,LG Twins,True,5,1,Momobet,1.65,1.62,-0.03,0.0,2.23,2.42,0.19,1.0,0.0,0.6694,home
 Ques5G6j,2026-05-01,4,LG Twins,NC Dinos,LG Twins,True,5,1,Roobet,1.62,1.61,-0.01,0.0,2.24,2.26,0.02,1.0,0.0,0.7124,home
-Ques5G6j,2026-05-01,4,LG Twins,NC Dinos,LG Twins,True,5,1,Stake.com,1.6,1.61,0.01,1.0,2.35,2.38,0.03,1.0,1.0,0.6765,home
+Ques5G6j,2026-05-01,4,LG Twins,NC Dinos,LG Twins,True,5,1,Stake.com,1.6,1.61,0.01,1.0,,2.38,,,1.0,0.6765,home
 Ques5G6j,2026-05-01,4,LG Twins,NC Dinos,LG Twins,True,5,1,VOBET,1.65,1.62,-0.03,0.0,2.23,2.42,0.19,1.0,0.0,0.6694,home
 Ques5G6j,2026-05-01,4,LG Twins,NC Dinos,LG Twins,True,5,1,bwin,1.57,1.5,-0.07,0.0,2.35,2.55,0.2,1.0,0.0,0.5882,home
 tlwUSJbc,2026-05-01,5,SSG Landers,Lotte Giants,Lotte Giants,False,7,10,10x10bet,1.6,1.63,0.03,1.0,2.33,2.4,0.07,1.0,1.0,0.6792,home
