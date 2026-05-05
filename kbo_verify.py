@@ -25,6 +25,11 @@ games_df = pd.read_csv(GAMES_PATH) if os.path.exists(GAMES_PATH) else pd.DataFra
 
 if os.path.exists(RESULT_PATH):
     log_df = pd.read_csv(RESULT_PATH)
+    if 'correct' in log_df.columns:
+        log_df['correct'] = log_df['correct'].map(
+            lambda x: 1 if str(x).strip().lower() in ('1', '1.0', 'true') else
+                      (0 if str(x).strip().lower() in ('0', '0.0', 'false') else None)
+        ).astype(float)
 else:
     log_df = pd.DataFrame(columns=[
         'date', 'slot', 'home', 'away',

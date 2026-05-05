@@ -718,7 +718,10 @@ if os.path.exists(TODAY_ODDS_PATH):
 
 def get_today_odds(slot, home, away, pred_date):
     """kbo_today_odds.json에서 해당 경기의 실제 개장 배당 반환"""
-    key = f"{pred_date}|{int(slot)}|{home}|{away}"
+    try:
+        key = f"{pred_date}|{int(slot)}|{home}|{away}"
+    except (ValueError, TypeError):
+        return None
     return _today_odds.get(key)
 
 df = pd.read_csv(CSV_PATH)
