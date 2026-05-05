@@ -220,12 +220,8 @@ def scrape_team_odds(driver, odds_el):
             }
         }
 
-        // Direction and change
-        const redEl = popup.querySelector('[class*="text-red-dark"]');
-        const greenEl = popup.querySelector('[class*="text-green-dark"]');
-        if (redEl) { direction = 0; change = redEl.innerText.trim(); }
-        else if (greenEl) { direction = 1; change = greenEl.innerText.trim(); }
-        else if (openVal && closeVal && openVal !== closeVal) {
+        // Direction and change (numeric only)
+        if (openVal && closeVal && openVal !== closeVal) {
             direction = closeVal > openVal ? 1 : 0;
             change = (closeVal - openVal).toFixed(2);
         }
@@ -264,8 +260,6 @@ def get_odds_direction(driver, el):
         for (const panel of panels) {
             const h1 = panel.querySelector('h1');
             if (!h1) continue;
-            const ce = panel.querySelector('.text-green-dark,.text-red-dark');
-            if (ce) return ce.classList.contains('text-green-dark') ? 1 : 0;
             // open→close 계산으로 방향 추정
             const nums = [...panel.querySelectorAll('.font-bold')]
                 .map(e => parseFloat(e.innerText)).filter(v => !isNaN(v) && v > 1);

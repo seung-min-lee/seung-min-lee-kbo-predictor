@@ -128,8 +128,9 @@
     "bm_dir_ratio": 1.0,
     "ml_home_prob": 0.49,
     "ml_away_prob": 0.51,
-    "verified": false,
-    "actual": null
+    "verified": true,
+    "actual": "HOME(1)",
+    "correct": false
   },
   "slot_2.0": {
     "slot": 2.0,
@@ -260,8 +261,9 @@
     "bm_dir_ratio": 0.714,
     "ml_home_prob": 0.635,
     "ml_away_prob": 0.365,
-    "verified": false,
-    "actual": null
+    "verified": true,
+    "actual": "HOME(1)",
+    "correct": false
   },
   "slot_3.0": {
     "slot": 3.0,
@@ -392,8 +394,9 @@
     "bm_dir_ratio": 0.727,
     "ml_home_prob": 0.735,
     "ml_away_prob": 0.265,
-    "verified": false,
-    "actual": null
+    "verified": true,
+    "actual": "HOME(1)",
+    "correct": false
   },
   "slot_4.0": {
     "slot": 4.0,
@@ -524,8 +527,9 @@
     "bm_dir_ratio": 0.909,
     "ml_home_prob": 0.435,
     "ml_away_prob": 0.565,
-    "verified": false,
-    "actual": null
+    "verified": true,
+    "actual": "HOME(1)",
+    "correct": false
   },
   "slot_5.0": {
     "slot": 5.0,
