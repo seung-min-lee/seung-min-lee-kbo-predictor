@@ -249,9 +249,9 @@
         "current_odds": 1.75
       }
     },
-    "recommendation": "AWAY(0)",
+    "recommendation": "HOME(1)",
     "confidence": 0.845,
-    "pattern_reason": "홈 패 패턴(85%) + 원정 승 패턴(78%) + 정배패턴일치(역배승 18경기(홈정배))",
+    "pattern_reason": "홈 패 패턴(85%) + 원정 승 패턴(78%) + 정배패턴일치(역배승 18경기(홈정배)) [18시 재확인: KIA 배당 하락(-0.01) Hanwha 상승(+0.01)]",
     "home_win_desc": "다수결 ↓0 39/66(55%)",
     "away_win_desc": "다수결 ↑1 28/46(63%)",
     "bm_label": "불명확 1/1",
