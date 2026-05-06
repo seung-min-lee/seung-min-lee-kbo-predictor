@@ -18,11 +18,11 @@ TEAM_META = {
     "LG Twins":       {"abbr": "LG",   "color": "#C30452", "bg": "#1a0008"},
     "Kiwoom Heroes":  {"abbr": "KWM",  "color": "#820024", "bg": "#180005"},
     "SSG Landers":    {"abbr": "SSG",  "color": "#CE0E2D", "bg": "#1a0205"},
-    "Doosan Bears":   {"abbr": "DSN",  "color": "#131230", "bg": "#060610"},
+    "Doosan Bears":   {"abbr": "DSN",  "color": "#6699ff", "bg": "#060610"},
     "Samsung Lions":  {"abbr": "SAM",  "color": "#074CA1", "bg": "#000d1a"},
     "Lotte Giants":   {"abbr": "LOT",  "color": "#D00F31", "bg": "#1a0005"},
     "NC Dinos":       {"abbr": "NC",   "color": "#315288", "bg": "#05101a"},
-    "KT Wiz Suwon":   {"abbr": "KT",   "color": "#231F20", "bg": "#0d0d0d"},
+    "KT Wiz Suwon":   {"abbr": "KT",   "color": "#aaaaaa", "bg": "#0d0d0d"},
     "Hanwha Eagles":  {"abbr": "HWE",  "color": "#FF6600", "bg": "#1a0a00"},
 }
 
@@ -81,7 +81,8 @@ html, body, [data-testid="stAppViewContainer"] {
 .hero-badge {
     display: inline-block;
     background: linear-gradient(90deg, #ff3355, #ff6600);
-    color: white;
+    color: white !important;
+    -webkit-text-fill-color: white !important;
     font-size: .7rem;
     font-weight: 900;
     padding: 3px 10px;
