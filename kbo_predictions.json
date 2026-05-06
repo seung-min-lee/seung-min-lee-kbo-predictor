@@ -315,9 +315,9 @@
         "current_odds": 1.3
       },
       "BetInAsia": {
-        "seq": "011000000N001101N",
-        "rec": null,
-        "desc": "데이터 부족",
+        "seq": "011000000N0011010",
+        "rec": 1,
+        "desc": "다수결 ↑1 18/21(85%)",
         "current_odds": 1.26
       },
       "Bets.io": {
@@ -383,10 +383,10 @@
     },
     "recommendation": "AWAY(0)",
     "confidence": 0.835,
-    "pattern_reason": "홈 패 패턴(85%) + 원정 승 패턴(78%) ※정배패턴충돌(정배승 18경기(홈정배)) + BM방향일치(배당↑팀이김 10/10(100%))",
+    "pattern_reason": "홈 패 패턴(85%) + 원정 승 패턴(78%) ※정배패턴충돌(정배승 18경기(홈정배)) + BM방향일치(배당↑팀이김 11/11(100%))",
     "home_win_desc": "다수결 ↓0 39/51(74%)",
     "away_win_desc": "다수결 ↑1 30/55(57%)",
-    "bm_label": "배당↑팀이김 10/10(100%)",
+    "bm_label": "배당↑팀이김 11/11(100%)",
     "bm_dir_vote": 1,
     "bm_team_rec": 0,
     "bm_dir_ratio": 1.0,
@@ -551,8 +551,8 @@
     "slot_fav_win": "110100101000001010",
     "slot_fav_rec": 0,
     "slot_fav_desc": "[110100101000001010] Mirror [1|0]",
-    "slot_fav_team_rec": 0,
-    "home_is_fav": true,
+    "slot_fav_team_rec": 1,
+    "home_is_fav": false,
     "slot_bm": {
       "10x10bet": {
         "seq": "0P11000111101101N",
@@ -646,8 +646,8 @@
       }
     },
     "recommendation": "HOME(1)",
-    "confidence": 0.785,
-    "pattern_reason": "홈 승 패턴(78%) + 원정 패 패턴(85%) ※정배패턴충돌(역배승 18경기(홈정배))",
+    "confidence": 0.845,
+    "pattern_reason": "홈 승 패턴(78%) + 원정 패 패턴(85%) + 정배패턴일치(역배승 18경기(원정정배))",
     "home_win_desc": "다수결 ↑1 30/55(57%)",
     "away_win_desc": "다수결 ↓0 35/59(61%)",
     "bm_label": "불명확 0/0",

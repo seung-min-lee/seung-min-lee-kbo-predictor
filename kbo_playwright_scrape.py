@@ -524,8 +524,8 @@ JS_NEXT_MATCHES = """
         if (teams.length < 2) return;
         const mid = href.includes('#') ? href.split('#')[1]
                   : href.split('/').filter(Boolean).pop();
-        // 현재 표시 배당 수집 (첫 번째 숫자 컬럼 = 평균 배당)
-        const oddsEls = Array.from(row.querySelectorAll('p.odds-text, [data-testid="odds"]'))
+        // 현재 표시 배당 수집
+        const oddsEls = Array.from(row.querySelectorAll('p[class*="height-content"]'))
             .map(el => parseFloat(el.innerText.trim())).filter(v => !isNaN(v) && v > 1);
         const home_odds = oddsEls.length >= 1 ? oddsEls[0] : null;
         const away_odds = oddsEls.length >= 2 ? oddsEls[oddsEls.length - 1] : null;
@@ -542,17 +542,17 @@ def get_next_matches(page):
     """OddsPortal KBO Next Matches 섹션에서 예정 경기 스크래핑"""
     for attempt in range(3):
         try:
-            page.goto(GAMES_URL, timeout=60000)
-            page.wait_for_selector('div.eventRow', timeout=30000)
+            page.goto(GAMES_URL, timeout=90000, wait_until='domcontentloaded')
+            page.wait_for_selector('div.eventRow', timeout=45000)
             break
         except PWTimeout:
             print(f'  Next Matches 페이지 로딩 실패 (attempt {attempt+1})')
             if attempt == 2:
                 return []
-            time.sleep(3)
-    time.sleep(2)
+            time.sleep(5)
+    time.sleep(3)
     page.evaluate('window.scrollTo(0, document.body.scrollHeight)')
-    time.sleep(2)
+    time.sleep(3)
 
     raw = page.evaluate(JS_NEXT_MATCHES)
     print(f'  Raw 경기 {len(raw)}개 수집')
