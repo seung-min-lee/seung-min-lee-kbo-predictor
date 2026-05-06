@@ -117,9 +117,9 @@
         "current_odds": 1.78
       }
     },
-    "recommendation": "HOME(1)",
+    "recommendation": "AWAY(0)",
     "confidence": 0.85,
-    "pattern_reason": "BM방향압도(배당↓팀이김 11/11(100%)) ← 팀승패 역전[홈 패 패턴(85%) + 원정 승 패턴(85%) + 정배패턴일치(역배승 18경기(홈정배))]",
+    "pattern_reason": "BM방향압도(배당↓팀이김 11/11(100%)) ← 팀승패 역전[홈 패 패턴(85%) + 원정 승 패턴(85%) + 정배패턴일치(역배승 18경기(홈정배))] [BM실시간신호 역전: Doosan 배당 더 하락(0.041)]",
     "home_win_desc": "다수결 ↓0 31/53(56%)",
     "away_win_desc": "다수결 ↑1 35/56(59%)",
     "bm_label": "배당↓팀이김 11/11(100%)",
@@ -645,9 +645,9 @@
         "current_odds": 1.75
       }
     },
-    "recommendation": "HOME(1)",
+    "recommendation": "AWAY(0)",
     "confidence": 0.845,
-    "pattern_reason": "홈 승 패턴(78%) + 원정 패 패턴(85%) + 정배패턴일치(역배승 18경기(원정정배))",
+    "pattern_reason": "홈 승 패턴(78%) + 원정 패 패턴(85%) + 정배패턴일치(역배승 18경기(원정정배)) [BM실시간신호 역전: NC 배당 더 하락(0.058)]",
     "home_win_desc": "다수결 ↑1 30/55(57%)",
     "away_win_desc": "다수결 ↓0 35/59(61%)",
     "bm_label": "불명확 0/0",
