@@ -647,9 +647,10 @@ if st.session_state.app_page == 'duel':
 
 # ── 요약 스탯 ────────────────────────────────────────────
 if len(log_df) > 0:
+    _ml_mask = log_df['ml_intervened'].astype(bool) if 'ml_intervened' in log_df.columns else pd.Series(False, index=log_df.index)
     pred_only = log_df[
         (log_df['prediction'] != 'PASS') &
-        (log_df.get('ml_intervened', pd.Series(False, index=log_df.index)) != True)
+        (~_ml_mask)
     ].copy()
     total     = len(pred_only)
     correct   = int(pred_only['correct'].sum()) if total > 0 else 0
