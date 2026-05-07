@@ -291,7 +291,7 @@ def load_bm_data():
     if not os.path.exists('kbo_odds.csv'):
         return pd.DataFrame()
     df = pd.read_csv('kbo_odds.csv')
-    date_map = {d: i for i, d in enumerate(sorted(df['date'].unique()))}
+    date_map = {d: i for i, d in enumerate(sorted(df['date'].dropna().unique()))}
     df['date_order'] = df['date'].map(date_map)
     meta = df.drop_duplicates('match_id')[
         ['match_id', 'date', 'date_order', 'home', 'away', 'winner_is_home']
