@@ -1469,19 +1469,29 @@ for i, game in enumerate(upcoming_games):
         bm_dir_ratio = max(sv1, sv0) / (sv1 + sv0)
         if bm_dir_ratio >= 0.6:
             bm_dir_vote = 1 if sv1 > sv0 else 0
-        # 팀 매핑: 배당↑팀=역배(언더독) ↔ 정배/역배는 home_is_fav_today 기준
-        # bm_dir_vote=1(배당↑팀이김): 역배팀이 이김
-        #   home_is_fav=True  → HOME=정배, AWAY=역배(배당↑팀) → AWAY 추천(0)
-        #   home_is_fav=False → HOME=역배(배당↑팀)           → HOME 추천(1)
-        # bm_dir_vote=0(배당↓팀이김): 정배팀이 이김
-        #   home_is_fav=True  → HOME=정배(배당↓팀)           → HOME 추천(1)
-        #   home_is_fav=False → AWAY=정배(배당↓팀)           → AWAY 추천(0)
-        # ⇒ bm_team_rec = 1 if (bm_dir_vote != int(home_is_fav_today)) else 0
-        # (h_dir_rec 사용 금지: 방향 패턴 추천값이지 정배/역배 구분자가 아님)
-        if bm_dir_vote is not None and home_is_fav_today is not None:
+        # 팀 매핑: 오늘 실제 open/close 방향 사용 (kbo_today_scrape.py 수집 결과)
+        # bm_dir_vote=0(배당↓팀이김): 오늘 배당↓팀 → 그 팀 예측
+        # bm_dir_vote=1(배당↑팀이김): 오늘 배당↑팀 → 그 팀 예측
+        # today_home_dir=0(홈배당↓): 배당↓팀=HOME → bm_dir_vote=0이면 HOME(1), =1이면 AWAY(0)
+        # today_home_dir=1(홈배당↑): 배당↑팀=HOME → bm_dir_vote=1이면 HOME(1), =0이면 AWAY(0)
+        # ⇒ bm_team_rec = 1 if (bm_dir_vote == today_home_dir) else 0
+        today_home_dir = _todayodds.get('today_home_dir') if _todayodds else None
+        today_up_team   = _todayodds.get('today_up_team', '') if _todayodds else ''
+        today_down_team = _todayodds.get('today_down_team', '') if _todayodds else ''
+        if bm_dir_vote is not None and today_home_dir is not None:
+            bm_team_rec = 1 if (bm_dir_vote == today_home_dir) else 0
+        elif bm_dir_vote is not None and home_is_fav_today is not None:
+            # fallback: today_home_dir 없으면 기존 정배/역배 방식
             bm_team_rec = 1 if (bm_dir_vote != int(home_is_fav_today)) else 0
-    bm_label = (f'배당{"↑" if bm_dir_vote==1 else "↓"}팀이김 {max(sv1,sv0)}/{sv1+sv0}({bm_dir_ratio:.0%})'
-                if bm_dir_vote is not None else f'불명확 {sv1}/{sv0}')
+
+    # bm_label: 방향 패턴 + 오늘 배당 변동 팀명
+    if bm_dir_vote is not None:
+        _dir_sym  = '↑' if bm_dir_vote == 1 else '↓'
+        _dir_team = (today_up_team if bm_dir_vote == 1 else today_down_team) if (_todayodds and _todayodds.get('today_home_dir') is not None) else ''
+        _team_str = f' → 오늘 배당{_dir_sym}: {_dir_team}' if _dir_team else ''
+        bm_label  = f'배당{_dir_sym}팀이김 {max(sv1,sv0)}/{sv1+sv0}({bm_dir_ratio:.0%}){_team_str}'
+    else:
+        bm_label = f'불명확 {sv1}/{sv0}'
 
     # 패턴 종합 추천 (팀 승패 기준: h_win_rec=1 → 홈팀 승, a_win_rec=1 → 원정팀 승)
     home_rec = h_win_rec
