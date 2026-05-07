@@ -4,15 +4,65 @@
     "slot": 1.0,
     "home": "Doosan Bears",
     "away": "SSG Landers",
-    "home_odds": 1.75,
-    "away_odds": 2.2
+    "home_odds": 1.701,
+    "away_odds": 2.137,
+    "bm_open": {
+      "10x10bet": {
+        "home": 1.71,
+        "away": 2.14
+      },
+      "1xBet": {
+        "home": 1.75,
+        "away": 2.2
+      },
+      "22Bet": {
+        "home": 1.7,
+        "away": 2.14
+      },
+      "Alphabet": {
+        "home": 1.71,
+        "away": 2.14
+      },
+      "BetInAsia": {
+        "home": 1.72,
+        "away": 2.18
+      },
+      "Bets.io": {
+        "home": 1.65,
+        "away": 2.05
+      },
+      "GambleCity": {
+        "home": 1.67,
+        "away": 2.1
+      },
+      "Kobet": {
+        "home": 1.69,
+        "away": 2.15
+      },
+      "Melbet": {
+        "home": 1.7,
+        "away": 2.14
+      },
+      "Momobet": {
+        "home": 1.71,
+        "away": 2.14
+      },
+      "Roobet": {
+        "home": 1.69,
+        "away": 2.12
+      },
+      "VOBET": {
+        "home": 1.71,
+        "away": 2.14
+      }
+    }
   },
   "2026-05-08|3|Hanwha Eagles|LG Twins": {
     "date": "2026-05-08",
     "slot": 3.0,
     "home": "Hanwha Eagles",
     "away": "LG Twins",
-    "home_odds": 2.61,
+    "home_odds": 2.62,
     "away_odds": 1.58
   },
   "2026-05-08|4|Lotte Giants|KIA Tigers": {
@@ -28,7 +78,255 @@
     "slot": 5.0,
     "home": "NC Dinos",
     "away": "Samsung Lions",
-    "home_odds": 2.14,
-    "away_odds": 1.79
+    "home_odds": 2.076,
+    "away_odds": 1.749,
+    "bm_open": {
+      "10x10bet": {
+        "home": 2.08,
+        "away": 1.77
+      },
+      "1xBet": {
+        "home": 2.14,
+        "away": 1.79
+      },
+      "22Bet": {
+        "home": 2.09,
+        "away": 1.74
+      },
+      "Alphabet": {
+        "home": 2.08,
+        "away": 1.77
+      },
+      "BetInAsia": {
+        "home": 2.12,
+        "away": 1.76
+      },
+      "Bets.io": {
+        "home": 1.98,
+        "away": 1.7
+      },
+      "GambleCity": {
+        "home": 2.03,
+        "away": 1.72
+      },
+      "Kobet": {
+        "home": 2.08,
+        "away": 1.73
+      },
+      "Melbet": {
+        "home": 2.09,
+        "away": 1.74
+      },
+      "Momobet": {
+        "home": 2.08,
+        "away": 1.77
+      },
+      "Roobet": {
+        "home": 2.06,
+        "away": 1.73
+      },
+      "VOBET": {
+        "home": 2.08,
+        "away": 1.77
+      }
+    }
+  },
+  "2026-05-08|2|NC Dinos|Samsung Lions": {
+    "date": "2026-05-08",
+    "slot": 2.0,
+    "home": "NC Dinos",
+    "away": "Samsung Lions",
+    "home_odds": null,
+    "away_odds": null
+  },
+  "2026-05-08|5|Kiwoom Heroes|KT Wiz Suwon": {
+    "date": "2026-05-08",
+    "slot": 5.0,
+    "home": "Kiwoom Heroes",
+    "away": "KT Wiz Suwon",
+    "home_odds": 2.15,
+    "away_odds": 1.8
+  },
+  "2026-05-08|6|NC Dinos|Samsung Lions": {
+    "date": "2026-05-08",
+    "slot": 6.0,
+    "home": "NC Dinos",
+    "away": "Samsung Lions",
+    "home_odds": 2.15,
+    "away_odds": 1.78
+  },
+  "2026-05-08|2|Hanwha Eagles|LG Twins": {
+    "date": "2026-05-08",
+    "slot": 2.0,
+    "home": "Hanwha Eagles",
+    "away": "LG Twins",
+    "bm_open": {
+      "10x10bet": {
+        "home": 2.5,
+        "away": 1.52
+      },
+      "1xBet": {
+        "home": 2.54,
+        "away": 1.58
+      },
+      "22Bet": {
+        "home": 2.48,
+        "away": 1.54
+      },
+      "Alphabet": {
+        "home": 2.5,
+        "away": 1.52
+      },
+      "BetInAsia": {
+        "home": 2.61,
+        "away": 1.52
+      },
+      "Bets.io": {
+        "home": 2.35,
+        "away": 1.47
+      },
+      "GambleCity": {
+        "home": 2.47,
+        "away": 1.49
+      },
+      "Kobet": {
+        "home": 2.55,
+        "away": 1.5
+      },
+      "Melbet": {
+        "home": 2.48,
+        "away": 1.54
+      },
+      "Momobet": {
+        "home": 2.5,
+        "away": 1.52
+      },
+      "Roobet": {
+        "home": 2.48,
+        "away": 1.52
+      },
+      "VOBET": {
+        "home": 2.5,
+        "away": 1.52
+      }
+    },
+    "home_odds": 2.497,
+    "away_odds": 1.52
+  },
+  "2026-05-08|3|Lotte Giants|KIA Tigers": {
+    "date": "2026-05-08",
+    "slot": 3.0,
+    "home": "Lotte Giants",
+    "away": "KIA Tigers",
+    "bm_open": {
+      "10x10bet": {
+        "home": 1.88,
+        "away": 1.96
+      },
+      "1xBet": {
+        "home": 1.93,
+        "away": 1.97
+      },
+      "22Bet": {
+        "home": 1.88,
+        "away": 1.92
+      },
+      "Alphabet": {
+        "home": 1.88,
+        "away": 1.96
+      },
+      "BetInAsia": {
+        "home": 1.88,
+        "away": 1.97
+      },
+      "Bets.io": {
+        "home": 1.8,
+        "away": 1.86
+      },
+      "GambleCity": {
+        "home": 1.82,
+        "away": 1.9
+      },
+      "Kobet": {
+        "home": 1.85,
+        "away": 1.94
+      },
+      "Melbet": {
+        "home": 1.88,
+        "away": 1.92
+      },
+      "Momobet": {
+        "home": 1.88,
+        "away": 1.96
+      },
+      "Roobet": {
+        "home": 1.85,
+        "away": 1.91
+      },
+      "VOBET": {
+        "home": 1.88,
+        "away": 1.96
+      }
+    },
+    "home_odds": 1.867,
+    "away_odds": 1.936
+  },
+  "2026-05-08|4|Kiwoom Heroes|KT Wiz Suwon": {
+    "date": "2026-05-08",
+    "slot": 4.0,
+    "home": "Kiwoom Heroes",
+    "away": "KT Wiz Suwon",
+    "bm_open": {
+      "10x10bet": {
+        "home": 2.06,
+        "away": 1.79
+      },
+      "1xBet": {
+        "home": 2.13,
+        "away": 1.8
+      },
+      "22Bet": {
+        "home": 2.07,
+        "away": 1.75
+      },
+      "Alphabet": {
+        "home": 2.06,
+        "away": 1.79
+      },
+      "BetInAsia": {
+        "home": 2.11,
+        "away": 1.77
+      },
+      "Bets.io": {
+        "home": 1.98,
+        "away": 1.7
+      },
+      "GambleCity": {
+        "home": 2.01,
+        "away": 1.73
+      },
+      "Kobet": {
+        "home": 2.07,
+        "away": 1.74
+      },
+      "Melbet": {
+        "home": 2.07,
+        "away": 1.75
+      },
+      "Momobet": {
+        "home": 2.06,
+        "away": 1.79
+      },
+      "Roobet": {
+        "home": 2.04,
+        "away": 1.74
+      },
+      "VOBET": {
+        "home": 2.06,
+        "away": 1.79
+      }
+    },
+    "home_odds": 2.06,
+    "away_odds": 1.762
   }
 }
