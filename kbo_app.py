@@ -285,6 +285,15 @@ PRED_PATH   = 'kbo_predictions.json'
 LOG_PATH    = 'kbo_verify_log.csv'
 USER_PRED_PATH = 'kbo_user_predictions.json'
 
+TODAY_ODDS_PATH = 'kbo_today_odds.json'
+
+@st.cache_data(ttl=30)
+def load_today_odds():
+    if not os.path.exists(TODAY_ODDS_PATH):
+        return {}
+    with open(TODAY_ODDS_PATH, 'r', encoding='utf-8') as f:
+        return json.load(f)
+
 @st.cache_data(ttl=30)
 def load_bm_data():
     """북메이커 집계 데이터 로드"""
@@ -611,8 +620,9 @@ def render_duel_page(predictions, log_df):
     with s4:
         st.markdown(f"<div class='stat-card'><div class='stat-num' style='color:#ff4466'>{m_acc:.0%}</div><div class='stat-label'>AI 정확도</div></div>", unsafe_allow_html=True)
 
-predictions = load_predictions()
-log_df      = load_log()
+predictions  = load_predictions()
+log_df       = load_log()
+today_odds_d = load_today_odds()
 
 # ── 헤더 ─────────────────────────────────────────────────
 st.markdown("""
@@ -971,6 +981,15 @@ else:
         # ── 슬롯별 북메이커 배당변동 패턴 ──────────────────────────
         slot_bm = pred.get('slot_bm', {})
 
+        # 오늘 배당 데이터 (kbo_today_odds.json)
+        _pred_date = pred.get('pred_date', '')[:10]
+        _slot_int  = int(pred.get('slot', 0))
+        _todaykey  = f"{_pred_date}|{_slot_int}|{home}|{away}"
+        _todayentry = today_odds_d.get(_todaykey, {})
+        _bm_open_today  = _todayentry.get('bm_open', {})
+        _bm_close_today = _todayentry.get('bm_close', {})
+        _has_close = bool(_bm_close_today)
+
         if slot_bm:
             def bm_seq_html(seq_s):
                 s = str(seq_s)
@@ -993,6 +1012,22 @@ else:
                     return '<span style="color:#44ddaa;font-weight:900;font-size:.7rem">▲1 배당↑팀 이김 예측</span>'
                 return '<span style="color:#ff4466;font-weight:900;font-size:.7rem">▼0 배당↓팀 이김 예측</span>'
 
+            def odds_change_html(open_v, close_v, color_up='#44ddaa', color_dn='#ff4466'):
+                """open→close 변동 표시. close 없으면 open만 표시."""
+                if open_v is None:
+                    return '<span style="color:#334455">-</span>'
+                o_str = f'{open_v:.2f}'
+                if close_v is None:
+                    return f'<span style="color:#7788aa">{o_str}</span>'
+                diff = close_v - open_v
+                if diff > 0.005:
+                    arrow = f'<span style="color:{color_up}">↑{close_v:.2f}</span>'
+                elif diff < -0.005:
+                    arrow = f'<span style="color:{color_dn}">↓{close_v:.2f}</span>'
+                else:
+                    arrow = f'<span style="color:#556688">{close_v:.2f}</span>'
+                return f'<span style="color:#556688">{o_str}</span><span style="color:#334455">→</span>{arrow}'
+
             votes = [v['rec'] for v in slot_bm.values() if v['rec'] is not None]
             v1 = sum(votes)
             v0 = len(votes) - v1
@@ -1010,27 +1045,44 @@ else:
                 seq_s    = bm_data.get('seq', '-')
                 rec_v    = bm_data.get('rec', None)
                 desc     = bm_data.get('desc', '')
-                cur_odds = bm_data.get('current_odds')
-                odds_str = f'{cur_odds:.2f}' if cur_odds else '-'
                 badge    = rec_badge_bm(rec_v)
-                # 예측 배지를 시퀀스 위에 표시
                 seq_cell = f'<div style="line-height:1.6">{badge}<br>{bm_seq_html(seq_s)}</div>' if badge else bm_seq_html(seq_s)
+
+                # 오늘 open/close 배당
+                _open_bm  = _bm_open_today.get(bm_name, {})
+                _close_bm = _bm_close_today.get(bm_name, {})
+                h_open  = _open_bm.get('home')
+                h_close = _close_bm.get('home') if _has_close else None
+                a_open  = _open_bm.get('away')
+                a_close = _close_bm.get('away') if _has_close else None
+
+                home_odds_cell = odds_change_html(h_open, h_close, color_up='#ff4466', color_dn='#44ddaa')
+                away_odds_cell = odds_change_html(a_open, a_close, color_up='#ff4466', color_dn='#44ddaa')
+
                 bm_rows_html += f"""
 <tr>
   <td style="color:#7788aa;font-size:.78rem;white-space:nowrap;padding:5px 8px">{bm_name}</td>
   <td style="padding:5px 8px">{seq_cell}</td>
   <td style="color:#556688;font-size:.72rem;padding:5px 8px">{desc}</td>
-  <td style="color:#7788aa;font-size:.72rem;padding:5px 8px;text-align:right">{odds_str}</td>
+  <td style="font-size:.75rem;padding:5px 8px;text-align:right;white-space:nowrap">
+    <span style="color:#334455;font-size:.65rem">홈</span> {home_odds_cell}
+  </td>
+  <td style="font-size:.75rem;padding:5px 8px;text-align:right;white-space:nowrap">
+    <span style="color:#334455;font-size:.65rem">원정</span> {away_odds_cell}
+  </td>
 </tr>"""
+
+            close_note = ' · <span style="color:#44ddaa;font-size:.68rem">close 수집완료</span>' if _has_close else ' · <span style="color:#556688;font-size:.68rem">open만 수집됨 (close 미수집)</span>'
 
             st.markdown(f"""
 <div style="background:#080c18;border:1px solid #141830;border-radius:10px;padding:16px;margin-bottom:20px">
   <div style="font-size:.8rem;color:#556688;margin-bottom:6px;font-family:'Noto Sans KR',sans-serif;display:flex;justify-content:space-between;align-items:center">
-    <span>📊 <b style="color:#7799bb">슬롯{pred.get('slot','')} 날짜별 북메이커 배당변동</b></span>
+    <span>📊 <b style="color:#7799bb">슬롯{pred.get('slot','')} 날짜별 북메이커 배당변동</b>{close_note}</span>
     <span>{trend_txt}</span>
   </div>
   <div style="font-size:.68rem;color:#334455;margin-bottom:10px">
     1 = 이긴 팀 배당변동이 진 팀보다 컸음(상승) &nbsp;|&nbsp; 0 = 이긴 팀 배당변동이 진 팀보다 작았음(하락)
+    &nbsp;&nbsp;|&nbsp;&nbsp; 배당 컬럼: open <span style="color:#334455">→</span> close (↑상승 ↓하락)
   </div>
   <table style="width:100%;border-collapse:collapse;font-size:.8rem">
     <thead>
@@ -1038,7 +1090,8 @@ else:
         <th style="text-align:left;color:#445566;padding:4px 8px;font-size:.72rem">북메이커</th>
         <th style="color:#7799bb;padding:4px 8px;font-size:.72rem">예측 &amp; 시퀀스</th>
         <th style="color:#445566;padding:4px 8px;font-size:.72rem">패턴</th>
-        <th style="color:#445566;padding:4px 8px;font-size:.72rem;text-align:right">홈배당</th>
+        <th style="color:{hm['color']};padding:4px 8px;font-size:.72rem;text-align:right">{hm['abbr']} 홈배당</th>
+        <th style="color:{am['color']};padding:4px 8px;font-size:.72rem;text-align:right">{am['abbr']} 원정배당</th>
       </tr>
     </thead>
     <tbody>{bm_rows_html}</tbody>
