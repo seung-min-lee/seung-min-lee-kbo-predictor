@@ -784,8 +784,8 @@ if os.path.exists(GAMES_PATH):
         key = (r['date'], str(float(r['slot'])))
         if key in _existing_slots:
             continue
-        is_postp = pd.isna(r.get('winner'))
-        winner_is_home = float('nan') if is_postp else bool(r['winner'] == r['home'])
+        is_postp = pd.isna(r.get('winner')) or str(r.get('winner')).strip() == 'Postp'
+        winner_is_home = float('nan') if (is_postp or pd.isna(r.get('winner_is_home'))) else bool(r['winner'] == r['home'])
         _fallback_rows.append({
             'match_id':      f'games_{r["date"]}_s{int(r["slot"])}',
             'date':          r['date'],
