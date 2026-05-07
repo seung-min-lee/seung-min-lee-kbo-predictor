@@ -647,7 +647,10 @@ if st.session_state.app_page == 'duel':
 
 # ── 요약 스탯 ────────────────────────────────────────────
 if len(log_df) > 0:
-    _ml_mask = log_df['ml_intervened'].astype(bool) if 'ml_intervened' in log_df.columns else pd.Series(False, index=log_df.index)
+    _ml_mask = (
+        log_df['ml_intervened'].astype(bool) &
+        log_df['date'].astype(str).isin(['2026-05-06', '2026-05-07'])
+    ) if 'ml_intervened' in log_df.columns else pd.Series(False, index=log_df.index)
     pred_only = log_df[
         (log_df['prediction'] != 'PASS') &
         (~_ml_mask)
