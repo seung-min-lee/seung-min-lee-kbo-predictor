@@ -1056,8 +1056,8 @@ else:
                 a_open  = _open_bm.get('away')
                 a_close = _close_bm.get('away') if _has_close else None
 
-                home_odds_cell = odds_change_html(h_open, h_close, color_up='#ff4466', color_dn='#44ddaa')
-                away_odds_cell = odds_change_html(a_open, a_close, color_up='#ff4466', color_dn='#44ddaa')
+                home_odds_cell = odds_change_html(h_open, h_close, color_up='#ff4466', color_dn='#4488ff')
+                away_odds_cell = odds_change_html(a_open, a_close, color_up='#ff4466', color_dn='#4488ff')
 
                 bm_rows_html += f"""
 <tr>
