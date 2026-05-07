@@ -1140,8 +1140,6 @@ def get_slot_bm_odds_seqs(slot, before_date_order, seq_len=BM_SEQ_LEN):
     for bm, mid_data in bm_mid_map.items():
         all_seq      = []
         all_date_seq = []
-        prev_h_close = None  # 이전 경기 close → 다음 경기 approximate open
-        prev_a_close = None
 
         for mid in match_ids:
             date = dates_map.get(mid, '')
@@ -1160,18 +1158,6 @@ def get_slot_bm_odds_seqs(slot, before_date_order, seq_len=BM_SEQ_LEN):
             e = mid_data[mid]
             h_open, h_close = e['h_open'], e['h_close']
             a_open, a_close = e['a_open'], e['a_close']
-
-            # open 없으면 이전 경기 close로 대체
-            if h_open is None and prev_h_close is not None:
-                h_open = prev_h_close
-            if a_open is None and prev_a_close is not None:
-                a_open = prev_a_close
-
-            # 이번 경기 close를 다음 경기 approximate open으로 저장
-            if h_close is not None:
-                prev_h_close = h_close
-            if a_close is not None:
-                prev_a_close = a_close
 
             w_is_home = (wih is True or wih == 1)
 
