@@ -887,10 +887,13 @@ def seq_str(seq):
     return ''.join(str(x) for x in seq) if seq else '-'
 
 def preprocess_seq(seq):
-    """P 제거 후, 마지막 N 이후 시퀀스만 사용"""
+    """P 제거, 끝의 연속 N 제거 후 마지막 N 이후 시퀀스만 사용"""
     # Step 1: P 제거
     result = [v for v in seq if v != 'P']
-    # Step 2: 마지막 N 이후만 사용
+    # Step 2: 끝에서 연속된 N 제거 (open 배당 누락 등으로 생긴 trailing N)
+    while result and result[-1] == 'N':
+        result.pop()
+    # Step 3: 마지막 N 이후만 사용
     last_n = max((i for i, v in enumerate(result) if v == 'N'), default=-1)
     if last_n >= 0:
         result = result[last_n + 1:]
