@@ -66,11 +66,13 @@ def predict_game(home, away, date_order):
     except Exception:
         ml_proba = [0.5, 0.5]
 
+    pattern_rec = final_rec  # 패턴이 결정한 값 (None이면 패턴 신호 없음)
     if final_rec is None:
         if   ml_proba[1] >= 0.58: final_rec = 1; conf = float(ml_proba[1])
         elif ml_proba[0] >= 0.58: final_rec = 0; conf = float(ml_proba[0])
 
-    return final_rec, round(conf, 3), round(float(ml_proba[1]), 3), round(float(ml_proba[0]), 3)
+    ml_intervened = (pattern_rec is None and final_rec is not None)
+    return final_rec, round(conf, 3), round(float(ml_proba[1]), 3), round(float(ml_proba[0]), 3), ml_intervened
 
 
 records = []
@@ -97,7 +99,7 @@ for _, row in completed.iterrows():
         continue
 
     try:
-        rec, conf, ml_home, ml_away = predict_game(home, away, date_order)
+        rec, conf, ml_home, ml_away, ml_int = predict_game(home, away, date_order)
     except Exception as e:
         print(f'  오류 {date} {home} vs {away}: {e}')
         continue
@@ -119,6 +121,7 @@ for _, row in completed.iterrows():
         'prediction': prediction, 'actual_winner': actual_winner,
         'correct': correct, 'confidence': conf,
         'ml_home_prob': ml_home, 'ml_away_prob': ml_away,
+        'ml_intervened': ml_int,
     })
 
 log_df = pd.DataFrame(records)
@@ -130,8 +133,20 @@ n_pred   = len(has_pred)
 n_ok     = int(has_pred['correct'].sum()) if n_pred > 0 else 0
 acc      = n_ok / n_pred if n_pred > 0 else 0
 
+pat_only = has_pred[has_pred['ml_intervened'] == False]
+n_pat    = len(pat_only)
+n_pat_ok = int(pat_only['correct'].sum()) if n_pat > 0 else 0
+pat_acc  = n_pat_ok / n_pat if n_pat > 0 else 0
+
+ml_only_df = has_pred[has_pred['ml_intervened'] == True]
+n_ml     = len(ml_only_df)
+n_ml_ok  = int(ml_only_df['correct'].sum()) if n_ml > 0 else 0
+ml_acc   = n_ml_ok / n_ml if n_ml > 0 else 0
+
 print(f'\n=== 백테스트 결과 ===')
 print(f'전체 검증: {total}  (이력부족 스킵: {skipped})')
 print(f'예측: {n_pred}  PASS: {total - n_pred}')
 print(f'정답: {n_ok}  정확도: {acc:.1%}')
+print(f'  └ 패턴만(ML미개입): {n_pat_ok}/{n_pat} ({pat_acc:.1%})')
+print(f'  └ ML단독개입:       {n_ml_ok}/{n_ml} ({ml_acc:.1%})')
 print(f'저장: {LOG_PATH}')
