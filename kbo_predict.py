@@ -830,7 +830,7 @@ def get_team_triple_seq(team, before_date_order, window=WINDOW):
         (game_df['winner'] != 'Postp')   # Postp 경기는 팀 시퀀스에서 제외
     )
     recent_all = game_df[mask].sort_values('date_order')
-    recent_bm = recent_all[recent_all.get('bm_count', 0) > 0]
+    recent_bm = recent_all[recent_all['bm_count'] > 0] if 'bm_count' in recent_all.columns else recent_all
     recent = recent_bm.tail(window)
     direction_seq, agree_seq, fav_win_seq, team_win_seq = [], [], [], []
     for _, r in recent.iterrows():
@@ -852,11 +852,12 @@ def get_slot_fav_win_seq(slot, before_date_order, window=SLOT_FAV_SEQ_LEN):
     """해당 슬롯(N번째 경기)의 날짜별 정배승(1)/역배승(0) 시퀀스
     Ex) 2번째 경기: 20일→1, 21일→0, 22일→1, 23일→1, 24일→1 → 오늘 예측
     """
+    bm_ok = (game_df['bm_count'] > 0) if 'bm_count' in game_df.columns else pd.Series(True, index=game_df.index)
     mask = (
         (game_df['slot'] == slot) &
         (game_df['date_order'] < before_date_order) &
-        (game_df['winner'] != 'Postp') &  # Postp 경기는 정배/역배 시퀀스에서 제외
-        (game_df.get('bm_count', 0) > 0)
+        (game_df['winner'] != 'Postp') &
+        bm_ok
     )
     recent = game_df[mask].sort_values('date_order').tail(window)
     pairs = [(int(cw), dt) for cw, dt in zip(recent['consensus_win'], recent['date']) if not pd.isna(cw)]
