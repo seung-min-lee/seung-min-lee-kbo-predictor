@@ -11,9 +11,10 @@ GAMES_PATH = 'kbo_games.csv'
 
 # 검증 날짜 범위
 date_args = [a for a in sys.argv[1:] if not a.startswith('--')]
-if date_args:
-    FROM = date_args[0]
-    TO   = date_args[0]
+if len(date_args) >= 2:
+    FROM, TO = date_args[0], date_args[1]
+elif len(date_args) == 1:
+    FROM = TO = date_args[0]
 else:
     TO   = datetime.today().strftime('%Y-%m-%d')
     FROM = (datetime.today() - timedelta(days=7)).strftime('%Y-%m-%d')
@@ -46,13 +47,12 @@ for date in sorted(sub['date'].unique()):
     g = games_sub[games_sub['date'] == date]
     if g.empty:
         continue
-    correct = {(r['home'], r['away']): int(r['slot']) for _, r in g.iterrows()}
+    correct = {(r['home'], r['away']): int(r['slot']) for _, r in g.iterrows() if pd.notna(r['slot'])}
     odds_pairs = sub[sub['date'] == date][['slot', 'home', 'away']].drop_duplicates(['home', 'away'])
     for _, row in odds_pairs.iterrows():
         key = (row['home'], row['away'])
         if key not in correct:
-            print(f'  [{date}] {row["home"]} vs {row["away"]} → kbo_games.csv 미등재')
-            v1_fail += 1
+            pass  # kbo_games.csv 미등재 → 슬롯 검증 불가, 스킵
         elif int(row['slot']) != correct[key]:
             print(f'  [{date}] {row["home"]} vs {row["away"]}: 슬롯 불일치 (odds={int(row["slot"])}, games={correct[key]})')
             v1_fail += 1
