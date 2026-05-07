@@ -754,8 +754,8 @@ game_df['consensus']     = game_df['home_pct'].apply(lambda p: 'home' if p > 0.5
 game_df['consensus_str'] = (game_df['home_pct'] - 0.5).abs() * 2   # 0=중립, 1=만장일치
 # 컨센서스가 이긴 경우
 game_df['consensus_win'] = (
-    ((game_df['consensus'] == 'home') &  game_df['winner_is_home']) |
-    ((game_df['consensus'] == 'away') & ~game_df['winner_is_home'])
+    ((game_df['consensus'] == 'home') &  game_df['winner_is_home'].fillna(False).astype(bool)) |
+    ((game_df['consensus'] == 'away') & ~game_df['winner_is_home'].fillna(False).astype(bool))
 ).astype(int)
 
 # ── kbo_games.csv fallback 병합 ────────────────────────────
