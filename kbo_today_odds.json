@@ -7,17 +7,17 @@
     "home_odds": 1.75,
     "away_odds": 2.2
   },
-  "2026-05-08|2|Hanwha Eagles|LG Twins": {
+  "2026-05-08|3|Hanwha Eagles|LG Twins": {
     "date": "2026-05-08",
-    "slot": 2.0,
+    "slot": 3.0,
     "home": "Hanwha Eagles",
     "away": "LG Twins",
     "home_odds": 2.61,
     "away_odds": 1.58
   },
-  "2026-05-08|3|Lotte Giants|KIA Tigers": {
+  "2026-05-08|4|Lotte Giants|KIA Tigers": {
     "date": "2026-05-08",
-    "slot": 3.0,
+    "slot": 4.0,
     "home": "Lotte Giants",
     "away": "KIA Tigers",
     "home_odds": 1.93,
