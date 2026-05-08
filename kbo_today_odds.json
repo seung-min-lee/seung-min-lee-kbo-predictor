@@ -385,120 +385,120 @@
     "away": "KIA Tigers",
     "bm_open": {
       "10x10bet": {
-        "home": 2.01,
-        "away": 1.88
+        "home": 1.88,
+        "away": 2.01
       },
       "1xBet": {
-        "home": 1.92,
-        "away": 1.91
+        "home": 1.91,
+        "away": 1.92
       },
       "22Bet": {
-        "home": 1.94,
-        "away": 1.86
+        "home": 1.86,
+        "away": 1.94
       },
       "Alphabet": {
-        "home": 2.01,
-        "away": 1.88
+        "home": 1.88,
+        "away": 2.01
       },
       "BetInAsia": {
-        "home": 1.99,
-        "away": 1.86
+        "home": 1.86,
+        "away": 1.99
       },
       "Bets.io": {
-        "home": 1.89,
-        "away": 1.81
+        "home": 1.81,
+        "away": 1.89
       },
       "bwin": {
-        "home": 1.95,
-        "away": 1.83
+        "home": 1.83,
+        "away": 1.95
       },
       "GambleCity": {
-        "home": 1.94,
-        "away": 1.82
+        "home": 1.82,
+        "away": 1.94
       },
       "Kobet": {
-        "home": 1.96,
-        "away": 1.83
+        "home": 1.83,
+        "away": 1.96
       },
       "Melbet": {
-        "home": 1.94,
-        "away": 1.86
+        "home": 1.86,
+        "away": 1.94
       },
       "Momobet": {
-        "home": 1.96,
-        "away": 1.9
+        "home": 1.9,
+        "away": 1.96
       },
       "Roobet": {
-        "home": 1.92,
-        "away": 1.84
+        "home": 1.84,
+        "away": 1.92
       },
       "Stake.com": {
-        "home": 1.95,
-        "away": 1.86
+        "home": 1.86,
+        "away": 1.95
       },
       "VOBET": {
-        "home": 2.01,
-        "away": 1.88
+        "home": 1.88,
+        "away": 2.01
       }
     },
-    "home_odds": 1.956,
-    "away_odds": 1.859,
+    "home_odds": 1.859,
+    "away_odds": 1.956,
     "bm_close": {
       "10x10bet": {
-        "home": 2.01,
-        "away": 1.88
+        "home": 1.88,
+        "away": 2.01
       },
       "1xBet": {
-        "home": 1.99,
-        "away": 1.91
+        "home": 1.91,
+        "away": 1.99
       },
       "22Bet": {
-        "home": 1.94,
-        "away": 1.86
+        "home": 1.86,
+        "away": 1.94
       },
       "Alphabet": {
-        "home": 2.01,
-        "away": 1.88
+        "home": 1.88,
+        "away": 2.01
       },
       "BetInAsia": {
-        "home": 1.99,
-        "away": 1.86
+        "home": 1.86,
+        "away": 1.99
       },
       "Bets.io": {
-        "home": 1.89,
-        "away": 1.81
+        "home": 1.81,
+        "away": 1.89
       },
       "bwin": {
-        "home": 1.95,
-        "away": 1.83
+        "home": 1.83,
+        "away": 1.95
       },
       "GambleCity": {
-        "home": 1.94,
-        "away": 1.82
+        "home": 1.82,
+        "away": 1.94
       },
       "Kobet": {
-        "home": 1.96,
-        "away": 1.83
+        "home": 1.83,
+        "away": 1.96
       },
       "Melbet": {
-        "home": 1.94,
-        "away": 1.86
+        "home": 1.86,
+        "away": 1.94
       },
       "Momobet": {
-        "home": 1.96,
-        "away": 1.9
+        "home": 1.9,
+        "away": 1.96
       },
       "Roobet": {
-        "home": 1.92,
-        "away": 1.84
+        "home": 1.84,
+        "away": 1.92
       },
       "Stake.com": {
-        "home": 1.95,
-        "away": 1.86
+        "home": 1.86,
+        "away": 1.95
       },
       "VOBET": {
-        "home": 2.01,
-        "away": 1.88
+        "home": 1.88,
+        "away": 2.01
       }
     },
     "today_home_dir": 1,

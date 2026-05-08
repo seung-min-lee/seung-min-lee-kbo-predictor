@@ -287,8 +287,8 @@
     "slot_fav_win": "111110111000010111",
     "slot_fav_rec": 0,
     "slot_fav_desc": "[111110111000010111] 반접기[011|100] + 꼬리[0010111]=끝2연속1→0",
-    "slot_fav_team_rec": 1,
-    "home_is_fav": false,
+    "slot_fav_team_rec": 0,
+    "home_is_fav": true,
     "slot_bm": {
       "10x10bet": {
         "seq": "1000000N011101000",
@@ -382,8 +382,8 @@
       }
     },
     "recommendation": "AWAY(0)",
-    "confidence": 0.594,
-    "pattern_reason": "원정 승 패턴(78%) (홈 불규칙) ※정배패턴충돌(역배승 18경기(원정정배))",
+    "confidence": 0.654,
+    "pattern_reason": "원정 승 패턴(78%) (홈 불규칙) + 정배패턴일치(역배승 18경기(홈정배))",
     "home_win_desc": "균형(29↑:26↓) → 불규칙",
     "away_win_desc": "다수결 ↑1 28/53(55%)",
     "bm_label": "불명확 5/5",
