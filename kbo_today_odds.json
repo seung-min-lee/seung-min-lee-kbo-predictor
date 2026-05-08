@@ -120,22 +120,6 @@
     "today_up_team": "Doosan Bears",
     "today_down_team": "SSG Landers"
   },
-  "2026-05-08|3|Hanwha Eagles|LG Twins": {
-    "date": "2026-05-08",
-    "slot": 3.0,
-    "home": "Hanwha Eagles",
-    "away": "LG Twins",
-    "home_odds": 2.62,
-    "away_odds": 1.58
-  },
-  "2026-05-08|4|Lotte Giants|KIA Tigers": {
-    "date": "2026-05-08",
-    "slot": 4.0,
-    "home": "Lotte Giants",
-    "away": "KIA Tigers",
-    "home_odds": 1.93,
-    "away_odds": 1.97
-  },
   "2026-05-08|5|NC Dinos|Samsung Lions": {
     "date": "2026-05-08",
     "slot": 5.0,
@@ -192,32 +176,70 @@
         "home": 2.08,
         "away": 1.77
       }
-    }
-  },
-  "2026-05-08|2|NC Dinos|Samsung Lions": {
-    "date": "2026-05-08",
-    "slot": 2.0,
-    "home": "NC Dinos",
-    "away": "Samsung Lions",
-    "home_odds": null,
-    "away_odds": null
-  },
-  "2026-05-08|5|Kiwoom Heroes|KT Wiz Suwon": {
-    "date": "2026-05-08",
-    "slot": 5.0,
-    "home": "Kiwoom Heroes",
-    "away": "KT Wiz Suwon",
-    "home_odds": 2.15,
-    "away_odds": 1.8,
-    "bm_close": {}
-  },
-  "2026-05-08|6|NC Dinos|Samsung Lions": {
-    "date": "2026-05-08",
-    "slot": 6.0,
-    "home": "NC Dinos",
-    "away": "Samsung Lions",
-    "home_odds": 2.15,
-    "away_odds": 1.78
+    },
+    "bm_close": {
+      "1xBet": {
+        "home": 2.18,
+        "away": 1.76
+      },
+      "Roobet": {
+        "home": 2.08,
+        "away": 1.72
+      },
+      "bwin": {
+        "home": 2.1,
+        "away": 1.7
+      },
+      "BetInAsia": {
+        "home": 2.13,
+        "away": 1.76
+      },
+      "Melbet": {
+        "home": 2.13,
+        "away": 1.72
+      },
+      "Momobet": {
+        "home": 2.11,
+        "away": 1.8
+      },
+      "VOBET": {
+        "home": 2.15,
+        "away": 1.77
+      },
+      "Stake.com": {
+        "home": 2.07,
+        "away": 1.77
+      },
+      "10x10bet": {
+        "home": 2.15,
+        "away": 1.77
+      },
+      "Bets.io": {
+        "home": 2,
+        "away": 1.72
+      },
+      "Alphabet": {
+        "home": 2.11,
+        "away": 1.8
+      },
+      "GambleCity": {
+        "home": 2.03,
+        "away": 1.75
+      },
+      "Kobet": {
+        "home": 2.05,
+        "away": 1.68
+      },
+      "22Bet": {
+        "home": 2.13,
+        "away": 1.72
+      }
+    },
+    "today_home_dir": 1,
+    "today_dir_ratio": 0.909,
+    "today_dir_count": 11,
+    "today_up_team": "NC Dinos",
+    "today_down_team": "Samsung Lions"
   },
   "2026-05-08|2|Hanwha Eagles|LG Twins": {
     "date": "2026-05-08",
