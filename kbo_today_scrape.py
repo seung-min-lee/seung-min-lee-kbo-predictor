@@ -48,7 +48,7 @@ def get_today_matches(page):
             const link = row.querySelector('a[href*="/h2h/"]');
             if (!link) return;
             const href = link.href;
-            if (!href.includes('#') || seen.has(href)) return;
+            if (seen.has(href)) return;
             seen.add(href);
             const teams = Array.from(row.querySelectorAll('p.participant-name'))
                 .map(el => el.innerText.trim()).filter(Boolean).slice(0, 2);
