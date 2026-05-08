@@ -4,20 +4,20 @@
     "slot": 1.0,
     "home": "Doosan Bears",
     "away": "SSG Landers",
-    "home_odds": 1.701,
-    "away_odds": 2.137,
+    "home_odds": 1.699,
+    "away_odds": 2.143,
     "bm_open": {
       "10x10bet": {
         "home": 1.71,
         "away": 2.14
       },
       "1xBet": {
-        "home": 1.75,
-        "away": 2.2
+        "home": 1.74,
+        "away": 2.22
       },
       "22Bet": {
         "home": 1.7,
-        "away": 2.14
+        "away": 2.16
       },
       "Alphabet": {
         "home": 1.71,
@@ -41,15 +41,15 @@
       },
       "Melbet": {
         "home": 1.7,
-        "away": 2.14
+        "away": 2.16
       },
       "Momobet": {
         "home": 1.71,
         "away": 2.14
       },
       "Roobet": {
-        "home": 1.69,
-        "away": 2.12
+        "home": 1.68,
+        "away": 2.14
       },
       "VOBET": {
         "home": 1.71,
@@ -116,7 +116,7 @@
     },
     "today_home_dir": 1,
     "today_dir_ratio": 1.0,
-    "today_dir_count": 1,
+    "today_dir_count": 2,
     "today_up_team": "Doosan Bears",
     "today_down_team": "SSG Landers"
   },
