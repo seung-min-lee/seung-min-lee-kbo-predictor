@@ -72,37 +72,8 @@ def get_today_matches(page):
     return matches
 
 
-JS_SCRAPE = """
-() => {
-    const EXCLUDE = new Set(['My coupon', 'User Predictions', 'Betfair Exchange']);
-    const result = {};
-    const nameEls = document.querySelectorAll('p.height-content.pl-4');
-    for (const nel of nameEls) {
-        const bm = nel.innerText.trim();
-        if (!bm || EXCLUDE.has(bm)) continue;
-        let row = nel;
-        for (let i = 0; i < 3; i++) row = row.parentElement;
-        let oddsEls = Array.from(row.querySelectorAll('a.odds-link'));
-        if (!oddsEls.length) oddsEls = Array.from(row.querySelectorAll('p.odds-text'));
-        if (oddsEls.length < 2) continue;
-        const h = parseFloat(oddsEls[0].innerText.trim());
-        const a = parseFloat(oddsEls[oddsEls.length-1].innerText.trim());
-        if (!isNaN(h) && h > 1 && !isNaN(a) && a > 1) {
-            result[bm] = { home: h, away: a };
-        }
-    }
-    return result;
-}
-"""
-
-def _median(vals):
-    s = sorted(vals)
-    n = len(s)
-    return s[n // 2] if n % 2 else round((s[n//2-1] + s[n//2]) / 2, 3)
-
-
 def scrape_bm_odds(page, url):
-    """경기 페이지에서 BM별 홈/원정 배당 수집 (3회 검증, 중앙값 확정)"""
+    """경기 페이지에서 BM별 홈/원정 배당 수집"""
     try:
         page.goto(url, timeout=60000, wait_until='domcontentloaded')
         page.wait_for_selector('p.height-content.pl-4', timeout=30000)
@@ -111,37 +82,30 @@ def scrape_bm_odds(page, url):
         print('  로딩 실패')
         return {}
 
-    attempts = []
-    for i in range(3):
-        if i > 0:
-            time.sleep(2)
-        result = page.evaluate(JS_SCRAPE)
-        attempts.append(result)
-
-    # BM별로 3회 수집값 집계 → 2회 이상 존재하는 BM만 유효
-    all_bms = set()
-    for r in attempts:
-        all_bms.update(r.keys())
-
-    verified = {}
-    warnings = []
-    for bm in all_bms:
-        h_vals = [r[bm]['home'] for r in attempts if bm in r]
-        a_vals = [r[bm]['away'] for r in attempts if bm in r]
-        if len(h_vals) < 2:
-            continue
-        h_med = _median(h_vals)
-        a_med = _median(a_vals)
-        if max(h_vals) - min(h_vals) > 0.05:
-            warnings.append(f'    ⚠ {bm} 홈배당 편차 큼: {h_vals}')
-        if max(a_vals) - min(a_vals) > 0.05:
-            warnings.append(f'    ⚠ {bm} 원정배당 편차 큼: {a_vals}')
-        verified[bm] = {'home': h_med, 'away': a_med}
-
-    print(f'  3회 검증: {[len(r) for r in attempts]} → 유효 {len(verified)}BM')
-    for w in warnings:
-        print(w)
-    return verified
+    rows = page.evaluate("""
+    () => {
+        const EXCLUDE = new Set(['My coupon', 'User Predictions', 'Betfair Exchange']);
+        const result = {};
+        const nameEls = document.querySelectorAll('p.height-content.pl-4');
+        for (const nel of nameEls) {
+            const bm = nel.innerText.trim();
+            if (!bm || EXCLUDE.has(bm)) continue;
+            let row = nel;
+            for (let i = 0; i < 3; i++) row = row.parentElement;
+            // 업커밍 페이지: a.odds-link, 결과 페이지: p.odds-text 둘 다 시도
+            let oddsEls = Array.from(row.querySelectorAll('a.odds-link'));
+            if (!oddsEls.length) oddsEls = Array.from(row.querySelectorAll('p.odds-text'));
+            if (oddsEls.length < 2) continue;
+            const h = parseFloat(oddsEls[0].innerText.trim());
+            const a = parseFloat(oddsEls[oddsEls.length-1].innerText.trim());
+            if (!isNaN(h) && h > 1 && !isNaN(a) && a > 1) {
+                result[bm] = { home: h, away: a };
+            }
+        }
+        return result;
+    }
+    """)
+    return rows
 
 
 def calc_direction(open_odds, close_odds):
@@ -188,13 +152,7 @@ def main():
         print(f'오늘 경기 {len(matches)}개')
 
         for m in matches:
-            # close 시 팀명으로 기존 open 엔트리 키 검색 (슬롯 번호 불일치 방지)
-            existing_key = None
-            for k, v in today_odds.items():
-                if v.get('home') == m['home'] and v.get('away') == m['away'] and v.get('date') == m['date']:
-                    existing_key = k
-                    break
-            key = existing_key if (IS_CLOSE and existing_key) else f"{m['date']}|{int(m['slot'])}|{m['home']}|{m['away']}"
+            key = f"{m['date']}|{int(m['slot'])}|{m['home']}|{m['away']}"
             print(f'\n[slot{int(m["slot"])}] {m["home"]} vs {m["away"]}')
 
             bm_odds = scrape_bm_odds(page, m['url'])
