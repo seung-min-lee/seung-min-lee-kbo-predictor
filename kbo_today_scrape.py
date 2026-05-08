@@ -188,7 +188,13 @@ def main():
         print(f'오늘 경기 {len(matches)}개')
 
         for m in matches:
-            key = f"{m['date']}|{int(m['slot'])}|{m['home']}|{m['away']}"
+            # close 시 팀명으로 기존 open 엔트리 키 검색 (슬롯 번호 불일치 방지)
+            existing_key = None
+            for k, v in today_odds.items():
+                if v.get('home') == m['home'] and v.get('away') == m['away'] and v.get('date') == m['date']:
+                    existing_key = k
+                    break
+            key = existing_key if (IS_CLOSE and existing_key) else f"{m['date']}|{int(m['slot'])}|{m['home']}|{m['away']}"
             print(f'\n[slot{int(m["slot"])}] {m["home"]} vs {m["away"]}')
 
             bm_odds = scrape_bm_odds(page, m['url'])
