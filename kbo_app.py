@@ -287,7 +287,7 @@ USER_PRED_PATH = 'kbo_user_predictions.json'
 
 TODAY_ODDS_PATH = 'kbo_today_odds.json'
 
-@st.cache_data(ttl=30)
+@st.cache_data(ttl=10)
 def load_today_odds():
     if not os.path.exists(TODAY_ODDS_PATH):
         return {}
@@ -748,6 +748,7 @@ else:
         return '<span class="rec-0">▼ 0</span>'
 
     sorted_preds = sorted(predictions.values(), key=lambda x: x.get('slot', 99))
+    today_odds_d = load_today_odds()  # 렌더링 직전 최신 데이터 보장
 
     for pred in sorted_preds:
         home = pred['home']
