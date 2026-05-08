@@ -55,7 +55,70 @@
         "home": 1.71,
         "away": 2.14
       }
-    }
+    },
+    "bm_close": {
+      "10x10bet": {
+        "home": 1.71,
+        "away": 2.14
+      },
+      "1xBet": {
+        "home": 1.75,
+        "away": 2.2
+      },
+      "22Bet": {
+        "home": 1.7,
+        "away": 2.14
+      },
+      "Alphabet": {
+        "home": 1.71,
+        "away": 2.14
+      },
+      "BetInAsia": {
+        "home": 1.72,
+        "away": 2.18
+      },
+      "Bets.io": {
+        "home": 1.65,
+        "away": 2.05
+      },
+      "bwin": {
+        "home": 1.67,
+        "away": 2.15
+      },
+      "GambleCity": {
+        "home": 1.67,
+        "away": 2.1
+      },
+      "Kobet": {
+        "home": 1.69,
+        "away": 2.15
+      },
+      "Melbet": {
+        "home": 1.7,
+        "away": 2.14
+      },
+      "Momobet": {
+        "home": 1.71,
+        "away": 2.14
+      },
+      "Roobet": {
+        "home": 1.7,
+        "away": 2.1
+      },
+      "Stake.com": {
+        "home": 1.71,
+        "away": 2.15
+      },
+      "VOBET": {
+        "home": 1.71,
+        "away": 2.14
+      }
+    },
+    "today_home_dir": 1,
+    "today_dir_ratio": 1.0,
+    "today_dir_count": 1,
+    "today_up_team": "Doosan Bears",
+    "today_down_team": "SSG Landers"
   },
   "2026-05-08|3|Hanwha Eagles|LG Twins": {
     "date": "2026-05-08",
@@ -145,7 +208,8 @@
     "home": "Kiwoom Heroes",
     "away": "KT Wiz Suwon",
     "home_odds": 2.15,
-    "away_odds": 1.8
+    "away_odds": 1.8,
+    "bm_close": {}
   },
   "2026-05-08|6|NC Dinos|Samsung Lions": {
     "date": "2026-05-08",
@@ -211,7 +275,70 @@
       }
     },
     "home_odds": 2.497,
-    "away_odds": 1.52
+    "away_odds": 1.52,
+    "bm_close": {
+      "10x10bet": {
+        "home": 2.6,
+        "away": 1.5
+      },
+      "1xBet": {
+        "home": 2.63,
+        "away": 1.55
+      },
+      "22Bet": {
+        "home": 2.56,
+        "away": 1.51
+      },
+      "Alphabet": {
+        "home": 2.6,
+        "away": 1.5
+      },
+      "BetInAsia": {
+        "home": 2.64,
+        "away": 1.51
+      },
+      "Bets.io": {
+        "home": 2.46,
+        "away": 1.47
+      },
+      "bwin": {
+        "home": 2.6,
+        "away": 1.48
+      },
+      "GambleCity": {
+        "home": 2.45,
+        "away": 1.47
+      },
+      "Kobet": {
+        "home": 2.58,
+        "away": 1.49
+      },
+      "Melbet": {
+        "home": 2.56,
+        "away": 1.51
+      },
+      "Momobet": {
+        "home": 2.6,
+        "away": 1.5
+      },
+      "Roobet": {
+        "home": 2.52,
+        "away": 1.5
+      },
+      "Stake.com": {
+        "home": 2.55,
+        "away": 1.51
+      },
+      "VOBET": {
+        "home": 2.6,
+        "away": 1.5
+      }
+    },
+    "today_home_dir": 1,
+    "today_dir_ratio": 0.917,
+    "today_dir_count": 12,
+    "today_up_team": "Hanwha Eagles",
+    "today_down_team": "LG Twins"
   },
   "2026-05-08|3|Lotte Giants|KIA Tigers": {
     "date": "2026-05-08",
@@ -269,7 +396,70 @@
       }
     },
     "home_odds": 1.867,
-    "away_odds": 1.936
+    "away_odds": 1.936,
+    "bm_close": {
+      "10x10bet": {
+        "home": 1.88,
+        "away": 2.01
+      },
+      "1xBet": {
+        "home": 1.91,
+        "away": 1.99
+      },
+      "22Bet": {
+        "home": 1.86,
+        "away": 1.94
+      },
+      "Alphabet": {
+        "home": 1.88,
+        "away": 2.01
+      },
+      "BetInAsia": {
+        "home": 1.86,
+        "away": 1.99
+      },
+      "Bets.io": {
+        "home": 1.81,
+        "away": 1.89
+      },
+      "bwin": {
+        "home": 1.83,
+        "away": 1.95
+      },
+      "GambleCity": {
+        "home": 1.82,
+        "away": 1.94
+      },
+      "Kobet": {
+        "home": 1.83,
+        "away": 1.96
+      },
+      "Melbet": {
+        "home": 1.86,
+        "away": 1.94
+      },
+      "Momobet": {
+        "home": 1.88,
+        "away": 2.01
+      },
+      "Roobet": {
+        "home": 1.84,
+        "away": 1.92
+      },
+      "Stake.com": {
+        "home": 1.86,
+        "away": 1.95
+      },
+      "VOBET": {
+        "home": 1.88,
+        "away": 2.01
+      }
+    },
+    "today_home_dir": 0,
+    "today_dir_ratio": 0.857,
+    "today_dir_count": 7,
+    "today_up_team": "KIA Tigers",
+    "today_down_team": "Lotte Giants"
   },
   "2026-05-08|4|Kiwoom Heroes|KT Wiz Suwon": {
     "date": "2026-05-08",
@@ -327,6 +517,69 @@
       }
     },
     "home_odds": 2.06,
-    "away_odds": 1.762
+    "away_odds": 1.762,
+    "bm_close": {
+      "10x10bet": {
+        "home": 2.26,
+        "away": 1.7
+      },
+      "1xBet": {
+        "home": 2.26,
+        "away": 1.72
+      },
+      "22Bet": {
+        "home": 2.2,
+        "away": 1.68
+      },
+      "Alphabet": {
+        "home": 2.26,
+        "away": 1.7
+      },
+      "BetInAsia": {
+        "home": 2.29,
+        "away": 1.66
+      },
+      "Bets.io": {
+        "home": 2.13,
+        "away": 1.63
+      },
+      "bwin": {
+        "home": 2.15,
+        "away": 1.67
+      },
+      "GambleCity": {
+        "home": 2.18,
+        "away": 1.65
+      },
+      "Kobet": {
+        "home": 2.1,
+        "away": 1.66
+      },
+      "Melbet": {
+        "home": 2.2,
+        "away": 1.68
+      },
+      "Momobet": {
+        "home": 2.26,
+        "away": 1.7
+      },
+      "Roobet": {
+        "home": 2.16,
+        "away": 1.67
+      },
+      "Stake.com": {
+        "home": 2.19,
+        "away": 1.69
+      },
+      "VOBET": {
+        "home": 2.26,
+        "away": 1.7
+      }
+    },
+    "today_home_dir": 1,
+    "today_dir_ratio": 1.0,
+    "today_dir_count": 12,
+    "today_up_team": "Kiwoom Heroes",
+    "today_down_team": "KT Wiz Suwon"
   }
 }
