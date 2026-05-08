@@ -45,9 +45,7 @@ def get_today_matches(page):
         document.querySelectorAll('div.eventRow').forEach(row => {
             const dateEl = row.querySelector('[data-testid="date-header"]');
             if (dateEl && dateEl.innerText.trim()) currentDate = dateEl.innerText.trim();
-            // /kbo/ 경기 직접 링크 우선, 없으면 h2h 링크 사용
-            let link = row.querySelector('a[href*="/kbo/"][href*="-"]');
-            if (!link) link = row.querySelector('a[href*="/h2h/"]');
+            const link = row.querySelector('a[href*="/kbo/"][href*="-"]');
             if (!link) return;
             const href = link.href;
             if (seen.has(href)) return;
