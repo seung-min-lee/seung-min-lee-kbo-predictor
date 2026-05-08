@@ -155,13 +155,15 @@ def main():
             key = f"{m['date']}|{int(m['slot'])}|{m['home']}|{m['away']}"
             print(f'\n[slot{int(m["slot"])}] {m["home"]} vs {m["away"]}')
 
-            bm_odds = scrape_bm_odds(page, m['url'])
-            print(f'  BM {len(bm_odds)}개 수집')
-
+            # close 수집 시 아침에 저장된 URL 우선 사용 (경기 시작 후 접근 불가 대비)
             entry = today_odds.get(key, {
                 'date': m['date'], 'slot': m['slot'],
                 'home': m['home'], 'away': m['away'],
             })
+            scrape_url = entry.get('match_url', m['url'])
+
+            bm_odds = scrape_bm_odds(page, scrape_url)
+            print(f'  BM {len(bm_odds)}개 수집')
 
             if IS_CLOSE:
                 entry['bm_close'] = bm_odds
@@ -181,6 +183,7 @@ def main():
                     print('  방향 미확정 (open 미수집 or 변동 없음)')
             else:
                 entry['bm_open'] = bm_odds
+                entry['match_url'] = m['url']  # 아침 URL 저장 (close 수집 시 재사용)
                 # close에서 overall 배당도 저장 (홈/원정 평균)
                 if bm_odds:
                     h_avg = round(sum(v['home'] for v in bm_odds.values()) / len(bm_odds), 3)
