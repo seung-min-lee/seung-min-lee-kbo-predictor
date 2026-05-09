@@ -1104,7 +1104,7 @@ else:
 if len(log_df) > 0:
     _ml_hist_mask = (
         log_df['ml_intervened'].astype(bool) &
-        log_df['date'].astype(str).isin(['2026-05-06', '2026-05-07', '2026-05-08'])
+        log_df['date'].astype(str).isin(['2026-05-06', '2026-05-07', '2026-05-08', '2026-05-09'])
     ) if 'ml_intervened' in log_df.columns else pd.Series(False, index=log_df.index)
     _hist_df = log_df[(log_df['prediction'] != 'PASS') & (~_ml_hist_mask)].copy().reset_index(drop=True)
     date_min = _hist_df['date'].min()[:10] if len(_hist_df) > 0 else ''
