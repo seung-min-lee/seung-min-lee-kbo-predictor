@@ -3,9 +3,10 @@
 1차 실행 (아침): open 배당 저장
 2차 실행 (경기 1시간 전): close 배당 저장 + 방향 계산
 
-사용: python kbo_today_scrape.py [--close]
-  --close 없으면: 현재 배당을 open으로 저장
-  --close 있으면: 현재 배당을 close로 저장 + today_home_dir 계산
+사용: python kbo_today_scrape.py [--close] [--no-h2h]
+  --close  없으면: 현재 배당을 open으로 저장
+  --close  있으면: 현재 배당을 close로 저장 + today_home_dir 계산
+  --no-h2h 있으면: h2h 링크 사용 안 함 (/kbo/ 직접 링크만 허용)
 """
 import sys, json, time
 from datetime import datetime as _dt
@@ -15,6 +16,7 @@ TODAY_ODDS_PATH = 'kbo_today_odds.json'
 GAMES_URL       = 'https://www.oddsportal.com/baseball/south-korea/kbo/'
 EXCLUDE         = {'My coupon', 'User Predictions', 'Betfair Exchange'}
 IS_CLOSE        = '--close' in sys.argv
+ALLOW_H2H       = '--no-h2h' not in sys.argv
 
 TEAM_MAP = {
     'Doosan Bears':'Doosan Bears','LG Twins':'LG Twins','KT Wiz':'KT Wiz Suwon',
@@ -38,14 +40,22 @@ def get_today_matches(page):
     page.evaluate('window.scrollTo(0, document.body.scrollHeight)')
     time.sleep(2)
 
+    allow_h2h_js = 'true' if ALLOW_H2H else 'false'
     raw = page.evaluate("""
     () => {
+        const ALLOW_H2H = __ALLOW_H2H__;
         const results = [], seen = new Set();
         let currentDate = '';
         document.querySelectorAll('div.eventRow').forEach(row => {
             const dateEl = row.querySelector('[data-testid="date-header"]');
             if (dateEl && dateEl.innerText.trim()) currentDate = dateEl.innerText.trim();
-            const link = row.querySelector('a[href*="/kbo/"][href*="-"]');
+            // h2h 경기별 링크 우선(ALLOW_H2H=true), 없으면 /kbo/ match slug 링크 사용 (breadcrumb 제외)
+            let link = ALLOW_H2H ? row.querySelector('a[href*="/h2h/"]') : null;
+            if (!link) {
+                const kboLinks = Array.from(row.querySelectorAll('a[href*="/kbo/"]'))
+                    .filter(a => a.href.split('/kbo/')[1] && a.href.split('/kbo/')[1].length > 5);
+                if (kboLinks.length) link = kboLinks[0];
+            }
             if (!link) return;
             const href = link.href;
             if (seen.has(href)) return;
@@ -57,7 +67,7 @@ def get_today_matches(page):
         });
         return results;
     }
-    """)
+    """.replace('__ALLOW_H2H__', allow_h2h_js))
 
     matches, slot = [], 0
     for m in raw:
