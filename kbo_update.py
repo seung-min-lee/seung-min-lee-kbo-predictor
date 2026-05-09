@@ -256,24 +256,27 @@ def get_odds_direction(driver, el):
         return None
 
     direction = driver.execute_script("""
-        const panels = document.querySelectorAll('.bg-gray-light');
-        for (const panel of panels) {
-            const h1 = panel.querySelector('h1');
-            if (!h1) continue;
-            // open→close 계산으로 방향 추정
-            const nums = [...panel.querySelectorAll('.font-bold')]
-                .map(e => parseFloat(e.innerText)).filter(v => !isNaN(v) && v > 1);
-            if (nums.length >= 2 && nums[0] !== nums[1]) return nums[1] > nums[0] ? 1 : 0;
-        }
-        return null;
+        // 팝업: class에 'fixed'가 포함된 height-content 요소
+        const popup = document.querySelector('div[class*="fixed"][class*="height-content"]');
+        if (!popup) return null;
+        const text = popup.innerText || '';
+        // Opening odds 값 추출
+        const openMatch = text.match(/Opening odds:[\\s\\S]*?([\\d.]{3,})/);
+        // Odds movement(closing) 값 추출
+        const closeMatch = text.match(/Odds movement:[\\s\\S]*?([\\d.]{3,})/);
+        if (!openMatch || !closeMatch) return null;
+        const open = parseFloat(openMatch[1]);
+        const close = parseFloat(closeMatch[1]);
+        if (isNaN(open) || isNaN(close) || open === close) return null;
+        return close > open ? 1 : 0;
     """)
 
     # 팝업 닫기
     try:
         driver.execute_script("arguments[0].click();", el)
         for _ in range(4):
-            if driver.execute_script(
-                    "return document.querySelectorAll('.bg-gray-light').length;") <= 2:
+            if not driver.execute_script(
+                    "return document.querySelector('div[class*=\"fixed\"][class*=\"height-content\"]');"):
                 break
             time.sleep(0.2)
     except Exception:
