@@ -1307,7 +1307,34 @@ def get_latest_odds_date():
     return max(parsed) if parsed else None
 
 def find_upcoming_games():
-    """kbo_games.csv에서 최신 odds 날짜 이후 첫 번째 경기일 탐색"""
+    """kbo_today_odds.json → kbo_games.csv 순서로 다음 경기일 탐색"""
+    # 1순위: kbo_today_odds.json에 오늘 날짜 데이터가 있으면 사용
+    today_str = datetime.today().strftime('%Y-%m-%d')
+    if os.path.exists('kbo_today_odds.json'):
+        try:
+            with open('kbo_today_odds.json', encoding='utf-8') as f:
+                tod = json.load(f)
+            today_entries = sorted(
+                [v for v in tod.values() if v.get('date') == today_str],
+                key=lambda x: x.get('slot', 99)
+            )
+            if today_entries:
+                games = []
+                for v in today_entries:
+                    games.append({
+                        'date': today_str,
+                        'home': v['home'],
+                        'away': v['away'],
+                        'slot': v['slot'],
+                        'winner': None,
+                        'winner_is_home': None,
+                    })
+                print(f'kbo_today_odds.json 기반 예측: {today_str} ({len(games)}경기)')
+                return games, today_str
+        except Exception:
+            pass
+
+    # 2순위: kbo_games.csv에서 미래 경기 탐색
     if not os.path.exists(GAMES_PATH):
         return [], None
 
@@ -1316,7 +1343,6 @@ def find_upcoming_games():
     if latest_dt is None:
         return [], None
 
-    # latest_dt 다음날부터 탐색 (latest_dt는 이미 odds 수집 완료된 날)
     for delta in range(1, 8):
         target = (latest_dt + timedelta(days=delta)).strftime('%Y-%m-%d')
         day_games = gdf[(gdf['date'] == target) & (gdf['winner'].isna())]
