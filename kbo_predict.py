@@ -1672,14 +1672,8 @@ for i, game in enumerate(upcoming_games):
         _dir_sym  = '↑' if bm_dir_vote == 1 else '↓'
         if _todayodds and _todayodds.get('today_home_dir') is not None:
             _dir_team = today_up_team if bm_dir_vote == 1 else today_down_team
-        elif home_is_fav_today is not None:
-            # today_home_dir 없음 → 정배/역배로 팀명 유추
-            # 정배(낮은 배당) = 배당↓팀, 역배(높은 배당) = 배당↑팀
-            if bm_dir_vote == 0:   # 배당↓팀이김 → 정배팀이김
-                _dir_team = home if home_is_fav_today else away
-            else:                  # 배당↑팀이김 → 역배팀이김
-                _dir_team = away if home_is_fav_today else home
         else:
+            # today 배당 방향 미수집 → 팀명 표시 불가
             _dir_team = ''
         _team_str = f' → 오늘 배당{_dir_sym}: {_dir_team}' if _dir_team else ''
         bm_label  = f'배당{_dir_sym}팀이김 {max(sv1,sv0)}/{sv1+sv0}({bm_dir_ratio:.0%}){_team_str}'
