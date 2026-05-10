@@ -8,6 +8,7 @@
   --close  있으면: 현재 배당을 close로 저장 + today_home_dir 계산
   --no-h2h 있으면: h2h 링크 사용 안 함 (/kbo/ 직접 링크만 허용)
 """
+import os as _os; _os.chdir(_os.path.dirname(_os.path.dirname(_os.path.abspath(__file__))))
 import sys, json, time
 from datetime import datetime as _dt
 from playwright.sync_api import sync_playwright, TimeoutError as PWTimeout

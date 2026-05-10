@@ -7,6 +7,9 @@ import re
 import time
 import os
 import pandas as pd
+
+_root = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+os.chdir(_root)
 from selenium import webdriver
 from selenium.webdriver.chrome.service import Service
 from selenium.webdriver.common.by import By

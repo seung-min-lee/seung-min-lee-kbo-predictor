@@ -1,7 +1,10 @@
 import schedule
 import time
 import subprocess
+import os
 from datetime import datetime
+
+ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
 def run_daily():
     now = datetime.now()
@@ -9,15 +12,15 @@ def run_daily():
 
     # 1. 새 경기 결과 수집
     print('1. 경기 결과 수집 중...')
-    subprocess.run(['python', 'kbo_update.py'])
+    subprocess.run(['python', os.path.join(ROOT, 'kbo_update.py')], cwd=ROOT)
 
     # 2. 예측 검증
     print('2. 예측 검증 중...')
-    subprocess.run(['python', 'kbo_verify.py'])
+    subprocess.run(['python', os.path.join(ROOT, 'verification', 'kbo_verify.py')], cwd=ROOT)
 
     # 3. 다음 경기 예측
     print('3. 다음 경기 예측 중...')
-    subprocess.run(['python', 'kbo_predict.py'])
+    subprocess.run(['python', os.path.join(ROOT, 'kbo_predict.py')], cwd=ROOT)
 
     print(f'[{datetime.now().strftime("%Y-%m-%d %H:%M")}] 완료')
 

@@ -14,61 +14,60 @@ AI빅데이터공학과 캡스톤디자인 프로젝트 (2026)
 ```
 kbo-predictor/
 │
-├── 프론트엔드 (Frontend)
-│   └── kbo_app.py              # Streamlit 대시보드: 예측 결과 시각화, 시퀀스 표시
+├── kbo_app.py              # [Frontend] Streamlit 대시보드 (Streamlit Cloud 진입점)
+├── kbo_predict.py          # [Prediction] 핵심 예측 엔진: 패턴 분석 + 투표 기반 승패 예측
+├── kbo_update.py           # [Collection] OddsPortal → kbo_odds.csv 전일 배당 자동 수집
 │
-├── 패턴 예측 엔진 (Pattern Prediction)
-│   ├── kbo_predict.py          # 핵심 예측 엔진: 배당 패턴 분석 + 투표 기반 승패 예측
-│   ├── kbo_backtest.py         # 백테스트: 과거 날짜 전체 예측 정확도 검증
+├── prediction/             # 예측 보조 도구
+│   ├── kbo_backtest.py         # 과거 전체 경기 예측 정확도 사후 검증
 │   └── kbo_pattern_accuracy.py # 패턴 유형별 적중률 누적 기록 (학습용)
 │
-├── 데이터 수집 (Data Collection)
-│   ├── kbo_update.py           # OddsPortal → kbo_odds.csv 전일 배당 자동 수집
+├── collection/             # 데이터 수집
 │   ├── kbo_today_scrape.py     # 오늘 경기 개장/종가 배당 수집 → kbo_today_odds.json
-│   ├── kbo_playwright_scrape.py# Playwright 기반 배당 수집 (셀레니움 대안)
-│   ├── kbo_fill_open.py        # 누락된 개장(open) 배당 보완 수집
+│   ├── kbo_playwright_scrape.py# Playwright 기반 배당 수집 (Selenium 대안)
+│   ├── kbo_fill_open.py        # 누락 개장(open) 배당 보완 수집
 │   ├── kbo_retry_missing.py    # NaN 배당 재수집
 │   ├── collect_today.py        # 오늘 경기 배당 수집 보조
 │   └── collect_today_bm.py     # 북메이커별 오늘 배당 수집
 │
-├── 스케줄 / 자동화 (Scheduling)
+├── scheduler/              # 자동화
 │   ├── kbo_schedule.py         # 매일 KST 22:30 자동 실행 스케줄러
-│   └── kbo_games.py            # kbo_games.csv 경기 결과 생성 및 갱신
+│   └── kbo_games.py            # KBO 공식 홈페이지 경기 결과 스크래퍼
 │
-├── 검증 / 분석 (Verification & Analysis)
-│   ├── kbo_verify.py           # 예측 vs 실제 결과 자동 검증
-│   ├── validate_odds.py        # 수집된 배당 데이터 유효성 검사
-│   ├── check_live_odds.py      # 실시간 배당 확인
-│   ├── check_slot4.py          # 슬롯4 데이터 점검
-│   ├── check_slots.py          # 전체 슬롯 데이터 점검
-│   └── check_today_order.py    # 오늘 경기 순서 확인
+├── verification/           # 검증
+│   └── kbo_verify.py           # 예측 vs 실제 결과 자동 검증
 │
-├── 디버그 스크립트 (Debug)
+├── debug/                  # 디버그 & 점검 스크립트
 │   ├── debug_match_page.py     # 매치 페이지 파싱 디버그
 │   ├── debug_odds.py           # 배당 수집 디버그
 │   ├── debug_popup.py          # OddsPortal 팝업 동작 디버그
-│   └── debug_scrape.py         # 스크래핑 디버그
+│   ├── debug_scrape.py         # 스크래핑 디버그
+│   ├── check_live_odds.py      # 실시간 배당 확인
+│   ├── check_slot4.py          # 슬롯4 데이터 점검
+│   ├── check_slots.py          # 전체 슬롯 점검
+│   ├── check_today_order.py    # 오늘 경기 순서 확인
+│   └── validate_odds.py        # 배당 데이터 유효성 검사
 │
-├── 테스트 / 일회성 스크립트 (Tests / One-off)
-│   ├── test_momobet.py         # Momobet BM 수집 테스트
-│   ├── test_pw.py              # Playwright 동작 테스트
-│   ├── test_recollect.py       # 재수집 테스트
-│   ├── test_single.py          # 단일 경기 수집 테스트
-│   ├── next_matches_test.py    # 다음 경기 매핑 테스트
-│   ├── recollect_0506.py       # 05-06 데이터 재수집 (일회성)
-│   ├── recollect_0506_partial.py
-│   ├── recollect_range.py      # 날짜 범위 재수집
+├── scripts/                # 일회성 수집/재수집 스크립트
 │   ├── scrape_0508_verify.py   # 05-08 배당 3회 검증 수집
 │   ├── scrape_0508_retry4.py   # 05-08 재시도 수집 (Playwright)
 │   ├── scrape_0508_selenium4.py# 05-08 재시도 수집 (Selenium)
 │   ├── scrape_all_nan.py       # 전체 NaN 배당 수집
-│   └── scrape_nan_verify.py    # NaN 배당 3회 검증 수집
+│   ├── scrape_nan_verify.py    # NaN 배당 3회 검증 수집
+│   ├── recollect_0506.py       # 05-06 데이터 재수집
+│   ├── recollect_0506_partial.py
+│   ├── recollect_range.py      # 날짜 범위 재수집
+│   ├── test_momobet.py         # Momobet BM 수집 테스트
+│   ├── test_pw.py              # Playwright 동작 테스트
+│   ├── test_recollect.py       # 재수집 테스트
+│   ├── test_single.py          # 단일 경기 수집 테스트
+│   └── next_matches_test.py    # 다음 경기 매핑 테스트
 │
-└── 데이터 파일 (Data)
-    ├── kbo_odds.csv             # 북메이커별 배당 데이터 (open/close/change/direction)
-    ├── kbo_games.csv            # 경기 결과 (승패, winner_is_home)
+└── (data files)            # 데이터 파일 (루트에 위치)
+    ├── kbo_odds.csv             # 북메이커별 배당 (open/close/change/direction)
+    ├── kbo_games.csv            # 경기 결과 (winner_is_home)
     ├── kbo_today_odds.json      # 오늘 경기 실시간 배당
-    ├── kbo_predictions.json     # 오늘 예측 결과 + 패턴 로그
+    ├── kbo_predictions.json     # 예측 결과 + 패턴 로그
     ├── kbo_verify_log.csv       # 예측 정확도 로그
     └── pattern_accuracy.json    # 패턴 유형별 누적 적중률 (자동 생성)
 ```

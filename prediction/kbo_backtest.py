@@ -6,6 +6,9 @@ import os, sys, traceback
 import pandas as pd
 import numpy as np
 
+ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+os.chdir(ROOT)
+
 LOG_PATH = 'kbo_verify_log.csv'
 MIN_HISTORY = 5
 

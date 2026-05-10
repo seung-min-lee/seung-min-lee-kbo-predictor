@@ -5,6 +5,9 @@ from datetime import datetime
 import warnings
 warnings.filterwarnings('ignore')
 
+_root = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+os.chdir(_root)
+
 PRED_PATH   = 'kbo_predictions.json'
 RESULT_PATH = 'kbo_verify_log.csv'
 CSV_PATH    = 'kbo_odds.csv'

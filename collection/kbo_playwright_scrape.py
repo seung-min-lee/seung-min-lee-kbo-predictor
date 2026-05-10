@@ -4,6 +4,7 @@ Playwright 기반 OddsPortal KBO open/close 배당 수집
 CLICK_BMS: Cloudbet, GambleCity, Kobet, Melbet  (click → bg-gray-med_light 팝업)
 HOVER_BMS: Momobet, Roobet, Stake.com, VOBET    (hover → z-30 absolute 툴팁)
 """
+import os as _os; _os.chdir(_os.path.dirname(_os.path.dirname(_os.path.abspath(__file__))))
 from playwright.sync_api import sync_playwright, TimeoutError as PWTimeout
 import pandas as pd
 import time
