@@ -1322,15 +1322,19 @@ def get_slot_bm_odds_seqs(slot, before_date_order, seq_len=BM_SEQ_LEN):
             h_chg = round(h_close - h_open, 4) if (h_open is not None and h_close is not None) else None
             a_chg = round(a_close - a_open, 4) if (a_open is not None and a_close is not None) else None
 
+            # winner_direction 명시된 경우 우선 사용
+            w_dir_explicit = e.get('w_dir')
+            if w_dir_explicit is not None:
+                all_seq.append(w_dir_explicit)
+                all_date_seq.append(date)
+                continue
+
             if h_chg is None or a_chg is None:
-                # 1순위: winner_direction 컬럼 fallback
-                w_dir = e.get('w_dir')
-                # 2순위: h_chg만 있을 때 역방향 추론
-                # (홈배당↓ = 홈유리 = 어웨이승은 뜻밖 → w_dir=1 if away wins)
-                if w_dir is None and h_chg is not None and h_chg != 0:
+                # h_chg만 있을 때 역방향 추론
+                if h_chg is not None and h_chg != 0:
                     h_dir = 1 if h_chg > 0 else 0
-                    w_dir = h_dir if w_is_home else (1 - h_dir)
-                all_seq.append(w_dir if w_dir is not None else 'N')
+                    w_dir_explicit = h_dir if w_is_home else (1 - h_dir)
+                all_seq.append(w_dir_explicit if w_dir_explicit is not None else 'N')
                 all_date_seq.append(date)
                 continue
 
