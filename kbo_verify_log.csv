@@ -1,149 +1,149 @@
 ﻿date,slot,home,away,prediction,actual_winner,correct,confidence,ml_home_prob,ml_away_prob,ml_intervened
-2026-04-03,1,Doosan Bears,Hanwha Eagles,AWAY(Hanwha Eagles),Hanwha Eagles,True,0.65,0.35,0.65,True
-2026-04-03,2,KIA Tigers,NC Dinos,AWAY(NC Dinos),NC Dinos,True,0.675,0.325,0.675,True
-2026-04-03,3,Kiwoom Heroes,LG Twins,AWAY(LG Twins),Kiwoom Heroes,False,0.85,0.215,0.785,False
-2026-04-03,4,KT Wiz Suwon,Samsung Lions,AWAY(Samsung Lions),Samsung Lions,True,0.69,0.31,0.69,True
-2026-04-03,5,Lotte Giants,SSG Landers,AWAY(SSG Landers),SSG Landers,True,0.785,0.335,0.665,False
-2026-04-04,3,Kiwoom Heroes,LG Twins,HOME(Kiwoom Heroes),LG Twins,False,0.85,0.365,0.635,False
-2026-04-04,5,Lotte Giants,SSG Landers,AWAY(SSG Landers),SSG Landers,True,0.62,0.38,0.62,True
-2026-04-04,4,KT Wiz Suwon,Samsung Lions,AWAY(Samsung Lions),Samsung Lions,True,0.785,0.235,0.765,False
+2026-04-03,1,Doosan Bears,Hanwha Eagles,AWAY(Hanwha Eagles),Hanwha Eagles,True,0.64,0.36,0.64,True
+2026-04-03,2,KIA Tigers,NC Dinos,AWAY(NC Dinos),NC Dinos,True,0.655,0.345,0.655,True
+2026-04-03,3,Kiwoom Heroes,LG Twins,AWAY(LG Twins),Kiwoom Heroes,False,0.85,0.21,0.79,False
+2026-04-03,4,KT Wiz Suwon,Samsung Lions,AWAY(Samsung Lions),Samsung Lions,True,0.71,0.29,0.71,True
+2026-04-03,5,Lotte Giants,SSG Landers,AWAY(SSG Landers),SSG Landers,True,0.785,0.365,0.635,False
+2026-04-04,3,Kiwoom Heroes,LG Twins,HOME(Kiwoom Heroes),LG Twins,False,0.85,0.33,0.67,False
+2026-04-04,5,Lotte Giants,SSG Landers,AWAY(SSG Landers),SSG Landers,True,0.605,0.395,0.605,True
+2026-04-04,4,KT Wiz Suwon,Samsung Lions,AWAY(Samsung Lions),Samsung Lions,True,0.785,0.225,0.775,False
 2026-04-04,2,KIA Tigers,NC Dinos,AWAY(NC Dinos),NC Dinos,True,0.8,0.385,0.615,False
-2026-04-04,1,Doosan Bears,Hanwha Eagles,AWAY(Hanwha Eagles),Hanwha Eagles,True,0.85,0.41,0.59,False
-2026-04-05,1,Doosan Bears,Hanwha Eagles,AWAY(Hanwha Eagles),Doosan Bears,False,0.85,0.365,0.635,False
-2026-04-05,2,KIA Tigers,NC Dinos,AWAY(NC Dinos),KIA Tigers,False,0.8,0.38,0.62,False
-2026-04-05,3,Kiwoom Heroes,LG Twins,AWAY(LG Twins),LG Twins,True,0.85,0.32,0.68,False
-2026-04-05,4,KT Wiz Suwon,Samsung Lions,AWAY(Samsung Lions),KT Wiz Suwon,False,0.815,0.345,0.655,False
-2026-04-05,5,Lotte Giants,SSG Landers,AWAY(SSG Landers),SSG Landers,True,0.7,0.3,0.7,True
+2026-04-04,1,Doosan Bears,Hanwha Eagles,AWAY(Hanwha Eagles),Hanwha Eagles,True,0.85,0.455,0.545,False
+2026-04-05,1,Doosan Bears,Hanwha Eagles,AWAY(Hanwha Eagles),Doosan Bears,False,0.85,0.415,0.585,False
+2026-04-05,2,KIA Tigers,NC Dinos,AWAY(NC Dinos),KIA Tigers,False,0.8,0.405,0.595,False
+2026-04-05,3,Kiwoom Heroes,LG Twins,AWAY(LG Twins),LG Twins,True,0.85,0.35,0.65,False
+2026-04-05,4,KT Wiz Suwon,Samsung Lions,AWAY(Samsung Lions),KT Wiz Suwon,False,0.815,0.335,0.665,False
+2026-04-05,5,Lotte Giants,SSG Landers,AWAY(SSG Landers),SSG Landers,True,0.63,0.37,0.63,True
 2026-04-07,5,NC Dinos,LG Twins,PASS,LG Twins,,0.0,0.53,0.47,False
-2026-04-07,4,Lotte Giants,KT Wiz Suwon,AWAY(KT Wiz Suwon),KT Wiz Suwon,True,0.815,0.385,0.615,False
-2026-04-07,3,KIA Tigers,Samsung Lions,HOME(KIA Tigers),Samsung Lions,False,0.85,0.375,0.625,False
-2026-04-07,2,SSG Landers,Hanwha Eagles,HOME(SSG Landers),Hanwha Eagles,False,0.8,0.615,0.385,False
-2026-04-07,1,Doosan Bears,Kiwoom Heroes,PASS,Kiwoom Heroes,,0.0,0.475,0.525,False
-2026-04-08,1,Doosan Bears,Kiwoom Heroes,AWAY(Kiwoom Heroes),Doosan Bears,False,0.85,0.42,0.58,False
-2026-04-08,2,SSG Landers,Hanwha Eagles,AWAY(Hanwha Eagles),Hanwha Eagles,True,0.85,0.4,0.6,False
-2026-04-08,3,KIA Tigers,Samsung Lions,AWAY(Samsung Lions),KIA Tigers,False,0.85,0.37,0.63,False
-2026-04-08,4,Lotte Giants,KT Wiz Suwon,AWAY(KT Wiz Suwon),Lotte Giants,False,0.815,0.46,0.54,False
-2026-04-08,5,NC Dinos,LG Twins,PASS,LG Twins,,0.0,0.515,0.485,False
-2026-04-10,5,Samsung Lions,NC Dinos,HOME(Samsung Lions),Samsung Lions,True,0.9,0.9,0.1,True
-2026-04-10,4,LG Twins,SSG Landers,HOME(LG Twins),LG Twins,True,0.88,0.88,0.12,True
-2026-04-10,3,Kiwoom Heroes,Lotte Giants,AWAY(Lotte Giants),Lotte Giants,True,0.85,0.135,0.865,False
-2026-04-10,2,Hanwha Eagles,KIA Tigers,AWAY(KIA Tigers),KIA Tigers,True,0.815,0.235,0.765,False
+2026-04-07,4,Lotte Giants,KT Wiz Suwon,AWAY(KT Wiz Suwon),KT Wiz Suwon,True,0.815,0.42,0.58,False
+2026-04-07,3,KIA Tigers,Samsung Lions,HOME(KIA Tigers),Samsung Lions,False,0.85,0.385,0.615,False
+2026-04-07,2,SSG Landers,Hanwha Eagles,HOME(SSG Landers),Hanwha Eagles,False,0.8,0.625,0.375,False
+2026-04-07,1,Doosan Bears,Kiwoom Heroes,PASS,Kiwoom Heroes,,0.0,0.51,0.49,False
+2026-04-08,1,Doosan Bears,Kiwoom Heroes,AWAY(Kiwoom Heroes),Doosan Bears,False,0.85,0.45,0.55,False
+2026-04-08,2,SSG Landers,Hanwha Eagles,AWAY(Hanwha Eagles),Hanwha Eagles,True,0.85,0.425,0.575,False
+2026-04-08,3,KIA Tigers,Samsung Lions,AWAY(Samsung Lions),KIA Tigers,False,0.85,0.445,0.555,False
+2026-04-08,4,Lotte Giants,KT Wiz Suwon,AWAY(KT Wiz Suwon),Lotte Giants,False,0.815,0.44,0.56,False
+2026-04-08,5,NC Dinos,LG Twins,PASS,LG Twins,,0.0,0.565,0.435,False
+2026-04-10,5,Samsung Lions,NC Dinos,HOME(Samsung Lions),Samsung Lions,True,0.915,0.915,0.085,True
+2026-04-10,4,LG Twins,SSG Landers,HOME(LG Twins),LG Twins,True,0.895,0.895,0.105,True
+2026-04-10,3,Kiwoom Heroes,Lotte Giants,AWAY(Lotte Giants),Lotte Giants,True,0.85,0.155,0.845,False
+2026-04-10,2,Hanwha Eagles,KIA Tigers,AWAY(KIA Tigers),KIA Tigers,True,0.815,0.255,0.745,False
 2026-04-10,1,KT Wiz Suwon,Doosan Bears,AWAY(Doosan Bears),Doosan Bears,True,0.85,0.12,0.88,False
-2026-04-11,1,Hanwha Eagles,KIA Tigers,AWAY(KIA Tigers),KIA Tigers,True,0.8,0.225,0.775,False
-2026-04-11,2,KT Wiz Suwon,Doosan Bears,AWAY(Doosan Bears),KT Wiz Suwon,False,0.8,0.75,0.25,False
-2026-04-11,3,Kiwoom Heroes,Lotte Giants,AWAY(Lotte Giants),Lotte Giants,True,0.815,0.185,0.815,False
-2026-04-11,4,LG Twins,SSG Landers,HOME(LG Twins),LG Twins,True,0.93,0.93,0.07,True
-2026-04-11,5,Samsung Lions,NC Dinos,HOME(Samsung Lions),Samsung Lions,True,0.85,0.89,0.11,False
-2026-04-12,5,Samsung Lions,NC Dinos,HOME(Samsung Lions),Samsung Lions,True,0.925,0.925,0.075,True
-2026-04-12,3,Kiwoom Heroes,Lotte Giants,AWAY(Lotte Giants),Kiwoom Heroes,False,0.815,0.755,0.245,False
-2026-04-12,4,LG Twins,SSG Landers,HOME(LG Twins),LG Twins,True,0.945,0.945,0.055,True
-2026-04-12,1,KT Wiz Suwon,Doosan Bears,HOME(KT Wiz Suwon),KT Wiz Suwon,True,0.85,0.805,0.195,False
-2026-04-12,2,Hanwha Eagles,KIA Tigers,AWAY(KIA Tigers),KIA Tigers,True,0.8,0.285,0.715,False
-2026-04-14,1,SSG Landers,Doosan Bears,AWAY(Doosan Bears),Doosan Bears,True,0.835,0.165,0.835,True
-2026-04-14,2,Hanwha Eagles,Samsung Lions,HOME(Hanwha Eagles),Samsung Lions,False,0.78,0.28,0.72,False
-2026-04-14,3,KIA Tigers,Kiwoom Heroes,HOME(KIA Tigers),KIA Tigers,True,0.79,0.79,0.21,True
+2026-04-11,1,Hanwha Eagles,KIA Tigers,AWAY(KIA Tigers),KIA Tigers,True,0.8,0.205,0.795,False
+2026-04-11,2,KT Wiz Suwon,Doosan Bears,AWAY(Doosan Bears),KT Wiz Suwon,False,0.8,0.78,0.22,False
+2026-04-11,3,Kiwoom Heroes,Lotte Giants,AWAY(Lotte Giants),Lotte Giants,True,0.815,0.17,0.83,False
+2026-04-11,4,LG Twins,SSG Landers,HOME(LG Twins),LG Twins,True,0.95,0.95,0.05,True
+2026-04-11,5,Samsung Lions,NC Dinos,HOME(Samsung Lions),Samsung Lions,True,0.85,0.9,0.1,False
+2026-04-12,5,Samsung Lions,NC Dinos,HOME(Samsung Lions),Samsung Lions,True,0.915,0.915,0.085,True
+2026-04-12,3,Kiwoom Heroes,Lotte Giants,AWAY(Lotte Giants),Kiwoom Heroes,False,0.815,0.74,0.26,False
+2026-04-12,4,LG Twins,SSG Landers,HOME(LG Twins),LG Twins,True,0.955,0.955,0.045,True
+2026-04-12,1,KT Wiz Suwon,Doosan Bears,HOME(KT Wiz Suwon),KT Wiz Suwon,True,0.85,0.825,0.175,False
+2026-04-12,2,Hanwha Eagles,KIA Tigers,AWAY(KIA Tigers),KIA Tigers,True,0.8,0.29,0.71,False
+2026-04-14,1,SSG Landers,Doosan Bears,AWAY(Doosan Bears),Doosan Bears,True,0.815,0.185,0.815,True
+2026-04-14,2,Hanwha Eagles,Samsung Lions,HOME(Hanwha Eagles),Samsung Lions,False,0.78,0.27,0.73,False
+2026-04-14,3,KIA Tigers,Kiwoom Heroes,HOME(KIA Tigers),KIA Tigers,True,0.785,0.785,0.215,True
 2026-04-14,4,NC Dinos,KT Wiz Suwon,AWAY(KT Wiz Suwon),NC Dinos,False,0.815,0.785,0.215,False
-2026-04-14,5,LG Twins,Lotte Giants,HOME(LG Twins),LG Twins,True,0.8,0.8,0.2,True
-2026-04-15,4,NC Dinos,KT Wiz Suwon,HOME(NC Dinos),KT Wiz Suwon,False,0.85,0.22,0.78,False
-2026-04-15,5,LG Twins,Lotte Giants,AWAY(Lotte Giants),Lotte Giants,True,0.735,0.265,0.735,True
-2026-04-15,3,KIA Tigers,Kiwoom Heroes,HOME(KIA Tigers),KIA Tigers,True,0.8,0.79,0.21,False
-2026-04-15,2,Hanwha Eagles,Samsung Lions,HOME(Hanwha Eagles),Samsung Lions,False,0.78,0.165,0.835,False
-2026-04-15,1,SSG Landers,Doosan Bears,AWAY(Doosan Bears),SSG Landers,False,0.815,0.755,0.245,False
-2026-04-16,1,SSG Landers,Doosan Bears,HOME(SSG Landers),SSG Landers,True,0.85,0.87,0.13,False
-2026-04-16,2,Hanwha Eagles,Samsung Lions,HOME(Hanwha Eagles),Samsung Lions,False,0.78,0.195,0.805,False
+2026-04-14,5,LG Twins,Lotte Giants,HOME(LG Twins),LG Twins,True,0.795,0.795,0.205,True
+2026-04-15,4,NC Dinos,KT Wiz Suwon,HOME(NC Dinos),KT Wiz Suwon,False,0.85,0.245,0.755,False
+2026-04-15,5,LG Twins,Lotte Giants,AWAY(Lotte Giants),Lotte Giants,True,0.755,0.245,0.755,True
+2026-04-15,3,KIA Tigers,Kiwoom Heroes,HOME(KIA Tigers),KIA Tigers,True,0.8,0.775,0.225,False
+2026-04-15,2,Hanwha Eagles,Samsung Lions,HOME(Hanwha Eagles),Samsung Lions,False,0.78,0.155,0.845,False
+2026-04-15,1,SSG Landers,Doosan Bears,AWAY(Doosan Bears),SSG Landers,False,0.815,0.75,0.25,False
+2026-04-16,1,SSG Landers,Doosan Bears,HOME(SSG Landers),SSG Landers,True,0.85,0.86,0.14,False
+2026-04-16,2,Hanwha Eagles,Samsung Lions,HOME(Hanwha Eagles),Samsung Lions,False,0.78,0.165,0.835,False
 2026-04-16,3,KIA Tigers,Kiwoom Heroes,HOME(KIA Tigers),KIA Tigers,True,0.795,0.795,0.205,True
-2026-04-16,4,NC Dinos,KT Wiz Suwon,AWAY(KT Wiz Suwon),KT Wiz Suwon,True,0.85,0.15,0.85,False
-2026-04-16,5,LG Twins,Lotte Giants,AWAY(Lotte Giants),LG Twins,False,0.85,0.815,0.185,False
-2026-04-17,1,Doosan Bears,KIA Tigers,AWAY(KIA Tigers),KIA Tigers,True,0.735,0.265,0.735,True
-2026-04-17,3,KT Wiz Suwon,Kiwoom Heroes,AWAY(Kiwoom Heroes),KT Wiz Suwon,False,0.78,0.82,0.18,False
-2026-04-18,4,KT Wiz Suwon,Kiwoom Heroes,AWAY(Kiwoom Heroes),KT Wiz Suwon,False,0.78,0.83,0.17,False
-2026-04-18,3,Lotte Giants,Hanwha Eagles,AWAY(Hanwha Eagles),Hanwha Eagles,True,0.815,0.175,0.825,False
-2026-04-18,5,NC Dinos,SSG Landers,AWAY(SSG Landers),SSG Landers,True,0.795,0.205,0.795,True
-2026-04-18,1,Samsung Lions,LG Twins,AWAY(LG Twins),Samsung Lions,False,0.815,0.795,0.205,False
-2026-04-18,2,Doosan Bears,KIA Tigers,HOME(Doosan Bears),Doosan Bears,True,0.8,0.8,0.2,True
-2026-04-19,1,Doosan Bears,KIA Tigers,HOME(Doosan Bears),Doosan Bears,True,0.85,0.77,0.23,False
-2026-04-19,2,Lotte Giants,Hanwha Eagles,AWAY(Hanwha Eagles),Hanwha Eagles,True,0.845,0.155,0.845,True
-2026-04-19,3,Samsung Lions,LG Twins,AWAY(LG Twins),LG Twins,True,0.795,0.205,0.795,True
-2026-04-19,4,NC Dinos,SSG Landers,HOME(NC Dinos),NC Dinos,True,0.815,0.815,0.185,True
+2026-04-16,4,NC Dinos,KT Wiz Suwon,AWAY(KT Wiz Suwon),KT Wiz Suwon,True,0.85,0.145,0.855,False
+2026-04-16,5,LG Twins,Lotte Giants,AWAY(Lotte Giants),LG Twins,False,0.85,0.795,0.205,False
+2026-04-17,1,Doosan Bears,KIA Tigers,AWAY(KIA Tigers),KIA Tigers,True,0.75,0.25,0.75,True
+2026-04-17,3,KT Wiz Suwon,Kiwoom Heroes,AWAY(Kiwoom Heroes),KT Wiz Suwon,False,0.78,0.825,0.175,False
+2026-04-18,4,KT Wiz Suwon,Kiwoom Heroes,AWAY(Kiwoom Heroes),KT Wiz Suwon,False,0.78,0.845,0.155,False
+2026-04-18,3,Lotte Giants,Hanwha Eagles,AWAY(Hanwha Eagles),Hanwha Eagles,True,0.815,0.155,0.845,False
+2026-04-18,5,NC Dinos,SSG Landers,AWAY(SSG Landers),SSG Landers,True,0.825,0.175,0.825,True
+2026-04-18,1,Samsung Lions,LG Twins,AWAY(LG Twins),Samsung Lions,False,0.815,0.79,0.21,False
+2026-04-18,2,Doosan Bears,KIA Tigers,HOME(Doosan Bears),Doosan Bears,True,0.825,0.825,0.175,True
+2026-04-19,1,Doosan Bears,KIA Tigers,HOME(Doosan Bears),Doosan Bears,True,0.85,0.765,0.235,False
+2026-04-19,2,Lotte Giants,Hanwha Eagles,AWAY(Hanwha Eagles),Hanwha Eagles,True,0.86,0.14,0.86,True
+2026-04-19,3,Samsung Lions,LG Twins,AWAY(LG Twins),LG Twins,True,0.815,0.185,0.815,True
+2026-04-19,4,NC Dinos,SSG Landers,HOME(NC Dinos),NC Dinos,True,0.83,0.83,0.17,True
 2026-04-19,5,KT Wiz Suwon,Kiwoom Heroes,AWAY(Kiwoom Heroes),Kiwoom Heroes,True,0.78,0.235,0.765,False
-2026-04-21,5,Samsung Lions,SSG Landers,AWAY(SSG Landers),SSG Landers,True,0.835,0.165,0.835,True
+2026-04-21,5,Samsung Lions,SSG Landers,AWAY(SSG Landers),SSG Landers,True,0.875,0.125,0.875,True
 2026-04-21,3,KT Wiz Suwon,KIA Tigers,HOME(KT Wiz Suwon),KT Wiz Suwon,True,0.76,0.76,0.24,True
-2026-04-21,4,Kiwoom Heroes,NC Dinos,HOME(Kiwoom Heroes),Kiwoom Heroes,True,0.765,0.765,0.235,True
-2026-04-21,1,Lotte Giants,Doosan Bears,AWAY(Doosan Bears),Doosan Bears,True,0.825,0.175,0.825,True
-2026-04-21,2,LG Twins,Hanwha Eagles,HOME(LG Twins),LG Twins,True,0.88,0.88,0.12,True
+2026-04-21,4,Kiwoom Heroes,NC Dinos,HOME(Kiwoom Heroes),Kiwoom Heroes,True,0.78,0.78,0.22,True
+2026-04-21,1,Lotte Giants,Doosan Bears,AWAY(Doosan Bears),Doosan Bears,True,0.845,0.155,0.845,True
+2026-04-21,2,LG Twins,Hanwha Eagles,HOME(LG Twins),LG Twins,True,0.855,0.855,0.145,True
 2026-04-22,1,Lotte Giants,Doosan Bears,AWAY(Doosan Bears),Doosan Bears,True,0.78,0.22,0.78,True
-2026-04-22,2,LG Twins,Hanwha Eagles,HOME(LG Twins),LG Twins,True,0.79,0.79,0.21,True
-2026-04-22,3,KT Wiz Suwon,KIA Tigers,HOME(KT Wiz Suwon),KT Wiz Suwon,True,0.85,0.885,0.115,False
-2026-04-22,4,Kiwoom Heroes,NC Dinos,HOME(Kiwoom Heroes),Kiwoom Heroes,True,0.85,0.83,0.17,False
-2026-04-22,5,Samsung Lions,SSG Landers,AWAY(SSG Landers),SSG Landers,True,0.85,0.185,0.815,False
+2026-04-22,2,LG Twins,Hanwha Eagles,HOME(LG Twins),LG Twins,True,0.77,0.77,0.23,True
+2026-04-22,3,KT Wiz Suwon,KIA Tigers,HOME(KT Wiz Suwon),KT Wiz Suwon,True,0.85,0.87,0.13,False
+2026-04-22,4,Kiwoom Heroes,NC Dinos,HOME(Kiwoom Heroes),Kiwoom Heroes,True,0.85,0.81,0.19,False
+2026-04-22,5,Samsung Lions,SSG Landers,AWAY(SSG Landers),SSG Landers,True,0.85,0.16,0.84,False
 2026-04-23,4,Kiwoom Heroes,NC Dinos,HOME(Kiwoom Heroes),NC Dinos,False,0.815,0.165,0.835,False
-2026-04-23,3,KT Wiz Suwon,KIA Tigers,HOME(KT Wiz Suwon),KT Wiz Suwon,True,0.82,0.82,0.18,True
-2026-04-23,5,Samsung Lions,SSG Landers,AWAY(SSG Landers),SSG Landers,True,0.78,0.22,0.78,True
-2026-04-23,1,Lotte Giants,Doosan Bears,HOME(Lotte Giants),Lotte Giants,True,0.78,0.785,0.215,False
-2026-04-23,2,LG Twins,Hanwha Eagles,AWAY(Hanwha Eagles),Hanwha Eagles,True,0.82,0.18,0.82,True
-2026-04-24,5,SSG Landers,KT Wiz Suwon,HOME(SSG Landers),SSG Landers,True,0.855,0.855,0.145,True
-2026-04-24,4,Kiwoom Heroes,Samsung Lions,HOME(Kiwoom Heroes),Kiwoom Heroes,True,0.82,0.82,0.18,True
-2026-04-24,1,Doosan Bears,LG Twins,AWAY(LG Twins),LG Twins,True,0.815,0.185,0.815,True
-2026-04-24,2,Hanwha Eagles,NC Dinos,AWAY(NC Dinos),NC Dinos,True,0.845,0.155,0.845,True
-2026-04-24,3,KIA Tigers,Lotte Giants,AWAY(Lotte Giants),KIA Tigers,False,0.85,0.865,0.135,False
-2026-04-25,4,Kiwoom Heroes,Samsung Lions,HOME(Kiwoom Heroes),Kiwoom Heroes,True,0.85,0.77,0.23,False
-2026-04-25,3,KIA Tigers,Lotte Giants,HOME(KIA Tigers),KIA Tigers,True,0.85,0.84,0.16,False
-2026-04-25,5,SSG Landers,KT Wiz Suwon,HOME(SSG Landers),SSG Landers,True,0.835,0.835,0.165,True
-2026-04-25,1,Doosan Bears,LG Twins,AWAY(LG Twins),LG Twins,True,0.85,0.145,0.855,False
-2026-04-25,2,Hanwha Eagles,NC Dinos,AWAY(NC Dinos),Hanwha Eagles,False,0.85,0.81,0.19,False
-2026-04-26,1,Doosan Bears,LG Twins,HOME(Doosan Bears),Doosan Bears,True,0.785,0.785,0.215,True
-2026-04-26,4,Kiwoom Heroes,Samsung Lions,HOME(Kiwoom Heroes),Kiwoom Heroes,True,0.825,0.825,0.175,True
-2026-04-26,5,SSG Landers,KT Wiz Suwon,AWAY(KT Wiz Suwon),KT Wiz Suwon,True,0.805,0.195,0.805,True
-2026-04-26,2,Hanwha Eagles,NC Dinos,HOME(Hanwha Eagles),NC Dinos,False,0.85,0.19,0.81,False
-2026-04-28,1,Doosan Bears,Samsung Lions,HOME(Doosan Bears),Samsung Lions,False,0.85,0.145,0.855,False
-2026-04-28,2,Hanwha Eagles,SSG Landers,HOME(Hanwha Eagles),Hanwha Eagles,True,0.81,0.81,0.19,True
-2026-04-28,3,NC Dinos,KIA Tigers,HOME(NC Dinos),NC Dinos,True,0.85,0.85,0.15,False
-2026-04-28,4,Lotte Giants,Kiwoom Heroes,HOME(Lotte Giants),Lotte Giants,True,0.78,0.765,0.235,False
-2026-04-28,5,KT Wiz Suwon,LG Twins,HOME(KT Wiz Suwon),KT Wiz Suwon,True,0.85,0.76,0.24,False
-2026-04-29,4,Lotte Giants,Kiwoom Heroes,HOME(Lotte Giants),Kiwoom Heroes,False,0.85,0.205,0.795,False
-2026-04-29,5,KT Wiz Suwon,LG Twins,HOME(KT Wiz Suwon),KT Wiz Suwon,True,0.85,0.78,0.22,False
-2026-04-29,3,NC Dinos,KIA Tigers,HOME(NC Dinos),KIA Tigers,False,0.85,0.27,0.73,False
-2026-04-29,1,Doosan Bears,Samsung Lions,AWAY(Samsung Lions),Doosan Bears,False,0.85,0.79,0.21,False
-2026-04-29,2,Hanwha Eagles,SSG Landers,HOME(Hanwha Eagles),SSG Landers,False,0.85,0.25,0.75,False
-2026-04-30,1,Doosan Bears,Samsung Lions,HOME(Doosan Bears),Doosan Bears,True,0.85,0.85,0.15,False
-2026-04-30,2,Hanwha Eagles,SSG Landers,AWAY(SSG Landers),SSG Landers,True,0.85,0.205,0.795,False
-2026-04-30,3,NC Dinos,KIA Tigers,AWAY(KIA Tigers),NC Dinos,False,0.85,0.865,0.135,False
-2026-04-30,4,Lotte Giants,Kiwoom Heroes,AWAY(Kiwoom Heroes),Lotte Giants,False,0.85,0.775,0.225,False
-2026-04-30,5,KT Wiz Suwon,LG Twins,AWAY(LG Twins),LG Twins,True,0.735,0.265,0.735,True
+2026-04-23,3,KT Wiz Suwon,KIA Tigers,HOME(KT Wiz Suwon),KT Wiz Suwon,True,0.81,0.81,0.19,True
+2026-04-23,5,Samsung Lions,SSG Landers,AWAY(SSG Landers),SSG Landers,True,0.805,0.195,0.805,True
+2026-04-23,1,Lotte Giants,Doosan Bears,HOME(Lotte Giants),Lotte Giants,True,0.78,0.77,0.23,False
+2026-04-23,2,LG Twins,Hanwha Eagles,AWAY(Hanwha Eagles),Hanwha Eagles,True,0.785,0.215,0.785,True
+2026-04-24,5,SSG Landers,KT Wiz Suwon,HOME(SSG Landers),SSG Landers,True,0.83,0.83,0.17,True
+2026-04-24,4,Kiwoom Heroes,Samsung Lions,HOME(Kiwoom Heroes),Kiwoom Heroes,True,0.84,0.84,0.16,True
+2026-04-24,1,Doosan Bears,LG Twins,AWAY(LG Twins),LG Twins,True,0.85,0.15,0.85,True
+2026-04-24,2,Hanwha Eagles,NC Dinos,AWAY(NC Dinos),NC Dinos,True,0.835,0.165,0.835,True
+2026-04-24,3,KIA Tigers,Lotte Giants,AWAY(Lotte Giants),KIA Tigers,False,0.85,0.88,0.12,False
+2026-04-25,4,Kiwoom Heroes,Samsung Lions,HOME(Kiwoom Heroes),Kiwoom Heroes,True,0.85,0.775,0.225,False
+2026-04-25,3,KIA Tigers,Lotte Giants,HOME(KIA Tigers),KIA Tigers,True,0.85,0.83,0.17,False
+2026-04-25,5,SSG Landers,KT Wiz Suwon,HOME(SSG Landers),SSG Landers,True,0.855,0.855,0.145,True
+2026-04-25,1,Doosan Bears,LG Twins,AWAY(LG Twins),LG Twins,True,0.85,0.155,0.845,False
+2026-04-25,2,Hanwha Eagles,NC Dinos,AWAY(NC Dinos),Hanwha Eagles,False,0.85,0.82,0.18,False
+2026-04-26,1,Doosan Bears,LG Twins,HOME(Doosan Bears),Doosan Bears,True,0.795,0.795,0.205,True
+2026-04-26,4,Kiwoom Heroes,Samsung Lions,HOME(Kiwoom Heroes),Kiwoom Heroes,True,0.78,0.78,0.22,True
+2026-04-26,5,SSG Landers,KT Wiz Suwon,AWAY(KT Wiz Suwon),KT Wiz Suwon,True,0.795,0.205,0.795,True
+2026-04-26,2,Hanwha Eagles,NC Dinos,HOME(Hanwha Eagles),NC Dinos,False,0.85,0.225,0.775,False
+2026-04-28,1,Doosan Bears,Samsung Lions,HOME(Doosan Bears),Samsung Lions,False,0.85,0.15,0.85,False
+2026-04-28,2,Hanwha Eagles,SSG Landers,HOME(Hanwha Eagles),Hanwha Eagles,True,0.785,0.785,0.215,True
+2026-04-28,3,NC Dinos,KIA Tigers,HOME(NC Dinos),NC Dinos,True,0.85,0.84,0.16,False
+2026-04-28,4,Lotte Giants,Kiwoom Heroes,HOME(Lotte Giants),Lotte Giants,True,0.78,0.78,0.22,False
+2026-04-28,5,KT Wiz Suwon,LG Twins,HOME(KT Wiz Suwon),KT Wiz Suwon,True,0.85,0.78,0.22,False
+2026-04-29,4,Lotte Giants,Kiwoom Heroes,HOME(Lotte Giants),Kiwoom Heroes,False,0.85,0.19,0.81,False
+2026-04-29,5,KT Wiz Suwon,LG Twins,HOME(KT Wiz Suwon),KT Wiz Suwon,True,0.85,0.75,0.25,False
+2026-04-29,3,NC Dinos,KIA Tigers,HOME(NC Dinos),KIA Tigers,False,0.85,0.265,0.735,False
+2026-04-29,1,Doosan Bears,Samsung Lions,AWAY(Samsung Lions),Doosan Bears,False,0.85,0.785,0.215,False
+2026-04-29,2,Hanwha Eagles,SSG Landers,HOME(Hanwha Eagles),SSG Landers,False,0.85,0.21,0.79,False
+2026-04-30,1,Doosan Bears,Samsung Lions,HOME(Doosan Bears),Doosan Bears,True,0.85,0.845,0.155,False
+2026-04-30,2,Hanwha Eagles,SSG Landers,AWAY(SSG Landers),SSG Landers,True,0.85,0.225,0.775,False
+2026-04-30,3,NC Dinos,KIA Tigers,AWAY(KIA Tigers),NC Dinos,False,0.85,0.875,0.125,False
+2026-04-30,4,Lotte Giants,Kiwoom Heroes,AWAY(Kiwoom Heroes),Lotte Giants,False,0.85,0.79,0.21,False
+2026-04-30,5,KT Wiz Suwon,LG Twins,AWAY(LG Twins),LG Twins,True,0.745,0.255,0.745,True
 2026-05-01,5,SSG Landers,Lotte Giants,AWAY(Lotte Giants),Lotte Giants,True,0.83,0.17,0.83,True
-2026-05-01,4,LG Twins,NC Dinos,HOME(LG Twins),LG Twins,True,0.825,0.825,0.175,True
-2026-05-01,3,KIA Tigers,KT Wiz Suwon,AWAY(KT Wiz Suwon),KT Wiz Suwon,True,0.785,0.215,0.785,True
-2026-05-01,2,Samsung Lions,Hanwha Eagles,HOME(Samsung Lions),Samsung Lions,True,0.845,0.845,0.155,True
-2026-05-01,1,Kiwoom Heroes,Doosan Bears,AWAY(Doosan Bears),Doosan Bears,True,0.88,0.12,0.88,True
+2026-05-01,4,LG Twins,NC Dinos,HOME(LG Twins),LG Twins,True,0.845,0.845,0.155,True
+2026-05-01,3,KIA Tigers,KT Wiz Suwon,AWAY(KT Wiz Suwon),KT Wiz Suwon,True,0.77,0.23,0.77,True
+2026-05-01,2,Samsung Lions,Hanwha Eagles,HOME(Samsung Lions),Samsung Lions,True,0.855,0.855,0.145,True
+2026-05-01,1,Kiwoom Heroes,Doosan Bears,AWAY(Doosan Bears),Doosan Bears,True,0.885,0.115,0.885,True
 2026-05-02,1,SSG Landers,Lotte Giants,AWAY(Lotte Giants),Lotte Giants,True,0.805,0.195,0.805,True
-2026-05-02,2,Kiwoom Heroes,Doosan Bears,HOME(Kiwoom Heroes),Kiwoom Heroes,True,0.78,0.79,0.21,False
-2026-05-02,3,Samsung Lions,Hanwha Eagles,AWAY(Hanwha Eagles),Hanwha Eagles,True,0.85,0.15,0.85,True
-2026-05-02,4,KIA Tigers,KT Wiz Suwon,HOME(KIA Tigers),KIA Tigers,True,0.86,0.86,0.14,True
-2026-05-02,5,LG Twins,NC Dinos,HOME(LG Twins),LG Twins,True,0.85,0.805,0.195,False
-2026-05-03,4,LG Twins,NC Dinos,HOME(LG Twins),NC Dinos,False,0.85,0.225,0.775,False
-2026-05-03,3,KIA Tigers,KT Wiz Suwon,HOME(KIA Tigers),KT Wiz Suwon,False,0.85,0.235,0.765,False
-2026-05-03,5,SSG Landers,Lotte Giants,AWAY(Lotte Giants),Lotte Giants,True,0.85,0.195,0.805,False
-2026-05-03,1,Kiwoom Heroes,Doosan Bears,HOME(Kiwoom Heroes),Doosan Bears,False,0.85,0.18,0.82,False
-2026-05-03,2,Samsung Lions,Hanwha Eagles,AWAY(Hanwha Eagles),Samsung Lions,False,0.85,0.85,0.15,False
-2026-05-05,1,LG Twins,Doosan Bears,AWAY(Doosan Bears),LG Twins,False,0.85,0.815,0.185,False
-2026-05-05,2,KIA Tigers,Hanwha Eagles,HOME(KIA Tigers),KIA Tigers,True,0.915,0.915,0.085,True
-2026-05-05,3,Samsung Lions,Kiwoom Heroes,HOME(Samsung Lions),Samsung Lions,True,0.85,0.915,0.085,False
-2026-05-05,4,KT Wiz Suwon,Lotte Giants,HOME(KT Wiz Suwon),KT Wiz Suwon,True,0.815,0.775,0.225,False
-2026-05-06,1,LG Twins,Doosan Bears,HOME(LG Twins),LG Twins,True,0.85,0.855,0.145,False
-2026-05-06,2,KIA Tigers,Hanwha Eagles,AWAY(Hanwha Eagles),Hanwha Eagles,True,0.755,0.245,0.755,True
-2026-05-06,3,Samsung Lions,Kiwoom Heroes,HOME(Samsung Lions),Samsung Lions,True,0.84,0.84,0.16,True
+2026-05-02,2,Kiwoom Heroes,Doosan Bears,HOME(Kiwoom Heroes),Kiwoom Heroes,True,0.78,0.78,0.22,False
+2026-05-02,3,Samsung Lions,Hanwha Eagles,AWAY(Hanwha Eagles),Hanwha Eagles,True,0.87,0.13,0.87,True
+2026-05-02,4,KIA Tigers,KT Wiz Suwon,HOME(KIA Tigers),KIA Tigers,True,0.83,0.83,0.17,True
+2026-05-02,5,LG Twins,NC Dinos,HOME(LG Twins),LG Twins,True,0.85,0.81,0.19,False
+2026-05-03,4,LG Twins,NC Dinos,HOME(LG Twins),NC Dinos,False,0.85,0.195,0.805,False
+2026-05-03,3,KIA Tigers,KT Wiz Suwon,HOME(KIA Tigers),KT Wiz Suwon,False,0.85,0.22,0.78,False
+2026-05-03,5,SSG Landers,Lotte Giants,AWAY(Lotte Giants),Lotte Giants,True,0.85,0.18,0.82,False
+2026-05-03,1,Kiwoom Heroes,Doosan Bears,HOME(Kiwoom Heroes),Doosan Bears,False,0.85,0.17,0.83,False
+2026-05-03,2,Samsung Lions,Hanwha Eagles,AWAY(Hanwha Eagles),Samsung Lions,False,0.85,0.88,0.12,False
+2026-05-05,1,LG Twins,Doosan Bears,AWAY(Doosan Bears),LG Twins,False,0.85,0.805,0.195,False
+2026-05-05,2,KIA Tigers,Hanwha Eagles,HOME(KIA Tigers),KIA Tigers,True,0.905,0.905,0.095,True
+2026-05-05,3,Samsung Lions,Kiwoom Heroes,HOME(Samsung Lions),Samsung Lions,True,0.85,0.905,0.095,False
+2026-05-05,4,KT Wiz Suwon,Lotte Giants,HOME(KT Wiz Suwon),KT Wiz Suwon,True,0.815,0.76,0.24,False
+2026-05-06,1,LG Twins,Doosan Bears,HOME(LG Twins),LG Twins,True,0.85,0.84,0.16,False
+2026-05-06,2,KIA Tigers,Hanwha Eagles,AWAY(Hanwha Eagles),Hanwha Eagles,True,0.73,0.27,0.73,True
+2026-05-06,3,Samsung Lions,Kiwoom Heroes,HOME(Samsung Lions),Samsung Lions,True,0.845,0.845,0.155,True
 2026-05-06,4,KT Wiz Suwon,Lotte Giants,AWAY(Lotte Giants),Lotte Giants,True,0.835,0.165,0.835,True
-2026-05-06,5,SSG Landers,NC Dinos,HOME(SSG Landers),SSG Landers,True,0.815,0.815,0.185,False
-2026-05-07,5,SSG Landers,NC Dinos,AWAY(NC Dinos),NC Dinos,True,0.835,0.165,0.835,True
-2026-05-07,3,Samsung Lions,Kiwoom Heroes,AWAY(Kiwoom Heroes),Samsung Lions,False,0.78,0.88,0.12,False
-2026-05-07,1,LG Twins,Doosan Bears,AWAY(Doosan Bears),Doosan Bears,True,0.815,0.185,0.815,False
-2026-05-07,2,KIA Tigers,Hanwha Eagles,AWAY(Hanwha Eagles),Hanwha Eagles,True,0.85,0.21,0.79,False
-2026-05-08,1,Doosan Bears,SSG Landers,HOME(Doosan Bears),SSG Landers,False,0.85,0.195,0.805,False
-2026-05-08,2,Hanwha Eagles,LG Twins,HOME(Hanwha Eagles),LG Twins,False,0.85,0.175,0.825,False
-2026-05-08,3,Lotte Giants,KIA Tigers,AWAY(KIA Tigers),KIA Tigers,True,0.8,0.2,0.8,True
-2026-05-08,4,Kiwoom Heroes,KT Wiz Suwon,HOME(Kiwoom Heroes),KT Wiz Suwon,False,0.815,0.215,0.785,False
+2026-05-06,5,SSG Landers,NC Dinos,HOME(SSG Landers),SSG Landers,True,0.815,0.765,0.235,False
+2026-05-07,5,SSG Landers,NC Dinos,AWAY(NC Dinos),NC Dinos,True,0.82,0.18,0.82,True
+2026-05-07,3,Samsung Lions,Kiwoom Heroes,AWAY(Kiwoom Heroes),Samsung Lions,False,0.78,0.885,0.115,False
+2026-05-07,1,LG Twins,Doosan Bears,AWAY(Doosan Bears),Doosan Bears,True,0.815,0.205,0.795,False
+2026-05-07,2,KIA Tigers,Hanwha Eagles,AWAY(Hanwha Eagles),Hanwha Eagles,True,0.85,0.225,0.775,False
+2026-05-08,1,Doosan Bears,SSG Landers,HOME(Doosan Bears),SSG Landers,False,0.85,0.2,0.8,False
+2026-05-08,2,Hanwha Eagles,LG Twins,HOME(Hanwha Eagles),LG Twins,False,0.85,0.195,0.805,False
+2026-05-08,3,Lotte Giants,KIA Tigers,AWAY(KIA Tigers),KIA Tigers,True,0.805,0.195,0.805,True
+2026-05-08,4,Kiwoom Heroes,KT Wiz Suwon,HOME(Kiwoom Heroes),KT Wiz Suwon,False,0.815,0.19,0.81,False
 2026-05-08,5,NC Dinos,Samsung Lions,HOME(NC Dinos),Samsung Lions,False,0.815,0.105,0.895,False
-2026-05-09,3,Lotte Giants,KIA Tigers,AWAY(KIA Tigers),KIA Tigers,True,0.85,0.19,0.81,False
-2026-05-09,1,Doosan Bears,SSG Landers,AWAY(SSG Landers),Doosan Bears,False,0.85,0.77,0.23,False
-2026-05-09,2,Hanwha Eagles,LG Twins,AWAY(LG Twins),Hanwha Eagles,False,0.85,0.79,0.21,False
-2026-05-09,5,NC Dinos,Samsung Lions,AWAY(Samsung Lions),Samsung Lions,True,0.795,0.205,0.795,True
+2026-05-09,3,Lotte Giants,KIA Tigers,AWAY(KIA Tigers),KIA Tigers,True,0.85,0.195,0.805,False
+2026-05-09,1,Hanwha Eagles,LG Twins,AWAY(LG Twins),Hanwha Eagles,False,0.85,0.79,0.21,False
+2026-05-09,2,Doosan Bears,SSG Landers,AWAY(SSG Landers),Doosan Bears,False,0.85,0.745,0.255,False
+2026-05-09,5,NC Dinos,Samsung Lions,AWAY(Samsung Lions),Samsung Lions,True,0.79,0.21,0.79,True
