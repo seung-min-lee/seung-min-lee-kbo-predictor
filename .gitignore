@@ -25,6 +25,8 @@
 !debug/**
 !scripts/
 !scripts/**
+!snapshots/
+!snapshots/**
 
 # GitHub Actions / Streamlit 설정
 !.github/

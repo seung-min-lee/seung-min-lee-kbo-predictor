@@ -117,7 +117,7 @@
         "current_odds": 1.7
       }
     },
-    "recommendation": "AWAY(0)",
+    "recommendation": "HOME(1)",
     "confidence": 0.692,
     "pattern_reason": "배당↓팀이김 9/13(69%) : SSG Landers (팀패턴일치: 홈 패 패턴(85%) (원정 불규칙) + 정배패턴일치(정배승 18경기(원정정배)))",
     "home_win_desc": "다수결 ↓0 52/69(75%)",
@@ -732,8 +732,9 @@
         "weight": 0.78
       }
     ],
-    "verified": false,
-    "actual": null
+    "verified": true,
+    "actual": "HOME(1)",
+    "correct": false
   },
   "slot_2.0": {
     "slot": 2.0,
@@ -823,9 +824,9 @@
         "current_odds": 2.41
       },
       "Momobet": {
-        "seq": "01101011101110011",
-        "rec": 1,
-        "desc": "다수결 ↑1 44/75(60%)",
+        "seq": "0110101110111001N",
+        "rec": null,
+        "desc": "균형(22↑:25↓) → 불규칙",
         "current_odds": 2.51
       },
       "Roobet": {
@@ -854,14 +855,14 @@
       }
     },
     "recommendation": "HOME(1)",
-    "confidence": 0.6,
-    "pattern_reason": "배당↑팀이김 6/10(60%) : Hanwha Eagles (팀패턴충돌: 홈 패 패턴(85%) + 원정 승 패턴(85%) + 정배패턴일치(역배승 18경기(홈정배)))",
+    "confidence": 0.88,
+    "pattern_reason": "홈 패 패턴(85%) + 원정 승 패턴(85%) + 정배패턴일치(역배승 18경기(홈정배))",
     "home_win_desc": "다수결 ↓0 70/84(82%)",
     "away_win_desc": "다수결 ↑1 40/67(57%)",
-    "bm_label": "배당↑팀이김 6/10(60%) : Hanwha Eagles",
-    "bm_dir_vote": 1,
-    "bm_team_rec": 1,
-    "bm_dir_ratio": 0.6,
+    "bm_label": "불명확 5/4",
+    "bm_dir_vote": null,
+    "bm_team_rec": null,
+    "bm_dir_ratio": 0.556,
     "ml_home_prob": 0.505,
     "ml_away_prob": 0.495,
     "home_pattern_log": [
@@ -1623,8 +1624,9 @@
         "weight": 0.78
       }
     ],
-    "verified": false,
-    "actual": null
+    "verified": true,
+    "actual": "HOME(1)",
+    "correct": false
   },
   "slot_3.0": {
     "slot": 3.0,
@@ -1732,9 +1734,9 @@
         "current_odds": 1.88
       },
       "VOBET": {
-        "seq": "0000N011101000110",
-        "rec": 1,
-        "desc": "다수결 ↑1 25/34(75%)",
+        "seq": "0000N01110100011N",
+        "rec": 0,
+        "desc": "다수결 ↓0 24/30(79%)",
         "current_odds": 1.89
       },
       "bwin": {
@@ -1744,15 +1746,15 @@
         "current_odds": 1.83
       }
     },
-    "recommendation": "AWAY(0)",
-    "confidence": 0.786,
-    "pattern_reason": "배당↑팀이김 11/14(79%) : KIA Tigers (팀패턴일치: 홈 패 패턴(85%) (원정 불규칙) ※정배패턴충돌(역배승 18경기(원정정배)))",
+    "recommendation": "HOME(1)",
+    "confidence": 0.714,
+    "pattern_reason": "배당↑팀이김 10/14(71%) : KIA Tigers (팀패턴일치: 홈 패 패턴(85%) (원정 불규칙) ※정배패턴충돌(역배승 18경기(원정정배)))",
     "home_win_desc": "다수결 ↓0 52/65(79%)",
     "away_win_desc": "균형(45↑:34↓) → 불규칙",
-    "bm_label": "배당↑팀이김 11/14(79%) : KIA Tigers",
+    "bm_label": "배당↑팀이김 10/14(71%) : KIA Tigers",
     "bm_dir_vote": 1,
     "bm_team_rec": 0,
-    "bm_dir_ratio": 0.786,
+    "bm_dir_ratio": 0.714,
     "ml_home_prob": 0.535,
     "ml_away_prob": 0.465,
     "home_pattern_log": [
@@ -2479,8 +2481,9 @@
         "weight": 0.78
       }
     ],
-    "verified": false,
-    "actual": null
+    "verified": true,
+    "actual": "HOME(1)",
+    "correct": false
   },
   "slot_4.0": {
     "slot": 4.0,
@@ -2588,9 +2591,9 @@
         "current_odds": 2.65
       },
       "VOBET": {
-        "seq": "1011101001101P0N1",
-        "rec": null,
-        "desc": "데이터 부족",
+        "seq": "1011101001101P0NN",
+        "rec": 1,
+        "desc": "다수결 ↑1 56/61(91%)",
         "current_odds": 2.71
       },
       "bwin": {
@@ -2600,15 +2603,15 @@
         "current_odds": 2.55
       }
     },
-    "recommendation": "AWAY(0)",
-    "confidence": 0.82,
-    "pattern_reason": "홈 패 패턴(85%) + 원정 승 패턴(85%) ※정배패턴충돌(역배승 18경기(원정정배))",
+    "recommendation": "HOME(1)",
+    "confidence": 1.0,
+    "pattern_reason": "배당↑팀이김 1/1(100%) : Kiwoom Heroes (팀패턴충돌: 홈 패 패턴(85%) + 원정 승 패턴(85%) ※정배패턴충돌(역배승 18경기(원정정배)))",
     "home_win_desc": "다수결 ↓0 50/67(71%)",
     "away_win_desc": "다수결 ↑1 63/89(69%)",
-    "bm_label": "불명확 0/0",
-    "bm_dir_vote": null,
-    "bm_team_rec": null,
-    "bm_dir_ratio": 0.0,
+    "bm_label": "배당↑팀이김 1/1(100%) : Kiwoom Heroes",
+    "bm_dir_vote": 1,
+    "bm_team_rec": 1,
+    "bm_dir_ratio": 1.0,
     "ml_home_prob": 0.55,
     "ml_away_prob": 0.45,
     "home_pattern_log": [
@@ -3395,8 +3398,9 @@
         "weight": 0.78
       }
     ],
-    "verified": false,
-    "actual": null
+    "verified": true,
+    "actual": "HOME(1)",
+    "correct": true
   },
   "slot_5.0": {
     "slot": 5.0,
@@ -3516,7 +3520,7 @@
         "current_odds": 1.83
       }
     },
-    "recommendation": "HOME(1)",
+    "recommendation": "AWAY(0)",
     "confidence": 0.909,
     "pattern_reason": "배당↓팀이김 10/11(91%) : NC Dinos (팀패턴일치: 홈 승 패턴(78%) (원정 불규칙) ※정배패턴충돌(역배승 18경기(홈정배)))",
     "home_win_desc": "다수결 ↑1 41/68(61%)",
@@ -4186,7 +4190,8 @@
         "weight": 0.78
       }
     ],
-    "verified": false,
-    "actual": null
+    "verified": true,
+    "actual": "AWAY(0)",
+    "correct": false
   }
 }

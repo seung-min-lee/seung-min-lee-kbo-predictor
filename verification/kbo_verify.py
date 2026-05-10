@@ -21,6 +21,14 @@ if not os.path.exists(PRED_PATH):
 with open(PRED_PATH, 'r', encoding='utf-8') as f:
     predictions = json.load(f)
 
+# 날짜별 스냅샷이 있으면 해당 날짜 예측은 스냅샷으로 덮어씀
+pred_date = next(iter(predictions.values())).get('pred_date', '')[:10]
+snap_path = f'snapshots/kbo_predictions_{pred_date}.json'
+if os.path.exists(snap_path):
+    with open(snap_path, 'r', encoding='utf-8') as f:
+        predictions = json.load(f)
+    print(f'스냅샷 로드: {snap_path}')
+
 df = pd.read_csv(CSV_PATH)
 date_map = {d: i for i, d in enumerate(sorted(df['date'].unique()))}
 df['date_order'] = df['date'].map(date_map)
