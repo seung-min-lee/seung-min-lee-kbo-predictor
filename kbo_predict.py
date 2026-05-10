@@ -64,6 +64,103 @@ def check_block_split(seq):
             return sp, f[0], b[0]
     return None
 
+def check_tail_split_mirror(seq):
+    """꼬리 분할 미러 패턴: 끝 N개를 A|B로 분할, B가 A의 미러 → 다음=A[0]
+    예1: [1,1,0,0,1] 끝5개→A=[1,1,0] B=[0,1]: 01이 10의 미러 → 다음=A[0]=1
+    예2: [0,0,1,1,1,0,1,1] 끝4개→A=[1,0] B=[1,1]: 미러X / 끝6개→A=[1,1,1] B=[0,1,1]: 미러X
+    단방향 불균등 분할(len_a != len_b)도 허용:
+      끝 A+B개를 시도, B가 A 꼬리의 미러이면 다음=A[0]
+    """
+    n = len(seq)
+    if n < 4:
+        return None, None, 0.0
+    candidates = []
+    # 균등 분할: A=B=half
+    for half in range(2, n // 2 + 1):
+        tail = seq[-(half * 2):]
+        a = list(tail[:half])
+        b = list(tail[half:])
+        if b == [1 - x for x in a]:
+            pred = a[0]
+            candidates.append((pred, f'꼬리미러[{"".join(str(x) for x in a)}|{"".join(str(x) for x in b)}]→{pred}', 0.83))
+    # 불균등 분할: B가 A의 끝 len(B)개의 미러
+    for lb in range(2, min(6, n - 2) + 1):
+        for la in range(lb, min(8, n - lb) + 1):
+            a = list(seq[-(la + lb):-lb])
+            b = list(seq[-lb:])
+            if b == [1 - x for x in a[-lb:]]:
+                pred = a[0]
+                label = f'꼬리부분미러[{"".join(str(x) for x in a)}|{"".join(str(x) for x in b)}]→{pred}'
+                candidates.append((pred, label, 0.80))
+    if candidates:
+        return candidates[-1]
+    return None, None, 0.0
+
+
+def check_palindrome_build(seq):
+    """끝이 회문(팰린드롬) 확장 중인지 감지 → 다음값 = 대칭 위치 값
+    예: [1,1,1,0,1,1] → 중심=3, 반경=3, 다음=seq[0]=1
+    """
+    n = len(seq)
+    if n < 4:
+        return None, None, 0.0
+    best = None
+    for center in range(1, n - 1):
+        rad = 0
+        while center - rad >= 0 and center + rad < n:
+            if seq[center - rad] == seq[center + rad]:
+                rad += 1
+            else:
+                break
+        if rad >= 2 and center + rad == n:
+            left_idx = center - rad
+            if left_idx >= 0:
+                next_val = seq[left_idx]
+                half_str = ''.join(str(x) for x in seq[left_idx + 1: center + 1])
+                label = f'팰린드롬확장[중심{center},반경{rad},→{next_val}]'
+                conf = min(0.83, 0.70 + rad * 0.03)
+                if best is None or rad > best[3]:
+                    best = (next_val, label, conf, rad)
+    if best:
+        return best[0], best[1], best[2]
+    return None, None, 0.0
+
+
+def check_alternating_pairs(seq):
+    """교차 쌍 패턴: [1,1,0,0,1,...] = 11|00|11|00... 또는 00|11|00|11...
+    그룹 크기 k로 분할 시 홀수 그룹=A, 짝수 그룹=B(A의 반전), 현재 그룹 내 위치로 다음값 예측
+    """
+    n = len(seq)
+    if n < 4:
+        return None, None, 0.0
+    for k in range(2, min(5, n // 2) + 1):
+        # 전체 시퀀스를 k 크기 그룹으로 분할 (앞에서부터)
+        groups = [seq[i:i + k] for i in range(0, n - (n % k) if n % k != 0 else n, k)]
+        partial = seq[len(groups) * k:] if n % k != 0 else []
+        if len(groups) < 2:
+            continue
+        # 각 그룹이 단일 값인지 확인 (모두 0 or 모두 1)
+        if not all(len(set(g)) == 1 for g in groups):
+            continue
+        vals = [g[0] for g in groups]
+        # 홀짝 교대인지 확인
+        if not all(vals[i] != vals[i + 1] for i in range(len(vals) - 1)):
+            continue
+        # 현재 부분 그룹 예측
+        if partial:
+            # 부분 그룹의 다음 값 = 같은 그룹의 첫 번째 값
+            next_val = partial[0]
+            label = f'교차쌍[k={k},{"".join(str(v)*k for v in vals)}|{"".join(str(x) for x in partial)}→{next_val}]'
+            conf = 0.82
+        else:
+            # 다음 새 그룹의 첫 번째 값 = 마지막 그룹 값의 반전
+            next_val = 1 - vals[-1]
+            label = f'교차쌍[k={k},{"".join(str(v)*k for v in vals)}→{next_val}]'
+            conf = 0.80
+        return next_val, label, conf
+    return None, None, 0.0
+
+
 def check_fold_mirror(seq):
     n = len(seq)
     results = []
@@ -907,6 +1004,15 @@ def pat_rec(seq, full_history=None):
     rec = pa['rec'] if not pa.get('pass') else None
     return rec, pa['desc']
 
+def _extract_pattern_type(desc):
+    """설명 문자열에서 패턴 유형명 추출"""
+    for keyword in ['꼬리미러', '꼬리부분미러', '팰린드롬확장', '교차쌍', 'Mirror', 'Fold+꼬리',
+                    '반복블록', '블록분할', '교차', '연속', '계단식', '런분할', '분할:', '짝맞춤:', '롤링모멘텀']:
+        if keyword in desc:
+            return keyword
+    return desc.split('[')[0].split('(')[0][:16]
+
+
 def collect_pattern_votes(seq, full_history=None):
     """전체 + 모든 접미사 분할에서 패턴 탐색 → 투표 리스트 반환
     Returns list of (prediction, weight, description)
@@ -968,6 +1074,21 @@ def collect_pattern_votes(seq, full_history=None):
         if rv is not None:
             add(rv, rw, f'런분할', m)
 
+        # 꼬리 분할 미러
+        tv, td, tw = check_tail_split_mirror(sub)
+        if tv is not None:
+            add(tv, tw, td, m)
+
+        # 팰린드롬 확장
+        pv, pd, pw = check_palindrome_build(sub)
+        if pv is not None:
+            add(pv, pw, pd, m)
+
+        # 교차 쌍 패턴 (11|00|11... 또는 00|11...)
+        cv, cd, cw = check_alternating_pairs(sub)
+        if cv is not None:
+            add(cv, cw, cd, m)
+
         # 롤링 모멘텀
         roll_v, roll_d, roll_w = check_rolling_momentum(sub)
         if roll_v is not None:
@@ -1020,6 +1141,42 @@ def vote_pat_rec(seq, full_history=None):
     pred = 1 if w1 >= w0 else 0
     desc = f'다수결 {"↑1" if pred==1 else "↓0"} {n1 if pred==1 else n0}/{total_n}({ratio:.0%})'
     return pred, desc
+
+
+def vote_pat_rec_detailed(seq, full_history=None):
+    """vote_pat_rec + 개별 패턴 로그 반환 (패턴 학습용)
+    Returns: (rec, desc, pattern_log)
+    pattern_log: list of {'type': str, 'pred': int, 'weight': float}
+    """
+    if len(seq) < 3:
+        return None, '데이터 부족', []
+
+    votes = collect_pattern_votes(seq, full_history)
+    if not votes:
+        return None, '불규칙', []
+
+    pattern_log = [
+        {'type': _extract_pattern_type(d), 'pred': p, 'weight': round(w, 3)}
+        for p, w, d in votes
+    ]
+
+    w1 = sum(w for p, w, _ in votes if p == 1)
+    w0 = sum(w for p, w, _ in votes if p == 0)
+    n1 = sum(1 for p, _, _ in votes if p == 1)
+    n0 = sum(1 for p, _, _ in votes if p == 0)
+    total_w = w1 + w0
+    total_n = n1 + n0
+
+    if total_w == 0:
+        return None, '불규칙', pattern_log
+
+    ratio = max(w1, w0) / total_w
+    if ratio < 0.55:
+        return None, f'균형({n1}↑:{n0}↓) → 불규칙', pattern_log
+
+    pred = 1 if w1 >= w0 else 0
+    desc = f'다수결 {"↑1" if pred==1 else "↓0"} {n1 if pred==1 else n0}/{total_n}({ratio:.0%})'
+    return pred, desc, pattern_log
 
 def get_bm_odds_seqs(team, before_date_order, window=WINDOW):
     """북메이커별 해당 팀 배당 변동 방향 시퀀스 반환
@@ -1392,7 +1549,7 @@ for i, game in enumerate(upcoming_games):
     h_dir_rec,  h_dir_desc  = pat_rec(h_dir)
     h_agr_rec,  h_agr_desc  = pat_rec(h_agr)
     h_faw_rec,  h_faw_desc  = pat_rec(h_fav_win)
-    h_win_rec,  h_win_desc  = vote_pat_rec(h_team_win)
+    h_win_rec,  h_win_desc, h_pattern_log  = vote_pat_rec_detailed(h_team_win)
 
     slot_fav_rec, slot_fav_desc = pat_rec(slot_fav_seq)
 
@@ -1429,7 +1586,7 @@ for i, game in enumerate(upcoming_games):
     a_dir_rec,  a_dir_desc  = pat_rec(a_dir)
     a_agr_rec,  a_agr_desc  = pat_rec(a_agr)
     a_faw_rec,  a_faw_desc  = pat_rec(a_fav_win)
-    a_win_rec,  a_win_desc  = vote_pat_rec(a_team_win)
+    a_win_rec,  a_win_desc, a_pattern_log  = vote_pat_rec_detailed(a_team_win)
 
     # 현재 경기 북메이커 통계 (game_df의 가장 최신 행 재사용)
     def bm_summary(team, is_home):
@@ -1692,6 +1849,8 @@ for i, game in enumerate(upcoming_games):
         'bm_dir_ratio':    round(float(bm_dir_ratio), 3),
         'ml_home_prob':    round(float(ml_proba[1]), 3),
         'ml_away_prob':    round(float(ml_proba[0]), 3),
+        'home_pattern_log': h_pattern_log,
+        'away_pattern_log': a_pattern_log,
         'verified':        False,
         'actual':          None,
     }
