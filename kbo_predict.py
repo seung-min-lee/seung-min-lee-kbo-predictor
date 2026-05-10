@@ -1750,8 +1750,8 @@ for i, game in enumerate(upcoming_games):
             pattern_reason += f' + BM방향일치({bm_label})'
         else:
             # 팀승패와 BM 방향 불일치
-            if bm_dir_ratio >= 0.85:
-                # BM 방향이 압도적(85%+) → BM 방향 우선
+            if bm_dir_ratio >= 0.84:
+                # BM 방향이 압도적(84%+, ≈11/13 이상) → BM 방향 우선
                 old_reason = pattern_reason
                 final_rec = bm_team_rec
                 pattern_confidence = bm_dir_ratio * 0.85

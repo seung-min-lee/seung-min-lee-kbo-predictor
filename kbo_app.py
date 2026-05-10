@@ -925,16 +925,10 @@ else:
             if bm_label:
                 bm_line = f'<div class="explain-line"><b>BM 배당변동</b> {esc(bm_label)}</div>'
 
-            if rec.startswith('HOME'):
-                _winner_label = f'<span style="color:{hm["color"]};font-weight:900">{esc(home)} 승 예측</span> &nbsp;'
-            elif rec.startswith('AWAY'):
-                _winner_label = f'<span style="color:{am["color"]};font-weight:900">{esc(away)} 승 예측</span> &nbsp;'
-            else:
-                _winner_label = ''
             explain_html = f"""
   <div class="explain-box">
     <div class="explain-title">패턴 예측 설명</div>
-    <div class="explain-line"><b>최종 판단</b> {_winner_label}<span class="explain-good">{esc(pattern_reason)}</span></div>
+    <div class="explain-line"><b>최종 판단</b> <span class="explain-good">{esc(pattern_reason)}</span></div>
     <div class="explain-line"><b>팀 승패</b> {esc(home)}: {home_flow} / {esc(away)}: {away_flow}</div>
     <div class="explain-line"><b>홈 근거</b> {esc(home_win_desc)}</div>
     <div class="explain-line"><b>원정 근거</b> {esc(away_win_desc)}</div>
