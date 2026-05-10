@@ -847,9 +847,9 @@
         "current_odds": 2.51
       },
       "bwin": {
-        "seq": "00001011100000110",
-        "rec": null,
-        "desc": "균형(31↑:27↓) → 불규칙",
+        "seq": "000010111000N0110",
+        "rec": 1,
+        "desc": "다수결 ↑1 6/7(85%)",
         "current_odds": 2.35
       }
     },
@@ -858,10 +858,10 @@
     "pattern_reason": "홈 패 패턴(85%) + 원정 승 패턴(85%) + 정배패턴일치(역배승 18경기(홈정배))",
     "home_win_desc": "다수결 ↓0 70/84(82%)",
     "away_win_desc": "다수결 ↑1 40/67(57%)",
-    "bm_label": "불명확 6/5",
+    "bm_label": "불명확 7/5",
     "bm_dir_vote": null,
     "bm_team_rec": null,
-    "bm_dir_ratio": 0.545,
+    "bm_dir_ratio": 0.583,
     "ml_home_prob": 0.59,
     "ml_away_prob": 0.41,
     "home_pattern_log": [
