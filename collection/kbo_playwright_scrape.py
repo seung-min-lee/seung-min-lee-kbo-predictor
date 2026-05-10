@@ -409,7 +409,8 @@ def main():
 
                 h_dir = (1 if h_close > h_open else 0) if (h_open and h_close and h_open != h_close) else None
                 a_dir = (1 if a_close > a_open else 0) if (a_open and a_close and a_open != a_close) else None
-                w_dir = h_dir if winner_is_home else a_dir
+                # N조건: 양쪽 change 동일 → winner_direction NaN
+                w_dir = None if (h_chg is not None and a_chg is not None and h_chg == a_chg) else (h_dir if winner_is_home else a_dir)
 
                 if mask.any():
                     if h_open:
@@ -465,14 +466,21 @@ def main():
     miss_w = df['winner_direction'].isna()
 
     if miss_h.any():
-        df.loc[miss_h, 'home_direction'] = (
-            df.loc[miss_h, 'home_close'] > df.loc[miss_h, 'home_open']).astype(int)
+        changed_h = miss_h & (df['home_close'] != df['home_open'])
+        df.loc[changed_h, 'home_direction'] = (
+            df.loc[changed_h, 'home_close'] > df.loc[changed_h, 'home_open']).astype(int)
     if miss_a.any():
-        df.loc[miss_a, 'away_direction'] = (
-            df.loc[miss_a, 'away_close'] > df.loc[miss_a, 'away_open']).astype(int)
+        changed_a = miss_a & (df['away_close'] != df['away_open'])
+        df.loc[changed_a, 'away_direction'] = (
+            df.loc[changed_a, 'away_close'] > df.loc[changed_a, 'away_open']).astype(int)
 
-    wih_true  = miss_w & (df['winner_is_home'] == True)  & has_h
-    wih_false = miss_w & (df['winner_is_home'] == False) & has_a
+    # N조건: home_change == away_change → winner_direction NaN 유지
+    h_chg_col = (df['home_close'] - df['home_open']).round(4)
+    a_chg_col = (df['away_close'] - df['away_open']).round(4)
+    n_cond = has_h & has_a & (h_chg_col == a_chg_col)
+
+    wih_true  = miss_w & ~n_cond & (df['winner_is_home'] == True)  & has_h
+    wih_false = miss_w & ~n_cond & (df['winner_is_home'] == False) & has_a
     if wih_true.any():
         df.loc[wih_true, 'winner_direction'] = (
             df.loc[wih_true, 'home_close'] > df.loc[wih_true, 'home_open']).astype(int)

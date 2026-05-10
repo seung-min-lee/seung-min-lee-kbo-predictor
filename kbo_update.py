@@ -372,7 +372,11 @@ def scrape_match(driver, url, winner_is_home=True):
 
             results[i]['home_direction']   = home_dir
             results[i]['away_direction']   = away_dir
-            results[i]['winner_direction'] = home_dir if winner_is_home else away_dir
+            # N조건: 양쪽 direction 동일 → winner_direction NaN
+            if home_dir is not None and away_dir is not None and home_dir == away_dir:
+                results[i]['winner_direction'] = None
+            else:
+                results[i]['winner_direction'] = home_dir if winner_is_home else away_dir
 
         except Exception as e:
             print(f'    direction 수집 실패 ({bm}): {e}')
