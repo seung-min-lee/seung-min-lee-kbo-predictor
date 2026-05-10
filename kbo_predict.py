@@ -987,11 +987,11 @@ def preprocess_seq(seq):
     """P 제거, 끝의 연속 N 제거 후 마지막 N 이후 시퀀스만 사용"""
     # Step 1: P 제거
     result = [v for v in seq if v != 'P']
-    # Step 2: 끝에서 연속된 N 제거 (open 배당 누락 등으로 생긴 trailing N)
-    while result and result[-1] == 'N':
+    # Step 2: 끝에서 연속된 N/F 제거
+    while result and result[-1] in ('N', 'F'):
         result.pop()
-    # Step 3: 마지막 N 이후만 사용
-    last_n = max((i for i, v in enumerate(result) if v == 'N'), default=-1)
+    # Step 3: 마지막 N/F 이후만 사용
+    last_n = max((i for i, v in enumerate(result) if v in ('N', 'F')), default=-1)
     if last_n >= 0:
         result = result[last_n + 1:]
     return [x for x in result if x in (0, 1)]
@@ -1308,7 +1308,7 @@ def get_slot_bm_odds_seqs(slot, before_date_order, seq_len=BM_SEQ_LEN):
                 if mid in postp_mids:
                     all_seq.append('P')
                 else:
-                    all_seq.append('N')
+                    all_seq.append('F')
                 all_date_seq.append(date)
                 continue
 
@@ -1347,7 +1347,7 @@ def get_slot_bm_odds_seqs(slot, before_date_order, seq_len=BM_SEQ_LEN):
             all_seq.append(sig)
             all_date_seq.append(date)
 
-        if not any(x != 'N' for x in all_seq):
+        if not any(x not in ('N', 'F') for x in all_seq):
             continue
 
         seq      = all_seq[-seq_len:]
