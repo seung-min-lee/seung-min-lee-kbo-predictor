@@ -27,6 +27,8 @@
 !scripts/**
 !snapshots/
 !snapshots/**
+!.claude/
+!.claude/**
 
 # GitHub Actions / Streamlit 설정
 !.github/

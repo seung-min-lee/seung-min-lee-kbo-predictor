@@ -1,0 +1,11 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(python -c ' *)",
+      "Bash(python kbo_predict.py)",
+      "Bash(python kbo_predict.py *)",
+      "Bash(PYTHONIOENCODING=utf-8 python kbo_predict.py *)",
+      "Bash(python kbo_verify.py *)"
+    ]
+  }
+}
