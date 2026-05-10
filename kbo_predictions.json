@@ -87,9 +87,9 @@
         "current_odds": 1.73
       },
       "Momobet": {
-        "seq": "010001100101101N1",
-        "rec": null,
-        "desc": "데이터 부족",
+        "seq": "01000110010110101",
+        "rec": 0,
+        "desc": "다수결 ↓0 44/74(57%)",
         "current_odds": 1.74
       },
       "Roobet": {
@@ -118,14 +118,14 @@
       }
     },
     "recommendation": "AWAY(0)",
-    "confidence": 0.857,
-    "pattern_reason": "배당↓팀이김 6/7(86%) : SSG Landers (팀패턴일치: 홈 패 패턴(85%) (원정 불규칙) + 정배패턴일치(정배승 18경기(원정정배)))",
+    "confidence": 0.875,
+    "pattern_reason": "배당↓팀이김 7/8(88%) : SSG Landers (팀패턴일치: 홈 패 패턴(85%) (원정 불규칙) + 정배패턴일치(정배승 18경기(원정정배)))",
     "home_win_desc": "다수결 ↓0 52/69(75%)",
     "away_win_desc": "균형(26↑:25↓) → 불규칙",
-    "bm_label": "배당↓팀이김 6/7(86%) : SSG Landers",
+    "bm_label": "배당↓팀이김 7/8(88%) : SSG Landers",
     "bm_dir_vote": 0,
     "bm_team_rec": 0,
-    "bm_dir_ratio": 0.857,
+    "bm_dir_ratio": 0.875,
     "ml_home_prob": 0.535,
     "ml_away_prob": 0.465,
     "home_pattern_log": [
@@ -841,27 +841,27 @@
         "current_odds": 2.45
       },
       "VOBET": {
-        "seq": "011010111N11100N1",
-        "rec": null,
-        "desc": "데이터 부족",
+        "seq": "011010111N1110011",
+        "rec": 0,
+        "desc": "다수결 ↓0 15/23(64%)",
         "current_odds": 2.51
       },
       "bwin": {
-        "seq": "00N01N111NN0N01N0",
-        "rec": null,
-        "desc": "데이터 부족",
+        "seq": "00N01N111NN0N0110",
+        "rec": 1,
+        "desc": "다수결 ↑1 5/7(71%)",
         "current_odds": 2.35
       }
     },
     "recommendation": "AWAY(0)",
-    "confidence": 0.667,
-    "pattern_reason": "배당↓팀이김 6/9(67%) : LG Twins (팀패턴일치: 홈 패 패턴(85%) + 원정 승 패턴(85%) + 정배패턴일치(역배승 18경기(홈정배)))",
+    "confidence": 0.636,
+    "pattern_reason": "배당↓팀이김 7/11(64%) : LG Twins (팀패턴일치: 홈 패 패턴(85%) + 원정 승 패턴(85%) + 정배패턴일치(역배승 18경기(홈정배)))",
     "home_win_desc": "다수결 ↓0 70/84(82%)",
     "away_win_desc": "다수결 ↑1 40/67(57%)",
-    "bm_label": "배당↓팀이김 6/9(67%) : LG Twins",
+    "bm_label": "배당↓팀이김 7/11(64%) : LG Twins",
     "bm_dir_vote": 0,
     "bm_team_rec": 0,
-    "bm_dir_ratio": 0.667,
+    "bm_dir_ratio": 0.636,
     "ml_home_prob": 0.59,
     "ml_away_prob": 0.41,
     "home_pattern_log": [
