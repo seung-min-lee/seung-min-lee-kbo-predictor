@@ -1076,27 +1076,27 @@
         "current_odds": 1.8
       },
       "VOBET": {
-        "seq": "0011010111011100N",
-        "rec": 1,
-        "desc": "다수결 ↑1 37/45(80%)",
-        "current_odds": 2.27
+        "seq": "00110101110111001",
+        "rec": null,
+        "desc": "균형(26↑:27↓) → 불규칙",
+        "current_odds": 1.65
       },
       "bwin": {
-        "seq": "N000010111000001N",
-        "rec": 0,
-        "desc": "다수결 ↓0 35/59(57%)",
-        "current_odds": 2.25
+        "seq": "N0000101110000011",
+        "rec": null,
+        "desc": "균형(28↑:37↓) → 불규칙",
+        "current_odds": 1.62
       }
     },
     "recommendation": "AWAY(0)",
     "confidence": 0.83,
-    "pattern_reason": "홈 패 패턴(85%) + 원정 승 패턴(85%) + 정배패턴일치(정배승 18경기(원정정배)) ※BM방향충돌(배당↑팀이김 6/9(67%) → 오늘 배당↑: Hanwha Eagles)",
+    "pattern_reason": "홈 패 패턴(85%) + 원정 승 패턴(85%) + 정배패턴일치(정배승 18경기(원정정배)) ※BM방향충돌(배당↑팀이김 5/7(71%) → 오늘 배당↑: Hanwha Eagles)",
     "home_win_desc": "다수결 ↓0 45/74(60%)",
     "away_win_desc": "다수결 ↑1 59/80(70%)",
-    "bm_label": "배당↑팀이김 6/9(67%) → 오늘 배당↑: Hanwha Eagles",
+    "bm_label": "배당↑팀이김 5/7(71%) → 오늘 배당↑: Hanwha Eagles",
     "bm_dir_vote": 1,
     "bm_team_rec": 1,
-    "bm_dir_ratio": 0.667,
+    "bm_dir_ratio": 0.714,
     "ml_home_prob": 0.45,
     "ml_away_prob": 0.55,
     "home_pattern_log": [
