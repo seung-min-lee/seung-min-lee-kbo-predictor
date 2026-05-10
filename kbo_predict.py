@@ -1292,6 +1292,12 @@ def get_slot_bm_odds_seqs(slot, before_date_order, seq_len=BM_SEQ_LEN):
 
     # Postp 경기 match_id 집합
     postp_mids = set(all_games[all_games['winner'] == 'Postp']['match_id'].tolist())
+    # 무승부 경기 match_id 집합 (winner_is_home=NaN이고 winner가 있는 경우 포함)
+    draw_mids  = set(all_games[
+        all_games['winner_is_home'].isna() &
+        ~all_games['winner'].isna() &
+        (all_games['winner'] != 'Postp')
+    ]['match_id'].tolist())
 
     result = {}
     for bm, mid_data in bm_mid_map.items():
@@ -1304,9 +1310,10 @@ def get_slot_bm_odds_seqs(slot, before_date_order, seq_len=BM_SEQ_LEN):
             sig  = 'N'
 
             if mid not in mid_data:
-                # Postp 경기: 북메이커 데이터 없고 연기된 게임
                 if mid in postp_mids:
                     all_seq.append('P')
+                elif mid in draw_mids:
+                    all_seq.append('N')
                 else:
                     all_seq.append('F')
                 all_date_seq.append(date)
@@ -1349,7 +1356,7 @@ def get_slot_bm_odds_seqs(slot, before_date_order, seq_len=BM_SEQ_LEN):
 
             if   w_chg > l_chg: sig = 1
             elif w_chg < l_chg: sig = 0
-
+            
             all_seq.append(sig)
             all_date_seq.append(date)
 
