@@ -298,7 +298,7 @@ C6G9rg74,2026-04-02,1.0,Samsung Lions,Doosan Bears,Samsung Lions,True,5.0,2.0,Mo
 C6G9rg74,2026-04-02,1.0,Samsung Lions,Doosan Bears,Samsung Lions,True,5.0,2.0,Roobet,1.55,1.53,-0.02,0.0,2.4,2.44,0.04,1.0,0.0,0.627,home
 C6G9rg74,2026-04-02,1.0,Samsung Lions,Doosan Bears,Samsung Lions,True,5.0,2.0,Stake.com,1.57,1.5,-0.07,0.0,2.42,2.55,0.13,1.0,0.0,0.5882,home
 C6G9rg74,2026-04-02,1.0,Samsung Lions,Doosan Bears,Samsung Lions,True,5.0,2.0,VOBET,1.59,1.58,-0.01,0.0,2.49,2.51,0.02,1.0,0.0,0.6295,home
-C6G9rg74,2026-04-02,1.0,Samsung Lions,Doosan Bears,Samsung Lions,True,5.0,2.0,bwin,1.55,1.55,0.0,0.0,2.4,2.4,0.0,0.0,0.0,0.6458,home
+C6G9rg74,2026-04-02,1.0,Samsung Lions,Doosan Bears,Samsung Lions,True,5.0,2.0,bwin,1.55,1.55,0.0,,2.4,2.4,0.0,,,0.6458,home
 t0NPvB6T,2026-04-02,2.0,Hanwha Eagles,KT Wiz Suwon,KT Wiz Suwon,False,8.0,13.0,10x10bet,1.73,1.81,0.08,1.0,2.21,2.09,-0.12,0.0,0.0,0.866,home
 t0NPvB6T,2026-04-02,2.0,Hanwha Eagles,KT Wiz Suwon,KT Wiz Suwon,False,8.0,13.0,1xBet,1.76,1.85,0.09,1.0,2.19,2.07,-0.12,0.0,0.0,0.8937,home
 t0NPvB6T,2026-04-02,2.0,Hanwha Eagles,KT Wiz Suwon,KT Wiz Suwon,False,8.0,13.0,22Bet,1.71,1.8,0.09,1.0,2.14,2.02,-0.12,0.0,0.0,0.8911,home
@@ -598,7 +598,7 @@ dY4fr5UI,2026-04-07,1.0,Doosan Bears,Kiwoom Heroes,Kiwoom Heroes,False,2.0,5.0,M
 dY4fr5UI,2026-04-07,1.0,Doosan Bears,Kiwoom Heroes,Kiwoom Heroes,False,2.0,5.0,Roobet,1.58,1.59,0.01,1.0,2.3,2.3,0.0,0.0,0.0,0.6913,home
 dY4fr5UI,2026-04-07,1.0,Doosan Bears,Kiwoom Heroes,Kiwoom Heroes,False,2.0,5.0,Stake.com,1.61,1.57,-0.04,0.0,2.34,2.47,0.13,1.0,1.0,0.6356,home
 dY4fr5UI,2026-04-07,1.0,Doosan Bears,Kiwoom Heroes,Kiwoom Heroes,False,2.0,5.0,VOBET,1.62,1.62,0.0,0.0,2.42,2.42,0.0,0.0,0.0,0.6694,home
-dY4fr5UI,2026-04-07,1.0,Doosan Bears,Kiwoom Heroes,Kiwoom Heroes,False,2.0,5.0,bwin,1.57,1.57,0.0,0.0,2.35,2.35,0.0,0.0,0.0,0.6681,home
+dY4fr5UI,2026-04-07,1.0,Doosan Bears,Kiwoom Heroes,Kiwoom Heroes,False,2.0,5.0,bwin,1.57,1.57,0.0,,2.35,2.35,0.0,,,0.6681,home
 2Vit68MP,2026-04-07,2.0,SSG Landers,Hanwha Eagles,Hanwha Eagles,False,2.0,6.0,10x10bet,2.35,2.16,-0.19,0.0,1.65,1.76,0.11,1.0,1.0,1.2273,away
 2Vit68MP,2026-04-07,2.0,SSG Landers,Hanwha Eagles,Hanwha Eagles,False,2.0,6.0,1xBet,2.44,2.13,-0.31,0.0,1.62,1.8,0.18,1.0,1.0,1.1833,away
 2Vit68MP,2026-04-07,2.0,SSG Landers,Hanwha Eagles,Hanwha Eagles,False,2.0,6.0,22Bet,2.38,2.07,-0.31,0.0,1.58,1.75,0.17,1.0,1.0,1.1829,away
@@ -1551,7 +1551,7 @@ fqX8rNso,2026-04-24,1.0,Doosan Bears,LG Twins,LG Twins,False,1.0,4.0,Momobet,2.4
 fqX8rNso,2026-04-24,1.0,Doosan Bears,LG Twins,LG Twins,False,1.0,4.0,Roobet,2.4,2.4,0.0,0.0,1.54,1.54,0.0,1.0,1.0,1.5584,away
 fqX8rNso,2026-04-24,1.0,Doosan Bears,LG Twins,LG Twins,False,1.0,4.0,Stake.com,2.47,2.55,0.08,1.0,1.55,1.5,-0.05,0.0,0.0,1.7,away
 fqX8rNso,2026-04-24,1.0,Doosan Bears,LG Twins,LG Twins,False,1.0,4.0,VOBET,2.4,2.51,0.11,1.0,1.57,1.58,0.01,1.0,0.0,1.5886,away
-fqX8rNso,2026-04-24,1.0,Doosan Bears,LG Twins,LG Twins,False,1.0,4.0,bwin,2.45,2.45,,0.0,1.53,1.53,,0.0,0.0,1.6013,away
+fqX8rNso,2026-04-24,1.0,Doosan Bears,LG Twins,LG Twins,False,1.0,4.0,bwin,2.45,2.45,,,1.53,1.53,,,,1.6013,away
 UDmqpzJk,2026-04-24,2.0,Hanwha Eagles,NC Dinos,NC Dinos,False,3.0,7.0,10x10bet,1.87,1.71,-0.16,0.0,1.97,2.24,0.27,1.0,1.0,0.7634,home
 UDmqpzJk,2026-04-24,2.0,Hanwha Eagles,NC Dinos,NC Dinos,False,3.0,7.0,1xBet,1.91,1.72,-0.19,0.0,1.99,2.26,0.27,1.0,1.0,0.7611,home
 UDmqpzJk,2026-04-24,2.0,Hanwha Eagles,NC Dinos,NC Dinos,False,3.0,7.0,22Bet,1.86,1.68,-0.18,0.0,1.94,2.2,0.26,1.0,1.0,0.7636,home
@@ -1748,7 +1748,7 @@ CItA7UGD,2026-04-28,1.0,Doosan Bears,Samsung Lions,Samsung Lions,False,4.0,5.0,M
 CItA7UGD,2026-04-28,1.0,Doosan Bears,Samsung Lions,Samsung Lions,False,4.0,5.0,Roobet,2.3,2.3,0.0,0.0,1.59,1.59,0.0,0.0,0.0,1.4465,away
 CItA7UGD,2026-04-28,1.0,Doosan Bears,Samsung Lions,Samsung Lions,False,4.0,5.0,Stake.com,2.33,2.39,0.06,1.0,1.61,1.61,0.0,0.0,0.0,1.4845,away
 CItA7UGD,2026-04-28,1.0,Doosan Bears,Samsung Lions,Samsung Lions,False,4.0,5.0,VOBET,2.33,2.35,0.02,1.0,1.6,1.65,0.05,1.0,1.0,1.4242,away
-CItA7UGD,2026-04-28,1.0,Doosan Bears,Samsung Lions,Samsung Lions,False,4.0,5.0,bwin,2.3,2.3,0.0,0.0,1.6,1.6,0.0,0.0,0.0,1.4375,away
+CItA7UGD,2026-04-28,1.0,Doosan Bears,Samsung Lions,Samsung Lions,False,4.0,5.0,bwin,2.3,2.3,0.0,,1.6,1.6,0.0,,,1.4375,away
 hjHrMTV6,2026-04-28,2.0,Hanwha Eagles,SSG Landers,Hanwha Eagles,True,7.0,6.0,10x10bet,1.87,1.86,-0.01,0.0,1.94,2.03,0.09,1.0,0.0,0.9163,home
 hjHrMTV6,2026-04-28,2.0,Hanwha Eagles,SSG Landers,Hanwha Eagles,True,7.0,6.0,1xBet,1.92,1.86,-0.06,0.0,1.98,2.06,0.08,1.0,0.0,0.9029,home
 hjHrMTV6,2026-04-28,2.0,Hanwha Eagles,SSG Landers,Hanwha Eagles,True,7.0,6.0,22Bet,1.87,1.81,-0.06,0.0,1.93,2.0,0.07,1.0,0.0,0.905,home
@@ -1962,7 +1962,7 @@ K2GGJFLq,2026-05-01,1.0,Kiwoom Heroes,Doosan Bears,Doosan Bears,False,6.0,16.0,M
 K2GGJFLq,2026-05-01,1.0,Kiwoom Heroes,Doosan Bears,Doosan Bears,False,6.0,16.0,Roobet,2.04,2.06,0.02,1.0,1.75,1.73,-0.02,0.0,0.0,1.1908,away
 K2GGJFLq,2026-05-01,1.0,Kiwoom Heroes,Doosan Bears,Doosan Bears,False,6.0,16.0,Stake.com,2.07,2.11,0.04,1.0,1.76,1.76,0.0,0.0,0.0,1.1989,away
 K2GGJFLq,2026-05-01,1.0,Kiwoom Heroes,Doosan Bears,Doosan Bears,False,6.0,16.0,VOBET,2.07,2.15,0.08,1.0,1.78,1.77,-0.01,0.0,0.0,1.2147,away
-K2GGJFLq,2026-05-01,1.0,Kiwoom Heroes,Doosan Bears,Doosan Bears,False,6.0,16.0,bwin,2.05,2.05,0.0,0.0,1.75,1.75,0.0,0.0,0.0,1.1714,away
+K2GGJFLq,2026-05-01,1.0,Kiwoom Heroes,Doosan Bears,Doosan Bears,False,6.0,16.0,bwin,2.05,2.05,0.0,,1.75,1.75,0.0,,,1.1714,away
 lEtxRcT9,2026-05-01,2.0,Samsung Lions,Hanwha Eagles,Samsung Lions,True,4.0,3.0,10x10bet,1.58,1.67,0.09,1.0,2.37,2.32,-0.05,0.0,1.0,0.7198,home
 lEtxRcT9,2026-05-01,2.0,Samsung Lions,Hanwha Eagles,Samsung Lions,True,4.0,3.0,1xBet,1.65,1.72,0.07,1.0,2.39,2.26,-0.13,0.0,1.0,0.7611,home
 lEtxRcT9,2026-05-01,2.0,Samsung Lions,Hanwha Eagles,Samsung Lions,True,4.0,3.0,22Bet,1.61,1.68,0.07,1.0,2.33,2.2,-0.13,0.0,1.0,0.7636,home
@@ -2302,7 +2302,7 @@ lGgz14At,2026-05-06,5.0,SSG Landers,NC Dinos,SSG Landers,True,,,bwin,2.2,2.35,0.
 0vw8gv9U,2026-05-07,1.0,LG Twins,Doosan Bears,Doosan Bears,False,2.0,3.0,Roobet,1.49,1.5,0.01,1.0,2.56,2.5,-0.06,0.0,0.0,0.6,home
 0vw8gv9U,2026-05-07,1.0,LG Twins,Doosan Bears,Doosan Bears,False,2.0,3.0,Stake.com,1.49,1.55,0.06,1.0,2.65,2.5,-0.15,0.0,0.0,0.62,home
 0vw8gv9U,2026-05-07,1.0,LG Twins,Doosan Bears,Doosan Bears,False,2.0,3.0,VOBET,1.48,1.54,0.06,1.0,2.6,2.62,0.02,1.0,0.0,0.5878,home
-0vw8gv9U,2026-05-07,1.0,LG Twins,Doosan Bears,Doosan Bears,False,2.0,3.0,bwin,1.5,1.5,0.0,0.0,2.54,2.54,0.0,0.0,0.0,0.5906,home
+0vw8gv9U,2026-05-07,1.0,LG Twins,Doosan Bears,Doosan Bears,False,2.0,3.0,bwin,1.5,1.5,0.0,,2.54,2.54,0.0,,,0.5906,home
 0hIt8wON,2026-05-07,2.0,KIA Tigers,Hanwha Eagles,Hanwha Eagles,False,8.0,11.0,10x10bet,1.71,1.82,0.11,1.0,2.14,2.08,-0.06,0.0,0.0,0.875,home
 0hIt8wON,2026-05-07,2.0,KIA Tigers,Hanwha Eagles,Hanwha Eagles,False,8.0,11.0,1xBet,1.77,1.82,0.05,1.0,2.17,2.1,-0.07,0.0,0.0,0.8667,home
 0hIt8wON,2026-05-07,2.0,KIA Tigers,Hanwha Eagles,Hanwha Eagles,False,8.0,11.0,22Bet,1.73,1.78,0.05,1.0,2.11,2.05,-0.06,0.0,0.0,0.8683,home
@@ -2358,7 +2358,7 @@ dO3C2Hoo,2026-05-08,1.0,Doosan Bears,SSG Landers,SSG Landers,False,1.0,4.0,Momob
 dO3C2Hoo,2026-05-08,1.0,Doosan Bears,SSG Landers,SSG Landers,False,1.0,4.0,Roobet,1.68,1.68,0.0,0.0,2.14,2.12,-0.02,0.0,0.0,0.7925,home
 dO3C2Hoo,2026-05-08,1.0,Doosan Bears,SSG Landers,SSG Landers,False,1.0,4.0,Stake.com,1.71,1.74,0.03,1.0,2.15,2.15,0.0,0.0,0.0,0.8093,home
 dO3C2Hoo,2026-05-08,1.0,Doosan Bears,SSG Landers,SSG Landers,False,1.0,4.0,VOBET,1.71,1.74,0.03,1.0,2.14,2.19,0.05,1.0,1.0,0.7945,home
-dO3C2Hoo,2026-05-08,1.0,Doosan Bears,SSG Landers,SSG Landers,False,1.0,4.0,bwin,1.67,1.67,0.0,0.0,2.15,2.15,0.0,0.0,0.0,0.7767,home
+dO3C2Hoo,2026-05-08,1.0,Doosan Bears,SSG Landers,SSG Landers,False,1.0,4.0,bwin,1.67,1.67,0.0,,2.15,2.15,0.0,,,0.7767,home
 CC3GKG7T,2026-05-08,2.0,Hanwha Eagles,LG Twins,LG Twins,False,8.0,9.0,10x10bet,2.45,2.54,0.09,1.0,1.53,1.57,0.04,1.0,0.0,1.6178,away
 CC3GKG7T,2026-05-08,2.0,Hanwha Eagles,LG Twins,LG Twins,False,8.0,9.0,1xBet,2.54,2.52,-0.02,0.0,1.58,1.59,0.01,1.0,1.0,1.5849,away
 CC3GKG7T,2026-05-08,2.0,Hanwha Eagles,LG Twins,LG Twins,False,8.0,9.0,22Bet,2.47,2.46,-0.01,0.0,1.54,1.55,0.01,1.0,1.0,1.5871,away
@@ -2428,7 +2428,7 @@ p4tOG76e,2026-05-09,1.0,Hanwha Eagles,LG Twins,Hanwha Eagles,True,11.0,3.0,Momob
 p4tOG76e,2026-05-09,1.0,Hanwha Eagles,LG Twins,Hanwha Eagles,True,11.0,3.0,Roobet,2.24,2.22,-0.02,0.0,1.62,1.63,0.01,1.0,0.0,1.362,away
 p4tOG76e,2026-05-09,1.0,Hanwha Eagles,LG Twins,Hanwha Eagles,True,11.0,3.0,Stake.com,2.26,2.28,0.02,1.0,1.65,1.66,0.01,1.0,1.0,1.3735,away
 p4tOG76e,2026-05-09,1.0,Hanwha Eagles,LG Twins,Hanwha Eagles,True,11.0,3.0,VOBET,2.27,2.27,0.0,0.0,1.65,1.65,0.0,0.0,0.0,1.3758,away
-p4tOG76e,2026-05-09,1.0,Hanwha Eagles,LG Twins,Hanwha Eagles,True,11.0,3.0,bwin,2.25,2.25,0.0,0.0,1.62,1.62,0.0,0.0,0.0,1.3889,away
+p4tOG76e,2026-05-09,1.0,Hanwha Eagles,LG Twins,Hanwha Eagles,True,11.0,3.0,bwin,2.25,2.25,0.0,,1.62,1.62,0.0,,,1.3889,away
 UTqmFfVj,2026-05-09,2.0,Doosan Bears,SSG Landers,Doosan Bears,True,9.0,4.0,10x10bet,1.74,1.86,0.12,1.0,2.11,2.03,-0.08,0.0,1.0,0.9163,home
 UTqmFfVj,2026-05-09,2.0,Doosan Bears,SSG Landers,Doosan Bears,True,9.0,4.0,1xBet,1.78,1.86,0.08,1.0,2.15,2.04,-0.11,0.0,1.0,0.9118,home
 UTqmFfVj,2026-05-09,2.0,Doosan Bears,SSG Landers,Doosan Bears,True,9.0,4.0,22Bet,1.74,1.82,0.08,1.0,2.1,1.99,-0.11,0.0,1.0,0.9146,home

@@ -111,21 +111,21 @@
         "current_odds": 1.74
       },
       "bwin": {
-        "seq": "00000000010110001",
-        "rec": 0,
-        "desc": "다수결 ↓0 44/74(59%)",
+        "seq": "00N00N00N1011NNN1",
+        "rec": null,
+        "desc": "데이터 부족",
         "current_odds": 1.7
       }
     },
     "recommendation": "AWAY(0)",
-    "confidence": 0.692,
-    "pattern_reason": "배당↓팀이김 9/13(69%) : SSG Landers (팀패턴일치: 홈 패 패턴(85%) (원정 불규칙) + 정배패턴일치(정배승 18경기(원정정배)))",
+    "confidence": 0.667,
+    "pattern_reason": "배당↓팀이김 8/12(67%) : SSG Landers (팀패턴일치: 홈 패 패턴(85%) (원정 불규칙) + 정배패턴일치(정배승 18경기(원정정배)))",
     "home_win_desc": "다수결 ↓0 52/69(75%)",
     "away_win_desc": "균형(26↑:25↓) → 불규칙",
-    "bm_label": "배당↓팀이김 9/13(69%) : SSG Landers",
+    "bm_label": "배당↓팀이김 8/12(67%) : SSG Landers",
     "bm_dir_vote": 0,
     "bm_team_rec": 0,
-    "bm_dir_ratio": 0.692,
+    "bm_dir_ratio": 0.667,
     "ml_home_prob": 0.535,
     "ml_away_prob": 0.465,
     "home_pattern_log": [
