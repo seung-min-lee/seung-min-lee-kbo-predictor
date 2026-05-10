@@ -118,13 +118,13 @@
       }
     },
     "recommendation": "AWAY(0)",
-    "confidence": 0.77,
-    "pattern_reason": "홈 패 패턴(85%) + 원정 승 패턴(85%) ※정배패턴충돌(정배승 18경기(홈정배)) ※BM방향충돌(배당↓팀이김 6/10(60%))",
+    "confidence": 0.85,
+    "pattern_reason": "홈 패 패턴(85%) + 원정 승 패턴(85%) ※정배패턴충돌(정배승 18경기(홈정배)) + BM방향일치(배당↓팀이김 6/10(60%) → 오늘 배당↓: SSG Landers)",
     "home_win_desc": "다수결 ↓0 46/61(72%)",
     "away_win_desc": "다수결 ↑1 39/62(59%)",
-    "bm_label": "배당↓팀이김 6/10(60%)",
+    "bm_label": "배당↓팀이김 6/10(60%) → 오늘 배당↓: SSG Landers",
     "bm_dir_vote": 0,
-    "bm_team_rec": 1,
+    "bm_team_rec": 0,
     "bm_dir_ratio": 0.6,
     "ml_home_prob": 0.6,
     "ml_away_prob": 0.4,
@@ -251,10 +251,10 @@
     },
     "recommendation": "AWAY(0)",
     "confidence": 0.77,
-    "pattern_reason": "홈 패 패턴(85%) + 원정 승 패턴(85%) ※정배패턴충돌(역배승 18경기(원정정배)) ※BM방향충돌(배당↑팀이김 11/13(85%))",
+    "pattern_reason": "홈 패 패턴(85%) + 원정 승 패턴(85%) ※정배패턴충돌(역배승 18경기(원정정배)) ※BM방향충돌(배당↑팀이김 11/13(85%) → 오늘 배당↑: Hanwha Eagles)",
     "home_win_desc": "다수결 ↓0 45/58(75%)",
     "away_win_desc": "다수결 ↑1 43/64(64%)",
-    "bm_label": "배당↑팀이김 11/13(85%)",
+    "bm_label": "배당↑팀이김 11/13(85%) → 오늘 배당↑: Hanwha Eagles",
     "bm_dir_vote": 1,
     "bm_team_rec": 1,
     "bm_dir_ratio": 0.846,
@@ -381,14 +381,14 @@
         "current_odds": 2.25
       }
     },
-    "recommendation": "AWAY(0)",
-    "confidence": 0.85,
-    "pattern_reason": "BM방향압도(배당↓팀이김 12/12(100%)) ← 팀승패 역전[홈 승 패턴(85%) (원정 불규칙) ※정배패턴충돌(정배승 18경기(원정정배))]",
+    "recommendation": "HOME(1)",
+    "confidence": 0.7,
+    "pattern_reason": "홈 승 패턴(85%) (원정 불규칙) ※정배패턴충돌(정배승 18경기(원정정배)) + BM방향일치(배당↓팀이김 12/12(100%) → 오늘 배당↓: Lotte Giants)",
     "home_win_desc": "다수결 ↑1 16/26(60%)",
     "away_win_desc": "균형(21↑:26↓) → 불규칙",
-    "bm_label": "배당↓팀이김 12/12(100%)",
+    "bm_label": "배당↓팀이김 12/12(100%) → 오늘 배당↓: Lotte Giants",
     "bm_dir_vote": 0,
-    "bm_team_rec": 0,
+    "bm_team_rec": 1,
     "bm_dir_ratio": 1.0,
     "ml_home_prob": 0.49,
     "ml_away_prob": 0.51,
@@ -515,15 +515,147 @@
     },
     "recommendation": "HOME(1)",
     "confidence": 0.779,
-    "pattern_reason": "BM방향압도(배당↑팀이김 11/12(92%)) ← 팀승패 역전[홈 패 패턴(78%) + 원정 승 패턴(85%) + 정배패턴일치(정배승 18경기(원정정배))]",
+    "pattern_reason": "BM방향압도(배당↑팀이김 11/12(92%) → 오늘 배당↑: Kiwoom Heroes) ← 팀승패 역전[홈 패 패턴(78%) + 원정 승 패턴(85%) + 정배패턴일치(정배승 18경기(원정정배))]",
     "home_win_desc": "다수결 ↓0 40/48(87%)",
     "away_win_desc": "다수결 ↑1 45/63(68%)",
-    "bm_label": "배당↑팀이김 11/12(92%)",
+    "bm_label": "배당↑팀이김 11/12(92%) → 오늘 배당↑: Kiwoom Heroes",
     "bm_dir_vote": 1,
     "bm_team_rec": 1,
     "bm_dir_ratio": 0.917,
     "ml_home_prob": 0.48,
     "ml_away_prob": 0.52,
+    "verified": false,
+    "actual": null
+  },
+  "slot_5.0": {
+    "slot": 5.0,
+    "home": "NC Dinos",
+    "away": "Samsung Lions",
+    "pred_date": "2026-05-10",
+    "home_direction": "1111110110100001000",
+    "home_bm_agree": "1111111111111111111",
+    "home_fav_win": "0010010010001100011",
+    "home_team_win": "0100110110100100100",
+    "home_dir_rec": 1,
+    "home_agr_rec": 1,
+    "home_fav_rec": 1,
+    "home_win_rec": 1,
+    "away_direction": "0001011110110111111",
+    "away_bm_agree": "1101111111111111111",
+    "away_fav_win": "0110100011011111111",
+    "away_team_win": "1000000010010111111",
+    "away_dir_rec": 1,
+    "away_agr_rec": 1,
+    "away_fav_rec": 0,
+    "away_win_rec": 1,
+    "slot_fav_win": "001010000010100011",
+    "slot_fav_rec": 1,
+    "slot_fav_desc": "[001010000010100011] Mirror [00|11]",
+    "slot_fav_team_rec": 0,
+    "home_is_fav": false,
+    "slot_bm": {
+      "10x10bet": {
+        "seq": "000111101101N0100",
+        "rec": null,
+        "desc": "균형(2↑:2↓) → 불규칙",
+        "current_odds": 2.51
+      },
+      "1xBet": {
+        "seq": "0011N1001001N0101",
+        "rec": 0,
+        "desc": "다수결 ↓0 7/8(86%)",
+        "current_odds": 2.44
+      },
+      "22Bet": {
+        "seq": "0011N1001001N0101",
+        "rec": 0,
+        "desc": "다수결 ↓0 7/8(86%)",
+        "current_odds": 2.38
+      },
+      "Alphabet": {
+        "seq": "001111101101N0100",
+        "rec": null,
+        "desc": "균형(2↑:2↓) → 불규칙",
+        "current_odds": 2.51
+      },
+      "BetInAsia": {
+        "seq": "001101001001N0101",
+        "rec": 0,
+        "desc": "다수결 ↓0 7/8(86%)",
+        "current_odds": 2.43
+      },
+      "Bets.io": {
+        "seq": "000111101101N0101",
+        "rec": 0,
+        "desc": "다수결 ↓0 7/8(86%)",
+        "current_odds": 2.33
+      },
+      "Cloudbet": {
+        "seq": "000NNNNNNNNNNNNNN",
+        "rec": null,
+        "desc": "균형(1↑:1↓) → 불규칙",
+        "current_odds": 2.15
+      },
+      "GambleCity": {
+        "seq": "000111101N01N0101",
+        "rec": 0,
+        "desc": "다수결 ↓0 7/8(86%)",
+        "current_odds": 2.41
+      },
+      "Kobet": {
+        "seq": "00100N100011N0100",
+        "rec": null,
+        "desc": "균형(2↑:2↓) → 불규칙",
+        "current_odds": 2.47
+      },
+      "Melbet": {
+        "seq": "0011N1001001N0101",
+        "rec": 0,
+        "desc": "다수결 ↓0 7/8(86%)",
+        "current_odds": 2.38
+      },
+      "Momobet": {
+        "seq": "100111101101N0100",
+        "rec": 0,
+        "desc": "다수결 ↓0 3/4(77%)",
+        "current_odds": 2.51
+      },
+      "Roobet": {
+        "seq": "00NN011010N1N0101",
+        "rec": 0,
+        "desc": "다수결 ↓0 7/8(86%)",
+        "current_odds": 2.4
+      },
+      "Stake.com": {
+        "seq": "1110011100N1N1101",
+        "rec": 0,
+        "desc": "다수결 ↓0 4/5(78%)",
+        "current_odds": 2.47
+      },
+      "VOBET": {
+        "seq": "000111101101N0100",
+        "rec": null,
+        "desc": "균형(2↑:2↓) → 불규칙",
+        "current_odds": 2.51
+      },
+      "bwin": {
+        "seq": "N0N1N1110NN1N1NN1",
+        "rec": null,
+        "desc": "데이터 부족",
+        "current_odds": 2.4
+      }
+    },
+    "recommendation": "AWAY(0)",
+    "confidence": 0.8,
+    "pattern_reason": "슬롯정배패턴(정배승 18경기(원정정배)) + BM방향일치(배당↓팀이김 9/9(100%))",
+    "home_win_desc": "다수결 ↑1 43/65(69%)",
+    "away_win_desc": "다수결 ↑1 29/47(62%)",
+    "bm_label": "배당↓팀이김 9/9(100%)",
+    "bm_dir_vote": 0,
+    "bm_team_rec": 0,
+    "bm_dir_ratio": 1.0,
+    "ml_home_prob": 0.435,
+    "ml_away_prob": 0.565,
     "verified": false,
     "actual": null
   }
