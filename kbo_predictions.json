@@ -998,9 +998,9 @@
     "home_is_fav": false,
     "slot_bm": {
       "10x10bet": {
-        "seq": "N0N1010111NN11001",
+        "seq": "N011010111NN11001",
         "rec": 0,
-        "desc": "다수결 ↓0 7/12(56%)",
+        "desc": "다수결 ↓0 8/13(60%)",
         "current_odds": 1.86
       },
       "1xBet": {
