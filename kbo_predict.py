@@ -1671,16 +1671,12 @@ for i, game in enumerate(upcoming_games):
             # fallback: today_home_dir 없으면 기존 정배/역배 방식
             bm_team_rec = 1 if (bm_dir_vote != int(home_is_fav_today)) else 0
 
-    # bm_label: 방향 패턴 + 오늘 배당 변동 팀명
+    # bm_label: 방향 패턴 + 예측 팀명
     if bm_dir_vote is not None:
-        _dir_sym  = '↑' if bm_dir_vote == 1 else '↓'
-        if _todayodds and _todayodds.get('today_home_dir') is not None:
-            _dir_team = today_up_team if bm_dir_vote == 1 else today_down_team
-        else:
-            # today 배당 방향 미수집 → 팀명 표시 불가
-            _dir_team = ''
-        _team_str = f' → 오늘 배당{_dir_sym}: {_dir_team}' if _dir_team else ''
-        bm_label  = f'배당{_dir_sym}팀이김 {max(sv1,sv0)}/{sv1+sv0}({bm_dir_ratio:.0%}){_team_str}'
+        _dir_sym   = '↑' if bm_dir_vote == 1 else '↓'
+        _pred_team = home if bm_team_rec == 1 else (away if bm_team_rec == 0 else '')
+        _team_str  = f' : {_pred_team}' if _pred_team else ''
+        bm_label   = f'배당{_dir_sym}팀이김 {max(sv1,sv0)}/{sv1+sv0}({bm_dir_ratio:.0%}){_team_str}'
     else:
         bm_label = f'불명확 {sv1}/{sv0}'
 
@@ -1692,82 +1688,70 @@ for i, game in enumerate(upcoming_games):
     home_score = home_pa['score'] if home_pa else 0.5
     away_score = away_pa['score'] if away_pa else 0.5
 
-    final_rec = None
-    pattern_confidence = 0.0
-    pattern_reason = ''
+    # ── 팀 패턴 분석 (참고용) ─────────────────────────────────
+    _pat_rec = None
+    _pat_reason = ''
+    _pat_conf = 0.0
 
     if home_rec == 1 and away_rec == 0:
-        final_rec = 1
-        pattern_confidence = (home_score + away_score) / 2
-        pattern_reason = f'홈 승 패턴({home_score:.0%}) + 원정 패 패턴({away_score:.0%})'
+        _pat_rec = 1; _pat_conf = (home_score + away_score) / 2
+        _pat_reason = f'홈 승 패턴({home_score:.0%}) + 원정 패 패턴({away_score:.0%})'
     elif home_rec == 0 and away_rec == 1:
-        final_rec = 0
-        pattern_confidence = (home_score + away_score) / 2
-        pattern_reason = f'홈 패 패턴({home_score:.0%}) + 원정 승 패턴({away_score:.0%})'
+        _pat_rec = 0; _pat_conf = (home_score + away_score) / 2
+        _pat_reason = f'홈 패 패턴({home_score:.0%}) + 원정 승 패턴({away_score:.0%})'
     elif home_rec == 1 and away_rec is None:
-        final_rec = 1
-        pattern_confidence = home_score * 0.8
-        pattern_reason = f'홈 승 패턴({home_score:.0%}) (원정 불규칙)'
+        _pat_rec = 1; _pat_conf = home_score * 0.8
+        _pat_reason = f'홈 승 패턴({home_score:.0%}) (원정 불규칙)'
     elif home_rec == 0 and away_rec is None:
-        final_rec = 0
-        pattern_confidence = home_score * 0.8
-        pattern_reason = f'홈 패 패턴({home_score:.0%}) (원정 불규칙)'
+        _pat_rec = 0; _pat_conf = home_score * 0.8
+        _pat_reason = f'홈 패 패턴({home_score:.0%}) (원정 불규칙)'
     elif home_rec is None and away_rec == 1:
-        final_rec = 0
-        pattern_confidence = away_score * 0.8
-        pattern_reason = f'원정 승 패턴({away_score:.0%}) (홈 불규칙)'
+        _pat_rec = 0; _pat_conf = away_score * 0.8
+        _pat_reason = f'원정 승 패턴({away_score:.0%}) (홈 불규칙)'
     elif home_rec is None and away_rec == 0:
-        final_rec = 1
-        pattern_confidence = away_score * 0.8
-        pattern_reason = f'원정 패 패턴({away_score:.0%}) (홈 불규칙)'
+        _pat_rec = 1; _pat_conf = away_score * 0.8
+        _pat_reason = f'원정 패 패턴({away_score:.0%}) (홈 불규칙)'
     elif home_rec == 1 and away_rec == 1:
-        pattern_reason = '팀승패 충돌 (둘 다 승 예측) → ML 판단'
+        _pat_reason = '팀승패 충돌 (둘 다 승 예측)'
     elif home_rec == 0 and away_rec == 0:
-        pattern_reason = '팀승패 충돌 (둘 다 패 예측) → ML 판단'
-    else:
-        pattern_reason = '팀승패 불규칙 → ML 판단'
+        _pat_reason = '팀승패 충돌 (둘 다 패 예측)'
 
-    # ── 슬롯 정배/역배 패턴 반영 ──────────────────────────────
+    # ── 슬롯 정배/역배 패턴 반영 (참고용) ────────────────────────
     if slot_fav_team_rec is not None:
         fav_str  = '정배승' if slot_fav_rec == 1 else '역배승'
         fav_who  = '홈정배' if home_is_fav_today else '원정정배'
         fav_label = f'{fav_str} {SLOT_FAV_SEQ_LEN}경기({fav_who})'
-        if final_rec is None:
-            final_rec = slot_fav_team_rec
-            pattern_confidence = 0.75
-            pattern_reason = f'슬롯정배패턴({fav_label})'
-        elif final_rec == slot_fav_team_rec:
-            pattern_confidence = min(0.95, pattern_confidence + 0.03)
-            pattern_reason += f' + 정배패턴일치({fav_label})'
+        if _pat_rec is None:
+            _pat_rec = slot_fav_team_rec; _pat_conf = 0.75
+            _pat_reason = f'슬롯정배패턴({fav_label})'
+        elif _pat_rec == slot_fav_team_rec:
+            _pat_conf = min(0.95, _pat_conf + 0.03)
+            _pat_reason += f' + 정배패턴일치({fav_label})'
         else:
-            pattern_confidence = max(0.50, pattern_confidence - 0.03)
-            pattern_reason += f' ※정배패턴충돌({fav_label})'
+            _pat_conf = max(0.50, _pat_conf - 0.03)
+            _pat_reason += f' ※정배패턴충돌({fav_label})'
 
-    # ── BM 방향 신호 반영 ─────────────────────────────────────
+    # ── 최종판단: BM 패턴예측이 결정 ────────────────────────────
+    final_rec = None
+    pattern_confidence = 0.0
+    pattern_reason = ''
+
     if bm_team_rec is not None:
-        if final_rec is None:
-            # 팀승패 불규칙: BM 방향으로 결정
-            if bm_dir_ratio >= 0.6:
-                final_rec = bm_team_rec
-                pattern_confidence = bm_dir_ratio * 0.8
-                pattern_reason = f'BM방향({bm_label}) → {"홈" if bm_team_rec==1 else "원정"}'
-        elif final_rec == bm_team_rec:
-            # 팀승패와 BM 방향 일치 → 신뢰도 상향
-            boost = min(0.05, bm_dir_ratio * 0.05)
-            pattern_confidence = min(0.95, pattern_confidence + boost)
-            pattern_reason += f' + BM방향일치({bm_label})'
+        final_rec = bm_team_rec
+        pattern_confidence = bm_dir_ratio
+        # 팀 패턴이 일치/충돌 여부를 설명에 추가
+        if _pat_rec is None:
+            agree_str = '(팀패턴 불규칙)'
+        elif _pat_rec == bm_team_rec:
+            agree_str = f'(팀패턴일치: {_pat_reason})'
         else:
-            # 팀승패와 BM 방향 불일치
-            if bm_dir_ratio >= 0.84:
-                # BM 방향이 압도적(84%+, ≈11/13 이상) → BM 방향 우선
-                old_reason = pattern_reason
-                final_rec = bm_team_rec
-                pattern_confidence = bm_dir_ratio * 0.85
-                pattern_reason = f'BM방향압도({bm_label}) ← 팀승패 역전[{old_reason}]'
-            else:
-                # BM 방향 60~85% → 신뢰도 소폭 하향
-                pattern_confidence = max(0.5, pattern_confidence - 0.05)
-                pattern_reason += f' ※BM방향충돌({bm_label})'
+            agree_str = f'(팀패턴충돌: {_pat_reason})'
+        pattern_reason = f'{bm_label} {agree_str}'
+    else:
+        # BM 데이터 없을 때만 팀 패턴/ML로 fallback
+        final_rec = _pat_rec
+        pattern_confidence = _pat_conf
+        pattern_reason = _pat_reason
 
     # ML 보조
     feat = make_feat_team(home, away, max_date_order)
