@@ -27,39 +27,39 @@
     "home_is_fav": false,
     "slot_bm": {
       "10x10bet": {
-        "seq": "010001000101101NN",
+        "seq": "010001000101101N1",
         "rec": null,
-        "desc": "균형(28↑:24↓) → 불규칙",
+        "desc": "데이터 부족",
         "current_odds": 1.74
       },
       "1xBet": {
-        "seq": "0000010001001100N",
+        "seq": "00000100010011001",
         "rec": 1,
-        "desc": "다수결 ↑1 44/72(60%)",
+        "desc": "다수결 ↑1 43/77(57%)",
         "current_odds": 1.77
       },
       "22Bet": {
-        "seq": "0000010001001100N",
+        "seq": "00000100010011001",
         "rec": 1,
-        "desc": "다수결 ↑1 44/72(60%)",
+        "desc": "다수결 ↑1 43/77(57%)",
         "current_odds": 1.73
       },
       "Alphabet": {
-        "seq": "000001100101101NN",
-        "rec": 1,
-        "desc": "다수결 ↑1 41/65(63%)",
+        "seq": "000001100101101N1",
+        "rec": null,
+        "desc": "데이터 부족",
         "current_odds": 1.74
       },
       "BetInAsia": {
-        "seq": "0010010001011000N",
-        "rec": 1,
-        "desc": "다수결 ↑1 30/47(62%)",
+        "seq": "00100100010110001",
+        "rec": 0,
+        "desc": "다수결 ↓0 43/75(56%)",
         "current_odds": 1.74
       },
       "Bets.io": {
-        "seq": "000001000101101NN",
+        "seq": "000001000101101N1",
         "rec": null,
-        "desc": "균형(27↑:24↓) → 불규칙",
+        "desc": "데이터 부족",
         "current_odds": 1.66
       },
       "Cloudbet": {
@@ -111,21 +111,21 @@
         "current_odds": 1.74
       },
       "bwin": {
-        "seq": "00000000010110NNN",
-        "rec": 1,
-        "desc": "다수결 ↑1 31/41(76%)",
+        "seq": "00000000010110NN1",
+        "rec": null,
+        "desc": "데이터 부족",
         "current_odds": 1.7
       }
     },
     "recommendation": "HOME(1)",
-    "confidence": 0.833,
-    "pattern_reason": "배당↑팀이김 10/12(83%) : Doosan Bears (팀패턴충돌: 홈 패 패턴(85%) (원정 불규칙) + 정배패턴일치(정배승 18경기(원정정배)))",
+    "confidence": 0.7,
+    "pattern_reason": "배당↑팀이김 7/10(70%) : Doosan Bears (팀패턴충돌: 홈 패 패턴(85%) (원정 불규칙) + 정배패턴일치(정배승 18경기(원정정배)))",
     "home_win_desc": "다수결 ↓0 52/69(75%)",
     "away_win_desc": "균형(26↑:25↓) → 불규칙",
-    "bm_label": "배당↑팀이김 10/12(83%) : Doosan Bears",
+    "bm_label": "배당↑팀이김 7/10(70%) : Doosan Bears",
     "bm_dir_vote": 1,
     "bm_team_rec": 1,
-    "bm_dir_ratio": 0.833,
+    "bm_dir_ratio": 0.7,
     "ml_home_prob": 0.615,
     "ml_away_prob": 0.385,
     "home_pattern_log": [
@@ -763,9 +763,9 @@
     "home_is_fav": true,
     "slot_bm": {
       "10x10bet": {
-        "seq": "0110101110111001N",
-        "rec": null,
-        "desc": "균형(22↑:25↓) → 불규칙",
+        "seq": "01101011101110011",
+        "rec": 1,
+        "desc": "다수결 ↑1 44/75(60%)",
         "current_odds": 2.51
       },
       "1xBet": {
@@ -781,21 +781,21 @@
         "current_odds": 2.41
       },
       "Alphabet": {
-        "seq": "0110101110111001N",
-        "rec": 0,
-        "desc": "다수결 ↓0 26/47(55%)",
+        "seq": "01101011101110011",
+        "rec": 1,
+        "desc": "다수결 ↑1 44/75(60%)",
         "current_odds": 2.51
       },
       "BetInAsia": {
-        "seq": "0010101011101001N",
+        "seq": "00101010111010010",
         "rec": 0,
-        "desc": "다수결 ↓0 33/55(57%)",
+        "desc": "다수결 ↓0 44/70(63%)",
         "current_odds": 2.48
       },
       "Bets.io": {
-        "seq": "0110101110011001N",
-        "rec": 1,
-        "desc": "다수결 ↑1 41/70(60%)",
+        "seq": "01101011100110011",
+        "rec": null,
+        "desc": "균형(36↑:44↓) → 불규칙",
         "current_odds": 2.37
       },
       "Cloudbet": {
@@ -847,21 +847,21 @@
         "current_odds": 2.51
       },
       "bwin": {
-        "seq": "0000101110000011N",
+        "seq": "00001011100000110",
         "rec": null,
-        "desc": "균형(28↑:37↓) → 불규칙",
+        "desc": "균형(31↑:27↓) → 불규칙",
         "current_odds": 2.35
       }
     },
-    "recommendation": "AWAY(0)",
-    "confidence": 0.88,
-    "pattern_reason": "홈 패 패턴(85%) + 원정 승 패턴(85%) + 정배패턴일치(역배승 18경기(홈정배))",
+    "recommendation": "HOME(1)",
+    "confidence": 0.6,
+    "pattern_reason": "배당↑팀이김 6/10(60%) : Hanwha Eagles (팀패턴충돌: 홈 패 패턴(85%) + 원정 승 패턴(85%) + 정배패턴일치(역배승 18경기(홈정배)))",
     "home_win_desc": "다수결 ↓0 70/84(82%)",
     "away_win_desc": "다수결 ↑1 40/67(57%)",
-    "bm_label": "불명확 5/5",
-    "bm_dir_vote": null,
-    "bm_team_rec": null,
-    "bm_dir_ratio": 0.5,
+    "bm_label": "배당↑팀이김 6/10(60%) : Hanwha Eagles",
+    "bm_dir_vote": 1,
+    "bm_team_rec": 1,
+    "bm_dir_ratio": 0.6,
     "ml_home_prob": 0.505,
     "ml_away_prob": 0.495,
     "home_pattern_log": [
@@ -1654,39 +1654,39 @@
     "home_is_fav": false,
     "slot_bm": {
       "10x10bet": {
-        "seq": "0000N01110100011N",
-        "rec": 0,
-        "desc": "다수결 ↓0 23/29(78%)",
+        "seq": "0000N011101000110",
+        "rec": 1,
+        "desc": "다수결 ↑1 24/33(74%)",
         "current_odds": 1.89
       },
       "1xBet": {
-        "seq": "0000N01110100011N",
-        "rec": 0,
-        "desc": "다수결 ↓0 24/30(79%)",
+        "seq": "0000N011101000110",
+        "rec": 1,
+        "desc": "다수결 ↑1 24/33(74%)",
         "current_odds": 1.91
       },
       "22Bet": {
-        "seq": "0000N01110100011N",
-        "rec": 0,
-        "desc": "다수결 ↓0 24/29(82%)",
+        "seq": "0000N011101000110",
+        "rec": 1,
+        "desc": "다수결 ↑1 24/33(74%)",
         "current_odds": 1.86
       },
       "Alphabet": {
-        "seq": "0000N01110100011N",
-        "rec": 0,
-        "desc": "다수결 ↓0 25/30(83%)",
+        "seq": "0000N011101000110",
+        "rec": 1,
+        "desc": "다수결 ↑1 25/34(76%)",
         "current_odds": 1.89
       },
       "BetInAsia": {
-        "seq": "0000N00110100011N",
-        "rec": 0,
-        "desc": "다수결 ↓0 27/34(78%)",
+        "seq": "0000N001101000110",
+        "rec": 1,
+        "desc": "다수결 ↑1 24/37(65%)",
         "current_odds": 1.87
       },
       "Bets.io": {
-        "seq": "0000N01110100011N",
-        "rec": 0,
-        "desc": "다수결 ↓0 23/30(75%)",
+        "seq": "0000N011101000110",
+        "rec": 1,
+        "desc": "다수결 ↑1 25/33(78%)",
         "current_odds": 1.81
       },
       "Cloudbet": {
@@ -1696,21 +1696,21 @@
         "current_odds": 1.58
       },
       "GambleCity": {
-        "seq": "0000N01110100011N",
-        "rec": 0,
-        "desc": "다수결 ↓0 24/29(82%)",
+        "seq": "0000N011101000110",
+        "rec": 1,
+        "desc": "다수결 ↑1 24/33(74%)",
         "current_odds": 1.83
       },
       "Kobet": {
-        "seq": "0100N01111100000N",
-        "rec": null,
-        "desc": "균형(22↑:25↓) → 불규칙",
+        "seq": "0100N011111000000",
+        "rec": 0,
+        "desc": "다수결 ↓0 35/46(78%)",
         "current_odds": 1.83
       },
       "Melbet": {
-        "seq": "0000N01110100011N",
-        "rec": 0,
-        "desc": "다수결 ↓0 24/29(82%)",
+        "seq": "0000N011101000110",
+        "rec": 1,
+        "desc": "다수결 ↑1 24/33(74%)",
         "current_odds": 1.86
       },
       "Momobet": {
@@ -1738,21 +1738,21 @@
         "current_odds": 1.89
       },
       "bwin": {
-        "seq": "0000N001101000N1N",
+        "seq": "0000N001101000N10",
         "rec": null,
         "desc": "데이터 부족",
         "current_odds": 1.83
       }
     },
-    "recommendation": "HOME(1)",
-    "confidence": 1.0,
-    "pattern_reason": "배당↓팀이김 12/12(100%) : Lotte Giants (팀패턴충돌: 홈 패 패턴(85%) (원정 불규칙) ※정배패턴충돌(역배승 18경기(원정정배)))",
+    "recommendation": "AWAY(0)",
+    "confidence": 0.615,
+    "pattern_reason": "배당↑팀이김 8/13(62%) : KIA Tigers (팀패턴일치: 홈 패 패턴(85%) (원정 불규칙) ※정배패턴충돌(역배승 18경기(원정정배)))",
     "home_win_desc": "다수결 ↓0 52/65(79%)",
     "away_win_desc": "균형(45↑:34↓) → 불규칙",
-    "bm_label": "배당↓팀이김 12/12(100%) : Lotte Giants",
-    "bm_dir_vote": 0,
-    "bm_team_rec": 1,
-    "bm_dir_ratio": 1.0,
+    "bm_label": "배당↑팀이김 8/13(62%) : KIA Tigers",
+    "bm_dir_vote": 1,
+    "bm_team_rec": 0,
+    "bm_dir_ratio": 0.615,
     "ml_home_prob": 0.535,
     "ml_away_prob": 0.465,
     "home_pattern_log": [
@@ -2510,39 +2510,39 @@
     "home_is_fav": false,
     "slot_bm": {
       "10x10bet": {
-        "seq": "1011101000111P0NN",
-        "rec": 1,
-        "desc": "다수결 ↑1 46/65(71%)",
+        "seq": "1011101000111P0N1",
+        "rec": null,
+        "desc": "데이터 부족",
         "current_odds": 2.71
       },
       "1xBet": {
-        "seq": "0011101000111P0NN",
-        "rec": 1,
-        "desc": "다수결 ↑1 45/64(70%)",
+        "seq": "0011101000111P0N1",
+        "rec": null,
+        "desc": "데이터 부족",
         "current_odds": 2.63
       },
       "22Bet": {
-        "seq": "0011101000111P0NN",
-        "rec": 1,
-        "desc": "다수결 ↑1 45/64(70%)",
+        "seq": "0011101000111P0N1",
+        "rec": null,
+        "desc": "데이터 부족",
         "current_odds": 2.56
       },
       "Alphabet": {
-        "seq": "1011101001101P0NN",
-        "rec": 1,
-        "desc": "다수결 ↑1 56/61(91%)",
+        "seq": "1011101001101P0N1",
+        "rec": null,
+        "desc": "데이터 부족",
         "current_odds": 2.71
       },
       "BetInAsia": {
-        "seq": "0011101000111P0NN",
-        "rec": 1,
-        "desc": "다수결 ↑1 45/64(70%)",
+        "seq": "0011101000111P0N1",
+        "rec": null,
+        "desc": "데이터 부족",
         "current_odds": 2.65
       },
       "Bets.io": {
-        "seq": "0011101001111P0NN",
+        "seq": "0011101001111P0N1",
         "rec": null,
-        "desc": "균형(22↑:18↓) → 불규칙",
+        "desc": "데이터 부족",
         "current_odds": 2.52
       },
       "Cloudbet": {
@@ -2594,18 +2594,18 @@
         "current_odds": 2.71
       },
       "bwin": {
-        "seq": "1000101000110PNNN",
-        "rec": 1,
-        "desc": "다수결 ↑1 21/36(58%)",
+        "seq": "1000101000110PNN1",
+        "rec": null,
+        "desc": "데이터 부족",
         "current_odds": 2.55
       }
     },
     "recommendation": "HOME(1)",
     "confidence": 1.0,
-    "pattern_reason": "배당↑팀이김 11/11(100%) : Kiwoom Heroes (팀패턴충돌: 홈 패 패턴(85%) + 원정 승 패턴(85%) ※정배패턴충돌(역배승 18경기(원정정배)))",
+    "pattern_reason": "배당↑팀이김 5/5(100%) : Kiwoom Heroes (팀패턴충돌: 홈 패 패턴(85%) + 원정 승 패턴(85%) ※정배패턴충돌(역배승 18경기(원정정배)))",
     "home_win_desc": "다수결 ↓0 50/67(71%)",
     "away_win_desc": "다수결 ↑1 63/89(69%)",
-    "bm_label": "배당↑팀이김 11/11(100%) : Kiwoom Heroes",
+    "bm_label": "배당↑팀이김 5/5(100%) : Kiwoom Heroes",
     "bm_dir_vote": 1,
     "bm_team_rec": 1,
     "bm_dir_ratio": 1.0,
@@ -3426,39 +3426,39 @@
     "home_is_fav": true,
     "slot_bm": {
       "10x10bet": {
-        "seq": "00111101101N0100N",
-        "rec": null,
-        "desc": "균형(2↑:2↓) → 불규칙",
+        "seq": "00111101101N01001",
+        "rec": 0,
+        "desc": "다수결 ↓0 11/12(92%)",
         "current_odds": 1.89
       },
       "1xBet": {
-        "seq": "01101001001N0101N",
-        "rec": 0,
-        "desc": "다수결 ↓0 8/9(88%)",
+        "seq": "01101001001N01011",
+        "rec": null,
+        "desc": "균형(3↑:3↓) → 불규칙",
         "current_odds": 1.92
       },
       "22Bet": {
-        "seq": "01101001001N0101N",
-        "rec": 0,
-        "desc": "다수결 ↓0 8/9(88%)",
+        "seq": "01101001001N01011",
+        "rec": null,
+        "desc": "균형(3↑:3↓) → 불규칙",
         "current_odds": 1.87
       },
       "Alphabet": {
-        "seq": "01111101101N0100N",
+        "seq": "01111101101N01001",
         "rec": 0,
-        "desc": "다수결 ↓0 3/4(77%)",
+        "desc": "다수결 ↓0 11/12(92%)",
         "current_odds": 1.89
       },
       "BetInAsia": {
-        "seq": "01101001001N0101N",
+        "seq": "01101001001N01011",
         "rec": 0,
-        "desc": "다수결 ↓0 8/9(88%)",
+        "desc": "다수결 ↓0 4/6(66%)",
         "current_odds": 1.87
       },
       "Bets.io": {
-        "seq": "00111101101N0101N",
+        "seq": "00111101101N01011",
         "rec": 0,
-        "desc": "다수결 ↓0 8/9(88%)",
+        "desc": "다수결 ↓0 5/7(71%)",
         "current_odds": 1.8
       },
       "Cloudbet": {
@@ -3510,7 +3510,7 @@
         "current_odds": 1.89
       },
       "bwin": {
-        "seq": "00101110001N10N1N",
+        "seq": "00101110001N10N11",
         "rec": null,
         "desc": "데이터 부족",
         "current_odds": 1.83
@@ -3518,10 +3518,10 @@
     },
     "recommendation": "HOME(1)",
     "confidence": 1.0,
-    "pattern_reason": "배당↓팀이김 10/10(100%) : NC Dinos (팀패턴일치: 홈 승 패턴(78%) (원정 불규칙) ※정배패턴충돌(역배승 18경기(홈정배)))",
+    "pattern_reason": "배당↓팀이김 9/9(100%) : NC Dinos (팀패턴일치: 홈 승 패턴(78%) (원정 불규칙) ※정배패턴충돌(역배승 18경기(홈정배)))",
     "home_win_desc": "다수결 ↑1 41/68(61%)",
     "away_win_desc": "균형(33↑:30↓) → 불규칙",
-    "bm_label": "배당↓팀이김 10/10(100%) : NC Dinos",
+    "bm_label": "배당↓팀이김 9/9(100%) : NC Dinos",
     "bm_dir_vote": 0,
     "bm_team_rec": 1,
     "bm_dir_ratio": 1.0,
