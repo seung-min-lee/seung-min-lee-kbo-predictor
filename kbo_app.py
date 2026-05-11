@@ -196,13 +196,13 @@ html, body, [data-testid="stAppViewContainer"] {
     justify-content: space-between;
     margin-top: 4px;
 }
-.rec-home { background: linear-gradient(90deg, rgba(68,221,170,.15), rgba(68,221,170,.05)); border: 1px solid rgba(68,221,170,.3); }
-.rec-away { background: linear-gradient(90deg, rgba(255,68,102,.05), rgba(255,68,102,.15)); border: 1px solid rgba(255,68,102,.3); }
-.rec-pass { background: rgba(80,80,120,.15); border: 1px solid rgba(80,80,120,.3); }
+.rec-home { background: linear-gradient(90deg, rgba(0,180,120,.12), rgba(0,180,120,.04)); border: 2px solid rgba(0,160,100,.4); }
+.rec-away { background: linear-gradient(90deg, rgba(220,40,80,.04), rgba(220,40,80,.12)); border: 2px solid rgba(200,30,60,.4); }
+.rec-pass { background: rgba(100,120,180,.1); border: 2px solid rgba(80,100,160,.35); }
 .rec-label { font-family: 'Black Han Sans', sans-serif; font-size: 1.1rem; }
-.rec-label-home { color: #44ddaa; }
-.rec-label-away { color: #ff4466; }
-.rec-label-pass { color: #7788aa; }
+.rec-label-home { color: #007755; }
+.rec-label-away { color: #cc1133; }
+.rec-label-pass { color: #556688; }
 .conf-bar-wrap { flex: 1; margin: 0 16px; }
 .conf-bar-bg { background: #dde4f0; border-radius: 4px; height: 6px; }
 .conf-bar-fill { height: 6px; border-radius: 4px; }
@@ -911,7 +911,7 @@ else:
             h_n    = round(h_pct * bm_cnt)
             a_n    = bm_cnt - h_n
             bm_bar_html = f"""
-  <div style="margin:10px 0 14px;padding:10px 14px;background:#0a0d1a;border-radius:8px;border:1px solid #1a2040">
+  <div style="margin:10px 0 14px;padding:10px 14px;background:#eef2fc;border-radius:8px;border:2px solid #b0c0e0">
     <div style="display:flex;justify-content:space-between;font-size:.75rem;color:#556688;margin-bottom:6px;font-family:'Noto Sans KR',sans-serif">
       <span style="color:{hm['color']}">{hm['abbr']} 홈 지지 {h_n}개 ({h_pct:.0%})</span>
       <span style="color:#334466">북메이커 {bm_cnt}개</span>
@@ -1103,21 +1103,21 @@ else:
             close_note = ' · <span style="color:#44ddaa;font-size:.68rem">close 수집완료</span>' if _has_close else ' · <span style="color:#556688;font-size:.68rem">open만 수집됨 (close 미수집)</span>'
 
             st.markdown(f"""
-<div style="background:#1e2a45;border:1px solid #3a5080;border-radius:10px;padding:16px;margin-bottom:20px">
-  <div style="font-size:.8rem;color:#99bbdd;margin-bottom:6px;font-family:'Noto Sans KR',sans-serif;display:flex;justify-content:space-between;align-items:center">
-    <span>📊 <b style="color:#aaccee">슬롯{pred.get('slot','')} 날짜별 북메이커 배당변동</b>{close_note}</span>
+<div style="background:#f0f4ff;border:2px solid #b0c0e0;border-radius:10px;padding:16px;margin-bottom:20px">
+  <div style="font-size:.8rem;color:#445577;margin-bottom:6px;font-family:'Noto Sans KR',sans-serif;display:flex;justify-content:space-between;align-items:center">
+    <span>📊 <b style="color:#223366">슬롯{pred.get('slot','')} 날짜별 북메이커 배당변동</b>{close_note}</span>
     <span>{trend_txt}</span>
   </div>
-  <div style="font-size:.68rem;color:#7799bb;margin-bottom:10px">
+  <div style="font-size:.68rem;color:#667799;margin-bottom:10px">
     1 = 이긴 팀 배당변동이 진 팀보다 컸음(상승) &nbsp;|&nbsp; 0 = 이긴 팀 배당변동이 진 팀보다 작았음(하락)
-    &nbsp;&nbsp;|&nbsp;&nbsp; 배당 컬럼: open <span style="color:#7799bb">→</span> close (↑상승 ↓하락)
+    &nbsp;&nbsp;|&nbsp;&nbsp; 배당 컬럼: open <span style="color:#667799">→</span> close (↑상승 ↓하락)
   </div>
   <table style="width:100%;border-collapse:collapse;font-size:.8rem">
     <thead>
-      <tr style="border-bottom:2px solid #4a6090">
-        <th style="text-align:left;color:#88aacc;padding:4px 8px;font-size:.72rem">북메이커</th>
-        <th style="color:#aaccee;padding:4px 8px;font-size:.72rem">예측 &amp; 시퀀스</th>
-        <th style="color:#88aacc;padding:4px 8px;font-size:.72rem">패턴</th>
+      <tr style="border-bottom:2px solid #99aad0">
+        <th style="text-align:left;color:#445577;padding:4px 8px;font-size:.72rem">북메이커</th>
+        <th style="color:#223366;padding:4px 8px;font-size:.72rem">예측 &amp; 시퀀스</th>
+        <th style="color:#445577;padding:4px 8px;font-size:.72rem">패턴</th>
         <th style="color:{hm['color']};padding:4px 8px;font-size:.72rem;text-align:right">{hm['abbr']} 홈배당</th>
         <th style="color:{am['color']};padding:4px 8px;font-size:.72rem;text-align:right">{am['abbr']} 원정배당</th>
       </tr>
@@ -1231,7 +1231,7 @@ if len(log_df) > 0:
             st.markdown(f"""
 <div style="display:flex;align-items:center;gap:10px;margin-bottom:6px;font-family:'Noto Sans KR',sans-serif;font-size:.82rem">
   <span style="color:#556688;min-width:50px">SLOT {int(r['slot'])}</span>
-  <div style="flex:1;background:#131330;border-radius:4px;height:8px">
+  <div style="flex:1;background:#d8e0f0;border-radius:4px;height:8px">
     <div style="width:{r['acc']*100:.0f}%;background:{color};height:8px;border-radius:4px"></div>
   </div>
   <span style="color:{color};min-width:60px;text-align:right">{int(r['sum'])}/{int(r['count'])} ({r['acc']:.0%})</span>
@@ -1251,7 +1251,7 @@ if len(log_df) > 0:
             st.markdown(f"""
 <div style="display:flex;align-items:center;gap:10px;margin-bottom:6px;font-family:'Noto Sans KR',sans-serif;font-size:.82rem">
   <span style="color:#556688;min-width:60px">{lbl}</span>
-  <div style="flex:1;background:#131330;border-radius:4px;height:8px">
+  <div style="flex:1;background:#d8e0f0;border-radius:4px;height:8px">
     <div style="width:{b_acc*100:.0f}%;background:{color};height:8px;border-radius:4px"></div>
   </div>
   <span style="color:{color};min-width:60px;text-align:right">{int(b['correct'].sum())}/{len(b)} ({b_acc:.0%})</span>
