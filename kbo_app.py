@@ -470,12 +470,40 @@ def failure_reason(row):
 
     return reasons
 
+DUEL_PIN = st.secrets.get("DUEL_PIN", "")
+
 def render_duel_page(predictions, log_df):
     user_preds = load_user_predictions()
     sorted_preds = sorted(predictions.values(), key=lambda x: x.get('slot', 99))
 
     st.markdown('<div class="section-title">🥊 예측 대결 &nbsp;<span style="color:#445566;font-size:.85rem;font-family:sans-serif">User vs Model</span></div>', unsafe_allow_html=True)
-    st.info("각 경기에서 홈승/원정승/PASS를 클릭하면 User 예측이 저장됩니다. 결과가 검증 로그에 들어오면 자동으로 스코어를 계산합니다.")
+
+    # ── PIN 인증 ─────────────────────────────────────────────
+    if 'duel_authed' not in st.session_state:
+        st.session_state.duel_authed = False
+
+    authed = st.session_state.duel_authed
+    if DUEL_PIN:
+        if not authed:
+            with st.form("pin_form", clear_on_submit=True):
+                pin_input = st.text_input("PIN 입력", type="password", placeholder="관리자 PIN")
+                if st.form_submit_button("확인"):
+                    if pin_input == DUEL_PIN:
+                        st.session_state.duel_authed = True
+                        st.rerun()
+                    else:
+                        st.error("PIN이 올바르지 않습니다.")
+        else:
+            col_info, col_logout = st.columns([5, 1])
+            with col_info:
+                st.info("각 경기에서 홈승/원정승/PASS를 클릭하면 User 예측이 저장됩니다. 결과가 검증 로그에 들어오면 자동으로 스코어를 계산합니다.")
+            with col_logout:
+                if st.button("로그아웃", use_container_width=True):
+                    st.session_state.duel_authed = False
+                    st.rerun()
+    else:
+        authed = True
+        st.info("각 경기에서 홈승/원정승/PASS를 클릭하면 User 예측이 저장됩니다. 결과가 검증 로그에 들어오면 자동으로 스코어를 계산합니다.")
 
     if not sorted_preds:
         st.warning("예측 데이터가 없습니다. kbo_predict.py를 먼저 실행하세요.")
@@ -524,42 +552,50 @@ def render_duel_page(predictions, log_df):
 """, unsafe_allow_html=True)
 
         c1, c2, c3, c4 = st.columns([1, 1, 1, 2])
-        with c1:
-            if st.button(f"{hm['abbr']} 홈승", key=f"duel_home_{key}", use_container_width=True):
-                user_preds[key] = {
-                    "date": pred.get('pred_date', ''),
-                    "slot": pred.get('slot', ''),
-                    "home": home,
-                    "away": away,
-                    "pick": f"HOME({home})",
-                    "saved_at": datetime.now().isoformat(timespec='seconds'),
-                }
-                save_user_predictions(user_preds)
-                st.rerun()
-        with c2:
-            if st.button(f"{am['abbr']} 원정승", key=f"duel_away_{key}", use_container_width=True):
-                user_preds[key] = {
-                    "date": pred.get('pred_date', ''),
-                    "slot": pred.get('slot', ''),
-                    "home": home,
-                    "away": away,
-                    "pick": f"AWAY({away})",
-                    "saved_at": datetime.now().isoformat(timespec='seconds'),
-                }
-                save_user_predictions(user_preds)
-                st.rerun()
-        with c3:
-            if st.button("PASS", key=f"duel_pass_{key}", use_container_width=True):
-                user_preds[key] = {
-                    "date": pred.get('pred_date', ''),
-                    "slot": pred.get('slot', ''),
-                    "home": home,
-                    "away": away,
-                    "pick": "PASS",
-                    "saved_at": datetime.now().isoformat(timespec='seconds'),
-                }
-                save_user_predictions(user_preds)
-                st.rerun()
+        if authed:
+            with c1:
+                if st.button(f"{hm['abbr']} 홈승", key=f"duel_home_{key}", use_container_width=True):
+                    user_preds[key] = {
+                        "date": pred.get('pred_date', ''),
+                        "slot": pred.get('slot', ''),
+                        "home": home,
+                        "away": away,
+                        "pick": f"HOME({home})",
+                        "saved_at": datetime.now().isoformat(timespec='seconds'),
+                    }
+                    save_user_predictions(user_preds)
+                    st.rerun()
+            with c2:
+                if st.button(f"{am['abbr']} 원정승", key=f"duel_away_{key}", use_container_width=True):
+                    user_preds[key] = {
+                        "date": pred.get('pred_date', ''),
+                        "slot": pred.get('slot', ''),
+                        "home": home,
+                        "away": away,
+                        "pick": f"AWAY({away})",
+                        "saved_at": datetime.now().isoformat(timespec='seconds'),
+                    }
+                    save_user_predictions(user_preds)
+                    st.rerun()
+            with c3:
+                if st.button("PASS", key=f"duel_pass_{key}", use_container_width=True):
+                    user_preds[key] = {
+                        "date": pred.get('pred_date', ''),
+                        "slot": pred.get('slot', ''),
+                        "home": home,
+                        "away": away,
+                        "pick": "PASS",
+                        "saved_at": datetime.now().isoformat(timespec='seconds'),
+                    }
+                    save_user_predictions(user_preds)
+                    st.rerun()
+        else:
+            with c1:
+                st.button(f"{hm['abbr']} 홈승", key=f"duel_home_{key}", use_container_width=True, disabled=True)
+            with c2:
+                st.button(f"{am['abbr']} 원정승", key=f"duel_away_{key}", use_container_width=True, disabled=True)
+            with c3:
+                st.button("PASS", key=f"duel_pass_{key}", use_container_width=True, disabled=True)
         with c4:
             if actual:
                 user_mark = 'O' if user_correct else ('-' if user_team is None else 'X')
