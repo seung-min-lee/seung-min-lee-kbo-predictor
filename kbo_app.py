@@ -40,17 +40,17 @@ st.markdown("""
 @import url('https://fonts.googleapis.com/css2?family=Black+Han+Sans&family=Noto+Sans+KR:wght@400;700;900&display=swap');
 
 html, body, [data-testid="stAppViewContainer"] {
-    background: #f4f6fb !important;
+    background: #1a1a2e !important;
 }
 [data-testid="stAppViewContainer"] > .main {
-    background: #f4f6fb;
+    background: #1a1a2e;
 }
 [data-testid="stHeader"] { background: transparent !important; }
 
 /* 타이틀 */
 .hero-wrap {
-    background: linear-gradient(135deg, #1a1a3a 0%, #2a1040 40%, #102040 100%);
-    border: 1px solid #2a2a5a;
+    background: linear-gradient(135deg, #0d0d1a 0%, #1a0d2e 40%, #0d1a2e 100%);
+    border: 1px solid #2a2a4a;
     border-radius: 16px;
     padding: 32px 40px 24px;
     margin-bottom: 28px;
@@ -60,8 +60,8 @@ html, body, [data-testid="stAppViewContainer"] {
 .hero-wrap::before {
     content: '';
     position: absolute; inset: 0;
-    background: radial-gradient(ellipse at 30% 50%, rgba(180,0,60,.2) 0%, transparent 60%),
-                radial-gradient(ellipse at 75% 50%, rgba(0,80,200,.15) 0%, transparent 60%);
+    background: radial-gradient(ellipse at 30% 50%, rgba(180,0,60,.15) 0%, transparent 60%),
+                radial-gradient(ellipse at 75% 50%, rgba(0,80,200,.12) 0%, transparent 60%);
 }
 .hero-title {
     font-family: 'Black Han Sans', sans-serif;
@@ -96,14 +96,13 @@ html, body, [data-testid="stAppViewContainer"] {
 
 /* 경기 카드 */
 .match-card {
-    background: #ffffff;
-    border: 1px solid #dde2f0;
+    background: linear-gradient(160deg, #111128 0%, #0d1225 100%);
+    border: 1px solid #3a3d6a;
     border-radius: 14px;
     padding: 20px;
     margin-bottom: 20px;
     position: relative;
     overflow: hidden;
-    box-shadow: 0 2px 12px rgba(0,0,0,.07);
 }
 .match-card::after {
     content: '';
@@ -134,7 +133,7 @@ html, body, [data-testid="stAppViewContainer"] {
 }
 .team-name {
     font-size: .72rem;
-    color: #556688;
+    color: #8899bb;
     margin-top: 4px;
     font-family: 'Noto Sans KR', sans-serif;
 }
@@ -143,7 +142,7 @@ html, body, [data-testid="stAppViewContainer"] {
     text-align: center;
     font-family: 'Black Han Sans', sans-serif;
     font-size: 1.1rem;
-    color: #99aabb;
+    color: #444466;
 }
 
 /* 시퀀스 테이블 */
@@ -155,23 +154,23 @@ html, body, [data-testid="stAppViewContainer"] {
     margin-bottom: 14px;
 }
 .seq-table th {
-    color: #445577;
+    color: #556688;
     font-weight: 600;
     font-size: .73rem;
     text-align: center;
     padding: 5px 8px;
-    border-bottom: 1px solid #dde4f0;
+    border-bottom: 2px solid #3a4070;
     white-space: nowrap;
 }
 .seq-table td {
     padding: 7px 8px;
     text-align: center;
-    border-bottom: 1px solid #eef0f8;
-    color: #223355;
+    border-bottom: 1px solid #2a2d50;
+    color: #ccd8ee;
 }
 .seq-table td:first-child {
     text-align: left;
-    color: #556688;
+    color: #7788aa;
     font-size: .75rem;
     white-space: nowrap;
 }
@@ -204,41 +203,41 @@ html, body, [data-testid="stAppViewContainer"] {
 .rec-label-away { color: #ff4466; }
 .rec-label-pass { color: #7788aa; }
 .conf-bar-wrap { flex: 1; margin: 0 16px; }
-.conf-bar-bg { background: #dde4f0; border-radius: 4px; height: 6px; }
+.conf-bar-bg { background: #1a2040; border-radius: 4px; height: 6px; }
 .conf-bar-fill { height: 6px; border-radius: 4px; }
-.conf-text { font-size: .78rem; color: #556688; margin-top: 3px; text-align: right; }
-.ml-info { font-size: .75rem; color: #667799; text-align: right; white-space: nowrap; }
+.conf-text { font-size: .78rem; color: #8899bb; margin-top: 3px; text-align: right; }
+.ml-info { font-size: .75rem; color: #556688; text-align: right; white-space: nowrap; }
 .explain-box {
-    background: #eef2fc;
-    border: 1px solid #c8d4ee;
+    background: linear-gradient(160deg, #10172f, #0c1328);
+    border: 1px solid #2d426f;
     border-radius: 10px;
     padding: 16px 18px;
     margin: 0 0 18px;
     font-family: 'Noto Sans KR', sans-serif;
-    box-shadow: 0 2px 10px rgba(0,0,0,.06);
+    box-shadow: 0 10px 28px rgba(0,0,0,.22);
 }
 .explain-title {
-    color: #1a2a4a;
+    color: #e6efff;
     font-size: .92rem;
     font-weight: 900;
     margin-bottom: 10px;
     letter-spacing: .3px;
 }
 .explain-line {
-    color: #334466;
+    color: #c4d2ee;
     font-size: .86rem;
     line-height: 1.75;
     margin-bottom: 4px;
 }
-.explain-line b { color: #112233; font-weight: 900; }
-.explain-good { color: #009966; font-weight: 900; }
-.explain-warn { color: #cc7700; font-weight: 900; }
+.explain-line b { color: #ffffff; font-weight: 900; }
+.explain-good { color: #5dffca; font-weight: 900; }
+.explain-warn { color: #ffaa00; font-weight: 900; }
 
 /* 섹션 헤더 */
 .section-title {
     font-family: 'Black Han Sans', sans-serif;
     font-size: 1.2rem;
-    color: #223366;
+    color: #aabbdd;
     letter-spacing: 1px;
     margin: 28px 0 14px;
     padding-left: 12px;
@@ -247,12 +246,11 @@ html, body, [data-testid="stAppViewContainer"] {
 
 /* 스탯 카드 */
 .stat-card {
-    background: #ffffff;
-    border: 1px solid #dde2f0;
+    background: linear-gradient(160deg, #111128, #0d1225);
+    border: 1px solid #3a3d6a;
     border-radius: 12px;
     padding: 18px;
     text-align: center;
-    box-shadow: 0 2px 8px rgba(0,0,0,.06);
 }
 .stat-num {
     font-family: 'Black Han Sans', sans-serif;
@@ -261,7 +259,7 @@ html, body, [data-testid="stAppViewContainer"] {
 }
 .stat-label {
     font-size: .75rem;
-    color: #556688;
+    color: #7788aa;
     margin-top: 4px;
     font-family: 'Noto Sans KR', sans-serif;
 }
@@ -274,8 +272,8 @@ html, body, [data-testid="stAppViewContainer"] {
     padding: 8px 12px;
     border-radius: 8px;
     margin-bottom: 6px;
-    background: #f0f4ff;
-    border: 1px solid #dde4f0;
+    background: #0d1020;
+    border: 1px solid #2e3060;
     font-family: 'Noto Sans KR', sans-serif;
     font-size: .8rem;
 }
@@ -911,7 +909,7 @@ else:
             h_n    = round(h_pct * bm_cnt)
             a_n    = bm_cnt - h_n
             bm_bar_html = f"""
-  <div style="margin:10px 0 14px;padding:10px 14px;background:#f0f4ff;border-radius:8px;border:1px solid #dde4f0">
+  <div style="margin:10px 0 14px;padding:10px 14px;background:#0a0d1a;border-radius:8px;border:1px solid #1a2040">
     <div style="display:flex;justify-content:space-between;font-size:.75rem;color:#556688;margin-bottom:6px;font-family:'Noto Sans KR',sans-serif">
       <span style="color:{hm['color']}">{hm['abbr']} 홈 지지 {h_n}개 ({h_pct:.0%})</span>
       <span style="color:#334466">북메이커 {bm_cnt}개</span>
