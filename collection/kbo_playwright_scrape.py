@@ -503,6 +503,16 @@ def main():
     filled = int(miss_w.sum() - df['winner_direction'].isna().sum())
     _atomic_csv(CSV_PATH, df)
 
+    # odds.csv 날짜별 스냅샷 (롤백용)
+    import os as _os2
+    snap_dir = 'snapshots'
+    _os2.makedirs(snap_dir, exist_ok=True)
+    snap_date = _dt.now().strftime('%Y-%m-%d')
+    snap_odds = f'{snap_dir}/kbo_odds_{snap_date}.csv'
+    if not _os2.path.exists(snap_odds):
+        _atomic_csv(snap_odds, df)
+        print(f'odds 스냅샷 저장: {snap_odds}')
+
     if updated > 0 or filled > 0:
         print(f'\n완료: 업데이트 {updated}건, direction 재계산 {filled}건 → {CSV_PATH} 저장')
     else:

@@ -6,6 +6,7 @@ import html
 import base64
 import requests
 import threading
+import queue
 from datetime import datetime
 
 st.set_page_config(
@@ -376,10 +377,29 @@ def load_user_predictions():
     except (json.JSONDecodeError, OSError):
         return {}
 
-def _gh_save_worker(data, token, url):
+# 백그라운드 스레드 → 메인 스레드 에러 전달용 큐
+_save_error_queue: queue.Queue = queue.Queue()
+
+def _report_github_issue(token: str, repo: str, title: str, body: str):
+    """GitHub Issue로 크리티컬 에러 알림 — 중복 방지(같은 제목 열린 이슈 있으면 스킵)"""
+    headers = {"Authorization": f"token {token}", "Content-Type": "application/json"}
+    base = f"https://api.github.com/repos/{repo}"
+    try:
+        existing = requests.get(f"{base}/issues?state=open&per_page=10", headers=headers, timeout=10)
+        if existing.status_code == 200:
+            for issue in existing.json():
+                if issue.get('title') == title:
+                    return  # 이미 열린 이슈 있음
+        requests.post(f"{base}/issues", headers=headers,
+                      json={"title": title, "body": body}, timeout=10)
+    except Exception:
+        pass
+
+def _gh_save_worker(data, token, url, repo):
     """GitHub API 저장 — 백그라운드 스레드에서 실행"""
     headers = {"Authorization": f"token {token}", "Content-Type": "application/json"}
     content = base64.b64encode(json.dumps(data, ensure_ascii=False, indent=2).encode('utf-8')).decode('utf-8')
+    last_status = None
     for _ in range(3):
         try:
             r = requests.get(url, headers=headers, timeout=10)
@@ -390,15 +410,19 @@ def _gh_save_worker(data, token, url):
             resp = requests.put(url, headers=headers, json=payload, timeout=10)
             if resp.status_code in (200, 201):
                 return
+            last_status = resp.status_code
             if resp.status_code != 409:
-                break  # 409 외 오류는 재시도 무의미
-        except Exception:
+                break
+        except Exception as e:
+            last_status = str(e)
             break
+    # 저장 실패 — 큐에 넣어 다음 렌더에서 표시
+    _save_error_queue.put(f"예측 저장 실패 (상태: {last_status}). 다시 클릭하세요.")
 
 def save_user_predictions(data):
     if GITHUB_TOKEN:
         url = f"https://api.github.com/repos/{GITHUB_REPO}/contents/{GITHUB_FILE}"
-        t = threading.Thread(target=_gh_save_worker, args=(data, GITHUB_TOKEN, url), daemon=True)
+        t = threading.Thread(target=_gh_save_worker, args=(data, GITHUB_TOKEN, url, GITHUB_REPO), daemon=True)
         t.start()
         return
     try:
@@ -722,9 +746,27 @@ def render_duel_page(predictions, log_df):
     with s4:
         st.markdown(f"<div class='stat-card'><div class='stat-num' style='color:#ff4466'>{m_acc:.0%}</div><div class='stat-label'>AI 정확도</div></div>", unsafe_allow_html=True)
 
+# ── 백그라운드 저장 에러 표시 ────────────────────────────
+while not _save_error_queue.empty():
+    st.warning(_save_error_queue.get_nowait())
+
 predictions  = load_predictions()
 log_df       = load_log()
 today_odds_d = load_today_odds()
+
+# ── 앱 크래시 알림 함수 ──────────────────────────────────
+def _report_crash(exc: Exception):
+    """처리되지 않은 예외를 GitHub Issue로 보고"""
+    if not GITHUB_TOKEN:
+        return
+    import traceback
+    title = f"[앱 오류] {type(exc).__name__}: {str(exc)[:80]}"
+    body = f"**발생 시각**: {datetime.now().isoformat()}\n\n```\n{traceback.format_exc()}\n```"
+    threading.Thread(
+        target=_report_github_issue,
+        args=(GITHUB_TOKEN, GITHUB_REPO, title, body),
+        daemon=True
+    ).start()
 
 # ── 헬스체크 사이드바 ─────────────────────────────────────
 with st.sidebar:
@@ -746,7 +788,18 @@ with st.sidebar:
 
     odds_ok = bool(today_odds_d)
     st.markdown(f"{'🟢' if odds_ok else '🟡'} 오늘배당: {'수집됨' if odds_ok else '없음'}")
-    st.caption(f"기준: {today_str_hc}")
+
+    last_ok = st.session_state.get('last_ok', '—')
+    st.caption(f"기준: {today_str_hc}\n마지막 정상 렌더: {last_ok}")
+
+    st.divider()
+    if st.button("오류 신고 (GitHub Issue)", use_container_width=True):
+        _report_github_issue(
+            GITHUB_TOKEN, GITHUB_REPO,
+            f"[수동 신고] 앱 오류 — {today_str_hc}",
+            f"사용자가 수동으로 오류를 신고했습니다.\n\n**시각**: {datetime.now().isoformat()}\n**마지막 정상 렌더**: {last_ok}"
+        )
+        st.success("신고 완료")
 
 # ── 헤더 ─────────────────────────────────────────────────
 st.markdown("""
@@ -1363,3 +1416,8 @@ st.markdown("""
   KBO Prediction Engine &nbsp;|&nbsp; Pattern Analysis + RandomForest ML &nbsp;|&nbsp; 2026
 </div>
 """, unsafe_allow_html=True)
+
+# ── 크래시 감지 ───────────────────────────────────────────
+# Streamlit은 예외 발생 시 st.exception()으로 표시하므로
+# session_state에 마지막 정상 렌더 시각을 기록해 헬스체크에 활용
+st.session_state['last_ok'] = datetime.now().isoformat(timespec='seconds')

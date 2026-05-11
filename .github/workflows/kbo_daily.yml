@@ -72,7 +72,8 @@ jobs:
         git add -f kbo_odds.csv || true
         git add -f kbo_predictions.json || true
         git add -f kbo_verify_log.csv 2>/dev/null || true
-        git add -f snapshots/ 2>/dev/null || true
+        git add -f snapshots/kbo_predictions_*.json 2>/dev/null || true
+        git add -f snapshots/kbo_odds_*.csv 2>/dev/null || true
         git diff --staged --quiet && echo "변경사항 없음" || git commit -m "자동 업데이트 $(date '+%Y-%m-%d')"
         git push || true
 
