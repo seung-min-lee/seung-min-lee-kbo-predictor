@@ -298,38 +298,53 @@ TODAY_ODDS_PATH = 'kbo_today_odds.json'
 def load_today_odds():
     if not os.path.exists(TODAY_ODDS_PATH):
         return {}
-    with open(TODAY_ODDS_PATH, 'r', encoding='utf-8') as f:
-        return json.load(f)
+    try:
+        with open(TODAY_ODDS_PATH, 'r', encoding='utf-8') as f:
+            return json.load(f)
+    except (json.JSONDecodeError, OSError):
+        return {}
+
+_BM_REQUIRED_COLS = {'match_id', 'date', 'home', 'away', 'winner_is_home', 'bookmaker', 'consensus'}
 
 @st.cache_data(ttl=30)
 def load_bm_data():
-    """북메이커 집계 데이터 로드"""
     if not os.path.exists('kbo_odds.csv'):
         return pd.DataFrame()
-    df = pd.read_csv('kbo_odds.csv')
-    date_map = {d: i for i, d in enumerate(sorted(df['date'].dropna().unique()))}
-    df['date_order'] = df['date'].map(date_map)
-    meta = df.drop_duplicates('match_id')[
-        ['match_id', 'date', 'date_order', 'home', 'away', 'winner_is_home']
-    ].set_index('match_id')
-    agg = df.groupby('match_id').agg(
-        bm_count=('bookmaker', 'count'),
-        home_pct=('consensus', lambda x: (x == 'home').mean()),
-    )
-    return meta.join(agg).reset_index().sort_values('date_order').reset_index(drop=True)
+    try:
+        df = pd.read_csv('kbo_odds.csv')
+        if not _BM_REQUIRED_COLS.issubset(df.columns):
+            return pd.DataFrame()
+        date_map = {d: i for i, d in enumerate(sorted(df['date'].dropna().unique()))}
+        df['date_order'] = df['date'].map(date_map)
+        meta = df.drop_duplicates('match_id')[
+            ['match_id', 'date', 'date_order', 'home', 'away', 'winner_is_home']
+        ].set_index('match_id')
+        agg = df.groupby('match_id').agg(
+            bm_count=('bookmaker', 'count'),
+            home_pct=('consensus', lambda x: (x == 'home').mean()),
+        )
+        return meta.join(agg).reset_index().sort_values('date_order').reset_index(drop=True)
+    except Exception:
+        return pd.DataFrame()
 
 @st.cache_data(ttl=30)
 def load_predictions():
     if not os.path.exists(PRED_PATH):
         return {}
-    with open(PRED_PATH, 'r', encoding='utf-8') as f:
-        return json.load(f)
+    try:
+        with open(PRED_PATH, 'r', encoding='utf-8') as f:
+            return json.load(f)
+    except (json.JSONDecodeError, OSError):
+        return {}
 
 @st.cache_data(ttl=30)
 def load_log():
     if not os.path.exists(LOG_PATH):
         return pd.DataFrame()
-    df = pd.read_csv(LOG_PATH)
+    try:
+        df = pd.read_csv(LOG_PATH)
+    except Exception:
+        return pd.DataFrame()
     # 'True'/'False' 문자열 → 1/0, 그 외 pd.to_numeric 처리
     if 'correct' in df.columns:
         df['correct'] = df['correct'].map(
@@ -343,30 +358,51 @@ def _gh_headers():
 
 def load_user_predictions():
     if GITHUB_TOKEN:
-        url = f"https://api.github.com/repos/{GITHUB_REPO}/contents/{GITHUB_FILE}"
-        r = requests.get(url, headers=_gh_headers(), timeout=10)
-        if r.status_code == 200:
-            content = base64.b64decode(r.json()['content']).decode('utf-8')
-            return json.loads(content)
+        try:
+            url = f"https://api.github.com/repos/{GITHUB_REPO}/contents/{GITHUB_FILE}"
+            r = requests.get(url, headers=_gh_headers(), timeout=10)
+            if r.status_code == 200:
+                content = base64.b64decode(r.json()['content']).decode('utf-8')
+                return json.loads(content)
+        except Exception:
+            pass
         return {}
     if not os.path.exists(USER_PRED_PATH):
         return {}
-    with open(USER_PRED_PATH, 'r', encoding='utf-8') as f:
-        return json.load(f)
+    try:
+        with open(USER_PRED_PATH, 'r', encoding='utf-8') as f:
+            return json.load(f)
+    except (json.JSONDecodeError, OSError):
+        return {}
 
 def save_user_predictions(data):
     if GITHUB_TOKEN:
         url = f"https://api.github.com/repos/{GITHUB_REPO}/contents/{GITHUB_FILE}"
-        r = requests.get(url, headers=_gh_headers(), timeout=10)
-        sha = r.json().get('sha') if r.status_code == 200 else None
-        content = base64.b64encode(json.dumps(data, ensure_ascii=False, indent=2).encode('utf-8')).decode('utf-8')
-        payload = {"message": "update user predictions", "content": content, "branch": "main"}
-        if sha:
-            payload["sha"] = sha
-        requests.put(url, headers=_gh_headers(), json=payload, timeout=10)
+        for attempt in range(3):
+            try:
+                r = requests.get(url, headers=_gh_headers(), timeout=10)
+                sha = r.json().get('sha') if r.status_code == 200 else None
+                content = base64.b64encode(json.dumps(data, ensure_ascii=False, indent=2).encode('utf-8')).decode('utf-8')
+                payload = {"message": "update user predictions", "content": content, "branch": "main"}
+                if sha:
+                    payload["sha"] = sha
+                resp = requests.put(url, headers=_gh_headers(), json=payload, timeout=10)
+                if resp.status_code in (200, 201):
+                    return
+                if resp.status_code == 409:
+                    continue  # sha 충돌 → 최신 sha 다시 읽어 재시도
+                st.warning(f"예측 저장 실패 (HTTP {resp.status_code}). 잠시 후 다시 시도하세요.")
+                return
+            except Exception as e:
+                st.warning(f"예측 저장 중 오류: {e}")
+                return
+        st.warning("예측 저장에 반복 실패했습니다 (충돌). 잠시 후 다시 클릭하세요.")
         return
-    with open(USER_PRED_PATH, 'w', encoding='utf-8') as f:
-        json.dump(data, f, ensure_ascii=False, indent=2)
+    try:
+        with open(USER_PRED_PATH, 'w', encoding='utf-8') as f:
+            json.dump(data, f, ensure_ascii=False, indent=2)
+    except OSError as e:
+        st.warning(f"예측 저장 실패: {e}")
 
 def make_match_key(pred):
     return f"{pred.get('pred_date', '')}|{pred.get('slot', '')}|{pred.get('home', '')}|{pred.get('away', '')}"
@@ -781,6 +817,9 @@ if not predictions:
     st.warning("예측 데이터가 없습니다. kbo_predict.py를 먼저 실행하세요.")
 else:
     pred_date_raw = next(iter(predictions.values())).get('pred_date', '')
+    today_str = datetime.now().strftime('%Y-%m-%d')
+    if pred_date_raw and str(pred_date_raw)[:10] != today_str:
+        st.warning(f"⚠️ 예측 데이터가 오늘({today_str}) 기준이 아닙니다 (저장일: {str(pred_date_raw)[:10]}). kbo_predict.py를 다시 실행하세요.")
     st.markdown(f'<div class="section-title">📅 예측 경기 &nbsp;<span style="color:#445566;font-size:.85rem;font-family:sans-serif">{pred_date_raw}</span></div>', unsafe_allow_html=True)
 
     def render_seq(seq_str):
