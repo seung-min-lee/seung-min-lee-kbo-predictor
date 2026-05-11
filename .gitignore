@@ -37,3 +37,4 @@
 !.github/workflows/kbo_daily.yml
 !.streamlit/
 !.streamlit/config.toml
+.streamlit/secrets.toml

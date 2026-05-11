@@ -393,16 +393,16 @@ def save_user_predictions(data):
                     continue  # sha 충돌 → 최신 sha 다시 읽어 재시도
                 st.warning(f"예측 저장 실패 (HTTP {resp.status_code}). 잠시 후 다시 시도하세요.")
                 return
-            except Exception as e:
-                st.warning(f"예측 저장 중 오류: {e}")
+            except Exception:
+                st.warning("예측 저장 중 네트워크 오류가 발생했습니다. 잠시 후 다시 시도하세요.")
                 return
         st.warning("예측 저장에 반복 실패했습니다 (충돌). 잠시 후 다시 클릭하세요.")
         return
     try:
         with open(USER_PRED_PATH, 'w', encoding='utf-8') as f:
             json.dump(data, f, ensure_ascii=False, indent=2)
-    except OSError as e:
-        st.warning(f"예측 저장 실패: {e}")
+    except OSError:
+        st.warning("예측 저장 실패: 파일 쓰기 오류가 발생했습니다.")
 
 def make_match_key(pred):
     return f"{pred.get('pred_date', '')}|{pred.get('slot', '')}|{pred.get('home', '')}|{pred.get('away', '')}"
