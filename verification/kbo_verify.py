@@ -1,9 +1,34 @@
 import json
 import pandas as pd
 import os
+import tempfile
 from datetime import datetime
 import warnings
 warnings.filterwarnings('ignore')
+
+def atomic_write_json(path, data):
+    """임시 파일에 쓴 뒤 원자적으로 교체 — 쓰다 죽어도 원본 보존"""
+    dir_ = os.path.dirname(os.path.abspath(path)) or '.'
+    fd, tmp = tempfile.mkstemp(dir=dir_, suffix='.tmp')
+    try:
+        with os.fdopen(fd, 'w', encoding='utf-8') as f:
+            json.dump(data, f, ensure_ascii=False, indent=2)
+        os.replace(tmp, path)
+    except Exception:
+        os.unlink(tmp)
+        raise
+
+def atomic_write_csv(path, df, **kwargs):
+    """임시 파일에 쓴 뒤 원자적으로 교체"""
+    dir_ = os.path.dirname(os.path.abspath(path)) or '.'
+    fd, tmp = tempfile.mkstemp(dir=dir_, suffix='.tmp')
+    try:
+        with os.fdopen(fd, 'w', encoding='utf-8-sig', newline='') as f:
+            df.to_csv(f, index=False, **kwargs)
+        os.replace(tmp, path)
+    except Exception:
+        os.unlink(tmp)
+        raise
 
 _root = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 os.chdir(_root)
@@ -132,12 +157,13 @@ for key, pred in predictions.items():
 if new_rows:
     new_df = pd.DataFrame(new_rows)
     log_df = pd.concat([log_df, new_df], ignore_index=True)
-    # 동일 date+slot 중복 방지: 첫 번째 기록 유지
-    log_df = log_df.drop_duplicates(subset=['date', 'slot', 'home', 'away'], keep='first')
-    log_df.to_csv(RESULT_PATH, index=False, encoding='utf-8-sig')
+    # 동일 date+slot 중복 방지: 마지막 기록(최신)을 유지
+    log_df = log_df.drop_duplicates(subset=['date', 'slot', 'home', 'away'], keep='last')
 
-    with open(PRED_PATH, 'w', encoding='utf-8') as f:
-        json.dump(predictions, f, ensure_ascii=False, indent=2)
+    # ① predictions.json 먼저 (verified=True 플래그) — atomic
+    atomic_write_json(PRED_PATH, predictions)
+    # ② 이후 CSV — atomic (①이 성공한 경우에만 도달)
+    atomic_write_csv(RESULT_PATH, log_df)
 
     print(f'\n{len(new_rows)}개 검증 완료 → {RESULT_PATH} 저장')
 else:

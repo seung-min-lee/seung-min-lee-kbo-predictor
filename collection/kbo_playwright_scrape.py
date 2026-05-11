@@ -8,7 +8,19 @@ import os as _os; _os.chdir(_os.path.dirname(_os.path.dirname(_os.path.abspath(_
 from playwright.sync_api import sync_playwright, TimeoutError as PWTimeout
 import pandas as pd
 import time
+import tempfile
 from datetime import datetime as _dt, timedelta as _td
+
+def _atomic_csv(path, df):
+    dir_ = _os.path.dirname(_os.path.abspath(path)) or '.'
+    fd, tmp = tempfile.mkstemp(dir=dir_, suffix='.tmp')
+    try:
+        with _os.fdopen(fd, 'w', encoding='utf-8-sig', newline='') as f:
+            df.to_csv(f, index=False)
+        _os.replace(tmp, path)
+    except Exception:
+        _os.unlink(tmp)
+        raise
 
 CSV_PATH  = 'kbo_odds.csv'
 # 동적 날짜: 최근 LOOKBACK_DAYS 일 이내 open 미수집 경기 보충
@@ -449,7 +461,7 @@ def main():
                     [df, pd.DataFrame(new_rows)], ignore_index=True)
                 _save_df = _save_df.sort_values(
                     ['date', 'slot', 'bookmaker']).reset_index(drop=True)
-                _save_df.to_csv(CSV_PATH, index=False, encoding='utf-8-sig')
+                _atomic_csv(CSV_PATH, _save_df)
                 df = _save_df
                 new_rows.clear()
 
@@ -489,7 +501,7 @@ def main():
             df.loc[wih_false, 'away_close'] > df.loc[wih_false, 'away_open']).astype(int)
 
     filled = int(miss_w.sum() - df['winner_direction'].isna().sum())
-    df.to_csv(CSV_PATH, index=False, encoding='utf-8-sig')
+    _atomic_csv(CSV_PATH, df)
 
     if updated > 0 or filled > 0:
         print(f'\n완료: 업데이트 {updated}건, direction 재계산 {filled}건 → {CSV_PATH} 저장')
@@ -651,7 +663,7 @@ def update_games_csv(next_matches):
     if new_rows:
         gdf = pd.concat([gdf, pd.DataFrame(new_rows)], ignore_index=True)
         gdf = gdf.sort_values(['date', 'slot']).reset_index(drop=True)
-        gdf.to_csv(GAMES_PATH, index=False, encoding='utf-8-sig')
+        _atomic_csv(GAMES_PATH, gdf)
         print(f'  {len(new_rows)}개 경기 추가 → {GAMES_PATH}')
     else:
         print('  신규 경기 없음 (이미 모두 등록)')

@@ -1,4 +1,4 @@
-import os, sys
+import os, sys, tempfile
 
 # Anaconda 환경에서 구버전 sklearn 충돌 방지: 로컬 .deps 우선 로드
 _deps = os.path.join(os.path.dirname(os.path.abspath(__file__)), '.deps')
@@ -1860,14 +1860,24 @@ for i, game in enumerate(upcoming_games):
         'actual':          None,
     }
 
-with open(PRED_PATH, 'w', encoding='utf-8') as f:
-    json.dump(predictions, f, ensure_ascii=False, indent=2)
-print(f'\n예측 저장 완료: {PRED_PATH}')
+def _atomic_json(path, data):
+    dir_ = os.path.dirname(os.path.abspath(path)) or '.'
+    fd, tmp = tempfile.mkstemp(dir=dir_, suffix='.tmp')
+    try:
+        with os.fdopen(fd, 'w', encoding='utf-8') as f:
+            json.dump(data, f, ensure_ascii=False, indent=2)
+        os.replace(tmp, path)
+    except Exception:
+        os.unlink(tmp)
+        raise
 
-# 날짜별 스냅샷 저장 (검증 기준용)
+# ① 스냅샷 먼저 저장 (검증 기준 — 재실행해도 덮이지 않음)
 os.makedirs('snapshots', exist_ok=True)
 snap_path = f'snapshots/kbo_predictions_{pred_date}.json'
 if not os.path.exists(snap_path):
-    with open(snap_path, 'w', encoding='utf-8') as f:
-        json.dump(predictions, f, ensure_ascii=False, indent=2)
+    _atomic_json(snap_path, predictions)
     print(f'스냅샷 저장: {snap_path}')
+
+# ② 메인 예측 파일 저장 (atomic)
+_atomic_json(PRED_PATH, predictions)
+print(f'\n예측 저장 완료: {PRED_PATH}')

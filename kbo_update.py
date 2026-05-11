@@ -3,8 +3,19 @@ from selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 import pandas as pd
-import time, os
+import time, os, tempfile
 from datetime import datetime as _dt, timedelta as _td
+
+def _atomic_csv(path, df):
+    dir_ = os.path.dirname(os.path.abspath(path)) or '.'
+    fd, tmp = tempfile.mkstemp(dir=dir_, suffix='.tmp')
+    try:
+        with os.fdopen(fd, 'w', encoding='utf-8-sig', newline='') as f:
+            df.to_csv(f, index=False)
+        os.replace(tmp, path)
+    except Exception:
+        os.unlink(tmp)
+        raise
 
 def normalize_date(raw):
     """'Today, 25 Apr' / 'Yesterday, 24 Apr' / '21 Apr 2026' → 'YYYY-MM-DD'"""
@@ -439,7 +450,7 @@ try:
         if games_new:
             new_games_df = pd.DataFrame(games_new)
             combined_games = pd.concat([gdf, new_games_df], ignore_index=True) if len(gdf) > 0 else new_games_df
-            combined_games.to_csv(GAMES_PATH, index=False, encoding='utf-8-sig')
+            _atomic_csv(GAMES_PATH, combined_games)
             print(f'kbo_games.csv 일정 추가: {len(games_new)}경기')
             for g in games_new:
                 print(f"  {g['date']} slot{g['slot']} {g['home']} vs {g['away']}")
@@ -556,7 +567,7 @@ if new_rows:
     else:
         combined = new_df
 
-    combined.to_csv(CSV_PATH, index=False, encoding='utf-8-sig')
+    _atomic_csv(CSV_PATH, combined)
     print(f'\n완료: {len(new_rows)}행 추가 (총 {len(combined)}행)')
 else:
     print('\n새 데이터 없음')
