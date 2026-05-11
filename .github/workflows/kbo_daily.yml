@@ -35,10 +35,35 @@ jobs:
       run: python kbo_playwright_scrape.py
 
     - name: 예측 검증
-      run: python kbo_verify.py
+      run: python verification/kbo_verify.py
 
     - name: 다음 경기 예측
       run: python kbo_predict.py
+
+    - name: 데이터 신선도 검증
+      run: |
+        python - <<'EOF'
+        import json, sys
+        from datetime import datetime
+
+        # 예측 파일 날짜 확인
+        with open('kbo_predictions.json') as f:
+            preds = json.load(f)
+        if not preds:
+            print("ERROR: kbo_predictions.json 비어있음")
+            sys.exit(1)
+        pred_date = next(iter(preds.values())).get('pred_date', '')[:10]
+        today = datetime.now().strftime('%Y-%m-%d')
+        if pred_date != today:
+            print(f"WARNING: 예측 날짜 불일치 — 파일:{pred_date} / 오늘:{today}")
+        else:
+            print(f"OK: 예측 날짜 {pred_date} 확인")
+
+        # kbo_odds.csv 행 수 확인
+        import pandas as pd
+        df = pd.read_csv('kbo_odds.csv')
+        print(f"OK: kbo_odds.csv {len(df)}행")
+        EOF
 
     - name: 결과 저장
       run: |
@@ -47,5 +72,12 @@ jobs:
         git add -f kbo_odds.csv || true
         git add -f kbo_predictions.json || true
         git add -f kbo_verify_log.csv 2>/dev/null || true
+        git add -f snapshots/ 2>/dev/null || true
         git diff --staged --quiet && echo "변경사항 없음" || git commit -m "자동 업데이트 $(date '+%Y-%m-%d')"
         git push || true
+
+    - name: 실패 요약 출력
+      if: failure()
+      run: |
+        echo "=== 실패한 스텝이 있습니다 ==="
+        echo "Actions 로그: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}"

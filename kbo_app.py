@@ -726,6 +726,28 @@ predictions  = load_predictions()
 log_df       = load_log()
 today_odds_d = load_today_odds()
 
+# ── 헬스체크 사이드바 ─────────────────────────────────────
+with st.sidebar:
+    st.markdown("**시스템 상태**")
+    today_str_hc = datetime.now().strftime('%Y-%m-%d')
+
+    pred_date_hc = ''
+    if predictions:
+        pred_date_hc = str(next(iter(predictions.values())).get('pred_date', ''))[:10]
+    pred_ok = pred_date_hc == today_str_hc
+    st.markdown(f"{'🟢' if pred_ok else '🔴'} 예측: {pred_date_hc if pred_date_hc else '없음'}")
+
+    if len(log_df) > 0:
+        last_log = str(log_df['date'].iloc[-1])[:10]
+        log_fresh = last_log >= today_str_hc
+        st.markdown(f"{'🟢' if log_fresh else '🟡'} 검증로그: {last_log}")
+    else:
+        st.markdown("🔴 검증로그: 없음")
+
+    odds_ok = bool(today_odds_d)
+    st.markdown(f"{'🟢' if odds_ok else '🟡'} 오늘배당: {'수집됨' if odds_ok else '없음'}")
+    st.caption(f"기준: {today_str_hc}")
+
 # ── 헤더 ─────────────────────────────────────────────────
 st.markdown("""
 <div class="hero-wrap">
