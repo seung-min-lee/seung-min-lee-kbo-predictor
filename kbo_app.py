@@ -683,7 +683,7 @@ def render_duel_page(predictions, log_df):
         st.markdown(f"""
 <div class="hist-row" style="flex-wrap:wrap;gap:6px">
   <span style="color:#556688;min-width:60px;font-size:.75rem">{str(u_date)[:10]}</span>
-  <span style="color:#445566;font-size:.72rem">S{u_slot:.0f}</span>
+  <span style="color:#445566;font-size:.72rem">S{int(float(u_slot)) if u_slot != '' else '?'}</span>
   <span style="color:#aabbdd;flex:1;min-width:120px">
     <span style="color:{hm_h['color']}">{hm_h['abbr']}</span>
     <span style="color:#334"> vs </span>
@@ -757,7 +757,7 @@ if st.session_state.app_page == 'duel':
 # ── 요약 스탯 ────────────────────────────────────────────
 if len(log_df) > 0:
     _ml_mask = (
-        log_df['ml_intervened'].astype(bool) &
+        log_df['ml_intervened'].fillna(0).astype(bool) &
         log_df['date'].astype(str).isin(['2026-05-06', '2026-05-07'])
     ) if 'ml_intervened' in log_df.columns else pd.Series(False, index=log_df.index)
     pred_only = log_df[
@@ -1205,7 +1205,7 @@ else:
 # ── 히스토리 ─────────────────────────────────────────────
 if len(log_df) > 0:
     _ml_hist_mask = (
-        log_df['ml_intervened'].astype(bool) &
+        log_df['ml_intervened'].fillna(0).astype(bool) &
         log_df['date'].astype(str).isin(['2026-05-06', '2026-05-07', '2026-05-08', '2026-05-09'])
     ) if 'ml_intervened' in log_df.columns else pd.Series(False, index=log_df.index)
     _hist_df = log_df[(log_df['prediction'] != 'PASS') & (~_ml_hist_mask)].copy().reset_index(drop=True)
