@@ -40,10 +40,10 @@ st.markdown("""
 @import url('https://fonts.googleapis.com/css2?family=Black+Han+Sans&family=Noto+Sans+KR:wght@400;700;900&display=swap');
 
 html, body, [data-testid="stAppViewContainer"] {
-    background: #1a1a2e !important;
+    background: #0a0a12 !important;
 }
 [data-testid="stAppViewContainer"] > .main {
-    background: #1a1a2e;
+    background: #0a0a12;
 }
 [data-testid="stHeader"] { background: transparent !important; }
 
@@ -1101,21 +1101,21 @@ else:
             close_note = ' · <span style="color:#44ddaa;font-size:.68rem">close 수집완료</span>' if _has_close else ' · <span style="color:#556688;font-size:.68rem">open만 수집됨 (close 미수집)</span>'
 
             st.markdown(f"""
-<div style="background:#080c18;border:1px solid #141830;border-radius:10px;padding:16px;margin-bottom:20px">
-  <div style="font-size:.8rem;color:#556688;margin-bottom:6px;font-family:'Noto Sans KR',sans-serif;display:flex;justify-content:space-between;align-items:center">
-    <span>📊 <b style="color:#7799bb">슬롯{pred.get('slot','')} 날짜별 북메이커 배당변동</b>{close_note}</span>
+<div style="background:#1e2a45;border:1px solid #3a5080;border-radius:10px;padding:16px;margin-bottom:20px">
+  <div style="font-size:.8rem;color:#99bbdd;margin-bottom:6px;font-family:'Noto Sans KR',sans-serif;display:flex;justify-content:space-between;align-items:center">
+    <span>📊 <b style="color:#aaccee">슬롯{pred.get('slot','')} 날짜별 북메이커 배당변동</b>{close_note}</span>
     <span>{trend_txt}</span>
   </div>
-  <div style="font-size:.68rem;color:#334455;margin-bottom:10px">
+  <div style="font-size:.68rem;color:#7799bb;margin-bottom:10px">
     1 = 이긴 팀 배당변동이 진 팀보다 컸음(상승) &nbsp;|&nbsp; 0 = 이긴 팀 배당변동이 진 팀보다 작았음(하락)
-    &nbsp;&nbsp;|&nbsp;&nbsp; 배당 컬럼: open <span style="color:#334455">→</span> close (↑상승 ↓하락)
+    &nbsp;&nbsp;|&nbsp;&nbsp; 배당 컬럼: open <span style="color:#7799bb">→</span> close (↑상승 ↓하락)
   </div>
   <table style="width:100%;border-collapse:collapse;font-size:.8rem">
     <thead>
-      <tr style="border-bottom:1px solid #1a2040">
-        <th style="text-align:left;color:#445566;padding:4px 8px;font-size:.72rem">북메이커</th>
-        <th style="color:#7799bb;padding:4px 8px;font-size:.72rem">예측 &amp; 시퀀스</th>
-        <th style="color:#445566;padding:4px 8px;font-size:.72rem">패턴</th>
+      <tr style="border-bottom:2px solid #4a6090">
+        <th style="text-align:left;color:#88aacc;padding:4px 8px;font-size:.72rem">북메이커</th>
+        <th style="color:#aaccee;padding:4px 8px;font-size:.72rem">예측 &amp; 시퀀스</th>
+        <th style="color:#88aacc;padding:4px 8px;font-size:.72rem">패턴</th>
         <th style="color:{hm['color']};padding:4px 8px;font-size:.72rem;text-align:right">{hm['abbr']} 홈배당</th>
         <th style="color:{am['color']};padding:4px 8px;font-size:.72rem;text-align:right">{am['abbr']} 원정배당</th>
       </tr>
