@@ -155,23 +155,23 @@ html, body, [data-testid="stAppViewContainer"] {
     margin-bottom: 14px;
 }
 .seq-table th {
-    color: #445577;
-    font-weight: 600;
+    color: #111111;
+    font-weight: 700;
     font-size: .73rem;
     text-align: center;
     padding: 5px 8px;
-    border-bottom: 2px solid #6677aa;
+    border-bottom: 2px solid #334466;
     white-space: nowrap;
 }
 .seq-table td {
     padding: 7px 8px;
     text-align: center;
-    border-bottom: 1px solid #99aac8;
-    color: #223355;
+    border-bottom: 1px solid #8899bb;
+    color: #111111;
 }
 .seq-table td:first-child {
     text-align: left;
-    color: #556688;
+    color: #111111;
     font-size: .75rem;
     white-space: nowrap;
 }
@@ -1088,15 +1088,15 @@ else:
                 away_odds_cell = odds_change_html(a_open, a_close, color_up='#ff4466', color_dn='#4488ff')
 
                 bm_rows_html += f"""
-<tr>
-  <td style="color:#7788aa;font-size:.78rem;white-space:nowrap;padding:5px 8px">{bm_name}</td>
+<tr style="border-bottom:1px solid #8899cc">
+  <td style="color:#111111;font-size:.78rem;white-space:nowrap;padding:5px 8px;font-weight:600">{bm_name}</td>
   <td style="padding:5px 8px">{seq_cell}</td>
-  <td style="color:#556688;font-size:.72rem;padding:5px 8px">{desc}</td>
+  <td style="color:#111111;font-size:.72rem;padding:5px 8px">{desc}</td>
   <td style="font-size:.75rem;padding:5px 8px;text-align:right;white-space:nowrap">
-    <span style="color:#334455;font-size:.65rem">홈</span> {home_odds_cell}
+    <span style="color:#111111;font-size:.65rem">홈</span> {home_odds_cell}
   </td>
   <td style="font-size:.75rem;padding:5px 8px;text-align:right;white-space:nowrap">
-    <span style="color:#334455;font-size:.65rem">원정</span> {away_odds_cell}
+    <span style="color:#111111;font-size:.65rem">원정</span> {away_odds_cell}
   </td>
 </tr>"""
 
@@ -1104,20 +1104,20 @@ else:
 
             st.markdown(f"""
 <div style="background:#f0f4ff;border:2px solid #7788bb;border-radius:10px;padding:16px;margin-bottom:20px">
-  <div style="font-size:.8rem;color:#445577;margin-bottom:6px;font-family:'Noto Sans KR',sans-serif;display:flex;justify-content:space-between;align-items:center">
-    <span>📊 <b style="color:#223366">슬롯{pred.get('slot','')} 날짜별 북메이커 배당변동</b>{close_note}</span>
+  <div style="font-size:.8rem;color:#111111;margin-bottom:6px;font-family:'Noto Sans KR',sans-serif;display:flex;justify-content:space-between;align-items:center">
+    <span>📊 <b style="color:#111111">슬롯{pred.get('slot','')} 날짜별 북메이커 배당변동</b>{close_note}</span>
     <span>{trend_txt}</span>
   </div>
-  <div style="font-size:.68rem;color:#667799;margin-bottom:10px">
+  <div style="font-size:.68rem;color:#333344;margin-bottom:10px">
     1 = 이긴 팀 배당변동이 진 팀보다 컸음(상승) &nbsp;|&nbsp; 0 = 이긴 팀 배당변동이 진 팀보다 작았음(하락)
-    &nbsp;&nbsp;|&nbsp;&nbsp; 배당 컬럼: open <span style="color:#667799">→</span> close (↑상승 ↓하락)
+    &nbsp;&nbsp;|&nbsp;&nbsp; 배당 컬럼: open <span style="color:#333344">→</span> close (↑상승 ↓하락)
   </div>
   <table style="width:100%;border-collapse:collapse;font-size:.8rem">
     <thead>
-      <tr style="border-bottom:2px solid #6677aa">
-        <th style="text-align:left;color:#445577;padding:4px 8px;font-size:.72rem">북메이커</th>
-        <th style="color:#223366;padding:4px 8px;font-size:.72rem">예측 &amp; 시퀀스</th>
-        <th style="color:#445577;padding:4px 8px;font-size:.72rem">패턴</th>
+      <tr style="border-bottom:2px solid #334466">
+        <th style="text-align:left;color:#111111;padding:4px 8px;font-size:.72rem">북메이커</th>
+        <th style="color:#111111;padding:4px 8px;font-size:.72rem">예측 &amp; 시퀀스</th>
+        <th style="color:#111111;padding:4px 8px;font-size:.72rem">패턴</th>
         <th style="color:{hm['color']};padding:4px 8px;font-size:.72rem;text-align:right">{hm['abbr']} 홈배당</th>
         <th style="color:{am['color']};padding:4px 8px;font-size:.72rem;text-align:right">{am['abbr']} 원정배당</th>
       </tr>
