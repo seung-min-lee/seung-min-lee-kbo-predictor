@@ -160,13 +160,13 @@ html, body, [data-testid="stAppViewContainer"] {
     font-size: .73rem;
     text-align: center;
     padding: 5px 8px;
-    border-bottom: 2px solid #334466;
+    border-bottom: 1px solid #c8d4e8;
     white-space: nowrap;
 }
 .seq-table td {
     padding: 7px 8px;
     text-align: center;
-    border-bottom: 2px solid #334466;
+    border-bottom: 1px solid #e4eaf4;
     color: #111111;
 }
 .seq-table td:first-child {
@@ -1088,11 +1088,11 @@ else:
                 away_odds_cell = odds_change_html(a_open, a_close, color_up='#ff4466', color_dn='#4488ff')
 
                 bm_rows_html += f"""
-<tr style="border-bottom:2px solid #334466">
-  <td style="color:#111111;font-size:.78rem;white-space:nowrap;padding:5px 8px;font-weight:600;border-right:1px solid #6677aa">{bm_name}</td>
-  <td style="padding:5px 8px;border-right:1px solid #6677aa">{seq_cell}</td>
-  <td style="color:#111111;font-size:.72rem;padding:5px 8px;border-right:1px solid #6677aa">{desc}</td>
-  <td style="font-size:.75rem;padding:5px 8px;text-align:right;white-space:nowrap;border-right:1px solid #6677aa">
+<tr style="border-bottom:1px solid #d8e4f0">
+  <td style="color:#111111;font-size:.78rem;white-space:nowrap;padding:5px 8px;font-weight:600">{bm_name}</td>
+  <td style="padding:5px 8px">{seq_cell}</td>
+  <td style="color:#111111;font-size:.72rem;padding:5px 8px">{desc}</td>
+  <td style="font-size:.75rem;padding:5px 8px;text-align:right;white-space:nowrap">
     <span style="color:#111111;font-size:.65rem">홈</span> {home_odds_cell}
   </td>
   <td style="font-size:.75rem;padding:5px 8px;text-align:right;white-space:nowrap">
@@ -1114,11 +1114,11 @@ else:
   </div>
   <table style="width:100%;border-collapse:collapse;font-size:.8rem">
     <thead>
-      <tr style="border-bottom:2px solid #334466">
-        <th style="text-align:left;color:#111111;padding:4px 8px;font-size:.72rem;border-right:1px solid #6677aa">북메이커</th>
-        <th style="color:#111111;padding:4px 8px;font-size:.72rem;border-right:1px solid #6677aa">예측 &amp; 시퀀스</th>
-        <th style="color:#111111;padding:4px 8px;font-size:.72rem;border-right:1px solid #6677aa">패턴</th>
-        <th style="color:{hm['color']};padding:4px 8px;font-size:.72rem;text-align:right;border-right:1px solid #6677aa">{hm['abbr']} 홈배당</th>
+      <tr style="border-bottom:1px solid #c8d4e8">
+        <th style="text-align:left;color:#111111;padding:4px 8px;font-size:.72rem">북메이커</th>
+        <th style="color:#111111;padding:4px 8px;font-size:.72rem">예측 &amp; 시퀀스</th>
+        <th style="color:#111111;padding:4px 8px;font-size:.72rem">패턴</th>
+        <th style="color:{hm['color']};padding:4px 8px;font-size:.72rem;text-align:right">{hm['abbr']} 홈배당</th>
         <th style="color:{am['color']};padding:4px 8px;font-size:.72rem;text-align:right">{am['abbr']} 원정배당</th>
       </tr>
     </thead>
