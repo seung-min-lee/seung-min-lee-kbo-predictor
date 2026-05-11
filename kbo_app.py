@@ -3,6 +3,8 @@ import json
 import pandas as pd
 import os
 import html
+import base64
+import requests
 from datetime import datetime
 
 st.set_page_config(
@@ -284,6 +286,9 @@ html, body, [data-testid="stAppViewContainer"] {
 PRED_PATH   = 'kbo_predictions.json'
 LOG_PATH    = 'kbo_verify_log.csv'
 USER_PRED_PATH = 'kbo_user_predictions.json'
+GITHUB_REPO = "seung-min-lee/seung-min-lee-kbo-predictor"
+GITHUB_FILE = "kbo_user_predictions.json"
+GITHUB_TOKEN = st.secrets.get("GITHUB_TOKEN", "")
 
 TODAY_ODDS_PATH = 'kbo_today_odds.json'
 
@@ -331,13 +336,33 @@ def load_log():
         ).astype(float)
     return df
 
+def _gh_headers():
+    return {"Authorization": f"token {GITHUB_TOKEN}", "Content-Type": "application/json"}
+
 def load_user_predictions():
+    if GITHUB_TOKEN:
+        url = f"https://api.github.com/repos/{GITHUB_REPO}/contents/{GITHUB_FILE}"
+        r = requests.get(url, headers=_gh_headers(), timeout=10)
+        if r.status_code == 200:
+            content = base64.b64decode(r.json()['content']).decode('utf-8')
+            return json.loads(content)
+        return {}
     if not os.path.exists(USER_PRED_PATH):
         return {}
     with open(USER_PRED_PATH, 'r', encoding='utf-8') as f:
         return json.load(f)
 
 def save_user_predictions(data):
+    if GITHUB_TOKEN:
+        url = f"https://api.github.com/repos/{GITHUB_REPO}/contents/{GITHUB_FILE}"
+        r = requests.get(url, headers=_gh_headers(), timeout=10)
+        sha = r.json().get('sha') if r.status_code == 200 else None
+        content = base64.b64encode(json.dumps(data, ensure_ascii=False, indent=2).encode('utf-8')).decode('utf-8')
+        payload = {"message": "update user predictions", "content": content, "branch": "main"}
+        if sha:
+            payload["sha"] = sha
+        requests.put(url, headers=_gh_headers(), json=payload, timeout=10)
+        return
     with open(USER_PRED_PATH, 'w', encoding='utf-8') as f:
         json.dump(data, f, ensure_ascii=False, indent=2)
 
