@@ -5,6 +5,7 @@ import os
 import html
 import base64
 import requests
+import threading
 from datetime import datetime
 
 st.set_page_config(
@@ -375,28 +376,30 @@ def load_user_predictions():
     except (json.JSONDecodeError, OSError):
         return {}
 
+def _gh_save_worker(data, token, url):
+    """GitHub API 저장 — 백그라운드 스레드에서 실행"""
+    headers = {"Authorization": f"token {token}", "Content-Type": "application/json"}
+    content = base64.b64encode(json.dumps(data, ensure_ascii=False, indent=2).encode('utf-8')).decode('utf-8')
+    for _ in range(3):
+        try:
+            r = requests.get(url, headers=headers, timeout=10)
+            sha = r.json().get('sha') if r.status_code == 200 else None
+            payload = {"message": "update user predictions", "content": content, "branch": "main"}
+            if sha:
+                payload["sha"] = sha
+            resp = requests.put(url, headers=headers, json=payload, timeout=10)
+            if resp.status_code in (200, 201):
+                return
+            if resp.status_code != 409:
+                break  # 409 외 오류는 재시도 무의미
+        except Exception:
+            break
+
 def save_user_predictions(data):
     if GITHUB_TOKEN:
         url = f"https://api.github.com/repos/{GITHUB_REPO}/contents/{GITHUB_FILE}"
-        for attempt in range(3):
-            try:
-                r = requests.get(url, headers=_gh_headers(), timeout=10)
-                sha = r.json().get('sha') if r.status_code == 200 else None
-                content = base64.b64encode(json.dumps(data, ensure_ascii=False, indent=2).encode('utf-8')).decode('utf-8')
-                payload = {"message": "update user predictions", "content": content, "branch": "main"}
-                if sha:
-                    payload["sha"] = sha
-                resp = requests.put(url, headers=_gh_headers(), json=payload, timeout=10)
-                if resp.status_code in (200, 201):
-                    return
-                if resp.status_code == 409:
-                    continue  # sha 충돌 → 최신 sha 다시 읽어 재시도
-                st.warning(f"예측 저장 실패 (HTTP {resp.status_code}). 잠시 후 다시 시도하세요.")
-                return
-            except Exception:
-                st.warning("예측 저장 중 네트워크 오류가 발생했습니다. 잠시 후 다시 시도하세요.")
-                return
-        st.warning("예측 저장에 반복 실패했습니다 (충돌). 잠시 후 다시 클릭하세요.")
+        t = threading.Thread(target=_gh_save_worker, args=(data, GITHUB_TOKEN, url), daemon=True)
+        t.start()
         return
     try:
         with open(USER_PRED_PATH, 'w', encoding='utf-8') as f:
