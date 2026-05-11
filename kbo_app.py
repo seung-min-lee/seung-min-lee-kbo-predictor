@@ -49,8 +49,8 @@ html, body, [data-testid="stAppViewContainer"] {
 
 /* 타이틀 */
 .hero-wrap {
-    background: linear-gradient(135deg, #1e2a4a 0%, #2a1a4a 40%, #1a2a4a 100%);
-    border: 1px solid #3a4a7a;
+    background: linear-gradient(135deg, #e8eeff 0%, #f0e8ff 40%, #e8f4ff 100%);
+    border: 2px solid #b0bce8;
     border-radius: 16px;
     padding: 32px 40px 24px;
     margin-bottom: 28px;
@@ -60,21 +60,21 @@ html, body, [data-testid="stAppViewContainer"] {
 .hero-wrap::before {
     content: '';
     position: absolute; inset: 0;
-    background: radial-gradient(ellipse at 30% 50%, rgba(180,0,60,.2) 0%, transparent 60%),
-                radial-gradient(ellipse at 75% 50%, rgba(0,80,200,.18) 0%, transparent 60%);
+    background: radial-gradient(ellipse at 30% 50%, rgba(180,0,60,.07) 0%, transparent 60%),
+                radial-gradient(ellipse at 75% 50%, rgba(0,80,200,.07) 0%, transparent 60%);
 }
 .hero-title {
     font-family: 'Black Han Sans', sans-serif;
     font-size: 2.6rem;
     letter-spacing: 2px;
-    background: linear-gradient(90deg, #ff4466, #ffaa00, #44aaff);
+    background: linear-gradient(90deg, #cc1133, #dd7700, #1166cc);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     margin: 0; line-height: 1.2;
     position: relative;
 }
 .hero-sub {
-    color: #aabbdd;
+    color: #445577;
     font-size: .9rem;
     margin-top: 6px;
     font-family: 'Noto Sans KR', sans-serif;
