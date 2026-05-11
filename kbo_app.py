@@ -40,17 +40,17 @@ st.markdown("""
 @import url('https://fonts.googleapis.com/css2?family=Black+Han+Sans&family=Noto+Sans+KR:wght@400;700;900&display=swap');
 
 html, body, [data-testid="stAppViewContainer"] {
-    background: #0a0a12 !important;
+    background: #f4f6fb !important;
 }
 [data-testid="stAppViewContainer"] > .main {
-    background: #0a0a12;
+    background: #f4f6fb;
 }
 [data-testid="stHeader"] { background: transparent !important; }
 
 /* 타이틀 */
 .hero-wrap {
-    background: linear-gradient(135deg, #0d0d1a 0%, #1a0d2e 40%, #0d1a2e 100%);
-    border: 1px solid #2a2a4a;
+    background: linear-gradient(135deg, #1e2a4a 0%, #2a1a4a 40%, #1a2a4a 100%);
+    border: 1px solid #3a4a7a;
     border-radius: 16px;
     padding: 32px 40px 24px;
     margin-bottom: 28px;
@@ -60,8 +60,8 @@ html, body, [data-testid="stAppViewContainer"] {
 .hero-wrap::before {
     content: '';
     position: absolute; inset: 0;
-    background: radial-gradient(ellipse at 30% 50%, rgba(180,0,60,.15) 0%, transparent 60%),
-                radial-gradient(ellipse at 75% 50%, rgba(0,80,200,.12) 0%, transparent 60%);
+    background: radial-gradient(ellipse at 30% 50%, rgba(180,0,60,.2) 0%, transparent 60%),
+                radial-gradient(ellipse at 75% 50%, rgba(0,80,200,.18) 0%, transparent 60%);
 }
 .hero-title {
     font-family: 'Black Han Sans', sans-serif;
@@ -74,7 +74,7 @@ html, body, [data-testid="stAppViewContainer"] {
     position: relative;
 }
 .hero-sub {
-    color: #7788aa;
+    color: #aabbdd;
     font-size: .9rem;
     margin-top: 6px;
     font-family: 'Noto Sans KR', sans-serif;
@@ -96,13 +96,14 @@ html, body, [data-testid="stAppViewContainer"] {
 
 /* 경기 카드 */
 .match-card {
-    background: linear-gradient(160deg, #111128 0%, #0d1225 100%);
-    border: 1px solid #3a3d6a;
+    background: #ffffff;
+    border: 1px solid #d8dff0;
     border-radius: 14px;
     padding: 20px;
     margin-bottom: 20px;
     position: relative;
     overflow: hidden;
+    box-shadow: 0 2px 12px rgba(0,0,0,.08);
 }
 .match-card::after {
     content: '';
@@ -133,7 +134,7 @@ html, body, [data-testid="stAppViewContainer"] {
 }
 .team-name {
     font-size: .72rem;
-    color: #8899bb;
+    color: #667799;
     margin-top: 4px;
     font-family: 'Noto Sans KR', sans-serif;
 }
@@ -142,7 +143,7 @@ html, body, [data-testid="stAppViewContainer"] {
     text-align: center;
     font-family: 'Black Han Sans', sans-serif;
     font-size: 1.1rem;
-    color: #444466;
+    color: #aabbcc;
 }
 
 /* 시퀀스 테이블 */
@@ -154,23 +155,23 @@ html, body, [data-testid="stAppViewContainer"] {
     margin-bottom: 14px;
 }
 .seq-table th {
-    color: #556688;
+    color: #445577;
     font-weight: 600;
     font-size: .73rem;
     text-align: center;
     padding: 5px 8px;
-    border-bottom: 2px solid #3a4070;
+    border-bottom: 2px solid #c8d4e8;
     white-space: nowrap;
 }
 .seq-table td {
     padding: 7px 8px;
     text-align: center;
-    border-bottom: 1px solid #2a2d50;
-    color: #ccd8ee;
+    border-bottom: 1px solid #e4eaf4;
+    color: #223355;
 }
 .seq-table td:first-child {
     text-align: left;
-    color: #7788aa;
+    color: #556688;
     font-size: .75rem;
     white-space: nowrap;
 }
@@ -203,41 +204,41 @@ html, body, [data-testid="stAppViewContainer"] {
 .rec-label-away { color: #ff4466; }
 .rec-label-pass { color: #7788aa; }
 .conf-bar-wrap { flex: 1; margin: 0 16px; }
-.conf-bar-bg { background: #1a2040; border-radius: 4px; height: 6px; }
+.conf-bar-bg { background: #dde4f0; border-radius: 4px; height: 6px; }
 .conf-bar-fill { height: 6px; border-radius: 4px; }
-.conf-text { font-size: .78rem; color: #8899bb; margin-top: 3px; text-align: right; }
-.ml-info { font-size: .75rem; color: #556688; text-align: right; white-space: nowrap; }
+.conf-text { font-size: .78rem; color: #667799; margin-top: 3px; text-align: right; }
+.ml-info { font-size: .75rem; color: #778899; text-align: right; white-space: nowrap; }
 .explain-box {
-    background: linear-gradient(160deg, #10172f, #0c1328);
-    border: 1px solid #2d426f;
+    background: #eef2fc;
+    border: 1px solid #c8d4ee;
     border-radius: 10px;
     padding: 16px 18px;
     margin: 0 0 18px;
     font-family: 'Noto Sans KR', sans-serif;
-    box-shadow: 0 10px 28px rgba(0,0,0,.22);
+    box-shadow: 0 2px 10px rgba(0,0,0,.07);
 }
 .explain-title {
-    color: #e6efff;
+    color: #1a2a4a;
     font-size: .92rem;
     font-weight: 900;
     margin-bottom: 10px;
     letter-spacing: .3px;
 }
 .explain-line {
-    color: #c4d2ee;
+    color: #334466;
     font-size: .86rem;
     line-height: 1.75;
     margin-bottom: 4px;
 }
-.explain-line b { color: #ffffff; font-weight: 900; }
-.explain-good { color: #5dffca; font-weight: 900; }
-.explain-warn { color: #ffaa00; font-weight: 900; }
+.explain-line b { color: #112244; font-weight: 900; }
+.explain-good { color: #007755; font-weight: 900; }
+.explain-warn { color: #bb6600; font-weight: 900; }
 
 /* 섹션 헤더 */
 .section-title {
     font-family: 'Black Han Sans', sans-serif;
     font-size: 1.2rem;
-    color: #aabbdd;
+    color: #223366;
     letter-spacing: 1px;
     margin: 28px 0 14px;
     padding-left: 12px;
@@ -246,11 +247,12 @@ html, body, [data-testid="stAppViewContainer"] {
 
 /* 스탯 카드 */
 .stat-card {
-    background: linear-gradient(160deg, #111128, #0d1225);
-    border: 1px solid #3a3d6a;
+    background: #ffffff;
+    border: 1px solid #d8dff0;
     border-radius: 12px;
     padding: 18px;
     text-align: center;
+    box-shadow: 0 2px 8px rgba(0,0,0,.07);
 }
 .stat-num {
     font-family: 'Black Han Sans', sans-serif;
@@ -259,7 +261,7 @@ html, body, [data-testid="stAppViewContainer"] {
 }
 .stat-label {
     font-size: .75rem;
-    color: #7788aa;
+    color: #556688;
     margin-top: 4px;
     font-family: 'Noto Sans KR', sans-serif;
 }
@@ -272,13 +274,13 @@ html, body, [data-testid="stAppViewContainer"] {
     padding: 8px 12px;
     border-radius: 8px;
     margin-bottom: 6px;
-    background: #0d1020;
-    border: 1px solid #2e3060;
+    background: #f0f4ff;
+    border: 1px solid #d0d8f0;
     font-family: 'Noto Sans KR', sans-serif;
     font-size: .8rem;
 }
-.hist-mark-O { color: #44ddaa; font-weight: 900; font-size: 1.1rem; }
-.hist-mark-X { color: #ff4466; font-weight: 900; font-size: 1.1rem; }
+.hist-mark-O { color: #00aa77; font-weight: 900; font-size: 1.1rem; }
+.hist-mark-X { color: #ee2244; font-weight: 900; font-size: 1.1rem; }
 </style>
 """, unsafe_allow_html=True)
 
@@ -1168,12 +1170,12 @@ if len(log_df) > 0:
         st.markdown(f"""
 <div class="hist-row">
   <span class="{mcls}">{mark}</span>
-  <span style="color:#556688;min-width:60px">{str(row.get('date',''))[:10]}</span>
-  <span style="color:#aabbdd;flex:1">{row.get('home','')} <span style="color:#334">vs</span> {row.get('away','')}</span>
-  <span style="color:#7788aa">예측 <b style="color:#ccd">{pred_str}</b></span>
-  <span style="color:#556688">→</span>
-  <span style="color:#7788aa">실제 <b style="color:#ccd">{actual_str}</b></span>
-  <span style="color:#445566">신뢰도 {conf_str}</span>
+  <span style="color:#667799;min-width:60px">{str(row.get('date',''))[:10]}</span>
+  <span style="color:#223355;flex:1">{row.get('home','')} <span style="color:#99aacc">vs</span> {row.get('away','')}</span>
+  <span style="color:#445577">예측 <b style="color:#112244">{pred_str}</b></span>
+  <span style="color:#8899bb">→</span>
+  <span style="color:#445577">실제 <b style="color:#112244">{actual_str}</b></span>
+  <span style="color:#778899">신뢰도 {conf_str}</span>
 </div>""", unsafe_allow_html=True)
 
     # ── 페이지 버튼 (1행, 화면 폭에 맞게 균등 분배) ──────────
