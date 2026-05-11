@@ -50,7 +50,7 @@ html, body, [data-testid="stAppViewContainer"] {
 /* 타이틀 */
 .hero-wrap {
     background: linear-gradient(135deg, #e8eeff 0%, #f0e8ff 40%, #e8f4ff 100%);
-    border: 2px solid #7788cc;
+    border: 1px solid #b0bce8;
     border-radius: 16px;
     padding: 32px 40px 24px;
     margin-bottom: 28px;
@@ -97,7 +97,7 @@ html, body, [data-testid="stAppViewContainer"] {
 /* 경기 카드 */
 .match-card {
     background: #ffffff;
-    border: 2px solid #8899cc;
+    border: 1px solid #d8dff0;
     border-radius: 14px;
     padding: 20px;
     margin-bottom: 20px;
@@ -160,13 +160,13 @@ html, body, [data-testid="stAppViewContainer"] {
     font-size: .73rem;
     text-align: center;
     padding: 5px 8px;
-    border-bottom: 2px solid #334466;
+    border-bottom: 1px solid #c8d4e8;
     white-space: nowrap;
 }
 .seq-table td {
     padding: 7px 8px;
     text-align: center;
-    border-bottom: 2px solid #334466;
+    border-bottom: 1px solid #e4eaf4;
     color: #111111;
 }
 .seq-table td:first-child {
@@ -196,9 +196,9 @@ html, body, [data-testid="stAppViewContainer"] {
     justify-content: space-between;
     margin-top: 4px;
 }
-.rec-home { background: linear-gradient(90deg, rgba(0,180,120,.12), rgba(0,180,120,.04)); border: 2px solid rgba(0,160,100,.4); }
-.rec-away { background: linear-gradient(90deg, rgba(220,40,80,.04), rgba(220,40,80,.12)); border: 2px solid rgba(200,30,60,.4); }
-.rec-pass { background: rgba(100,120,180,.1); border: 2px solid rgba(80,100,160,.35); }
+.rec-home { background: linear-gradient(90deg, rgba(0,180,120,.12), rgba(0,180,120,.04)); border: 1px solid rgba(0,160,100,.3); }
+.rec-away { background: linear-gradient(90deg, rgba(220,40,80,.04), rgba(220,40,80,.12)); border: 1px solid rgba(200,30,60,.3); }
+.rec-pass { background: rgba(100,120,180,.1); border: 1px solid rgba(80,100,160,.25); }
 .rec-label { font-family: 'Black Han Sans', sans-serif; font-size: 1.1rem; }
 .rec-label-home { color: #007755; }
 .rec-label-away { color: #cc1133; }
@@ -210,7 +210,7 @@ html, body, [data-testid="stAppViewContainer"] {
 .ml-info { font-size: .75rem; color: #778899; text-align: right; white-space: nowrap; }
 .explain-box {
     background: #eef2fc;
-    border: 2px solid #7788bb;
+    border: 1px solid #c8d4ee;
     border-radius: 10px;
     padding: 16px 18px;
     margin: 0 0 18px;
@@ -248,7 +248,7 @@ html, body, [data-testid="stAppViewContainer"] {
 /* 스탯 카드 */
 .stat-card {
     background: #ffffff;
-    border: 2px solid #8899cc;
+    border: 1px solid #d8dff0;
     border-radius: 12px;
     padding: 18px;
     text-align: center;
@@ -275,7 +275,7 @@ html, body, [data-testid="stAppViewContainer"] {
     border-radius: 8px;
     margin-bottom: 6px;
     background: #f0f4ff;
-    border: 2px solid #8899cc;
+    border: 1px solid #d0d8f0;
     font-family: 'Noto Sans KR', sans-serif;
     font-size: .8rem;
 }
@@ -911,7 +911,7 @@ else:
             h_n    = round(h_pct * bm_cnt)
             a_n    = bm_cnt - h_n
             bm_bar_html = f"""
-  <div style="margin:10px 0 14px;padding:10px 14px;background:#eef2fc;border-radius:8px;border:2px solid #7788bb">
+  <div style="margin:10px 0 14px;padding:10px 14px;background:#eef2fc;border-radius:8px;border:1px solid #c8d4ee">
     <div style="display:flex;justify-content:space-between;font-size:.75rem;color:#556688;margin-bottom:6px;font-family:'Noto Sans KR',sans-serif">
       <span style="color:{hm['color']}">{hm['abbr']} 홈 지지 {h_n}개 ({h_pct:.0%})</span>
       <span style="color:#334466">북메이커 {bm_cnt}개</span>
@@ -1088,11 +1088,11 @@ else:
                 away_odds_cell = odds_change_html(a_open, a_close, color_up='#ff4466', color_dn='#4488ff')
 
                 bm_rows_html += f"""
-<tr style="border-bottom:2px solid #334466">
-  <td style="color:#111111;font-size:.78rem;white-space:nowrap;padding:5px 8px;font-weight:600;border-right:1px solid #6677aa">{bm_name}</td>
-  <td style="padding:5px 8px;border-right:1px solid #6677aa">{seq_cell}</td>
-  <td style="color:#111111;font-size:.72rem;padding:5px 8px;border-right:1px solid #6677aa">{desc}</td>
-  <td style="font-size:.75rem;padding:5px 8px;text-align:right;white-space:nowrap;border-right:1px solid #6677aa">
+<tr style="border-bottom:1px solid #d8e4f0">
+  <td style="color:#111111;font-size:.78rem;white-space:nowrap;padding:5px 8px;font-weight:600">{bm_name}</td>
+  <td style="padding:5px 8px">{seq_cell}</td>
+  <td style="color:#111111;font-size:.72rem;padding:5px 8px">{desc}</td>
+  <td style="font-size:.75rem;padding:5px 8px;text-align:right;white-space:nowrap">
     <span style="color:#111111;font-size:.65rem">홈</span> {home_odds_cell}
   </td>
   <td style="font-size:.75rem;padding:5px 8px;text-align:right;white-space:nowrap">
@@ -1103,7 +1103,7 @@ else:
             close_note = ' · <span style="color:#44ddaa;font-size:.68rem">close 수집완료</span>' if _has_close else ' · <span style="color:#556688;font-size:.68rem">open만 수집됨 (close 미수집)</span>'
 
             st.markdown(f"""
-<div style="background:#f0f4ff;border:2px solid #7788bb;border-radius:10px;padding:16px;margin-bottom:20px">
+<div style="background:#f0f4ff;border:1px solid #c8d4ee;border-radius:10px;padding:16px;margin-bottom:20px">
   <div style="font-size:.8rem;color:#111111;margin-bottom:6px;font-family:'Noto Sans KR',sans-serif;display:flex;justify-content:space-between;align-items:center">
     <span>📊 <b style="color:#111111">슬롯{pred.get('slot','')} 날짜별 북메이커 배당변동</b>{close_note}</span>
     <span>{trend_txt}</span>
@@ -1114,11 +1114,11 @@ else:
   </div>
   <table style="width:100%;border-collapse:collapse;font-size:.8rem">
     <thead>
-      <tr style="border-bottom:2px solid #334466">
-        <th style="text-align:left;color:#111111;padding:4px 8px;font-size:.72rem;border-right:1px solid #6677aa">북메이커</th>
-        <th style="color:#111111;padding:4px 8px;font-size:.72rem;border-right:1px solid #6677aa">예측 &amp; 시퀀스</th>
-        <th style="color:#111111;padding:4px 8px;font-size:.72rem;border-right:1px solid #6677aa">패턴</th>
-        <th style="color:{hm['color']};padding:4px 8px;font-size:.72rem;text-align:right;border-right:1px solid #6677aa">{hm['abbr']} 홈배당</th>
+      <tr style="border-bottom:1px solid #c8d4e8">
+        <th style="text-align:left;color:#111111;padding:4px 8px;font-size:.72rem">북메이커</th>
+        <th style="color:#111111;padding:4px 8px;font-size:.72rem">예측 &amp; 시퀀스</th>
+        <th style="color:#111111;padding:4px 8px;font-size:.72rem">패턴</th>
+        <th style="color:{hm['color']};padding:4px 8px;font-size:.72rem;text-align:right">{hm['abbr']} 홈배당</th>
         <th style="color:{am['color']};padding:4px 8px;font-size:.72rem;text-align:right">{am['abbr']} 원정배당</th>
       </tr>
     </thead>
