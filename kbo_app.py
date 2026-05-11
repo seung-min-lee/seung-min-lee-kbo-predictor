@@ -24,7 +24,7 @@ TEAM_META = {
     "Samsung Lions":  {"abbr": "SAM",  "color": "#074CA1", "bg": "#000d1a"},
     "Lotte Giants":   {"abbr": "LOT",  "color": "#D00F31", "bg": "#1a0005"},
     "NC Dinos":       {"abbr": "NC",   "color": "#315288", "bg": "#05101a"},
-    "KT Wiz Suwon":   {"abbr": "KT",   "color": "#aaaaaa", "bg": "#0d0d0d"},
+    "KT Wiz Suwon":   {"abbr": "KT",   "color": "#111111", "bg": "#0d0d0d"},
     "Hanwha Eagles":  {"abbr": "HWE",  "color": "#FF6600", "bg": "#1a0a00"},
 }
 
@@ -50,7 +50,7 @@ html, body, [data-testid="stAppViewContainer"] {
 /* 타이틀 */
 .hero-wrap {
     background: linear-gradient(135deg, #e8eeff 0%, #f0e8ff 40%, #e8f4ff 100%);
-    border: 2px solid #b0bce8;
+    border: 2px solid #7788cc;
     border-radius: 16px;
     padding: 32px 40px 24px;
     margin-bottom: 28px;
@@ -97,7 +97,7 @@ html, body, [data-testid="stAppViewContainer"] {
 /* 경기 카드 */
 .match-card {
     background: #ffffff;
-    border: 1px solid #d8dff0;
+    border: 2px solid #8899cc;
     border-radius: 14px;
     padding: 20px;
     margin-bottom: 20px;
@@ -160,13 +160,13 @@ html, body, [data-testid="stAppViewContainer"] {
     font-size: .73rem;
     text-align: center;
     padding: 5px 8px;
-    border-bottom: 2px solid #c8d4e8;
+    border-bottom: 2px solid #6677aa;
     white-space: nowrap;
 }
 .seq-table td {
     padding: 7px 8px;
     text-align: center;
-    border-bottom: 1px solid #e4eaf4;
+    border-bottom: 1px solid #99aac8;
     color: #223355;
 }
 .seq-table td:first-child {
@@ -210,7 +210,7 @@ html, body, [data-testid="stAppViewContainer"] {
 .ml-info { font-size: .75rem; color: #778899; text-align: right; white-space: nowrap; }
 .explain-box {
     background: #eef2fc;
-    border: 1px solid #c8d4ee;
+    border: 2px solid #7788bb;
     border-radius: 10px;
     padding: 16px 18px;
     margin: 0 0 18px;
@@ -248,7 +248,7 @@ html, body, [data-testid="stAppViewContainer"] {
 /* 스탯 카드 */
 .stat-card {
     background: #ffffff;
-    border: 1px solid #d8dff0;
+    border: 2px solid #8899cc;
     border-radius: 12px;
     padding: 18px;
     text-align: center;
@@ -275,7 +275,7 @@ html, body, [data-testid="stAppViewContainer"] {
     border-radius: 8px;
     margin-bottom: 6px;
     background: #f0f4ff;
-    border: 1px solid #d0d8f0;
+    border: 2px solid #8899cc;
     font-family: 'Noto Sans KR', sans-serif;
     font-size: .8rem;
 }
@@ -911,7 +911,7 @@ else:
             h_n    = round(h_pct * bm_cnt)
             a_n    = bm_cnt - h_n
             bm_bar_html = f"""
-  <div style="margin:10px 0 14px;padding:10px 14px;background:#eef2fc;border-radius:8px;border:2px solid #b0c0e0">
+  <div style="margin:10px 0 14px;padding:10px 14px;background:#eef2fc;border-radius:8px;border:2px solid #7788bb">
     <div style="display:flex;justify-content:space-between;font-size:.75rem;color:#556688;margin-bottom:6px;font-family:'Noto Sans KR',sans-serif">
       <span style="color:{hm['color']}">{hm['abbr']} 홈 지지 {h_n}개 ({h_pct:.0%})</span>
       <span style="color:#334466">북메이커 {bm_cnt}개</span>
@@ -1103,7 +1103,7 @@ else:
             close_note = ' · <span style="color:#44ddaa;font-size:.68rem">close 수집완료</span>' if _has_close else ' · <span style="color:#556688;font-size:.68rem">open만 수집됨 (close 미수집)</span>'
 
             st.markdown(f"""
-<div style="background:#f0f4ff;border:2px solid #b0c0e0;border-radius:10px;padding:16px;margin-bottom:20px">
+<div style="background:#f0f4ff;border:2px solid #7788bb;border-radius:10px;padding:16px;margin-bottom:20px">
   <div style="font-size:.8rem;color:#445577;margin-bottom:6px;font-family:'Noto Sans KR',sans-serif;display:flex;justify-content:space-between;align-items:center">
     <span>📊 <b style="color:#223366">슬롯{pred.get('slot','')} 날짜별 북메이커 배당변동</b>{close_note}</span>
     <span>{trend_txt}</span>
@@ -1114,7 +1114,7 @@ else:
   </div>
   <table style="width:100%;border-collapse:collapse;font-size:.8rem">
     <thead>
-      <tr style="border-bottom:2px solid #99aad0">
+      <tr style="border-bottom:2px solid #6677aa">
         <th style="text-align:left;color:#445577;padding:4px 8px;font-size:.72rem">북메이커</th>
         <th style="color:#223366;padding:4px 8px;font-size:.72rem">예측 &amp; 시퀀스</th>
         <th style="color:#445577;padding:4px 8px;font-size:.72rem">패턴</th>
