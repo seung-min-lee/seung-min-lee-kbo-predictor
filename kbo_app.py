@@ -166,7 +166,7 @@ html, body, [data-testid="stAppViewContainer"] {
 .seq-table td {
     padding: 7px 8px;
     text-align: center;
-    border-bottom: 1px solid #8899bb;
+    border-bottom: 2px solid #334466;
     color: #111111;
 }
 .seq-table td:first-child {
@@ -829,13 +829,13 @@ else:
 
         table_rows = f"""
             <tr>
-              <td>배당변동 예측<br><small style='color:#445'>북메이커별</small><br><small style='color:#334;font-size:.65rem'>1=상승&nbsp;0=하락</small></td>
-              <td colspan="5">{render_seq(_bm_dir_seq) if _bm_dir_seq else '<span style="color:#445566">-</span>'}</td>
+              <td>배당변동 예측<br><small style='color:#111111'>북메이커별</small><br><small style='color:#111111;font-size:.65rem'>1=상승&nbsp;0=하락</small></td>
+              <td colspan="5">{render_seq(_bm_dir_seq) if _bm_dir_seq else '<span style="color:#111111">-</span>'}</td>
             </tr>
             <tr>
-              <td>슬롯&nbsp;정배승/역배승<br><small style='color:#445'>18경기</small><br><small style='color:#334;font-size:.65rem'>1=정배승&nbsp;0=역배승</small></td>
+              <td>슬롯&nbsp;정배승/역배승<br><small style='color:#111111'>18경기</small><br><small style='color:#111111;font-size:.65rem'>1=정배승&nbsp;0=역배승</small></td>
               <td colspan="5">
-                {render_seq(_fav_seq) if _fav_seq and _fav_seq != '-' else '<span style="color:#445566">-</span>'}
+                {render_seq(_fav_seq) if _fav_seq and _fav_seq != '-' else '<span style="color:#111111">-</span>'}
                 &nbsp;&nbsp;{_fav_pred_html}{_fav_team_html}{_fav_who_html}
               </td>
             </tr>"""
@@ -845,7 +845,7 @@ else:
               <td>{label}</td>
               <td>{render_seq(hs)}</td>
               <td>{render_rec(hr)}</td>
-              <td style="color:#1e2040">|</td>
+              <td style="color:#888899">|</td>
               <td>{render_seq(as_)}</td>
               <td>{render_rec(ar)}</td>
             </tr>"""
@@ -865,9 +865,9 @@ else:
 
         table_rows += f"""
             <tr>
-              <td>북메이커<br><small style='color:#445'>일치도</small></td>
+              <td>북메이커<br><small style='color:#111111'>일치도</small></td>
               <td colspan="2" style="text-align:left">{agree_pct_html(pred.get('home_bm_agree',''))}</td>
-              <td style="color:#1e2040">|</td>
+              <td style="color:#888899">|</td>
               <td colspan="2" style="text-align:left">{agree_pct_html(pred.get('away_bm_agree',''))}</td>
             </tr>"""
 
