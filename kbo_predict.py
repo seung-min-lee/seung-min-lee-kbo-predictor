@@ -1680,15 +1680,15 @@ for i, game in enumerate(upcoming_games):
         today_down_team = _todayodds.get('today_down_team', '') if _todayodds else ''
         if bm_dir_vote is not None and today_home_dir is not None:
             bm_team_rec = 1 if (bm_dir_vote == today_home_dir) else 0
-        elif bm_dir_vote is not None and home_is_fav_today is not None:
-            # fallback: today_home_dir 없으면 기존 정배/역배 방식
-            bm_team_rec = 1 if (bm_dir_vote != int(home_is_fav_today)) else 0
 
-    # bm_label: 방향 패턴 + 예측 팀명
+    # bm_label: 방향 패턴 + 예측 팀명 (today_home_dir 없으면 팀명 미표시)
     if bm_dir_vote is not None:
         _dir_sym   = '↑' if bm_dir_vote == 1 else '↓'
-        _pred_team = home if bm_team_rec == 1 else (away if bm_team_rec == 0 else '')
-        _team_str  = f' : {_pred_team}' if _pred_team else ''
+        if bm_team_rec is not None:
+            _pred_team = home if bm_team_rec == 1 else away
+            _team_str  = f' : {_pred_team}'
+        else:
+            _team_str  = ' (방향미확인)'
         bm_label   = f'배당{_dir_sym}팀이김 {max(sv1,sv0)}/{sv1+sv0}({bm_dir_ratio:.0%}){_team_str}'
     else:
         bm_label = f'불명확 {sv1}/{sv0}'
