@@ -1,1 +1,10 @@
-﻿{}
+{
+  "2026-05-12|1.0|KIA Tigers|Doosan Bears": {
+    "date": "2026-05-12",
+    "slot": 1.0,
+    "home": "KIA Tigers",
+    "away": "Doosan Bears",
+    "pick": "AWAY(Doosan Bears)",
+    "saved_at": "2026-05-12T08:57:24"
+  }
+}
