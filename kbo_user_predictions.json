@@ -14,5 +14,13 @@
     "away": "Hanwha Eagles",
     "pick": "AWAY(Hanwha Eagles)",
     "saved_at": "2026-05-12T09:13:04"
+  },
+  "2026-05-12|5.0|Lotte Giants|NC Dinos": {
+    "date": "2026-05-12",
+    "slot": 5.0,
+    "home": "Lotte Giants",
+    "away": "NC Dinos",
+    "pick": "HOME(Lotte Giants)",
+    "saved_at": "2026-05-12T09:13:11"
   }
 }
