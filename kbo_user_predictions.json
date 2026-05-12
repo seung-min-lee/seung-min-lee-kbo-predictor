@@ -30,5 +30,13 @@
     "away": "Samsung Lions",
     "pick": "HOME(LG Twins)",
     "saved_at": "2026-05-12T09:16:37"
+  },
+  "2026-05-12|3.0|KT Wiz Suwon|SSG Landers": {
+    "date": "2026-05-12",
+    "slot": 3.0,
+    "home": "KT Wiz Suwon",
+    "away": "SSG Landers",
+    "pick": "HOME(KT Wiz Suwon)",
+    "saved_at": "2026-05-12T09:16:55"
   }
 }
