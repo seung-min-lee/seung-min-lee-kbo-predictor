@@ -166,6 +166,18 @@ def main():
             key = f"{m['date']}|{int(m['slot'])}|{m['home']}|{m['away']}"
             print(f'\n[slot{int(m["slot"])}] {m["home"]} vs {m["away"]}')
 
+            # close 수집 시 슬롯 번호 달라도 팀명으로 기존 open 키 찾기
+            if IS_CLOSE and key not in today_odds:
+                matched_key = next(
+                    (k for k in today_odds
+                     if today_odds[k].get('home') == m['home']
+                     and today_odds[k].get('away') == m['away']
+                     and today_odds[k].get('date') == m['date']),
+                    None
+                )
+                if matched_key:
+                    key = matched_key
+
             # close 수집 시 아침에 저장된 URL 우선 사용 (경기 시작 후 접근 불가 대비)
             entry = today_odds.get(key, {
                 'date': m['date'], 'slot': m['slot'],
