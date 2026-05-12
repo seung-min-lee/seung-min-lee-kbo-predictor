@@ -6,5 +6,13 @@
     "away": "Doosan Bears",
     "pick": "AWAY(Doosan Bears)",
     "saved_at": "2026-05-12T08:57:28"
+  },
+  "2026-05-12|2.0|Kiwoom Heroes|Hanwha Eagles": {
+    "date": "2026-05-12",
+    "slot": 2.0,
+    "home": "Kiwoom Heroes",
+    "away": "Hanwha Eagles",
+    "pick": "AWAY(Hanwha Eagles)",
+    "saved_at": "2026-05-12T09:13:01"
   }
 }
