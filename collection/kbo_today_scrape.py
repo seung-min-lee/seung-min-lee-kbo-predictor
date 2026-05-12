@@ -1,11 +1,13 @@
 """
 오늘 예정 경기 BM별 배당 수집 → kbo_today_odds.json에 저장
-1차 실행 (아침): open 배당 저장
-2차 실행 (경기 1시간 전): close 배당 저장 + 방향 계산
+
+팝업 클릭 방식으로 OddsPortal Opening odds / Closing odds 수집:
+  - bm_open  : Opening odds (팝업의 openVal)
+  - bm_close : Closing odds (팝업의 closeVal = Opening + Odds movement)
 
 사용: python kbo_today_scrape.py [--close] [--no-h2h]
-  --close  없으면: 현재 배당을 open으로 저장
-  --close  있으면: 현재 배당을 close로 저장 + today_home_dir 계산
+  --close  없으면: Opening odds → bm_open 저장 (closeVal=openVal이면 bm_close 미저장)
+  --close  있으면: Closing odds → bm_close 저장 + today_home_dir 계산
   --no-h2h 있으면: h2h 링크 사용 안 함 (/kbo/ 직접 링크만 허용)
 """
 import os as _os; _os.chdir(_os.path.dirname(_os.path.dirname(_os.path.abspath(__file__))))
@@ -83,8 +85,58 @@ def get_today_matches(page):
     return matches
 
 
+POPUP_JS = """
+() => {
+    const popup = document.querySelector('div.height-content[class*="bg-gray-med_light"]')
+               || document.querySelector('div[class*="fixed"][class*="height-content"]');
+    if (!popup) return null;
+    let openVal = null, closeVal = null;
+    const openSection = popup.querySelector('div[class*="mt-2"]');
+    if (openSection) {
+        const boldEls = openSection.querySelectorAll('.font-bold');
+        for (let i = 0; i < boldEls.length; i++) {
+            const v = parseFloat(boldEls[i].innerText);
+            if (!isNaN(v) && v > 1) { openVal = v; break; }
+        }
+    }
+    const rowDiv = popup.querySelector('.flex.flex-row');
+    if (rowDiv) {
+        const cols = rowDiv.querySelectorAll(':scope > div');
+        if (cols.length > 1) {
+            const boldEl = cols[1].querySelector('.font-bold');
+            if (boldEl) {
+                const v = parseFloat(boldEl.innerText);
+                if (!isNaN(v) && v > 1) closeVal = v;
+            }
+        }
+    }
+    return { openVal, closeVal };
+}
+"""
+
+def _popup_odds(page, el_handle):
+    """odds 셀 클릭 → 팝업에서 openVal/closeVal 추출"""
+    try:
+        el_handle.scroll_into_view_if_needed()
+        el_handle.hover()
+        time.sleep(0.4)
+        el_handle.click()
+        time.sleep(1.5)
+    except Exception:
+        return None
+    data = page.evaluate(POPUP_JS)
+    try:
+        page.keyboard.press('Escape')
+        time.sleep(0.3)
+    except Exception:
+        pass
+    return data
+
+
 def scrape_bm_odds(page, url):
-    """경기 페이지에서 BM별 홈/원정 배당 수집"""
+    """경기 페이지에서 BM별 Opening/Closing odds 수집 (팝업 클릭 방식)
+    반환: {bm: {home_open, away_open, home_close, away_close}}
+    """
     try:
         page.goto(url, timeout=60000, wait_until='domcontentloaded')
         page.wait_for_selector('p.height-content.pl-4', timeout=30000)
@@ -93,30 +145,37 @@ def scrape_bm_odds(page, url):
         print('  로딩 실패')
         return {}
 
-    rows = page.evaluate("""
-    () => {
-        const EXCLUDE = new Set(['My coupon', 'User Predictions', 'Betfair Exchange']);
-        const result = {};
-        const nameEls = document.querySelectorAll('p.height-content.pl-4');
-        for (const nel of nameEls) {
-            const bm = nel.innerText.trim();
-            if (!bm || EXCLUDE.has(bm)) continue;
-            let row = nel;
-            for (let i = 0; i < 3; i++) row = row.parentElement;
-            // 업커밍 페이지: a.odds-link, 결과 페이지: p.odds-text 둘 다 시도
-            let oddsEls = Array.from(row.querySelectorAll('a.odds-link'));
-            if (!oddsEls.length) oddsEls = Array.from(row.querySelectorAll('p.odds-text'));
-            if (oddsEls.length < 2) continue;
-            const h = parseFloat(oddsEls[0].innerText.trim());
-            const a = parseFloat(oddsEls[oddsEls.length-1].innerText.trim());
-            if (!isNaN(h) && h > 1 && !isNaN(a) && a > 1) {
-                result[bm] = { home: h, away: a };
+    result = {}
+    bm_els = page.query_selector_all('p.height-content.pl-4')
+    for bm_el in bm_els:
+        bm = bm_el.inner_text().strip()
+        if not bm or bm in EXCLUDE:
+            continue
+
+        row_handle = bm_el.evaluate_handle(
+            'el => { let r = el; for (let i=0;i<3;i++) r=r.parentElement; return r; }'
+        ).as_element()
+        if not row_handle:
+            continue
+
+        odds_els = row_handle.query_selector_all('a.odds-link')
+        if not odds_els:
+            odds_els = row_handle.query_selector_all('p.odds-text')
+        if len(odds_els) < 2:
+            continue
+
+        home_data = _popup_odds(page, odds_els[0])
+        away_data = _popup_odds(page, odds_els[-1])
+
+        if home_data and away_data:
+            result[bm] = {
+                'home_open':  home_data.get('openVal'),
+                'away_open':  away_data.get('openVal'),
+                'home_close': home_data.get('closeVal'),
+                'away_close': away_data.get('closeVal'),
             }
-        }
-        return result;
-    }
-    """)
-    return rows
+
+    return result
 
 
 def calc_direction(open_odds, close_odds):
@@ -185,35 +244,56 @@ def main():
             })
             scrape_url = entry.get('match_url', m['url'])
 
-            bm_odds = scrape_bm_odds(page, scrape_url)
-            print(f'  BM {len(bm_odds)}개 수집')
+            bm_data = scrape_bm_odds(page, scrape_url)
+            print(f'  BM {len(bm_data)}개 수집')
+
+            if not bm_data:
+                today_odds[key] = entry
+                continue
+
+            # Opening odds → bm_open (항상 덮어쓰기, 변하지 않는 값)
+            bm_open = {bm: {'home': v['home_open'], 'away': v['away_open']}
+                       for bm, v in bm_data.items()
+                       if v.get('home_open') and v.get('away_open')}
+            if bm_open:
+                entry['bm_open'] = bm_open
+                entry['match_url'] = m['url']
+                h_avg = round(sum(v['home'] for v in bm_open.values()) / len(bm_open), 3)
+                a_avg = round(sum(v['away'] for v in bm_open.values()) / len(bm_open), 3)
+                entry['home_odds'] = h_avg
+                entry['away_odds'] = a_avg
+
+            # Closing odds → bm_close (closeVal이 openVal과 다를 때만 저장)
+            bm_close = {bm: {'home': v['home_close'], 'away': v['away_close']}
+                        for bm, v in bm_data.items()
+                        if v.get('home_close') and v.get('away_close')
+                        and v['home_close'] != v['home_open']}
+            if bm_close:
+                entry['bm_close'] = bm_close
+                # close 기준 home_odds/away_odds 업데이트
+                h_avg = round(sum(v['home'] for v in bm_close.values()) / len(bm_close), 3)
+                a_avg = round(sum(v['away'] for v in bm_close.values()) / len(bm_close), 3)
+                entry['home_odds'] = h_avg
+                entry['away_odds'] = a_avg
 
             if IS_CLOSE:
-                entry['bm_close'] = bm_odds
-                # 방향 계산
-                open_odds = entry.get('bm_open', {})
-                home_dir, ratio, count = calc_direction(open_odds, bm_odds)
+                # 방향 계산: bm_open vs bm_close
+                open_odds  = entry.get('bm_open', {})
+                close_odds = entry.get('bm_close', {})
+                home_dir, ratio, count = calc_direction(open_odds, close_odds)
                 if home_dir is not None:
                     up_team   = m['home'] if home_dir == 1 else m['away']
                     down_team = m['away'] if home_dir == 1 else m['home']
-                    entry['today_home_dir']   = home_dir
-                    entry['today_dir_ratio']  = round(ratio, 3)
-                    entry['today_dir_count']  = count
-                    entry['today_up_team']    = up_team
-                    entry['today_down_team']  = down_team
+                    entry['today_home_dir']  = home_dir
+                    entry['today_dir_ratio'] = round(ratio, 3)
+                    entry['today_dir_count'] = count
+                    entry['today_up_team']   = up_team
+                    entry['today_down_team'] = down_team
                     print(f'  홈배당 {"↑" if home_dir==1 else "↓"} | 배당↑={up_team}, 배당↓={down_team} ({ratio:.0%}, {count}BM)')
                 else:
-                    print('  방향 미확정 (open 미수집 or 변동 없음)')
+                    print('  방향 미확정 (변동 없음)')
             else:
-                entry['bm_open'] = bm_odds
-                entry['match_url'] = m['url']  # 아침 URL 저장 (close 수집 시 재사용)
-                # close에서 overall 배당도 저장 (홈/원정 평균)
-                if bm_odds:
-                    h_avg = round(sum(v['home'] for v in bm_odds.values()) / len(bm_odds), 3)
-                    a_avg = round(sum(v['away'] for v in bm_odds.values()) / len(bm_odds), 3)
-                    entry['home_odds'] = h_avg
-                    entry['away_odds'] = a_avg
-                print(f'  open 저장 완료 ({len(bm_odds)}BM)')
+                print(f'  open 저장 완료 (open:{len(bm_open)}BM, close변동:{len(bm_close)}BM)')
 
             today_odds[key] = entry
 
