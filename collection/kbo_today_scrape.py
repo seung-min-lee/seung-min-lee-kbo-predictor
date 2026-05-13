@@ -28,31 +28,18 @@ TEAM_MAP = {
     'Kiwoom Heroes':'Kiwoom Heroes',
 }
 
-def get_today_matches(page):
-    """오늘 예정 경기 목록 + h2h URL 수집"""
-    today_str = _dt.today().strftime('%Y-%m-%d')
-    for attempt in range(3):
-        try:
-            page.goto(GAMES_URL, timeout=90000, wait_until='domcontentloaded')
-            page.wait_for_selector('div.eventRow', timeout=45000)
-            break
-        except PWTimeout:
-            if attempt == 2: return []
-            time.sleep(5)
-    time.sleep(3)
-    page.evaluate('window.scrollTo(0, document.body.scrollHeight)')
-    time.sleep(2)
+RESULTS_URL = 'https://www.oddsportal.com/baseball/south-korea/kbo/results/'
 
-    allow_h2h_js = 'true' if ALLOW_H2H else 'false'
-    raw = page.evaluate("""
+def _extract_today_matches_js(allow_h2h_js, today_str):
+    return """
     () => {
         const ALLOW_H2H = __ALLOW_H2H__;
+        const TODAY = '__TODAY__';
         const results = [], seen = new Set();
         let currentDate = '';
         document.querySelectorAll('div.eventRow').forEach(row => {
             const dateEl = row.querySelector('[data-testid="date-header"]');
             if (dateEl && dateEl.innerText.trim()) currentDate = dateEl.innerText.trim();
-            // h2h 경기별 링크 우선(ALLOW_H2H=true), 없으면 /kbo/ match slug 링크 사용 (breadcrumb 제외)
             let link = ALLOW_H2H ? row.querySelector('a[href*="/h2h/"]') : null;
             if (!link) {
                 const kboLinks = Array.from(row.querySelectorAll('a[href*="/kbo/"]'))
@@ -70,18 +57,67 @@ def get_today_matches(page):
         });
         return results;
     }
-    """.replace('__ALLOW_H2H__', allow_h2h_js))
+    """.replace('__ALLOW_H2H__', allow_h2h_js).replace('__TODAY__', today_str)
 
-    matches, slot = [], 0
-    for m in raw:
-        if 'Today' not in str(m['date']) and today_str not in str(m['date']):
-            continue
-        slot += 1
-        if slot > 5: break
-        home = TEAM_MAP.get(m['home'], m['home'])
-        away = TEAM_MAP.get(m['away'], m['away'])
-        matches.append({'date': today_str, 'slot': float(slot),
-                        'home': home, 'away': away, 'url': m['url']})
+
+def get_today_matches(page):
+    """오늘 예정 경기 목록 + URL 수집. 예정 페이지 우선, 5개 미달이면 결과 페이지도 확인"""
+    today_str = _dt.today().strftime('%Y-%m-%d')
+    allow_h2h_js = 'true' if ALLOW_H2H else 'false'
+
+    def _parse_raw(raw):
+        out, seen_teams = [], set()
+        for m in raw:
+            if 'Today' not in str(m['date']) and today_str not in str(m['date']):
+                continue
+            home = TEAM_MAP.get(m['home'], m['home'])
+            away = TEAM_MAP.get(m['away'], m['away'])
+            key = (home, away)
+            if key in seen_teams:
+                continue
+            seen_teams.add(key)
+            out.append({'date': today_str, 'home': home, 'away': away, 'url': m['url']})
+        return out[:5]
+
+    # ── 예정 경기 페이지 ─────────────────────────────
+    for attempt in range(3):
+        try:
+            page.goto(GAMES_URL, timeout=90000, wait_until='domcontentloaded')
+            page.wait_for_selector('div.eventRow', timeout=45000)
+            break
+        except PWTimeout:
+            if attempt == 2: break
+            time.sleep(5)
+    time.sleep(3)
+    page.evaluate('window.scrollTo(0, document.body.scrollHeight)')
+    time.sleep(2)
+    raw = page.evaluate(_extract_today_matches_js(allow_h2h_js, today_str))
+    matches = _parse_raw(raw)
+
+    # ── 5개 미달 시 결과 페이지 fallback ────────────
+    if len(matches) < 5:
+        existing_keys = {(m['home'], m['away']) for m in matches}
+        print(f'  예정 페이지 {len(matches)}개 → 결과 페이지 fallback')
+        try:
+            page.goto(RESULTS_URL, timeout=90000, wait_until='domcontentloaded')
+            page.wait_for_selector('div.eventRow', timeout=45000)
+            time.sleep(3)
+            page.evaluate('window.scrollTo(0, document.body.scrollHeight)')
+            time.sleep(2)
+            raw2 = page.evaluate(_extract_today_matches_js(allow_h2h_js, today_str))
+            for m in _parse_raw(raw2):
+                k = (m['home'], m['away'])
+                if k not in existing_keys:
+                    matches.append(m)
+                    existing_keys.add(k)
+                    if len(matches) == 5:
+                        break
+        except Exception as e:
+            print(f'  결과 페이지 fallback 실패: {e}')
+
+    # slot 번호 부여
+    for i, m in enumerate(matches, 1):
+        m['slot'] = float(i)
     return matches
 
 

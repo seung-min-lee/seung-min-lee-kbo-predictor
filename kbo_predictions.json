@@ -1809,14 +1809,14 @@
         "current_odds": 1.87
       }
     },
-    "recommendation": "AWAY(0)",
+    "recommendation": "HOME(1)",
     "confidence": 0.923,
-    "pattern_reason": "배당↓팀이김 12/13(92%) : SSG Landers (팀패턴충돌: 홈 승 패턴(78%) + 원정 패 패턴(85%) ※정배패턴충돌(역배승 18경기(홈정배)))",
+    "pattern_reason": "배당↓팀이김 12/13(92%) : KT Wiz Suwon (팀패턴일치: 홈 승 패턴(78%) + 원정 패 패턴(85%) ※정배패턴충돌(역배승 18경기(홈정배)))",
     "home_win_desc": "다수결 ↑1 42/52(80%)",
     "away_win_desc": "다수결 ↓0 51/70(70%)",
-    "bm_label": "배당↓팀이김 12/13(92%) : SSG Landers",
+    "bm_label": "배당↓팀이김 12/13(92%) : KT Wiz Suwon",
     "bm_dir_vote": 0,
-    "bm_team_rec": 0,
+    "bm_team_rec": 1,
     "bm_dir_ratio": 0.923,
     "ml_home_prob": 0.415,
     "ml_away_prob": 0.585,
@@ -2461,8 +2461,8 @@
     "slot_fav_win": "100100000110010100",
     "slot_fav_rec": 1,
     "slot_fav_desc": "[100100000110010100] 반접기[10|01] + 꼬리[00000110010100]=끝2연속0→1",
-    "slot_fav_team_rec": 1,
-    "home_is_fav": true,
+    "slot_fav_team_rec": 0,
+    "home_is_fav": false,
     "slot_bm": {
       "10x10bet": {
         "seq": "011101000111P0N10",
@@ -2555,9 +2555,9 @@
         "current_odds": 1.83
       }
     },
-    "recommendation": "HOME(1)",
+    "recommendation": "AWAY(0)",
     "confidence": 0.75,
-    "pattern_reason": "슬롯정배패턴(정배승 18경기(홈정배))",
+    "pattern_reason": "슬롯정배패턴(정배승 18경기(원정정배))",
     "home_win_desc": "다수결 ↑1 43/48(90%)",
     "away_win_desc": "다수결 ↑1 45/63(72%)",
     "bm_label": "불명확 0/0",
@@ -3152,8 +3152,8 @@
     "slot_fav_win": "101000001010001101",
     "slot_fav_rec": 1,
     "slot_fav_desc": "[101000001010001101] Mirror [0|1]",
-    "slot_fav_team_rec": 0,
-    "home_is_fav": false,
+    "slot_fav_team_rec": 1,
+    "home_is_fav": true,
     "slot_bm": {
       "10x10bet": {
         "seq": "0111101101N010011",
@@ -3247,13 +3247,13 @@
       }
     },
     "recommendation": "HOME(1)",
-    "confidence": 0.65,
-    "pattern_reason": "원정 패 패턴(85%) (홈 불규칙) ※정배패턴충돌(정배승 18경기(원정정배))",
+    "confidence": 0.833,
+    "pattern_reason": "배당↓팀이김 5/6(83%) : Lotte Giants (팀패턴일치: 원정 패 패턴(85%) (홈 불규칙) + 정배패턴일치(정배승 18경기(홈정배)))",
     "home_win_desc": "균형(41↑:36↓) → 불규칙",
     "away_win_desc": "다수결 ↓0 61/84(70%)",
-    "bm_label": "배당↓팀이김 5/6(83%) (방향미확인)",
+    "bm_label": "배당↓팀이김 5/6(83%) : Lotte Giants",
     "bm_dir_vote": 0,
-    "bm_team_rec": null,
+    "bm_team_rec": 1,
     "bm_dir_ratio": 0.833,
     "ml_home_prob": 0.56,
     "ml_away_prob": 0.44,
