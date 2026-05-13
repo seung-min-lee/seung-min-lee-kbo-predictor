@@ -78,6 +78,14 @@ def predict_game(home, away, date_order):
     return final_rec, round(conf, 3), round(float(ml_proba[1]), 3), round(float(ml_proba[0]), 3), ml_intervened
 
 
+# 기존 로그 로드 → 이미 기록된 날짜는 덮어쓰지 않음 (실제 예측 보존)
+if os.path.exists(LOG_PATH):
+    existing_log = pd.read_csv(LOG_PATH)
+    already_logged = set(zip(existing_log['date'].astype(str), existing_log['slot'].astype(int)))
+else:
+    existing_log = pd.DataFrame()
+    already_logged = set()
+
 records = []
 skipped = 0
 
@@ -88,6 +96,9 @@ for _, row in completed.iterrows():
     date            = row['date']
     date_order      = row['date_order']
     actual_home_win = bool(row['winner_is_home'])
+
+    if (str(date), slot) in already_logged:
+        continue
 
     prior_h = game_df[
         ((game_df['home'] == home) | (game_df['away'] == home)) &
@@ -127,8 +138,16 @@ for _, row in completed.iterrows():
         'ml_intervened': ml_int,
     })
 
-log_df = pd.DataFrame(records)
-log_df.to_csv(LOG_PATH, index=False, encoding='utf-8-sig')
+new_df = pd.DataFrame(records)
+if len(existing_log) > 0 and len(new_df) > 0:
+    log_df = pd.concat([existing_log, new_df], ignore_index=True)
+elif len(new_df) > 0:
+    log_df = new_df
+else:
+    log_df = existing_log.copy() if len(existing_log) > 0 else pd.DataFrame()
+
+if len(log_df) > 0:
+    log_df.to_csv(LOG_PATH, index=False, encoding='utf-8-sig')
 
 total    = len(log_df)
 has_pred = log_df[log_df['prediction'] != 'PASS']
