@@ -115,35 +115,61 @@ POPUP_JS = """
 """
 
 def _popup_odds(page, el_handle):
-    """odds 셀 클릭 → 팝업에서 openVal/closeVal 추출"""
-    try:
-        el_handle.scroll_into_view_if_needed()
-        el_handle.hover()
-        time.sleep(0.4)
-        el_handle.click()
-        time.sleep(1.5)
-    except Exception:
-        return None
-    data = page.evaluate(POPUP_JS)
-    try:
-        page.keyboard.press('Escape')
-        time.sleep(0.3)
-    except Exception:
-        pass
-    return data
+    """odds 셀 클릭 → 팝업에서 openVal/closeVal 추출 (최대 2회 재시도)"""
+    for attempt in range(2):
+        try:
+            el_handle.scroll_into_view_if_needed()
+            time.sleep(0.3)
+            el_handle.hover()
+            time.sleep(0.3)
+            el_handle.click()
+        except Exception:
+            return None
+        # 팝업 명시적 대기
+        try:
+            page.wait_for_selector(
+                'div.height-content[class*="bg-gray-med_light"], div[class*="fixed"][class*="height-content"]',
+                timeout=3000
+            )
+        except PWTimeout:
+            # 팝업 안 열렸으면 Escape 후 재시도
+            try:
+                page.keyboard.press('Escape')
+                time.sleep(0.5)
+            except Exception:
+                pass
+            if attempt == 1:
+                return None
+            continue
+        data = page.evaluate(POPUP_JS)
+        try:
+            page.keyboard.press('Escape')
+            time.sleep(0.3)
+        except Exception:
+            pass
+        if data and (data.get('openVal') or data.get('closeVal')):
+            return data
+    return None
 
 
 def scrape_bm_odds(page, url):
     """경기 페이지에서 BM별 Opening/Closing odds 수집 (팝업 클릭 방식)
     반환: {bm: {home_open, away_open, home_close, away_close}}
     """
-    try:
-        page.goto(url, timeout=60000, wait_until='domcontentloaded')
-        page.wait_for_selector('p.height-content.pl-4', timeout=30000)
-        time.sleep(3)
-    except PWTimeout:
-        print('  로딩 실패')
-        return {}
+    for attempt in range(2):
+        try:
+            page.goto(url, timeout=60000, wait_until='domcontentloaded')
+            page.wait_for_selector('p.height-content.pl-4', timeout=30000)
+            break
+        except Exception:
+            if attempt == 1:
+                print('  로딩 실패')
+                return {}
+            time.sleep(5)
+    page.evaluate('window.scrollTo(0, document.body.scrollHeight)')
+    time.sleep(2)
+    page.evaluate('window.scrollTo(0, 0)')
+    time.sleep(1)
 
     result = {}
     bm_els = page.query_selector_all('p.height-content.pl-4')
@@ -211,14 +237,20 @@ def main():
 
     with sync_playwright() as pw:
         browser = pw.chromium.launch(headless=True, args=['--no-sandbox'])
-        ctx = browser.new_context(
-            user_agent='Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36',
-            viewport={'width': 1920, 'height': 1080}
-        )
-        page = ctx.new_page()
-        page.add_init_script("Object.defineProperty(navigator,'webdriver',{get:()=>undefined})")
 
+        def _new_page():
+            ctx = browser.new_context(
+                user_agent='Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36',
+                viewport={'width': 1920, 'height': 1080}
+            )
+            p = ctx.new_page()
+            p.add_init_script("Object.defineProperty(navigator,'webdriver',{get:()=>undefined})")
+            return p
+
+        # 경기 목록 수집
+        page = _new_page()
         matches = get_today_matches(page)
+        page.context.close()
         print(f'오늘 경기 {len(matches)}개')
 
         for m in matches:
@@ -244,7 +276,15 @@ def main():
             })
             scrape_url = entry.get('match_url', m['url'])
 
-            bm_data = scrape_bm_odds(page, scrape_url)
+            # 슬롯마다 새 컨텍스트 (소켓 끊김 방지)
+            slot_page = _new_page()
+            try:
+                bm_data = scrape_bm_odds(slot_page, scrape_url)
+            except Exception as e:
+                print(f'  수집 오류: {e}')
+                bm_data = {}
+            finally:
+                slot_page.context.close()
             print(f'  BM {len(bm_data)}개 수집')
 
             if not bm_data:
