@@ -7,6 +7,7 @@ import os, sys
 sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 os.chdir(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 from kbo_update import get_driver, get_match_urls, normalize_date, scrape_team_odds, EXCLUDE
+from collection.bm_utils import recalc_winner_direction
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
@@ -189,6 +190,7 @@ finally:
     except: pass
 
 if updated > 0:
+    df = recalc_winner_direction(df)
     df.to_csv(CSV_PATH, index=False, encoding='utf-8-sig')
     print(f'\n완료: {updated}개 업데이트 → {CSV_PATH} 저장')
 else:

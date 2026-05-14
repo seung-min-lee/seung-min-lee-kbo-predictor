@@ -7,6 +7,7 @@ kbo_fill_open.py
 import os, sys
 sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 os.chdir(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+from collection.bm_utils import recalc_winner_direction
 from kbo_update import get_driver, get_match_urls, normalize_date, scrape_team_odds, EXCLUDE
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import WebDriverWait
@@ -121,6 +122,7 @@ finally:
     except: pass
 
 if updated > 0:
+    df = recalc_winner_direction(df)
     df.to_csv(CSV_PATH, index=False, encoding='utf-8-sig')
     print(f'\n완료: {updated}개 북메이커 open 데이터 업데이트 → {CSV_PATH} 저장')
 else:

@@ -10,6 +10,7 @@ import pandas as pd
 import time
 import tempfile
 from datetime import datetime as _dt, timedelta as _td
+from collection.bm_utils import compute_winner_direction, recalc_winner_direction
 
 def _atomic_csv(path, df):
     dir_ = _os.path.dirname(_os.path.abspath(path)) or '.'
@@ -421,8 +422,7 @@ def main():
 
                 h_dir = (1 if h_close > h_open else 0) if (h_open and h_close and h_open != h_close) else None
                 a_dir = (1 if a_close > a_open else 0) if (a_open and a_close and a_open != a_close) else None
-                # N조건: 양쪽 change 동일 → winner_direction NaN
-                w_dir = None if (h_chg is not None and a_chg is not None and h_chg == a_chg) else (h_dir if winner_is_home else a_dir)
+                w_dir = compute_winner_direction(h_open, h_close, a_open, a_close, winner_is_home)
 
                 if mask.any():
                     if h_open:
@@ -433,7 +433,8 @@ def main():
                         df.loc[mask, ['away_open', 'away_close', 'away_change']] = [a_open, a_close, a_chg]
                         if a_dir is not None:
                             df.loc[mask, 'away_direction'] = a_dir
-                    if w_dir is not None:
+                    # 수집 성공 시 항상 갱신 (None → NaN으로 stale 값 제거)
+                    if h_open or a_open:
                         df.loc[mask, 'winner_direction'] = w_dir
                     if h_open or a_open:
                         updated += 1
@@ -469,38 +470,11 @@ def main():
 
         browser.close()
 
-    # open/close 있는데 direction 없는 행 일괄 재계산
+    # winner_direction 전체 재계산 (stale 값 제거, get_slot_bm_odds_seqs 로직 동일)
     df = pd.read_csv(CSV_PATH)
-    has_h = df['home_open'].notna() & df['home_close'].notna()
-    has_a = df['away_open'].notna() & df['away_close'].notna()
-    miss_h = df['home_direction'].isna() & has_h
-    miss_a = df['away_direction'].isna() & has_a
-    miss_w = df['winner_direction'].isna()
-
-    if miss_h.any():
-        changed_h = miss_h & (df['home_close'] != df['home_open'])
-        df.loc[changed_h, 'home_direction'] = (
-            df.loc[changed_h, 'home_close'] > df.loc[changed_h, 'home_open']).astype(int)
-    if miss_a.any():
-        changed_a = miss_a & (df['away_close'] != df['away_open'])
-        df.loc[changed_a, 'away_direction'] = (
-            df.loc[changed_a, 'away_close'] > df.loc[changed_a, 'away_open']).astype(int)
-
-    # N조건: home_change == away_change → winner_direction NaN 유지
-    h_chg_col = (df['home_close'] - df['home_open']).round(4)
-    a_chg_col = (df['away_close'] - df['away_open']).round(4)
-    n_cond = has_h & has_a & (h_chg_col == a_chg_col)
-
-    wih_true  = miss_w & ~n_cond & (df['winner_is_home'] == True)  & has_h
-    wih_false = miss_w & ~n_cond & (df['winner_is_home'] == False) & has_a
-    if wih_true.any():
-        df.loc[wih_true, 'winner_direction'] = (
-            df.loc[wih_true, 'home_close'] > df.loc[wih_true, 'home_open']).astype(int)
-    if wih_false.any():
-        df.loc[wih_false, 'winner_direction'] = (
-            df.loc[wih_false, 'away_close'] > df.loc[wih_false, 'away_open']).astype(int)
-
-    filled = int(miss_w.sum() - df['winner_direction'].isna().sum())
+    before = df['winner_direction'].notna().sum()
+    df = recalc_winner_direction(df)
+    filled = int(df['winner_direction'].notna().sum() - before)
     _atomic_csv(CSV_PATH, df)
 
     # odds.csv 날짜별 스냅샷 (롤백용)

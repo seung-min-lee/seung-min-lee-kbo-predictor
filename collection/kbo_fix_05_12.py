@@ -6,6 +6,7 @@ import os as _os; _os.chdir(_os.path.dirname(_os.path.dirname(_os.path.abspath(_
 import time, tempfile
 import pandas as pd
 from playwright.sync_api import sync_playwright, TimeoutError as PWTimeout
+from collection.bm_utils import compute_winner_direction, recalc_winner_direction
 
 import sys as _sys
 TARGET_DATE      = _sys.argv[1] if len(_sys.argv) > 1 else '2026-05-12'
@@ -272,36 +273,26 @@ def main():
                 home_close = v.get('home_close')
                 away_close = v.get('away_close')
 
-                home_dir = None
-                away_dir = None
-                if home_open and home_close and abs(home_close - home_open) > 0.005:
-                    home_dir = 1 if home_close > home_open else 0
-                if away_open and away_close and abs(away_close - away_open) > 0.005:
-                    away_dir = 1 if away_close > away_open else 0
+                if home_open  is not None: df.loc[mask, 'home_open']  = home_open
+                if away_open  is not None: df.loc[mask, 'away_open']  = away_open
+                if home_close is not None: df.loc[mask, 'home_close'] = home_close
+                if away_close is not None: df.loc[mask, 'away_close'] = away_close
 
-                winner_dir = None
-                if winner_is_home is not None:
-                    cand = home_dir if winner_is_home else away_dir
-                    if home_dir is not None and away_dir is not None and home_dir == away_dir:
-                        winner_dir = None  # N 조건
-                    else:
-                        winner_dir = cand
-
-                if home_open  is not None: df.loc[mask, 'home_open']        = home_open
-                if away_open  is not None: df.loc[mask, 'away_open']        = away_open
-                if home_close is not None: df.loc[mask, 'home_close']       = home_close
-                if away_close is not None: df.loc[mask, 'away_close']       = away_close
-                if home_dir   is not None: df.loc[mask, 'home_direction']   = home_dir
-                if away_dir   is not None: df.loc[mask, 'away_direction']   = away_dir
-                # 데이터 수집 성공 시 항상 갱신 (None이면 NaN으로 덮어써 이전 오류값 제거)
-                if winner_is_home is not None:
-                    df.loc[mask, 'winner_direction'] = winner_dir
+                # home/away_direction 갱신
+                if home_open and home_close:
+                    h_chg = home_close - home_open
+                    df.loc[mask, 'home_direction'] = (1 if h_chg > 0 else (0 if h_chg < 0 else None))
+                if away_open and away_close:
+                    a_chg = away_close - away_open
+                    df.loc[mask, 'away_direction'] = (1 if a_chg > 0 else (0 if a_chg < 0 else None))
                 updated += 1
 
             print(f'  → {updated}개 북메이커 업데이트')
 
         browser.close()
 
+    # winner_direction 전체 재계산 (stale 값 제거)
+    df = recalc_winner_direction(df)
     _atomic_csv(CSV_PATH, df)
 
     tdf = df[df['date'] == TARGET_DATE]
