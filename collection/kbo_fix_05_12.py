@@ -7,12 +7,15 @@ import time, tempfile
 import pandas as pd
 from playwright.sync_api import sync_playwright, TimeoutError as PWTimeout
 
-TARGET_DATE      = '2026-05-12'
+import sys as _sys
+TARGET_DATE      = _sys.argv[1] if len(_sys.argv) > 1 else '2026-05-12'
 CSV_PATH         = 'kbo_odds.csv'
 GAMES_PATH       = 'kbo_games.csv'
 RESULTS_URL      = 'https://www.oddsportal.com/baseball/south-korea/kbo/results/'
 EXCLUDE          = {'My coupon', 'User Predictions', 'Betfair Exchange'}
-TARGET_MATCH_IDS = {'ELRyShWg', 'YNswQW06', 't8TTTE1s', 'fHfBBXoD', 'MNncZzvK'}
+
+# match_id는 kbo_odds.csv에서 자동 로딩 (main() 진입 후 결정)
+TARGET_MATCH_IDS = set()
 
 POPUP_JS = """
 () => {
@@ -189,14 +192,20 @@ def _atomic_csv(path, df):
 
 
 def main():
-    print(f'05-12 BM 재수집 시작')
+    global TARGET_MATCH_IDS
+    print(f'{TARGET_DATE} BM 재수집 시작')
 
     df    = pd.read_csv(CSV_PATH)
     games = pd.read_csv(GAMES_PATH)
 
+    # match_id 자동 수집
+    TARGET_MATCH_IDS = set(df[df['date'] == TARGET_DATE]['match_id'].dropna().unique())
+    print(f'대상 match_id: {TARGET_MATCH_IDS}')
+
     wih_map = {}
     for _, g in games[games['date'] == TARGET_DATE].iterrows():
-        wih_map[(g['home'], g['away'])] = bool(g['winner_is_home'])
+        if pd.notna(g.get('winner_is_home')):
+            wih_map[(g['home'], g['away'])] = bool(g['winner_is_home'])
 
     print(f'winner_is_home 매핑: {wih_map}')
 
@@ -293,12 +302,12 @@ def main():
 
     _atomic_csv(CSV_PATH, df)
 
-    m12 = df[df['date'] == TARGET_DATE]
-    print(f'\n05-12 최종 결과:')
-    print(f'  행 수: {len(m12)}')
-    print(f'  home_open 수집:        {m12["home_open"].notna().sum()}/{len(m12)}')
-    print(f'  home_direction 수집:   {m12["home_direction"].notna().sum()}/{len(m12)}')
-    print(f'  winner_direction 수집: {m12["winner_direction"].notna().sum()}/{len(m12)}')
+    tdf = df[df['date'] == TARGET_DATE]
+    print(f'\n{TARGET_DATE} 최종 결과:')
+    print(f'  행 수: {len(tdf)}')
+    print(f'  home_open 수집:        {tdf["home_open"].notna().sum()}/{len(tdf)}')
+    print(f'  home_direction 수집:   {tdf["home_direction"].notna().sum()}/{len(tdf)}')
+    print(f'  winner_direction 수집: {tdf["winner_direction"].notna().sum()}/{len(tdf)}')
 
 
 if __name__ == '__main__':
