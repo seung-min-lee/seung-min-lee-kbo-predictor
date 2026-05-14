@@ -118,13 +118,13 @@
       }
     },
     "recommendation": "AWAY(0)",
-    "confidence": 0.75,
-    "pattern_reason": "슬롯정배패턴(정배승 18경기(원정정배))",
+    "confidence": 0.833,
+    "pattern_reason": "배당↑팀이김 10/12(83%) : Doosan Bears (팀패턴일치: 슬롯정배패턴(정배승 18경기(원정정배)))",
     "home_win_desc": "다수결 ↑1 58/85(70%)",
     "away_win_desc": "다수결 ↑1 49/74(63%)",
-    "bm_label": "배당↑팀이김 10/12(83%) (방향미확인)",
+    "bm_label": "배당↑팀이김 10/12(83%) : Doosan Bears",
     "bm_dir_vote": 1,
-    "bm_team_rec": null,
+    "bm_team_rec": 0,
     "bm_dir_ratio": 0.833,
     "ml_home_prob": 0.48,
     "ml_away_prob": 0.52,
@@ -1018,7 +1018,7 @@
         "current_odds": 2.76
       },
       "Momobet": {
-        "seq": "10101110N11001100",
+        "seq": "1010111NN11001100",
         "rec": 1,
         "desc": "다수결 ↑1 23/32(71%)",
         "current_odds": 2.97
@@ -1049,13 +1049,13 @@
       }
     },
     "recommendation": "AWAY(0)",
-    "confidence": 0.82,
-    "pattern_reason": "홈 패 패턴(85%) + 원정 승 패턴(85%) ※정배패턴충돌(역배승 18경기(원정정배))",
+    "confidence": 0.625,
+    "pattern_reason": "배당↑팀이김 5/8(62%) : Hanwha Eagles (팀패턴일치: 홈 패 패턴(85%) + 원정 승 패턴(85%) ※정배패턴충돌(역배승 18경기(원정정배)))",
     "home_win_desc": "다수결 ↓0 63/78(78%)",
     "away_win_desc": "다수결 ↑1 52/76(66%)",
-    "bm_label": "배당↑팀이김 5/8(62%) (방향미확인)",
+    "bm_label": "배당↑팀이김 5/8(62%) : Hanwha Eagles",
     "bm_dir_vote": 1,
-    "bm_team_rec": null,
+    "bm_team_rec": 0,
     "bm_dir_ratio": 0.625,
     "ml_home_prob": 0.395,
     "ml_away_prob": 0.605,
@@ -1870,9 +1870,9 @@
         "current_odds": 1.8
       },
       "1xBet": {
-        "seq": "00N0111N1000110N0",
-        "rec": null,
-        "desc": "데이터 부족",
+        "seq": "00N0111N1000110NN",
+        "rec": 1,
+        "desc": "다수결 ↑1 13/20(65%)",
         "current_odds": 1.82
       },
       "22Bet": {
@@ -1882,9 +1882,9 @@
         "current_odds": 1.78
       },
       "Alphabet": {
-        "seq": "00N01110100011010",
-        "rec": 1,
-        "desc": "다수결 ↑1 57/61(93%)",
+        "seq": "00N01110100011011",
+        "rec": 0,
+        "desc": "다수결 ↓0 40/46(88%)",
         "current_odds": 1.83
       },
       "BetInAsia": {
@@ -1906,9 +1906,9 @@
         "current_odds": 1.58
       },
       "GambleCity": {
-        "seq": "00N01110100011010",
-        "rec": 1,
-        "desc": "다수결 ↑1 57/61(93%)",
+        "seq": "00N0111010001101N",
+        "rec": 0,
+        "desc": "다수결 ↓0 32/46(71%)",
         "current_odds": 1.75
       },
       "Kobet": {
@@ -1930,9 +1930,9 @@
         "current_odds": 1.83
       },
       "Roobet": {
-        "seq": "01N0N110100011010",
-        "rec": 1,
-        "desc": "다수결 ↑1 48/51(94%)",
+        "seq": "01N0N110100011011",
+        "rec": 0,
+        "desc": "다수결 ↓0 32/38(84%)",
         "current_odds": 1.75
       },
       "Stake.com": {
@@ -1955,14 +1955,14 @@
       }
     },
     "recommendation": "AWAY(0)",
-    "confidence": 0.75,
-    "pattern_reason": "슬롯정배패턴(정배승 18경기(원정정배))",
+    "confidence": 0.917,
+    "pattern_reason": "배당↓팀이김 11/12(92%) : SSG Landers (팀패턴일치: 슬롯정배패턴(정배승 18경기(원정정배)))",
     "home_win_desc": "다수결 ↓0 53/74(69%)",
     "away_win_desc": "다수결 ↓0 51/72(71%)",
-    "bm_label": "배당↓팀이김 8/11(73%) (방향미확인)",
+    "bm_label": "배당↓팀이김 11/12(92%) : SSG Landers",
     "bm_dir_vote": 0,
-    "bm_team_rec": null,
-    "bm_dir_ratio": 0.727,
+    "bm_team_rec": 0,
+    "bm_dir_ratio": 0.917,
     "ml_home_prob": 0.55,
     "ml_away_prob": 0.45,
     "home_pattern_log": [
@@ -2820,14 +2820,14 @@
         "current_odds": 1.9
       }
     },
-    "recommendation": "AWAY(0)",
-    "confidence": 0.82,
-    "pattern_reason": "홈 패 패턴(85%) + 원정 승 패턴(85%) ※정배패턴충돌(정배승 18경기(홈정배))",
+    "recommendation": "HOME(1)",
+    "confidence": 0.727,
+    "pattern_reason": "배당↓팀이김 8/11(73%) : LG Twins (팀패턴충돌: 홈 패 패턴(85%) + 원정 승 패턴(85%) ※정배패턴충돌(정배승 18경기(홈정배)))",
     "home_win_desc": "다수결 ↓0 54/74(70%)",
     "away_win_desc": "다수결 ↑1 51/63(78%)",
-    "bm_label": "배당↓팀이김 8/11(73%) (방향미확인)",
+    "bm_label": "배당↓팀이김 8/11(73%) : LG Twins",
     "bm_dir_vote": 0,
-    "bm_team_rec": null,
+    "bm_team_rec": 1,
     "bm_dir_ratio": 0.727,
     "ml_home_prob": 0.425,
     "ml_away_prob": 0.575,
@@ -3547,8 +3547,8 @@
     "slot_fav_win": "010000010100011011",
     "slot_fav_rec": 0,
     "slot_fav_desc": "[010000010100011011] 반접기[100|011] + 꼬리[011]=연속블록→0",
-    "slot_fav_team_rec": 1,
-    "home_is_fav": false,
+    "slot_fav_team_rec": 0,
+    "home_is_fav": true,
     "slot_bm": {
       "10x10bet": {
         "seq": "111101101N0100110",
@@ -3641,14 +3641,14 @@
         "current_odds": 1.95
       }
     },
-    "recommendation": "HOME(1)",
-    "confidence": 0.75,
-    "pattern_reason": "슬롯정배패턴(역배승 18경기(원정정배))",
+    "recommendation": "AWAY(0)",
+    "confidence": 1.0,
+    "pattern_reason": "배당↑팀이김 11/11(100%) : NC Dinos (팀패턴일치: 슬롯정배패턴(역배승 18경기(홈정배)))",
     "home_win_desc": "다수결 ↓0 76/87(87%)",
     "away_win_desc": "다수결 ↓0 53/79(68%)",
-    "bm_label": "배당↑팀이김 11/11(100%) (방향미확인)",
+    "bm_label": "배당↑팀이김 11/11(100%) : NC Dinos",
     "bm_dir_vote": 1,
-    "bm_team_rec": null,
+    "bm_team_rec": 0,
     "bm_dir_ratio": 1.0,
     "ml_home_prob": 0.535,
     "ml_away_prob": 0.465,
