@@ -70,5 +70,13 @@
     "away": "Samsung Lions",
     "pick": "HOME(LG Twins)",
     "saved_at": "2026-05-14T09:17:29"
+  },
+  "2026-05-14|5.0|Lotte Giants|NC Dinos": {
+    "date": "2026-05-14",
+    "slot": 5.0,
+    "home": "Lotte Giants",
+    "away": "NC Dinos",
+    "pick": "AWAY(NC Dinos)",
+    "saved_at": "2026-05-14T09:17:31"
   }
 }
