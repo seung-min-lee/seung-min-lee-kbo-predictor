@@ -1954,7 +1954,7 @@
         "current_odds": 1.7
       }
     },
-    "recommendation": "AWAY(0)",
+    "recommendation": "HOME(1)",
     "confidence": 0.917,
     "pattern_reason": "배당↓팀이김 11/12(92%) : SSG Landers (팀패턴일치: 슬롯정배패턴(정배승 18경기(원정정배)))",
     "home_win_desc": "다수결 ↓0 53/74(69%)",
