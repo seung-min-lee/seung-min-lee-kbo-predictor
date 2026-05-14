@@ -54,5 +54,13 @@
     "away": "Hanwha Eagles",
     "pick": "HOME(Kiwoom Heroes)",
     "saved_at": "2026-05-14T09:17:20"
+  },
+  "2026-05-14|3.0|KT Wiz Suwon|SSG Landers": {
+    "date": "2026-05-14",
+    "slot": 3.0,
+    "home": "KT Wiz Suwon",
+    "away": "SSG Landers",
+    "pick": "AWAY(SSG Landers)",
+    "saved_at": "2026-05-14T09:17:24"
   }
 }
