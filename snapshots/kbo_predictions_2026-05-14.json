@@ -1882,9 +1882,9 @@
         "current_odds": 1.78
       },
       "Alphabet": {
-        "seq": "00N01110100011010",
-        "rec": 1,
-        "desc": "다수결 ↑1 57/61(93%)",
+        "seq": "00N01110100011011",
+        "rec": 0,
+        "desc": "다수결 ↓0 40/46(88%)",
         "current_odds": 1.83
       },
       "BetInAsia": {
@@ -1906,9 +1906,9 @@
         "current_odds": 1.58
       },
       "GambleCity": {
-        "seq": "00N01110100011010",
-        "rec": 1,
-        "desc": "다수결 ↑1 57/61(93%)",
+        "seq": "00N0111010001101N",
+        "rec": 0,
+        "desc": "다수결 ↓0 32/46(71%)",
         "current_odds": 1.75
       },
       "Kobet": {
@@ -1930,9 +1930,9 @@
         "current_odds": 1.83
       },
       "Roobet": {
-        "seq": "01N0N110100011010",
-        "rec": 1,
-        "desc": "다수결 ↑1 48/51(94%)",
+        "seq": "01N0N110100011011",
+        "rec": 0,
+        "desc": "다수결 ↓0 32/38(84%)",
         "current_odds": 1.75
       },
       "Stake.com": {
@@ -1959,10 +1959,10 @@
     "pattern_reason": "슬롯정배패턴(정배승 18경기(원정정배))",
     "home_win_desc": "다수결 ↓0 53/74(69%)",
     "away_win_desc": "다수결 ↓0 51/72(71%)",
-    "bm_label": "배당↓팀이김 8/12(67%) (방향미확인)",
+    "bm_label": "배당↓팀이김 11/12(92%) (방향미확인)",
     "bm_dir_vote": 0,
     "bm_team_rec": null,
-    "bm_dir_ratio": 0.667,
+    "bm_dir_ratio": 0.917,
     "ml_home_prob": 0.55,
     "ml_away_prob": 0.45,
     "home_pattern_log": [
