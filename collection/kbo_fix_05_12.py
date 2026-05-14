@@ -293,7 +293,9 @@ def main():
                 if away_close is not None: df.loc[mask, 'away_close']       = away_close
                 if home_dir   is not None: df.loc[mask, 'home_direction']   = home_dir
                 if away_dir   is not None: df.loc[mask, 'away_direction']   = away_dir
-                if winner_dir is not None: df.loc[mask, 'winner_direction'] = winner_dir
+                # 데이터 수집 성공 시 항상 갱신 (None이면 NaN으로 덮어써 이전 오류값 제거)
+                if winner_is_home is not None:
+                    df.loc[mask, 'winner_direction'] = winner_dir
                 updated += 1
 
             print(f'  → {updated}개 북메이커 업데이트')

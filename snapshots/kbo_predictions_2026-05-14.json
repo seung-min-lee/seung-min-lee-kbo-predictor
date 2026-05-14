@@ -1870,9 +1870,9 @@
         "current_odds": 1.8
       },
       "1xBet": {
-        "seq": "00N0111N1000110N0",
-        "rec": null,
-        "desc": "데이터 부족",
+        "seq": "00N0111N1000110NN",
+        "rec": 1,
+        "desc": "다수결 ↑1 13/20(65%)",
         "current_odds": 1.82
       },
       "22Bet": {
@@ -1959,10 +1959,10 @@
     "pattern_reason": "슬롯정배패턴(정배승 18경기(원정정배))",
     "home_win_desc": "다수결 ↓0 53/74(69%)",
     "away_win_desc": "다수결 ↓0 51/72(71%)",
-    "bm_label": "배당↓팀이김 8/11(73%) (방향미확인)",
+    "bm_label": "배당↓팀이김 8/12(67%) (방향미확인)",
     "bm_dir_vote": 0,
     "bm_team_rec": null,
-    "bm_dir_ratio": 0.727,
+    "bm_dir_ratio": 0.667,
     "ml_home_prob": 0.55,
     "ml_away_prob": 0.45,
     "home_pattern_log": [
