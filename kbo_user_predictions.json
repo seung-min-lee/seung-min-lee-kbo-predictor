@@ -94,5 +94,13 @@
     "away": "Kiwoom Heroes",
     "pick": "AWAY(Kiwoom Heroes)",
     "saved_at": "2026-05-15T09:04:58"
+  },
+  "2026-05-15|3.0|Samsung Lions|KIA Tigers": {
+    "date": "2026-05-15",
+    "slot": 3.0,
+    "home": "Samsung Lions",
+    "away": "KIA Tigers",
+    "pick": "HOME(Samsung Lions)",
+    "saved_at": "2026-05-15T09:05:01"
   }
 }
