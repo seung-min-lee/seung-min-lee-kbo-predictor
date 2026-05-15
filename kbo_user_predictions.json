@@ -86,5 +86,13 @@
     "away": "LG Twins",
     "pick": "AWAY(LG Twins)",
     "saved_at": "2026-05-15T09:04:56"
+  },
+  "2026-05-15|4.0|NC Dinos|Kiwoom Heroes": {
+    "date": "2026-05-15",
+    "slot": 4.0,
+    "home": "NC Dinos",
+    "away": "Kiwoom Heroes",
+    "pick": "AWAY(Kiwoom Heroes)",
+    "saved_at": "2026-05-15T09:04:58"
   }
 }
