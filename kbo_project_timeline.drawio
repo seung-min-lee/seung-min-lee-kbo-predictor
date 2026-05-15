@@ -1,0 +1,184 @@
+<mxGraphModel dx="1422" dy="762" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1969" pageHeight="1169" math="0" shadow="0">
+  <root>
+    <mxCell id="0" />
+    <mxCell id="1" parent="0" />
+
+    <!-- ===== 제목 ===== -->
+    <mxCell id="title" value="KBO AI 예측 시스템 개발 수행 과정" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=22;fontStyle=1;fontColor=#23395d;" vertex="1" parent="1">
+      <mxGeometry x="20" y="15" width="1920" height="50" as="geometry" />
+    </mxCell>
+
+    <!-- ===== 3월 컨테이너 ===== -->
+    <mxCell id="col_mar" value="📅 3월 (사전 기획)" style="swimlane;fontStyle=1;align=center;startSize=42;fillColor=#23395d;strokeColor=#23395d;fontColor=#ffffff;fontSize=14;rounded=1;arcSize=4;" vertex="1" parent="1">
+      <mxGeometry x="20" y="75" width="370" height="560" as="geometry" />
+    </mxCell>
+
+    <mxCell id="mar1" value="💡 멘토 피드백 수렴&#xa;• 기존 유사 모델과의 차별점 필요&#xa;• 벤치마킹 대상 선정 및 구조 분석&#xa;  - 단순 승률 기반 모델&#xa;  - 배당 단독 사용 모델&#xa;  - 머신러닝 단독 모델" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#eaf1fb;strokeColor=#4a7fc1;align=left;verticalAlign=top;spacingLeft=8;spacingTop=6;fontSize=11;" vertex="1" parent="col_mar">
+      <mxGeometry x="8" y="50" width="354" height="120" as="geometry" />
+    </mxCell>
+
+    <mxCell id="mar2" value="🔎 차별화 방향 도출&#xa;• 기존 모델 한계 분석&#xa;  - 배당 방향(open→close) 미활용&#xa;  - 슬롯 순서 패턴 무시&#xa;  - BM 다수결 컨센서스 미반영&#xa;• KBO 슬롯 기반 BM 시퀀스 착안" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#eaf1fb;strokeColor=#4a7fc1;align=left;verticalAlign=top;spacingLeft=8;spacingTop=6;fontSize=11;" vertex="1" parent="col_mar">
+      <mxGeometry x="8" y="184" width="354" height="120" as="geometry" />
+    </mxCell>
+
+    <mxCell id="mar3" value="📐 시스템 설계 확정&#xa;• 핵심 차별점 3가지 확정&#xa;  ① 슬롯별 BM 배당변동 시퀀스&#xa;  ② 정배/역배 패턴 분석&#xa;  ③ BM 다수결 + ML 하이브리드&#xa;• 기술 스택: Python / Streamlit / Selenium" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#eaf1fb;strokeColor=#4a7fc1;align=left;verticalAlign=top;spacingLeft=8;spacingTop=6;fontSize=11;" vertex="1" parent="col_mar">
+      <mxGeometry x="8" y="318" width="354" height="120" as="geometry" />
+    </mxCell>
+
+    <!-- 3월 내부 화살표 -->
+    <mxCell id="a_mar12" style="edgeStyle=orthogonalEdgeStyle;strokeColor=#4a7fc1;strokeWidth=2;" edge="1" source="mar1" target="mar2" parent="col_mar">
+      <mxGeometry relative="1" as="geometry" />
+    </mxCell>
+    <mxCell id="a_mar23" style="edgeStyle=orthogonalEdgeStyle;strokeColor=#4a7fc1;strokeWidth=2;" edge="1" source="mar2" target="mar3" parent="col_mar">
+      <mxGeometry relative="1" as="geometry" />
+    </mxCell>
+
+    <!-- ===== 4월 컨테이너 ===== -->
+    <mxCell id="col_apr" value="📅 4월 (04-22 ~ 04-30)" style="swimlane;fontStyle=1;align=center;startSize=42;fillColor=#23395d;strokeColor=#23395d;fontColor=#ffffff;fontSize=14;rounded=1;arcSize=4;" vertex="1" parent="1">
+      <mxGeometry x="420" y="75" width="370" height="560" as="geometry" />
+    </mxCell>
+
+    <mxCell id="apr1" value="🚀 프로젝트 시작 (04-22)&#xa;• KBO 배당 데이터 수집 시스템&#xa;• Selenium 기반 OddsPortal 스크래퍼&#xa;• kbo_odds.csv 데이터 구축 (747행)&#xa;• GitHub Actions cron 자동화" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#eaf1fb;strokeColor=#4a7fc1;align=left;verticalAlign=top;spacingLeft=8;spacingTop=6;fontSize=11;" vertex="1" parent="col_apr">
+      <mxGeometry x="8" y="50" width="354" height="108" as="geometry" />
+    </mxCell>
+
+    <mxCell id="apr2" value="🧠 예측 엔진 설계 (04-25)&#xa;• 팀 기반 Sliding Window 예측 엔진&#xa;• 3개 이진 시퀀스 비교 분석&#xa;• Streamlit 대시보드 구축 (kbo_app.py)&#xa;• Streamlit Cloud 배포" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#eaf1fb;strokeColor=#4a7fc1;align=left;verticalAlign=top;spacingLeft=8;spacingTop=6;fontSize=11;" vertex="1" parent="col_apr">
+      <mxGeometry x="8" y="170" width="354" height="108" as="geometry" />
+    </mxCell>
+
+    <mxCell id="apr3" value="📊 BM 배당변동 분석 (04-25~30)&#xa;• 슬롯별 북메이커 배당변동 시퀀스&#xa;• 슬롯 정배/역배 승패 패턴 추가&#xa;• BM 방향 신호 최종 추천 통합&#xa;• WINDOW 19경기, BM 14개 수집" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#eaf1fb;strokeColor=#4a7fc1;align=left;verticalAlign=top;spacingLeft=8;spacingTop=6;fontSize=11;" vertex="1" parent="col_apr">
+      <mxGeometry x="8" y="290" width="354" height="108" as="geometry" />
+    </mxCell>
+
+    <mxCell id="apr4" value="🔍 패턴 학습 강화 (04-29~30)&#xa;• 런분할 Mirror/팰린드롬 패턴 추가&#xa;• 계단식·짝맞춤 패턴 추가&#xa;• BM 시퀀스 17개로 확장&#xa;• winner_direction 재계산 전체 복원" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#eaf1fb;strokeColor=#4a7fc1;align=left;verticalAlign=top;spacingLeft=8;spacingTop=6;fontSize=11;" vertex="1" parent="col_apr">
+      <mxGeometry x="8" y="410" width="354" height="108" as="geometry" />
+    </mxCell>
+
+    <!-- 4월 내부 화살표 -->
+    <mxCell id="a_apr12" style="edgeStyle=orthogonalEdgeStyle;strokeColor=#4a7fc1;strokeWidth=2;" edge="1" source="apr1" target="apr2" parent="col_apr">
+      <mxGeometry relative="1" as="geometry" />
+    </mxCell>
+    <mxCell id="a_apr23" style="edgeStyle=orthogonalEdgeStyle;strokeColor=#4a7fc1;strokeWidth=2;" edge="1" source="apr2" target="apr3" parent="col_apr">
+      <mxGeometry relative="1" as="geometry" />
+    </mxCell>
+    <mxCell id="a_apr34" style="edgeStyle=orthogonalEdgeStyle;strokeColor=#4a7fc1;strokeWidth=2;" edge="1" source="apr3" target="apr4" parent="col_apr">
+      <mxGeometry relative="1" as="geometry" />
+    </mxCell>
+
+    <!-- ===== 5월 1주차 컨테이너 ===== -->
+    <mxCell id="col_may1" value="📅 5월 1주차 (05-01 ~ 05-06)" style="swimlane;fontStyle=1;align=center;startSize=42;fillColor=#23395d;strokeColor=#23395d;fontColor=#ffffff;fontSize=14;rounded=1;arcSize=4;" vertex="1" parent="1">
+      <mxGeometry x="820" y="75" width="370" height="560" as="geometry" />
+    </mxCell>
+
+    <mxCell id="may1_1" value="📡 실시간 배당 수집 (05-01~03)&#xa;• kbo_today_scrape.py 구축&#xa;• today_odds.json 기반 당일 예측&#xa;• OddsPortal Next Matches 자동 탐색&#xa;• 3회 검증 규칙 적용 (중앙값 확정)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#eaf1fb;strokeColor=#4a7fc1;align=left;verticalAlign=top;spacingLeft=8;spacingTop=6;fontSize=11;" vertex="1" parent="col_may1">
+      <mxGeometry x="8" y="50" width="354" height="108" as="geometry" />
+    </mxCell>
+
+    <mxCell id="may1_2" value="🎮 예측 대결 시스템 (05-02)&#xa;• User vs Model 예측 대결 페이지&#xa;• 과거 이력 + 누적 스코어 표시&#xa;• 예측 대결 PIN 인증 추가&#xa;• 예측 기록 페이지네이션" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#eaf1fb;strokeColor=#4a7fc1;align=left;verticalAlign=top;spacingLeft=8;spacingTop=6;fontSize=11;" vertex="1" parent="col_may1">
+      <mxGeometry x="8" y="170" width="354" height="108" as="geometry" />
+    </mxCell>
+
+    <mxCell id="may1_3" value="📅 일별 예측 운영 시작 (05-01~06)&#xa;• open 배당 수집 → 예측 → 검증 루틴&#xa;• home_is_fav 오판 버그 수정&#xa;• Draw 경기 NaN 처리 구현&#xa;• Playwright 팝업 기반 수집 전환" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#eaf1fb;strokeColor=#4a7fc1;align=left;verticalAlign=top;spacingLeft=8;spacingTop=6;fontSize=11;" vertex="1" parent="col_may1">
+      <mxGeometry x="8" y="290" width="354" height="108" as="geometry" />
+    </mxCell>
+
+    <mxCell id="may1_4" value="📈 Close 배당 수집 통합 (05-05~08)&#xa;• open→close 배당 방향 계산&#xa;• BM 배당 테이블 open/close 표시&#xa;• 05-08 전 슬롯 팝업 기반 완전 수집&#xa;• ML 모델 통합 (RandomForest)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#eaf1fb;strokeColor=#4a7fc1;align=left;verticalAlign=top;spacingLeft=8;spacingTop=6;fontSize=11;" vertex="1" parent="col_may1">
+      <mxGeometry x="8" y="410" width="354" height="108" as="geometry" />
+    </mxCell>
+
+    <!-- 5월1주 내부 화살표 -->
+    <mxCell id="a_m1_12" style="edgeStyle=orthogonalEdgeStyle;strokeColor=#4a7fc1;strokeWidth=2;" edge="1" source="may1_1" target="may1_2" parent="col_may1">
+      <mxGeometry relative="1" as="geometry" />
+    </mxCell>
+    <mxCell id="a_m1_23" style="edgeStyle=orthogonalEdgeStyle;strokeColor=#4a7fc1;strokeWidth=2;" edge="1" source="may1_2" target="may1_3" parent="col_may1">
+      <mxGeometry relative="1" as="geometry" />
+    </mxCell>
+    <mxCell id="a_m1_34" style="edgeStyle=orthogonalEdgeStyle;strokeColor=#4a7fc1;strokeWidth=2;" edge="1" source="may1_3" target="may1_4" parent="col_may1">
+      <mxGeometry relative="1" as="geometry" />
+    </mxCell>
+
+    <!-- ===== 5월 2주차 컨테이너 ===== -->
+    <mxCell id="col_may2" value="📅 5월 2주차 (05-07 ~ 05-11)" style="swimlane;fontStyle=1;align=center;startSize=42;fillColor=#23395d;strokeColor=#23395d;fontColor=#ffffff;fontSize=14;rounded=1;arcSize=4;" vertex="1" parent="1">
+      <mxGeometry x="1220" y="75" width="370" height="560" as="geometry" />
+    </mxCell>
+
+    <mxCell id="may2_1" value="🖥️ 앱 UI/안정성 고도화 (05-08~11)&#xa;• 라이트모드 전환 + CSS 정제&#xa;• GitHub API 연동 예측 이력 영구저장&#xa;• 백그라운드 스레드 저장 (UI 블로킹 제거)&#xa;• GitHub Issue 크래시 알림 모니터링" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#eaf1fb;strokeColor=#4a7fc1;align=left;verticalAlign=top;spacingLeft=8;spacingTop=6;fontSize=11;" vertex="1" parent="col_may2">
+      <mxGeometry x="8" y="50" width="354" height="108" as="geometry" />
+    </mxCell>
+
+    <mxCell id="may2_2" value="🔧 N조건 대규모 수정 (05-11)&#xa;• N조건 72개 winner_direction NaN 수정&#xa;• 무승부 BM 시퀀스 N 처리 구현&#xa;• home_chg==away_chg 자동 NaN 처리&#xa;• 04-24~05-10 전체 재검증 완료" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#eaf1fb;strokeColor=#4a7fc1;align=left;verticalAlign=top;spacingLeft=8;spacingTop=6;fontSize=11;" vertex="1" parent="col_may2">
+      <mxGeometry x="8" y="170" width="354" height="108" as="geometry" />
+    </mxCell>
+
+    <mxCell id="may2_3" value="💾 예측 스냅샷 + 검증 시스템 (05-11)&#xa;• 날짜별 snapshots/ 저장 구조&#xa;• /sns, /snsu 커스텀 슬래시 커맨드&#xa;• kbo_verify.py 자동 검증 + log 기록&#xa;• kbo_verify_log.csv 구축 시작" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#eaf1fb;strokeColor=#4a7fc1;align=left;verticalAlign=top;spacingLeft=8;spacingTop=6;fontSize=11;" vertex="1" parent="col_may2">
+      <mxGeometry x="8" y="290" width="354" height="108" as="geometry" />
+    </mxCell>
+
+    <mxCell id="may2_4" value="📁 프로젝트 구조 재편 (05-10)&#xa;• prediction / collection / scheduler&#xa;  verification / debug / scripts 분리&#xa;• README 카테고리별 정리&#xa;• Dev Container 환경 추가" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#eaf1fb;strokeColor=#4a7fc1;align=left;verticalAlign=top;spacingLeft=8;spacingTop=6;fontSize=11;" vertex="1" parent="col_may2">
+      <mxGeometry x="8" y="410" width="354" height="108" as="geometry" />
+    </mxCell>
+
+    <!-- 5월2주 내부 화살표 -->
+    <mxCell id="a_m2_12" style="edgeStyle=orthogonalEdgeStyle;strokeColor=#4a7fc1;strokeWidth=2;" edge="1" source="may2_1" target="may2_2" parent="col_may2">
+      <mxGeometry relative="1" as="geometry" />
+    </mxCell>
+    <mxCell id="a_m2_23" style="edgeStyle=orthogonalEdgeStyle;strokeColor=#4a7fc1;strokeWidth=2;" edge="1" source="may2_2" target="may2_3" parent="col_may2">
+      <mxGeometry relative="1" as="geometry" />
+    </mxCell>
+    <mxCell id="a_m2_34" style="edgeStyle=orthogonalEdgeStyle;strokeColor=#4a7fc1;strokeWidth=2;" edge="1" source="may2_3" target="may2_4" parent="col_may2">
+      <mxGeometry relative="1" as="geometry" />
+    </mxCell>
+
+    <!-- ===== 5월 3주차 컨테이너 ===== -->
+    <mxCell id="col_may3" value="📅 5월 3주차 (05-12 ~ 05-15)" style="swimlane;fontStyle=1;align=center;startSize=42;fillColor=#23395d;strokeColor=#23395d;fontColor=#ffffff;fontSize=14;rounded=1;arcSize=4;" vertex="1" parent="1">
+      <mxGeometry x="1620" y="75" width="370" height="560" as="geometry" />
+    </mxCell>
+
+    <mxCell id="may3_1" value="🛠️ BM 방향 계산 공통화 (05-14)&#xa;• bm_utils.py: compute/recalc 공유 함수&#xa;• winner_direction 오류 근본 원인 수정&#xa;• BM 시퀀스 전체 검증 (verify_bm_seq.py)&#xa;• 모든 수집 스크립트에 recalc 적용" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#eaf1fb;strokeColor=#4a7fc1;align=left;verticalAlign=top;spacingLeft=8;spacingTop=6;fontSize=11;" vertex="1" parent="col_may3">
+      <mxGeometry x="8" y="50" width="354" height="108" as="geometry" />
+    </mxCell>
+
+    <mxCell id="may3_2" value="📊 예측 정확도 분석 (05-14~15)&#xa;• 슬롯별/신뢰도별 정확도 집계&#xa;• BM vs ML 비교 지표 구축&#xa;• kbo_verify_log 168경기 기반 분석&#xa;• Walk-Forward 기준 ML 51% 확인" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#eaf1fb;strokeColor=#4a7fc1;align=left;verticalAlign=top;spacingLeft=8;spacingTop=6;fontSize=11;" vertex="1" parent="col_may3">
+      <mxGeometry x="8" y="170" width="354" height="108" as="geometry" />
+    </mxCell>
+
+    <mxCell id="may3_3" value="🔬 ML 과적합 해소 (05-15)&#xa;• 원인: Global model 미래 정보 누수&#xa;• Walk-Forward 재학습 방식으로 수정&#xa;• --reset 플래그로 전체 재검증 가능&#xa;• 수정 후 실제 ML 정확도: ~51% 보정" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#eaf1fb;strokeColor=#4a7fc1;align=left;verticalAlign=top;spacingLeft=8;spacingTop=6;fontSize=11;" vertex="1" parent="col_may3">
+      <mxGeometry x="8" y="290" width="354" height="108" as="geometry" />
+    </mxCell>
+
+    <mxCell id="may3_4" value="🎯 현재 운영 현황 (05-15)&#xa;• 일별 예측 + 스냅샷 + 검증 루틴 정착&#xa;• BM 패턴 기반 / slot5 45.5% (168경기)&#xa;• 슬롯별 정확도 지속 추적 및 개선&#xa;• 데이터 품질 지속 개선 중" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#eaf1fb;strokeColor=#4a7fc1;align=left;verticalAlign=top;spacingLeft=8;spacingTop=6;fontSize=11;" vertex="1" parent="col_may3">
+      <mxGeometry x="8" y="410" width="354" height="108" as="geometry" />
+    </mxCell>
+
+    <!-- 5월3주 내부 화살표 -->
+    <mxCell id="a_m3_12" style="edgeStyle=orthogonalEdgeStyle;strokeColor=#4a7fc1;strokeWidth=2;" edge="1" source="may3_1" target="may3_2" parent="col_may3">
+      <mxGeometry relative="1" as="geometry" />
+    </mxCell>
+    <mxCell id="a_m3_23" style="edgeStyle=orthogonalEdgeStyle;strokeColor=#4a7fc1;strokeWidth=2;" edge="1" source="may3_2" target="may3_3" parent="col_may3">
+      <mxGeometry relative="1" as="geometry" />
+    </mxCell>
+    <mxCell id="a_m3_34" style="edgeStyle=orthogonalEdgeStyle;strokeColor=#4a7fc1;strokeWidth=2;" edge="1" source="may3_3" target="may3_4" parent="col_may3">
+      <mxGeometry relative="1" as="geometry" />
+    </mxCell>
+
+    <!-- ===== 컬럼 간 연결 화살표 ===== -->
+    <mxCell id="a_mar_apr" style="edgeStyle=orthogonalEdgeStyle;strokeColor=#23395d;strokeWidth=3;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" edge="1" source="col_mar" target="col_apr" parent="1">
+      <mxGeometry relative="1" as="geometry" />
+    </mxCell>
+    <mxCell id="a_apr_m1" style="edgeStyle=orthogonalEdgeStyle;strokeColor=#23395d;strokeWidth=3;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" edge="1" source="col_apr" target="col_may1" parent="1">
+      <mxGeometry relative="1" as="geometry" />
+    </mxCell>
+    <mxCell id="a_m1_m2" style="edgeStyle=orthogonalEdgeStyle;strokeColor=#23395d;strokeWidth=3;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" edge="1" source="col_may1" target="col_may2" parent="1">
+      <mxGeometry relative="1" as="geometry" />
+    </mxCell>
+    <mxCell id="a_m2_m3" style="edgeStyle=orthogonalEdgeStyle;strokeColor=#23395d;strokeWidth=3;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" edge="1" source="col_may2" target="col_may3" parent="1">
+      <mxGeometry relative="1" as="geometry" />
+    </mxCell>
+
+    <!-- ===== 주요 성과 KPI ===== -->
+    <mxCell id="kpi" value="📌 주요 성과 지표   |   총 커밋: 200+  |  수집 데이터: 2,750+ 행  |  검증 경기: 168경기  |  BM 방향 신호 정확도: ~66%  |  수집 BM: 14개  |  Streamlit Cloud 실시간 배포 운영 중" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#23395d;strokeColor=#23395d;fontColor=#ffffff;fontStyle=1;fontSize=12;verticalAlign=middle;" vertex="1" parent="1">
+      <mxGeometry x="20" y="650" width="1970" height="50" as="geometry" />
+    </mxCell>
+
+  </root>
+</mxGraphModel>
