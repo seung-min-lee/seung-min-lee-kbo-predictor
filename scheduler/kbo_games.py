@@ -152,8 +152,15 @@ def scrape_seasons(years_months, existing_dates=None):
 # ── 메인 ──────────────────────────────────────────────────
 if os.path.exists(CSV_PATH):
     existing = pd.read_csv(CSV_PATH)
-    existing_dates = set(existing['date'].unique())
-    print(f'기존 데이터: {len(existing)}행, {len(existing_dates)}일')
+    # winner가 NaN인 날짜는 결과 미수집 → 재수집 대상에서 제외하지 않음
+    complete_dates = set(
+        existing[existing['winner'].notna()]['date'].unique()
+    )
+    existing_dates = complete_dates
+    print(f'기존 데이터: {len(existing)}행, {len(complete_dates)}일 완료')
+    pending = set(existing['date'].unique()) - complete_dates
+    if pending:
+        print(f'결과 미수집 날짜 재수집 예정: {sorted(pending)}')
 else:
     existing = pd.DataFrame()
     existing_dates = set()
@@ -172,9 +179,22 @@ if new_games:
             'winner', 'winner_is_home']
     new_df = new_df[cols]
 
-    combined = pd.concat([existing, new_df], ignore_index=True) if len(existing) > 0 else new_df
-    combined = combined.drop_duplicates(subset=['date', 'home', 'away']).sort_values('date')
+    # 기존 데이터와 병합: winner 있는 새 데이터로 덮어씀
+    if len(existing) > 0:
+        combined = pd.concat([new_df, existing], ignore_index=True)
+        combined = combined.drop_duplicates(subset=['date', 'home', 'away'], keep='first')
+    else:
+        combined = new_df
+
+    # slot 컬럼 보존: 기존 slot을 새 데이터에 병합
+    if len(existing) > 0 and 'slot' in existing.columns:
+        slot_map = existing.dropna(subset=['slot']).set_index(['date', 'home', 'away'])['slot'].to_dict()
+        combined['slot'] = combined.apply(
+            lambda r: slot_map.get((r['date'], r['home'], r['away']), r.get('slot')), axis=1
+        )
+
+    combined = combined.sort_values('date')
     combined.to_csv(CSV_PATH, index=False, encoding='utf-8-sig')
-    print(f'\n완료: {len(new_games)}경기 추가 (총 {len(combined)}경기)')
+    print(f'\n완료: {len(new_games)}경기 추가/갱신 (총 {len(combined)}경기)')
 else:
     print('\n새 데이터 없음')

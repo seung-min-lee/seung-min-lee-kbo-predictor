@@ -1,6 +1,7 @@
 """
 kbo_backtest.py
 과거 경기에 대해 모델 예측 정확도를 사후 검증하여 kbo_verify_log.csv 생성
+Walk-forward: 각 경기 예측 시 해당 경기 이전 데이터만으로 재학습 (미래 정보 누수 방지)
 """
 import os, sys, traceback
 import pandas as pd
@@ -21,17 +22,17 @@ try:
 except SystemExit:
     pass
 
-game_df = ns['game_df']
-df      = ns['df']
-model   = ns['model']
-X       = ns.get('X', [])
+game_df             = ns['game_df']
+df                  = ns['df']
+WINDOW              = ns.get('WINDOW', 19)
+RandomForestClassifier = ns['RandomForestClassifier']
 
 get_team_triple_seq = ns['get_team_triple_seq']
 pat_rec             = ns['pat_rec']
 analyze_pattern     = ns['analyze_pattern']
 make_feat_team      = ns['make_feat_team']
 
-print(f'로드 완료: {len(game_df)}경기, ML학습샘플={len(X)}')
+print(f'로드 완료: {len(game_df)}경기')
 
 completed = game_df[
     game_df['winner_is_home'].notna() &
@@ -39,6 +40,24 @@ completed = game_df[
 ].sort_values('date_order').copy()
 
 print(f'검증 대상: {len(completed)}경기 ({completed["date"].min()} ~ {completed["date"].max()})')
+
+
+def _build_wf_model(before_date_order):
+    """walk-forward: before_date_order 이전 데이터만으로 RF 학습"""
+    X_wf, y_wf = [], []
+    for _, g in game_df[game_df['date_order'] < before_date_order].sort_values('date_order').iterrows():
+        if g.get('winner') == 'Postp' or pd.isna(g.get('winner_is_home')):
+            continue
+        feat = make_feat_team(g['home'], g['away'], g['date_order'])
+        if feat.count(-1) > WINDOW * 3:
+            continue
+        X_wf.append(feat)
+        y_wf.append(int(g['winner_is_home']))
+    if len(X_wf) < 10:
+        return None
+    m = RandomForestClassifier(n_estimators=200, random_state=42)
+    m.fit(np.array(X_wf), np.array(y_wf))
+    return m
 
 
 def predict_game(home, away, date_order):
@@ -63,13 +82,15 @@ def predict_game(home, away, date_order):
     elif h_win_rec is None and a_win_rec == 1: final_rec = 0; conf = away_score * 0.8
     elif h_win_rec is None and a_win_rec == 0: final_rec = 1; conf = away_score * 0.8
 
+    # walk-forward: 해당 경기 이전 데이터만으로 재학습한 모델 사용
     feat = make_feat_team(home, away, date_order)
+    wf_model = _build_wf_model(date_order)
     try:
-        ml_proba = model.predict_proba(np.array(feat).reshape(1, -1))[0]
+        ml_proba = wf_model.predict_proba(np.array(feat).reshape(1, -1))[0] if wf_model else [0.5, 0.5]
     except Exception:
         ml_proba = [0.5, 0.5]
 
-    pattern_rec = final_rec  # 패턴이 결정한 값 (None이면 패턴 신호 없음)
+    pattern_rec = final_rec
     if final_rec is None:
         if   ml_proba[1] >= 0.58: final_rec = 1; conf = float(ml_proba[1])
         elif ml_proba[0] >= 0.58: final_rec = 0; conf = float(ml_proba[0])
@@ -78,8 +99,13 @@ def predict_game(home, away, date_order):
     return final_rec, round(conf, 3), round(float(ml_proba[1]), 3), round(float(ml_proba[0]), 3), ml_intervened
 
 
-# 기존 로그 로드 → 이미 기록된 날짜는 덮어쓰지 않음 (실제 예측 보존)
-if os.path.exists(LOG_PATH):
+# --reset 플래그: 기존 로그 무시하고 전체 재생성 (walk-forward 재계산 시 사용)
+RESET = '--reset' in sys.argv
+if RESET:
+    print('--reset: 기존 로그 초기화 후 전체 재생성')
+    existing_log = pd.DataFrame()
+    already_logged = set()
+elif os.path.exists(LOG_PATH):
     existing_log = pd.read_csv(LOG_PATH)
     already_logged = set(zip(existing_log['date'].astype(str), existing_log['slot'].astype(int)))
 else:
