@@ -110,5 +110,13 @@
     "away": "Hanwha Eagles",
     "pick": "AWAY(Hanwha Eagles)",
     "saved_at": "2026-05-15T09:05:03"
+  },
+  "2026-05-15|1.0|Doosan Bears|Lotte Giants": {
+    "date": "2026-05-15",
+    "slot": 1.0,
+    "home": "Doosan Bears",
+    "away": "Lotte Giants",
+    "pick": "AWAY(Lotte Giants)",
+    "saved_at": "2026-05-15T09:05:05"
   }
 }
