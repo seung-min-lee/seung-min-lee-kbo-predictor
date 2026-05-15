@@ -177,34 +177,40 @@ print('='*60)
 if len(log_df) == 0:
     print('검증 데이터 없음')
 else:
-    total   = len(log_df)
-    correct = log_df['correct'].sum()
-    acc     = correct / total
+    # PASS 및 correct=NaN 제외한 유효 행만 집계
+    valid_df = log_df[log_df['prediction'] != 'PASS'].copy()
+    valid_df = valid_df[valid_df['correct'].notna()]
 
-    print(f'\n전체:  {int(correct)}/{total} ({acc:.1%})')
+    total   = len(valid_df)
+    correct = int(valid_df['correct'].sum())
+    acc     = correct / total if total else 0
+
+    print(f'\n전체:  {correct}/{total} ({acc:.1%})')
+    print(f'(PASS 제외: 전체 {len(log_df)}행 중 {len(log_df)-total}행 PASS/미검증)')
 
     # 슬롯별
     print(f'\n슬롯별 정확도:')
-    for slot in sorted(log_df['slot'].unique()):
-        s   = log_df[log_df['slot']==slot]
-        s_acc = s['correct'].sum() / len(s)
-        bar = 'O'*int(s['correct'].sum()) + 'X'*(len(s)-int(s['correct'].sum()))
-        print(f'  SLOT {slot}: {int(s["correct"].sum())}/{len(s)} ({s_acc:.1%})  [{bar}]')
+    for slot in sorted(valid_df['slot'].unique()):
+        s     = valid_df[valid_df['slot']==slot]
+        s_cor = int(s['correct'].sum())
+        s_acc = s_cor / len(s)
+        bar   = 'O'*s_cor + 'X'*(len(s)-s_cor)
+        print(f'  SLOT {slot}: {s_cor}/{len(s)} ({s_acc:.1%})  [{bar}]')
 
     # 신뢰도별
     print(f'\n신뢰도별 정확도:')
     bins   = [0, 0.6, 0.7, 0.8, 0.9, 1.01]
     labels = ['~60%','60~70%','70~80%','80~90%','90%~']
-    log_df['conf_bin'] = pd.cut(log_df['confidence'], bins=bins, labels=labels)
+    valid_df['conf_bin'] = pd.cut(valid_df['confidence'], bins=bins, labels=labels)
     for lbl in labels:
-        b = log_df[log_df['conf_bin']==lbl]
+        b = valid_df[valid_df['conf_bin']==lbl]
         if len(b) == 0: continue
-        b_acc = b['correct'].sum() / len(b)
+        b_acc = int(b['correct'].sum()) / len(b)
         print(f'  {lbl:8s}: {int(b["correct"].sum())}/{len(b)} ({b_acc:.1%})')
 
     # 최근 흐름
     print(f'\n최근 예측 흐름:')
-    for _, row in log_df.tail(10).iterrows():
+    for _, row in valid_df.tail(10).iterrows():
         mark = 'O' if row['correct'] else 'X'
         print(f'  [{mark}] SLOT{int(row["slot"])} '
               f'{row["home"]} vs {row["away"]} | '
@@ -212,7 +218,7 @@ else:
               f'신뢰도:{row["confidence"]:.0%}')
 
     # 연속 흐름
-    results = log_df['correct'].tolist()
+    results = valid_df['correct'].tolist()
     if results:
         streak = 1
         for i in range(len(results)-1, 0, -1):
