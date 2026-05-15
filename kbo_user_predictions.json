@@ -102,5 +102,13 @@
     "away": "KIA Tigers",
     "pick": "HOME(Samsung Lions)",
     "saved_at": "2026-05-15T09:05:01"
+  },
+  "2026-05-15|2.0|KT Wiz Suwon|Hanwha Eagles": {
+    "date": "2026-05-15",
+    "slot": 2.0,
+    "home": "KT Wiz Suwon",
+    "away": "Hanwha Eagles",
+    "pick": "AWAY(Hanwha Eagles)",
+    "saved_at": "2026-05-15T09:05:03"
   }
 }
