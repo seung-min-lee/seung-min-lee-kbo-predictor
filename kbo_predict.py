@@ -1661,7 +1661,7 @@ for i, game in enumerate(upcoming_games):
     sv1 = sum(s_recs) if s_recs else 0
     sv0 = len(s_recs) - sv1 if s_recs else 0
 
-    # BM 방향 투표: 배당↑팀 이김(1) vs 배당↓팀 이김(0)
+    # BM 방향 투표: 배당↓팀(마켓정배) 이김(1) vs 배당↑팀(이변) 이김(0)
     bm_dir_vote  = None
     bm_team_rec  = None
     bm_dir_ratio = 0.0
@@ -1670,20 +1670,20 @@ for i, game in enumerate(upcoming_games):
         if bm_dir_ratio >= 0.6:
             bm_dir_vote = 1 if sv1 > sv0 else 0
         # 팀 매핑: 오늘 실제 open/close 방향 사용 (kbo_today_scrape.py 수집 결과)
-        # bm_dir_vote=0(배당↓팀이김): 오늘 배당↓팀 → 그 팀 예측
-        # bm_dir_vote=1(배당↑팀이김): 오늘 배당↑팀 → 그 팀 예측
-        # today_home_dir=0(홈배당↓): 배당↓팀=HOME → bm_dir_vote=0이면 HOME(1), =1이면 AWAY(0)
-        # today_home_dir=1(홈배당↑): 배당↑팀=HOME → bm_dir_vote=1이면 HOME(1), =0이면 AWAY(0)
-        # ⇒ bm_team_rec = 1 if (bm_dir_vote == today_home_dir) else 0
+        # bm_dir_vote=1(배당↓팀이김=마켓정배): 오늘 배당↓팀 → 그 팀 예측
+        # bm_dir_vote=0(배당↑팀이김=이변):     오늘 배당↑팀 → 그 팀 예측
+        # today_home_dir=0(홈배당↓): 배당↓팀=HOME → bm_dir_vote=1이면 HOME(1), =0이면 AWAY(0)
+        # today_home_dir=1(홈배당↑): 배당↑팀=HOME → bm_dir_vote=0이면 HOME(1), =1이면 AWAY(0)
+        # ⇒ bm_team_rec = 1 if (bm_dir_vote != today_home_dir) else 0
         today_home_dir = _todayodds.get('today_home_dir') if _todayodds else None
         today_up_team   = _todayodds.get('today_up_team', '') if _todayodds else ''
         today_down_team = _todayodds.get('today_down_team', '') if _todayodds else ''
         if bm_dir_vote is not None and today_home_dir is not None:
-            bm_team_rec = 1 if (bm_dir_vote == today_home_dir) else 0
+            bm_team_rec = 1 if (bm_dir_vote != today_home_dir) else 0
 
     # bm_label: 방향 패턴 + 예측 팀명 (today_home_dir 없으면 팀명 미표시)
     if bm_dir_vote is not None:
-        _dir_sym   = '↑' if bm_dir_vote == 1 else '↓'
+        _dir_sym   = '↓' if bm_dir_vote == 1 else '↑'
         if bm_team_rec is not None:
             _pred_team = home if bm_team_rec == 1 else away
             _team_str  = f' : {_pred_team}'
@@ -1812,7 +1812,7 @@ for i, game in enumerate(upcoming_games):
         }
     # 슬롯 북메이커 집계 (sv1/sv0는 위에서 이미 계산됨)
     if sv1 + sv0 > 0:
-        print(f'\n  → 슬롯{slot} 집계: 배당↑(1) {sv1}개 / 배당↓(0) {sv0}개 (총 {sv1+sv0}개)')
+        print(f'\n  → 슬롯{slot} 집계: 배당↓팀이김(1) {sv1}개 / 배당↑팀이김(0) {sv0}개 (총 {sv1+sv0}개)')
 
     predictions[f'slot_{slot}'] = {
         'slot':            slot,
