@@ -4693,5 +4693,125 @@
         "away": 1.67
       }
     }
+  },
+  "2026-05-17|1|Doosan Bears|Lotte Giants": {
+    "date": "2026-05-17",
+    "slot": 1.0,
+    "home": "Doosan Bears",
+    "away": "Lotte Giants",
+    "bm_open": {
+      "BetInAsia": {
+        "home": 2.01,
+        "away": 1.85
+      },
+      "Roobet": {
+        "home": 1.93,
+        "away": 1.83
+      }
+    },
+    "match_url": "https://www.oddsportal.com/baseball/h2h/doosan-bears-pGmPNh11/lotte-giants-pGw4ggkO/#zRGjdes2",
+    "home_odds": 1.94,
+    "away_odds": 1.82,
+    "bm_close": {
+      "Roobet": {
+        "home": 1.94,
+        "away": 1.82
+      }
+    }
+  },
+  "2026-05-17|2|KT Wiz Suwon|Hanwha Eagles": {
+    "date": "2026-05-17",
+    "slot": 2.0,
+    "home": "KT Wiz Suwon",
+    "away": "Hanwha Eagles"
+  },
+  "2026-05-17|3|Samsung Lions|KIA Tigers": {
+    "date": "2026-05-17",
+    "slot": 3.0,
+    "home": "Samsung Lions",
+    "away": "KIA Tigers",
+    "bm_open": {
+      "BetInAsia": {
+        "home": 1.69,
+        "away": 2.23
+      },
+      "Roobet": {
+        "home": 1.68,
+        "away": 2.14
+      }
+    },
+    "match_url": "https://www.oddsportal.com/baseball/h2h/kia-tigers-rXhOpG8E/samsung-lions-O6nTMCG7/#MJdoIx4L",
+    "home_odds": 1.67,
+    "away_odds": 2.16,
+    "bm_close": {
+      "Roobet": {
+        "home": 1.67,
+        "away": 2.16
+      }
+    }
+  },
+  "2026-05-17|4|NC Dinos|Kiwoom Heroes": {
+    "date": "2026-05-17",
+    "slot": 4.0,
+    "home": "NC Dinos",
+    "away": "Kiwoom Heroes",
+    "bm_open": {
+      "1xBet": {
+        "home": 1.46,
+        "away": 2.93
+      },
+      "22Bet": {
+        "home": 1.42,
+        "away": 2.86
+      },
+      "BetInAsia": {
+        "home": 1.41,
+        "away": 2.99
+      },
+      "Bets.io": {
+        "home": 1.35,
+        "away": 2.7
+      },
+      "Melbet": {
+        "home": 1.42,
+        "away": 2.86
+      },
+      "Roobet": {
+        "home": 1.4,
+        "away": 2.88
+      }
+    },
+    "match_url": "https://www.oddsportal.com/baseball/h2h/kiwoom-heroes-xjpHPEWl/nc-dinos-O6x8hD4U/#t4wICGRr",
+    "home_odds": 1.41,
+    "away_odds": 2.87
+  },
+  "2026-05-17|5|SSG Landers|LG Twins": {
+    "date": "2026-05-17",
+    "slot": 5.0,
+    "home": "SSG Landers",
+    "away": "LG Twins",
+    "bm_open": {
+      "BetInAsia": {
+        "home": 2,
+        "away": 1.86
+      },
+      "Bets.io": {
+        "home": 1.89,
+        "away": 1.77
+      },
+      "Roobet": {
+        "home": 1.93,
+        "away": 1.83
+      }
+    },
+    "match_url": "https://www.oddsportal.com/baseball/h2h/lg-twins-jglLOYoe/ssg-landers-fRfCQfHr/#l6bwKbZ8",
+    "home_odds": 1.94,
+    "away_odds": 1.82,
+    "bm_close": {
+      "Roobet": {
+        "home": 1.94,
+        "away": 1.82
+      }
+    }
   }
 }
