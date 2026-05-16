@@ -811,7 +811,7 @@
         "current_odds": 1.95
       },
       "Alphabet": {
-        "seq": "10111NN11001100N1",
+        "seq": "10111NN11001100N0",
         "rec": null,
         "desc": "데이터 부족",
         "current_odds": 1.99
@@ -871,7 +871,7 @@
         "current_odds": 1.94
       },
       "VOBET": {
-        "seq": "10111N111001100N1",
+        "seq": "10111N111001100N0",
         "rec": null,
         "desc": "데이터 부족",
         "current_odds": 1.99
@@ -1861,16 +1861,16 @@
         "current_odds": 1.54
       },
       "GambleCity": {
-        "seq": "N0111010001101NNF",
-        "rec": 0,
-        "desc": "다수결 ↓0 32/46(71%)",
-        "current_odds": 1.93
+        "seq": "N0111010001101NN0",
+        "rec": null,
+        "desc": "데이터 부족",
+        "current_odds": 4.1
       },
       "Kobet": {
-        "seq": "N011111000000110F",
-        "rec": null,
-        "desc": "균형(24↑:29↓) → 불규칙",
-        "current_odds": 1.97
+        "seq": "N0111110000001100",
+        "rec": 0,
+        "desc": "다수결 ↓0 40/62(66%)",
+        "current_odds": 2.81
       },
       "Melbet": {
         "seq": "N0111N10001101111",
