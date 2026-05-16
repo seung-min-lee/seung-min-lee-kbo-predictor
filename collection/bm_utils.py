@@ -10,7 +10,9 @@ def compute_winner_direction(home_open, home_close, away_open, away_close, winne
     """
     승자 배당 방향 계산 (get_slot_bm_odds_seqs 로직 동일).
 
-    Returns: 1 (승자 배당 상승), 0 (승자 배당 하락), None (N조건 / 데이터 부족)
+    Returns: 1 (패자 배당이 더 올랐다 = 마켓이 승자를 정확히 예측),
+             0 (승자 배당이 더 올랐다 = 이변 / 마켓이 틀렸다),
+             None (N조건 / 데이터 부족)
 
     N조건:
       - winner_is_home 이 NaN
@@ -42,17 +44,21 @@ def compute_winner_direction(home_open, home_close, away_open, away_close, winne
     if h_chg is not None and a_chg is not None:
         w_chg = h_chg if w_is_home else a_chg
         l_chg = a_chg if w_is_home else h_chg
-        if w_chg > l_chg:
+        if l_chg > w_chg:
             return 1
-        elif w_chg < l_chg:
+        elif l_chg < w_chg:
             return 0
         else:
             return None  # N: 변동량 동일
 
-    # 한쪽만 있는 경우: home 데이터로 역방향 추론
+    # 한쪽만 있는 경우: home 변화로 추론
+    # home 배당 상승 = home 비선호 → home이 패자면 1(정상), home이 승자면 0(이변)
     if h_chg is not None and h_chg != 0:
-        h_dir = 1 if h_chg > 0 else 0
-        return h_dir if w_is_home else (1 - h_dir)
+        h_rose = h_chg > 0  # home 배당 올랐다
+        if w_is_home:
+            return 0 if h_rose else 1  # home=승자인데 배당 올랐다 → 이변(0)
+        else:
+            return 1 if h_rose else 0  # home=패자인데 배당 올랐다 → 정상(1)
 
     return None
 

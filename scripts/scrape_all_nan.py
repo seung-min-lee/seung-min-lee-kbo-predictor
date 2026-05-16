@@ -112,7 +112,7 @@ def calc_dir(row):
     l_chg = a_chg if row['winner_is_home'] else h_chg
     if abs(w_chg - l_chg) < 0.001:
         return np.nan
-    return 1.0 if w_chg > l_chg else 0.0
+    return 1.0 if l_chg > w_chg else 0.0
 
 
 # ── NaN 행 그룹화 ──────────────────────────────────────────

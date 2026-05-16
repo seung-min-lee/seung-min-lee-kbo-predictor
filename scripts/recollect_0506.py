@@ -184,9 +184,9 @@ def scrape_match_with_open(driver, match_id, winner_is_home):
                 achg = ac - ao
                 wchg = hchg if winner_is_home else achg
                 lchg = achg if winner_is_home else hchg
-                if wchg > lchg:
+                if lchg > wchg:
                     results[i]['winner_direction'] = 1
-                elif wchg < lchg:
+                elif lchg < wchg:
                     results[i]['winner_direction'] = 0
 
             print(f'    [{i+1}/{len(bm_order)}] {bm}: h_open={results[i]["home_open"]} a_open={results[i]["away_open"]} w_dir={results[i]["winner_direction"]}')

@@ -161,8 +161,8 @@ def main():
                         achg = a_close - a_open
                         wchg = hchg if wih else achg
                         lchg = achg if wih else hchg
-                        if wchg > lchg: w_dir = 1
-                        elif wchg < lchg: w_dir = 0
+                        if lchg > wchg: w_dir = 1
+                        elif lchg < wchg: w_dir = 0
 
                     print(f'    {bm_name}: h_open={h_open} a_open={a_open} w_dir={w_dir}')
 
