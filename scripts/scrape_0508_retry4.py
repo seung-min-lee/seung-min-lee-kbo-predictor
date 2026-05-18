@@ -117,7 +117,7 @@ def calc_dir(row):
 df = pd.read_csv('kbo_odds.csv')
 
 with sync_playwright() as pw:
-    browser = pw.chromium.launch(headless=False, args=['--no-sandbox'])
+    browser = pw.chromium.launch(headless=True, args=['--no-sandbox'])
     ctx = browser.new_context(
         user_agent='Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36',
         viewport={'width': 1920, 'height': 1080}

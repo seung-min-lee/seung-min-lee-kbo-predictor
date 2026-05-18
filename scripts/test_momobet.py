@@ -26,7 +26,7 @@ PARSE_JS = """
 """
 
 with sync_playwright() as pw:
-    browser = pw.chromium.launch(headless=False)
+    browser = pw.chromium.launch(headless=True)
     ctx = browser.new_context(viewport={'width': 1920, 'height': 1080})
     page = ctx.new_page()
     page.goto(URL)

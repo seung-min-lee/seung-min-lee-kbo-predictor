@@ -1022,9 +1022,8 @@
         "weight": 0.78
       }
     ],
-    "verified": true,
-    "actual": "HOME(1)",
-    "correct": true
+    "verified": false,
+    "actual": null
   },
   "slot_2.0": {
     "slot": 2.0,
@@ -1789,9 +1788,8 @@
         "weight": 0.78
       }
     ],
-    "verified": true,
-    "actual": "HOME(1)",
-    "correct": false
+    "verified": false,
+    "actual": null
   },
   "slot_3.0": {
     "slot": 3.0,
@@ -2611,9 +2609,8 @@
         "weight": 0.78
       }
     ],
-    "verified": true,
-    "actual": "AWAY(0)",
-    "correct": false
+    "verified": false,
+    "actual": null
   },
   "slot_4.0": {
     "slot": 4.0,
@@ -3603,9 +3600,8 @@
         "weight": 0.78
       }
     ],
-    "verified": true,
-    "actual": "AWAY(0)",
-    "correct": false
+    "verified": false,
+    "actual": null
   },
   "slot_5.0": {
     "slot": 5.0,
@@ -4555,8 +4551,7 @@
         "weight": 0.78
       }
     ],
-    "verified": true,
-    "actual": "AWAY(0)",
-    "correct": false
+    "verified": false,
+    "actual": null
   }
 }

@@ -1,6 +1,7 @@
 """
-05-15 전체 삭제 후 현재 OddsPortal 8개 BM open+close 재수집
-popup 구조: "ODDS MOVEMENT\n[close_date]\n[close_val]\n[change]\nOpening odds:\n[open_date]\n[open_val]"
+05-15 slot1-4에 누락된 BM 데이터만 추가 (기존 데이터 유지)
+- 각 슬롯 페이지에서 현재 노출되는 BM 목록 파악
+- DB에 없는 BM만 open+close 수집
 """
 import sys; sys.stdout.reconfigure(encoding='utf-8')
 import time, re, numpy as np, pandas as pd
@@ -18,7 +19,6 @@ GAMES = [
     ('2026-05-15', 2.0, 'KT Wiz Suwon',  'Hanwha Eagles', 'Hanwha Eagles', False, 'kt-wiz-suwon-hanwha-eagles-tUM8ovTq'),
     ('2026-05-15', 3.0, 'Samsung Lions', 'KIA Tigers',    'KIA Tigers',    False, 'samsung-lions-kia-tigers-lWsUhMzA'),
     ('2026-05-15', 4.0, 'NC Dinos',      'Kiwoom Heroes', 'Kiwoom Heroes', False, 'nc-dinos-kiwoom-heroes-AoWxi05M'),
-    ('2026-05-15', 5.0, 'SSG Landers',   'LG Twins',      'LG Twins',      False, 'ssg-landers-lg-twins-rZvMfr6c'),
 ]
 
 FAKE_BMS = {'My coupon', 'User Predictions'}
@@ -30,7 +30,9 @@ def make_driver():
     opts.add_argument('--no-sandbox')
     opts.add_argument('--disable-dev-shm-usage')
     opts.add_argument('--window-size=1920,1080')
-    opts.add_argument('user-agent=Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36')
+    opts.add_argument('--disable-gpu')
+    opts.add_argument('--disable-extensions')
+    opts.add_argument('user-agent=Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/134.0.0.0 Safari/537.36')
     opts.add_experimental_option('excludeSwitches', ['enable-automation'])
     opts.add_experimental_option('useAutomationExtension', False)
     d = webdriver.Chrome(options=opts)
@@ -62,38 +64,35 @@ def load_page(driver, url, first=False):
         time.sleep(1)
 
 
+def get_bm_names(driver):
+    name_els = driver.find_elements(By.CSS_SELECTOR, 'p.height-content.pl-4')
+    return [n.text.strip() for n in name_els
+            if n.text.strip() and n.text.strip() not in FAKE_BMS]
+
+
 def parse_tooltip(driver):
-    """div.tooltip.odds-tooltip 텍스트에서 open, close 파싱
-    구조: ODDS MOVEMENT / [close_date] / [close_val] / [change] / Opening odds: / [open_date] / [open_val]
-    """
     try:
         tooltip = driver.find_element(By.CSS_SELECTOR, 'div.tooltip.odds-tooltip')
         lines = [l.strip() for l in tooltip.text.split('\n') if l.strip()]
         open_val = close_val = None
-
-        # Opening odds: 다음 두 번째 항목이 값
         if 'Opening odds:' in lines:
             oi = lines.index('Opening odds:')
             if oi + 2 < len(lines):
                 m = re.match(r'^(\d+\.\d+)$', lines[oi + 2])
                 if m:
                     open_val = float(m.group(1))
-
-        # close = "ODDS MOVEMENT" 이후 ~ "Opening odds:" 전 첫 번째 소수
         for line in lines[1:]:
             if line == 'Opening odds:':
                 break
             if re.match(r'^\d+\.\d+$', line):
                 close_val = float(line)
                 break
-
         return open_val, close_val
     except:
         return None, None
 
 
 def click_bm(driver, bm_name, side='home'):
-    """BM 배당 클릭 후 tooltip 파싱. 리로드는 호출 전에 완료되어 있어야 함."""
     try:
         name_els = driver.find_elements(By.CSS_SELECTOR, 'p.height-content.pl-4')
         target_el = None
@@ -140,85 +139,90 @@ def calc_dir(ho, hc, ao, ac, wih):
         return np.nan
 
 
-# ── 실행 ──────────────────────────────────────────────────────────────────────
+def scrape_game(driver, date, slot, home, away, winner, wih, slug, existing_bms):
+    url = BASE + slug + '/'
+    match_id = slug.split('-')[-1]
+    print(f'\n[{date} slot{int(slot)}] {home} vs {away}')
+    print(f'  기존 BMs: {sorted(existing_bms)}')
+
+    load_page(driver, url)
+    bm_names = get_bm_names(driver)
+    if not bm_names:
+        print('  BMs 없음, 재시도...')
+        load_page(driver, url)
+        bm_names = get_bm_names(driver)
+
+    new_bms = [b for b in bm_names if b not in existing_bms]
+    print(f'  전체 BMs: {bm_names}')
+    print(f'  추가 수집 BMs: {new_bms}')
+
+    rows = []
+    for bm in new_bms:
+        load_page(driver, url)
+        h_o, h_c = click_bm(driver, bm, 'home')
+        load_page(driver, url)
+        a_o, a_c = click_bm(driver, bm, 'away')
+
+        print(f'  {bm:<20} h_o={h_o}  h_c={h_c}  a_o={a_o}  a_c={a_c}')
+        if h_o is None and h_c is None and a_o is None and a_c is None:
+            continue
+
+        wd = calc_dir(h_o, h_c, a_o, a_c, wih)
+        rows.append({
+            'date': date, 'slot': slot, 'home': home, 'away': away,
+            'match_id': match_id, 'bookmaker': bm,
+            'home_open':   float(h_o) if h_o else float('nan'),
+            'home_close':  float(h_c) if h_c else float('nan'),
+            'away_open':   float(a_o) if a_o else float('nan'),
+            'away_close':  float(a_c) if a_c else float('nan'),
+            'home_change': round(h_c - h_o, 3) if h_o and h_c else float('nan'),
+            'away_change': round(a_c - a_o, 3) if a_o and a_c else float('nan'),
+            'winner': winner, 'winner_is_home': wih,
+            'winner_direction': wd,
+        })
+    return rows
+
+
+# ── 실행 ────────────────────────────────────────────────────────────────────
 df = pd.read_csv('kbo_odds.csv')
-before = len(df)
-df = df[df['date'] != '2026-05-15'].reset_index(drop=True)
-df.to_csv('kbo_odds.csv', index=False)
-print('05-15 삭제: %d → %d행' % (before, len(df)))
+print(f'시작: {len(df)}행')
 
 driver = make_driver()
-added = 0
+total_added = 0
 
 try:
-    for i, (date, slot, home, away, winner, wih, slug) in enumerate(GAMES):
-        url = BASE + slug + '/'
-        match_id = slug.split('-')[-1]
-        print('\n[%s slot%d] %s vs %s' % (date, int(slot), home, away))
+    first = True
+    for date, slot, home, away, winner, wih, slug in GAMES:
+        # 이 슬롯에 이미 있는 BM 목록
+        mask = (df['date'] == date) & (df['slot'] == slot)
+        existing_bms = set(df[mask]['bookmaker'].unique())
 
-        # BM 목록 파악 (첫 로드)
-        load_page(driver, url, first=(i == 0))
-        # 로딩 재시도 (BM 없을 경우 한 번 더)
-        name_els = driver.find_elements(By.CSS_SELECTOR, 'p.height-content.pl-4')
-        bm_names = [n.text.strip() for n in name_els
-                    if n.text.strip() and n.text.strip() not in FAKE_BMS]
-        if not bm_names:
-            print('  BMs 없음, 재시도...')
-            load_page(driver, url)
-            name_els = driver.find_elements(By.CSS_SELECTOR, 'p.height-content.pl-4')
-            bm_names = [n.text.strip() for n in name_els
-                        if n.text.strip() and n.text.strip() not in FAKE_BMS]
-        print('  BMs: %s' % bm_names)
+        rows = scrape_game(driver, date, slot, home, away, winner, wih, slug, existing_bms)
+        if first and rows:
+            accept_cookies(driver)
+            first = False
 
-        for bm in bm_names:
-            # home 클릭
-            load_page(driver, url)
-            h_o, h_c = click_bm(driver, bm, 'home')
-
-            # away 클릭
-            load_page(driver, url)
-            a_o, a_c = click_bm(driver, bm, 'away')
-
-            print('  %-20s h_o=%-5s h_c=%-5s a_o=%-5s a_c=%-5s' % (
-                bm, h_o, h_c, a_o, a_c))
-
-            if h_o is None and h_c is None:
-                continue
-
-            wd = calc_dir(h_o, h_c, a_o, a_c, wih)
-            new_row = {
-                'date': date, 'slot': slot, 'home': home, 'away': away,
-                'match_id': match_id, 'bookmaker': bm,
-                'home_open':   float(h_o) if h_o else float('nan'),
-                'home_close':  float(h_c) if h_c else float('nan'),
-                'away_open':   float(a_o) if a_o else float('nan'),
-                'away_close':  float(a_c) if a_c else float('nan'),
-                'home_change': round(h_c - h_o, 3) if h_o and h_c else float('nan'),
-                'away_change': round(a_c - a_o, 3) if a_o and a_c else float('nan'),
-                'winner': winner, 'winner_is_home': wih,
-                'winner_direction': wd,
-            }
+        if rows:
+            new_df = pd.DataFrame(rows)
             for col in df.columns:
-                if col not in new_row:
-                    new_row[col] = float('nan')
-            df = pd.concat([df, pd.DataFrame([new_row])[df.columns]], ignore_index=True)
-            added += 1
-
-        df.to_csv('kbo_odds.csv', index=False)
-        print('  → 저장 (%d행)' % len(df))
+                if col not in new_df.columns:
+                    new_df[col] = float('nan')
+            df = pd.concat([df, new_df[df.columns]], ignore_index=True)
+            df.to_csv('kbo_odds.csv', index=False)
+            print(f'  → {len(rows)}행 추가, 총 {len(df)}행 저장')
+            total_added += len(rows)
+        else:
+            print('  → 추가 없음')
 
 finally:
     driver.quit()
 
 df.to_csv('kbo_odds.csv', index=False)
-print('\n=== 완료: 추가 %d행 ===' % added)
+print(f'\n=== 완료: 총 {total_added}행 추가 ===')
 
-for slot in [1.0, 2.0, 3.0, 4.0, 5.0]:
+print('\n=== 05-15 slot1-4 최종 BM 현황 ===')
+for slot in [1.0, 2.0, 3.0, 4.0]:
     s = df[(df['date'] == '2026-05-15') & (df['slot'] == slot)]
-    if s.empty:
-        continue
-    print('05-15 slot%d: %dBM open=%d close=%d wd=%d' % (
-        int(slot), len(s),
-        s['home_open'].notna().sum(),
-        s['home_close'].notna().sum(),
-        s['winner_direction'].notna().sum()))
+    bms = sorted(s['bookmaker'].unique())
+    wd_ok = s['winner_direction'].notna().sum()
+    print(f'  slot{int(slot)}: {len(bms)}BM, wd={wd_ok}/{len(s)}  → {bms}')
