@@ -51,15 +51,15 @@
         "current_odds": 1.73
       },
       "BetInAsia": {
-        "seq": "1110100111001101F",
-        "rec": 1,
-        "desc": "다수결 ↑1 33/60(56%)",
+        "seq": "1110100111001100F",
+        "rec": null,
+        "desc": "균형(41↑:31↓) → 불규칙",
         "current_odds": 2.1
       },
       "Bets.io": {
-        "seq": "11101001NN00110NF",
-        "rec": 1,
-        "desc": "다수결 ↑1 8/12(65%)",
+        "seq": "11101001NN001101F",
+        "rec": 0,
+        "desc": "다수결 ↓0 11/15(74%)",
         "current_odds": 2.04
       },
       "Cloudbet": {
@@ -93,9 +93,9 @@
         "current_odds": 1.73
       },
       "Roobet": {
-        "seq": "111011011100110NF",
+        "seq": "1110110111001101F",
         "rec": null,
-        "desc": "균형(32↑:28↓) → 불규칙",
+        "desc": "균형(31↑:29↓) → 불규칙",
         "current_odds": 2.12
       },
       "Stake.com": {
@@ -122,10 +122,10 @@
     "pattern_reason": "홈 패 패턴(85%) + 원정 승 패턴(78%) + 정배패턴일치(정배승 18경기(원정정배))",
     "home_win_desc": "다수결 ↓0 53/88(58%)",
     "away_win_desc": "다수결 ↑1 47/54(88%)",
-    "bm_label": "배당↓팀이김 8/8(100%) (방향미확인)",
+    "bm_label": "배당↓팀이김 6/7(86%) (방향미확인)",
     "bm_dir_vote": 1,
     "bm_team_rec": null,
-    "bm_dir_ratio": 1.0,
+    "bm_dir_ratio": 0.857,
     "ml_home_prob": 0.645,
     "ml_away_prob": 0.355,
     "home_pattern_log": [
@@ -1850,7 +1850,7 @@
         "current_odds": 1.52
       },
       "Cloudbet": {
-        "seq": "FFFFNFFFFFFFFFNFF",
+        "seq": "FFFFNFFFFFFFFF0FF",
         "rec": null,
         "desc": "데이터 부족",
         "current_odds": 1.54
@@ -1880,9 +1880,9 @@
         "current_odds": 1.48
       },
       "Roobet": {
-        "seq": "N0010111001000N1F",
-        "rec": null,
-        "desc": "데이터 부족",
+        "seq": "N001011100100001F",
+        "rec": 0,
+        "desc": "다수결 ↓0 40/54(71%)",
         "current_odds": 1.54
       },
       "Stake.com": {
@@ -1909,10 +1909,10 @@
     "pattern_reason": "슬롯정배패턴(역배승 18경기(홈정배))",
     "home_win_desc": "다수결 ↑1 76/83(90%)",
     "away_win_desc": "다수결 ↑1 42/70(61%)",
-    "bm_label": "불명확 3/4",
-    "bm_dir_vote": null,
+    "bm_label": "배당↑팀이김 5/8(62%) (방향미확인)",
+    "bm_dir_vote": 0,
     "bm_team_rec": null,
-    "bm_dir_ratio": 0.571,
+    "bm_dir_ratio": 0.625,
     "ml_home_prob": 0.425,
     "ml_away_prob": 0.575,
     "home_pattern_log": [
@@ -2769,9 +2769,9 @@
         "current_odds": 1.61
       },
       "Melbet": {
-        "seq": "0111000P1N01110NF",
-        "rec": 1,
-        "desc": "다수결 ↑1 8/10(79%)",
+        "seq": "0111000P1N011101F",
+        "rec": 0,
+        "desc": "다수결 ↓0 10/13(78%)",
         "current_odds": 1.45
       },
       "Momobet": {
@@ -2810,10 +2810,10 @@
     "pattern_reason": "원정 패 패턴(85%) (홈 불규칙) + 정배패턴일치(정배승 18경기(홈정배))",
     "home_win_desc": "균형(50↑:38↓) → 불규칙",
     "away_win_desc": "다수결 ↓0 83/94(87%)",
-    "bm_label": "배당↑팀이김 9/11(82%) (방향미확인)",
+    "bm_label": "배당↑팀이김 10/11(91%) (방향미확인)",
     "bm_dir_vote": 0,
     "bm_team_rec": null,
-    "bm_dir_ratio": 0.818,
+    "bm_dir_ratio": 0.909,
     "ml_home_prob": 0.54,
     "ml_away_prob": 0.46,
     "home_pattern_log": [
@@ -3815,9 +3815,9 @@
         "current_odds": 2.21
       },
       "Melbet": {
-        "seq": "10110N101000N00NF",
-        "rec": null,
-        "desc": "데이터 부족",
+        "seq": "10110N101000N001F",
+        "rec": 0,
+        "desc": "다수결 ↓0 2/2(100%)",
         "current_odds": 1.94
       },
       "Momobet": {
@@ -3827,9 +3827,9 @@
         "current_odds": 2.24
       },
       "Roobet": {
-        "seq": "101N0N10100010N0F",
-        "rec": null,
-        "desc": "데이터 부족",
+        "seq": "101N0N1010001010F",
+        "rec": 1,
+        "desc": "다수결 ↑1 28/34(82%)",
         "current_odds": 2.16
       },
       "Stake.com": {
@@ -3856,10 +3856,10 @@
     "pattern_reason": "홈 승 패턴(85%) + 원정 패 패턴(85%) + 정배패턴일치(역배승 18경기(원정정배))",
     "home_win_desc": "다수결 ↑1 74/97(75%)",
     "away_win_desc": "다수결 ↓0 69/90(74%)",
-    "bm_label": "배당↓팀이김 10/10(100%) (방향미확인)",
+    "bm_label": "배당↓팀이김 11/12(92%) (방향미확인)",
     "bm_dir_vote": 1,
     "bm_team_rec": null,
-    "bm_dir_ratio": 1.0,
+    "bm_dir_ratio": 0.917,
     "ml_home_prob": 0.45,
     "ml_away_prob": 0.55,
     "home_pattern_log": [
