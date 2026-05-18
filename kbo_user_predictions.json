@@ -118,5 +118,85 @@
     "away": "Lotte Giants",
     "pick": "AWAY(Lotte Giants)",
     "saved_at": "2026-05-15T09:05:14"
+  },
+  "2026-05-16|1.0|KT Wiz Suwon|Hanwha Eagles": {
+    "date": "2026-05-16",
+    "slot": 1.0,
+    "home": "KT Wiz Suwon",
+    "away": "Hanwha Eagles",
+    "pick": "AWAY(Hanwha Eagles)",
+    "saved_at": "2026-05-16T09:00:00"
+  },
+  "2026-05-16|2.0|Doosan Bears|Lotte Giants": {
+    "date": "2026-05-16",
+    "slot": 2.0,
+    "home": "Doosan Bears",
+    "away": "Lotte Giants",
+    "pick": "AWAY(Lotte Giants)",
+    "saved_at": "2026-05-16T09:00:00"
+  },
+  "2026-05-16|3.0|Samsung Lions|KIA Tigers": {
+    "date": "2026-05-16",
+    "slot": 3.0,
+    "home": "Samsung Lions",
+    "away": "KIA Tigers",
+    "pick": "HOME(Samsung Lions)",
+    "saved_at": "2026-05-16T09:00:00"
+  },
+  "2026-05-16|4.0|NC Dinos|Kiwoom Heroes": {
+    "date": "2026-05-16",
+    "slot": 4.0,
+    "home": "NC Dinos",
+    "away": "Kiwoom Heroes",
+    "pick": "HOME(NC Dinos)",
+    "saved_at": "2026-05-16T09:00:00"
+  },
+  "2026-05-16|5.0|SSG Landers|LG Twins": {
+    "date": "2026-05-16",
+    "slot": 5.0,
+    "home": "SSG Landers",
+    "away": "LG Twins",
+    "pick": "AWAY(LG Twins)",
+    "saved_at": "2026-05-16T09:00:00"
+  },
+  "2026-05-17|1.0|Doosan Bears|Lotte Giants": {
+    "date": "2026-05-17",
+    "slot": 1.0,
+    "home": "Doosan Bears",
+    "away": "Lotte Giants",
+    "pick": "AWAY(Lotte Giants)",
+    "saved_at": "2026-05-17T09:00:00"
+  },
+  "2026-05-17|2.0|KT Wiz Suwon|Hanwha Eagles": {
+    "date": "2026-05-17",
+    "slot": 2.0,
+    "home": "KT Wiz Suwon",
+    "away": "Hanwha Eagles",
+    "pick": "HOME(KT Wiz Suwon)",
+    "saved_at": "2026-05-17T09:00:00"
+  },
+  "2026-05-17|3.0|Samsung Lions|KIA Tigers": {
+    "date": "2026-05-17",
+    "slot": 3.0,
+    "home": "Samsung Lions",
+    "away": "KIA Tigers",
+    "pick": "AWAY(KIA Tigers)",
+    "saved_at": "2026-05-17T09:00:00"
+  },
+  "2026-05-17|4.0|NC Dinos|Kiwoom Heroes": {
+    "date": "2026-05-17",
+    "slot": 4.0,
+    "home": "NC Dinos",
+    "away": "Kiwoom Heroes",
+    "pick": "AWAY(Kiwoom Heroes)",
+    "saved_at": "2026-05-17T09:00:00"
+  },
+  "2026-05-17|5.0|SSG Landers|LG Twins": {
+    "date": "2026-05-17",
+    "slot": 5.0,
+    "home": "SSG Landers",
+    "away": "LG Twins",
+    "pick": "AWAY(LG Twins)",
+    "saved_at": "2026-05-17T09:00:00"
   }
 }
