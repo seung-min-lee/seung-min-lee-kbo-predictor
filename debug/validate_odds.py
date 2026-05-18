@@ -141,9 +141,9 @@ for _, row in sub.iterrows():
     wchg = hchg if wih else achg
     lchg = achg if wih else hchg
 
-    if lchg > wchg:
+    if wchg > lchg:
         expected = 1
-    elif lchg < wchg:
+    elif wchg < lchg:
         expected = 0
     else:
         expected = None  # 동률 → NaN이 맞음
@@ -211,9 +211,9 @@ if '--fix' in sys.argv:
         achg = ac - ao
         wchg = hchg if wih else achg
         lchg = achg if wih else hchg
-        if lchg > wchg:
+        if wchg > lchg:
             new_wd = 1
-        elif lchg < wchg:
+        elif wchg < lchg:
             new_wd = 0
         else:
             new_wd = float('nan')

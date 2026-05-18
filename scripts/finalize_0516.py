@@ -62,7 +62,7 @@ def calc_dir(ho, hc, ao, ac, wih):
         lchg = achg if wih else hchg
         if abs(wchg - lchg) < 0.001:
             return np.nan
-        return 1.0 if lchg > wchg else 0.0
+        return 1.0 if wchg > lchg else 0.0
     except:
         return np.nan
 

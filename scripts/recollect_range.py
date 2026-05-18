@@ -217,8 +217,8 @@ def scrape_match_with_open(driver, url, wih):
                 achg = ac2 - ao
                 wchg = hchg if wih else achg
                 lchg = achg if wih else hchg
-                if lchg > wchg:   results[i]['winner_direction'] = 1
-                elif lchg < wchg: results[i]['winner_direction'] = 0
+                if wchg > lchg:   results[i]['winner_direction'] = 1
+                elif wchg < lchg: results[i]['winner_direction'] = 0
             print(f'    [{i+1}/{len(bm_order)}] {bm}: h_open={results[i]["home_open"]} w_dir={results[i]["winner_direction"]}')
         except Exception as e:
             print(f'    [{i+1}] {bm} 실패: {e}')

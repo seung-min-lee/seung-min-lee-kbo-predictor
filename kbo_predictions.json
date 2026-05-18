@@ -27,39 +27,39 @@
     "home_is_fav": false,
     "slot_bm": {
       "10x10bet": {
-        "seq": "111010010N0011011",
-        "rec": 0,
-        "desc": "다수결 ↓0 14/19(73%)",
+        "seq": "000101101N1100100",
+        "rec": 1,
+        "desc": "다수결 ↑1 14/19(73%)",
         "current_odds": 1.94
       },
       "1xBet": {
-        "seq": "11101N00110011011",
-        "rec": 0,
-        "desc": "다수결 ↓0 36/40(91%)",
+        "seq": "00010N11001100100",
+        "rec": 1,
+        "desc": "다수결 ↑1 35/40(88%)",
         "current_odds": 1.95
       },
       "22Bet": {
-        "seq": "11101N00110011011",
-        "rec": 0,
-        "desc": "다수결 ↓0 36/40(91%)",
+        "seq": "00010N11001100100",
+        "rec": 1,
+        "desc": "다수결 ↑1 35/40(88%)",
         "current_odds": 1.9
       },
       "Alphabet": {
-        "seq": "011010010N0011011",
-        "rec": 0,
-        "desc": "다수결 ↓0 14/19(73%)",
+        "seq": "100101101N1100100",
+        "rec": 1,
+        "desc": "다수결 ↑1 13/19(68%)",
         "current_odds": 1.94
       },
       "BetInAsia": {
-        "seq": "11101001110011001",
-        "rec": 1,
-        "desc": "다수결 ↑1 60/98(62%)",
+        "seq": "00010110001100110",
+        "rec": 0,
+        "desc": "다수결 ↓0 60/98(62%)",
         "current_odds": 2.0
       },
       "Bets.io": {
-        "seq": "11101001NN0011011",
-        "rec": 0,
-        "desc": "다수결 ↓0 15/20(74%)",
+        "seq": "00010110NN1100100",
+        "rec": 1,
+        "desc": "다수결 ↑1 15/20(74%)",
         "current_odds": 1.85
       },
       "Cloudbet": {
@@ -69,49 +69,49 @@
         "current_odds": 1.72
       },
       "GambleCity": {
-        "seq": "111010011N0011NNF",
-        "rec": 0,
-        "desc": "다수결 ↓0 7/8(88%)",
+        "seq": "000101100N1100NNF",
+        "rec": 1,
+        "desc": "다수결 ↑1 7/8(88%)",
         "current_odds": 2.0
       },
       "Kobet": {
-        "seq": "011010011100010NF",
+        "seq": "100101100011101NF",
         "rec": null,
-        "desc": "균형(35↑:28↓) → 불규칙",
+        "desc": "균형(28↑:35↓) → 불규칙",
         "current_odds": 1.63
       },
       "Melbet": {
-        "seq": "11101N00110011011",
-        "rec": 0,
-        "desc": "다수결 ↓0 36/40(91%)",
+        "seq": "00010N11001100100",
+        "rec": 1,
+        "desc": "다수결 ↑1 35/40(88%)",
         "current_odds": 1.9
       },
       "Momobet": {
-        "seq": "011010010N0011FN1",
+        "seq": "100101101N1100FN0",
         "rec": null,
         "desc": "데이터 부족",
         "current_odds": 1.94
       },
       "Roobet": {
-        "seq": "1110110111001101F",
-        "rec": 0,
-        "desc": "다수결 ↓0 39/70(55%)",
+        "seq": "0001001000110010F",
+        "rec": 1,
+        "desc": "다수결 ↑1 39/70(55%)",
         "current_odds": 2.12
       },
       "Stake.com": {
-        "seq": "1110100110001101F",
+        "seq": "0001011001110010F",
         "rec": null,
-        "desc": "균형(35↑:34↓) → 불규칙",
+        "desc": "균형(34↑:35↓) → 불규칙",
         "current_odds": 2.12
       },
       "VOBET": {
-        "seq": "101010010N0011FNF",
-        "rec": 0,
-        "desc": "다수결 ↓0 7/8(88%)",
+        "seq": "010101101N1100FNF",
+        "rec": 1,
+        "desc": "다수결 ↑1 7/8(88%)",
         "current_odds": 2.07
       },
       "bwin": {
-        "seq": "11N0100NNN0NN1N11",
+        "seq": "00N1011NNN1NN0N00",
         "rec": null,
         "desc": "데이터 부족",
         "current_odds": 1.87
@@ -122,8 +122,8 @@
     "pattern_reason": "홈 패 패턴(85%) + 원정 승 패턴(78%) ※정배패턴충돌(역배승 18경기(원정정배))",
     "home_win_desc": "다수결 ↓0 65/100(63%)",
     "away_win_desc": "다수결 ↑1 59/66(90%)",
-    "bm_label": "배당↑팀이김 9/10(90%) (방향미확인)",
-    "bm_dir_vote": 0,
+    "bm_label": "배당↓팀이김 9/10(90%) (방향미확인)",
+    "bm_dir_vote": 1,
     "bm_team_rec": null,
     "bm_dir_ratio": 0.9,
     "ml_home_prob": 0.59,
@@ -993,91 +993,91 @@
     "home_is_fav": false,
     "slot_bm": {
       "10x10bet": {
-        "seq": "000NN00110011NF01",
+        "seq": "111NN11001100NF10",
         "rec": null,
         "desc": "데이터 부족",
         "current_odds": 2.35
       },
       "1xBet": {
-        "seq": "010N0N0100N110001",
-        "rec": 0,
-        "desc": "다수결 ↓0 14/16(87%)",
+        "seq": "101N1N1011N001110",
+        "rec": 1,
+        "desc": "다수결 ↑1 14/16(87%)",
         "current_odds": 2.28
       },
       "22Bet": {
-        "seq": "010N000100N110001",
-        "rec": 0,
-        "desc": "다수결 ↓0 14/16(87%)",
+        "seq": "101N111011N001110",
+        "rec": 1,
+        "desc": "다수결 ↑1 14/16(87%)",
         "current_odds": 2.22
       },
       "Alphabet": {
-        "seq": "000NN00110011NF01",
+        "seq": "111NN11001100NF10",
         "rec": null,
         "desc": "데이터 부족",
         "current_odds": 2.35
       },
       "BetInAsia": {
-        "seq": "01000N01101100001",
+        "seq": "10111N10010011110",
         "rec": null,
-        "desc": "균형(15↑:20↓) → 불규칙",
+        "desc": "균형(20↑:15↓) → 불규칙",
         "current_odds": 2.19
       },
       "Bets.io": {
-        "seq": "000N100110010N001",
-        "rec": 0,
-        "desc": "다수결 ↓0 2/2(100%)",
+        "seq": "111N011001101N110",
+        "rec": 1,
+        "desc": "다수결 ↑1 2/2(100%)",
         "current_odds": 2.21
       },
       "Cloudbet": {
-        "seq": "FFFF0FFFFFFFFFFFF",
+        "seq": "FFFF1FFFFFFFFFFFF",
         "rec": null,
         "desc": "데이터 부족",
         "current_odds": 1.46
       },
       "GambleCity": {
-        "seq": "000N0001000110F0F",
+        "seq": "111N1110111001F1F",
         "rec": null,
         "desc": "데이터 부족",
         "current_odds": 1.58
       },
       "Kobet": {
-        "seq": "00010011011110F0F",
+        "seq": "11101100100001F1F",
         "rec": null,
         "desc": "데이터 부족",
         "current_odds": 1.63
       },
       "Melbet": {
-        "seq": "010N000100N1100FF",
-        "rec": 1,
-        "desc": "다수결 ↑1 7/8(88%)",
+        "seq": "101N111011N0011FF",
+        "rec": 0,
+        "desc": "다수결 ↓0 7/8(88%)",
         "current_odds": 1.81
       },
       "Momobet": {
-        "seq": "000NN00110011NFFF",
-        "rec": 0,
-        "desc": "다수결 ↓0 29/38(76%)",
+        "seq": "111NN11001100NFFF",
+        "rec": 1,
+        "desc": "다수결 ↑1 29/38(76%)",
         "current_odds": 2.12
       },
       "Roobet": {
-        "seq": "010N000110111000F",
-        "rec": 1,
-        "desc": "다수결 ↑1 31/46(65%)",
+        "seq": "101N111001000111F",
+        "rec": 0,
+        "desc": "다수결 ↓0 31/46(65%)",
         "current_odds": 1.6
       },
       "Stake.com": {
-        "seq": "0000010110111N00F",
+        "seq": "1111101001000N11F",
         "rec": null,
         "desc": "데이터 부족",
         "current_odds": 1.6
       },
       "VOBET": {
-        "seq": "000N000110011NF0F",
+        "seq": "111N111001100NF1F",
         "rec": null,
         "desc": "데이터 부족",
         "current_odds": 1.63
       },
       "bwin": {
-        "seq": "000NN1N1001N1NF01",
+        "seq": "111NN0N0110N0NF10",
         "rec": null,
         "desc": "데이터 부족",
         "current_odds": 2.25
@@ -1088,8 +1088,8 @@
     "pattern_reason": "홈 패 패턴(85%) + 원정 승 패턴(85%) ※정배패턴충돌(역배승 18경기(원정정배))",
     "home_win_desc": "다수결 ↓0 70/86(79%)",
     "away_win_desc": "다수결 ↑1 72/89(79%)",
-    "bm_label": "배당↑팀이김 4/6(67%) (방향미확인)",
-    "bm_dir_vote": 0,
+    "bm_label": "배당↓팀이김 4/6(67%) (방향미확인)",
+    "bm_dir_vote": 1,
     "bm_team_rec": null,
     "bm_dir_ratio": 0.667,
     "ml_home_prob": 0.53,
@@ -2004,39 +2004,39 @@
     "home_is_fav": true,
     "slot_bm": {
       "10x10bet": {
-        "seq": "000101110010NNF10",
+        "seq": "111010001101NNF01",
         "rec": null,
         "desc": "데이터 부족",
         "current_odds": 1.71
       },
       "1xBet": {
-        "seq": "000N0111001NN0010",
-        "rec": 1,
-        "desc": "다수결 ↑1 4/6(67%)",
+        "seq": "111N1000110NN1101",
+        "rec": 0,
+        "desc": "다수결 ↓0 5/6(83%)",
         "current_odds": 1.7
       },
       "22Bet": {
-        "seq": "000N0111001000010",
-        "rec": 0,
-        "desc": "다수결 ↓0 26/44(59%)",
+        "seq": "111N1000110111101",
+        "rec": 1,
+        "desc": "다수결 ↑1 26/44(59%)",
         "current_odds": 1.66
       },
       "Alphabet": {
-        "seq": "0001011100100NF10",
+        "seq": "1110100011011NF01",
         "rec": null,
         "desc": "데이터 부족",
         "current_odds": 1.68
       },
       "BetInAsia": {
-        "seq": "10010111001000000",
-        "rec": 0,
-        "desc": "다수결 ↓0 50/80(61%)",
+        "seq": "01101000110111111",
+        "rec": 1,
+        "desc": "다수결 ↑1 50/80(61%)",
         "current_odds": 1.67
       },
       "Bets.io": {
-        "seq": "0001011100100N010",
-        "rec": 1,
-        "desc": "다수결 ↑1 2/2(100%)",
+        "seq": "1110100011011N101",
+        "rec": 0,
+        "desc": "다수결 ↓0 2/2(100%)",
         "current_odds": 1.63
       },
       "Cloudbet": {
@@ -2046,49 +2046,49 @@
         "current_odds": 1.67
       },
       "GambleCity": {
-        "seq": "000101110010NNF1F",
+        "seq": "111010001101NNF0F",
         "rec": null,
         "desc": "데이터 부족",
         "current_odds": 1.53
       },
       "Kobet": {
-        "seq": "00000111111001F01",
+        "seq": "11111000000110F10",
         "rec": null,
         "desc": "데이터 부족",
         "current_odds": 1.68
       },
       "Melbet": {
-        "seq": "000N01110010000N0",
+        "seq": "111N10001101111N1",
         "rec": null,
         "desc": "데이터 부족",
         "current_odds": 1.66
       },
       "Momobet": {
-        "seq": "0001011100100NFFF",
-        "rec": 1,
-        "desc": "다수결 ↑1 43/50(86%)",
+        "seq": "1110100011011NFFF",
+        "rec": 0,
+        "desc": "다수결 ↓0 43/50(86%)",
         "current_odds": 1.99
       },
       "Roobet": {
-        "seq": "N001011100100001F",
-        "rec": 0,
-        "desc": "다수결 ↓0 55/69(78%)",
+        "seq": "N110100011011110F",
+        "rec": 1,
+        "desc": "다수결 ↑1 55/69(78%)",
         "current_odds": 1.54
       },
       "Stake.com": {
-        "seq": "0001011110100001F",
-        "rec": 0,
-        "desc": "다수결 ↓0 57/65(86%)",
+        "seq": "1110100001011110F",
+        "rec": 1,
+        "desc": "다수결 ↑1 57/65(86%)",
         "current_odds": 1.55
       },
       "VOBET": {
-        "seq": "0001011100100NFNF",
-        "rec": 1,
-        "desc": "다수결 ↑1 44/50(88%)",
+        "seq": "1110100011011NFNF",
+        "rec": 0,
+        "desc": "다수결 ↓0 44/50(88%)",
         "current_odds": 1.99
       },
       "bwin": {
-        "seq": "N00101N1N01N1NFNN",
+        "seq": "N11010N0N10N0NFNN",
         "rec": null,
         "desc": "데이터 부족",
         "current_odds": 1.67
@@ -3040,91 +3040,91 @@
     "home_is_fav": true,
     "slot_bm": {
       "10x10bet": {
-        "seq": "0111000P1N010NF10",
+        "seq": "1000111P0N101NF01",
         "rec": null,
         "desc": "데이터 부족",
         "current_odds": 1.32
       },
       "1xBet": {
-        "seq": "0111000P1N0111010",
-        "rec": 1,
-        "desc": "다수결 ↑1 19/22(86%)",
+        "seq": "1000111P0N1000101",
+        "rec": 0,
+        "desc": "다수결 ↓0 19/22(86%)",
         "current_odds": 1.32
       },
       "22Bet": {
-        "seq": "0111000P1N0111010",
-        "rec": 1,
-        "desc": "다수결 ↑1 19/22(86%)",
+        "seq": "1000111P0N1000101",
+        "rec": 0,
+        "desc": "다수결 ↓0 19/22(86%)",
         "current_odds": 1.29
       },
       "Alphabet": {
-        "seq": "0110010P1N0101F10",
+        "seq": "1001101P0N1010F01",
         "rec": null,
         "desc": "데이터 부족",
         "current_odds": 1.32
       },
       "BetInAsia": {
-        "seq": "0111000P1N0101010",
-        "rec": 1,
-        "desc": "다수결 ↑1 30/33(90%)",
+        "seq": "1000111P0N1010101",
+        "rec": 0,
+        "desc": "다수결 ↓0 30/33(90%)",
         "current_odds": 1.3
       },
       "Bets.io": {
-        "seq": "011N000P1N0101010",
-        "rec": 1,
-        "desc": "다수결 ↑1 30/33(90%)",
+        "seq": "100N111P0N1010101",
+        "rec": 0,
+        "desc": "다수결 ↓0 30/33(90%)",
         "current_odds": 1.28
       },
       "Cloudbet": {
-        "seq": "FFFFNFFPFNFFFF0FF",
+        "seq": "FFFFNFFPFNFFFF1FF",
         "rec": null,
         "desc": "데이터 부족",
         "current_odds": 1.61
       },
       "GambleCity": {
-        "seq": "0110000P1N0101F1F",
+        "seq": "1001111P0N1010F0F",
         "rec": null,
         "desc": "데이터 부족",
         "current_odds": 1.55
       },
       "Kobet": {
-        "seq": "0101010P1N0101FFF",
-        "rec": 0,
-        "desc": "다수결 ↓0 8/9(88%)",
+        "seq": "1010101P0N1010FFF",
+        "rec": 1,
+        "desc": "다수결 ↑1 8/9(88%)",
         "current_odds": 1.71
       },
       "Melbet": {
-        "seq": "0111000P1N011101F",
-        "rec": 0,
-        "desc": "다수결 ↓0 10/13(78%)",
+        "seq": "1000111P0N100010F",
+        "rec": 1,
+        "desc": "다수결 ↑1 10/13(78%)",
         "current_odds": 1.45
       },
       "Momobet": {
-        "seq": "0110000P1N010NF1F",
+        "seq": "1001111P0N101NF0F",
         "rec": null,
         "desc": "데이터 부족",
         "current_odds": 1.58
       },
       "Roobet": {
-        "seq": "0110010P1N0N0101F",
-        "rec": 0,
-        "desc": "다수결 ↓0 7/9(77%)",
+        "seq": "1001101P0N1N1010F",
+        "rec": 1,
+        "desc": "다수결 ↑1 7/9(77%)",
         "current_odds": 1.56
       },
       "Stake.com": {
-        "seq": "0101001P1N0N11F1F",
+        "seq": "1010110P0N1N00F0F",
         "rec": null,
         "desc": "데이터 부족",
         "current_odds": 1.45
       },
       "VOBET": {
-        "seq": "0110010P1N0101F1F",
+        "seq": "1001101P0N1010F0F",
         "rec": null,
         "desc": "데이터 부족",
         "current_odds": 1.58
       },
       "bwin": {
-        "seq": "0111001PNN0NN1FN0",
+        "seq": "1000110PNN1NN0FN1",
         "rec": null,
         "desc": "데이터 부족",
         "current_odds": 1.3
@@ -3135,7 +3135,7 @@
     "pattern_reason": "홈 승 패턴(85%) + 원정 패 패턴(86%) + 정배패턴일치(정배승 18경기(홈정배))",
     "home_win_desc": "다수결 ↑1 64/102(60%)",
     "away_win_desc": "다수결 ↓0 97/108(89%)",
-    "bm_label": "불명확 4/3",
+    "bm_label": "불명확 3/4",
     "bm_dir_vote": null,
     "bm_team_rec": null,
     "bm_dir_ratio": 0.571,
@@ -4226,39 +4226,39 @@
     "home_is_fav": false,
     "slot_bm": {
       "10x10bet": {
-        "seq": "10010N10110010100",
-        "rec": 1,
-        "desc": "다수결 ↑1 19/27(71%)",
+        "seq": "01101N01001101011",
+        "rec": 0,
+        "desc": "다수결 ↓0 19/27(71%)",
         "current_odds": 1.91
       },
       "1xBet": {
-        "seq": "10110N10100010000",
-        "rec": 0,
-        "desc": "다수결 ↓0 19/27(70%)",
+        "seq": "01001N01011101111",
+        "rec": 1,
+        "desc": "다수결 ↑1 19/27(70%)",
         "current_odds": 1.93
       },
       "22Bet": {
-        "seq": "10110N10100010000",
-        "rec": 0,
-        "desc": "다수결 ↓0 21/28(76%)",
+        "seq": "01001N01011101111",
+        "rec": 1,
+        "desc": "다수결 ↑1 21/28(76%)",
         "current_odds": 1.88
       },
       "Alphabet": {
-        "seq": "10010N10110010100",
-        "rec": 1,
-        "desc": "다수결 ↑1 19/27(71%)",
+        "seq": "01101N01001101011",
+        "rec": 0,
+        "desc": "다수결 ↓0 19/27(71%)",
         "current_odds": 1.86
       },
       "BetInAsia": {
-        "seq": "10110N10100010000",
-        "rec": 0,
-        "desc": "다수결 ↓0 21/28(76%)",
+        "seq": "01001N01011101111",
+        "rec": 1,
+        "desc": "다수결 ↑1 21/28(76%)",
         "current_odds": 1.82
       },
       "Bets.io": {
-        "seq": "10010N10100010100",
-        "rec": 0,
-        "desc": "다수결 ↓0 12/20(62%)",
+        "seq": "01101N01011101011",
+        "rec": 1,
+        "desc": "다수결 ↑1 12/20(62%)",
         "current_odds": 1.78
       },
       "Cloudbet": {
@@ -4268,49 +4268,49 @@
         "current_odds": 2.15
       },
       "GambleCity": {
-        "seq": "10N10N10100010F00",
+        "seq": "01N01N01011101F11",
         "rec": null,
         "desc": "데이터 부족",
         "current_odds": 1.85
       },
       "Kobet": {
-        "seq": "11100N10111N10F00",
+        "seq": "00011N01000N01F11",
         "rec": null,
         "desc": "데이터 부족",
         "current_odds": 1.89
       },
       "Melbet": {
-        "seq": "10110N101000N0F10",
+        "seq": "01001N010111N1F01",
         "rec": null,
         "desc": "데이터 부족",
         "current_odds": 1.88
       },
       "Momobet": {
-        "seq": "10010N10110010F0F",
+        "seq": "01101N01001101F1F",
         "rec": null,
         "desc": "데이터 부족",
         "current_odds": 2.24
       },
       "Roobet": {
-        "seq": "101N0N10100010F0F",
+        "seq": "010N1N01011101F1F",
         "rec": null,
         "desc": "데이터 부족",
         "current_odds": 2.16
       },
       "Stake.com": {
-        "seq": "011N0N00100110F0F",
+        "seq": "100N1N11011001F1F",
         "rec": null,
         "desc": "데이터 부족",
         "current_odds": 2.22
       },
       "VOBET": {
-        "seq": "10010N10110010F0F",
+        "seq": "01101N01001101F1F",
         "rec": null,
         "desc": "데이터 부족",
         "current_odds": 2.24
       },
       "bwin": {
-        "seq": "01NN0N0NN00NN0NN0",
+        "seq": "10NN1N1NN11NN1NN1",
         "rec": null,
         "desc": "데이터 부족",
         "current_odds": 1.78
@@ -4321,8 +4321,8 @@
     "pattern_reason": "홈 승 패턴(85%) + 원정 패 패턴(85%) ※정배패턴충돌(정배승 18경기(원정정배))",
     "home_win_desc": "다수결 ↑1 99/122(80%)",
     "away_win_desc": "다수결 ↓0 83/104(78%)",
-    "bm_label": "배당↑팀이김 4/6(67%) (방향미확인)",
-    "bm_dir_vote": 0,
+    "bm_label": "배당↓팀이김 4/6(67%) (방향미확인)",
+    "bm_dir_vote": 1,
     "bm_team_rec": null,
     "bm_dir_ratio": 0.667,
     "ml_home_prob": 0.485,
