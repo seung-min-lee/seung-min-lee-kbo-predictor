@@ -99,12 +99,15 @@ def check_tail_split_mirror(seq):
 
 def check_palindrome_build(seq):
     """끝이 회문(팰린드롬) 확장 중인지 감지 → 다음값 = 대칭 위치 값
-    예: [1,1,1,0,1,1] → 중심=3, 반경=3, 다음=seq[0]=1
+    홀수 중심: seq[c-r]==seq[c+r] 으로 끝까지 확장
+    짝수 중심: seq[c-1-r]==seq[c+r] 으로 끝까지 확장 (NEW)
     """
     n = len(seq)
     if n < 4:
         return None, None, 0.0
     best = None
+
+    # 홀수 중심
     for center in range(1, n - 1):
         rad = 0
         while center - rad >= 0 and center + rad < n:
@@ -116,11 +119,28 @@ def check_palindrome_build(seq):
             left_idx = center - rad
             if left_idx >= 0:
                 next_val = seq[left_idx]
-                half_str = ''.join(str(x) for x in seq[left_idx + 1: center + 1])
                 label = f'팰린드롬확장[중심{center},반경{rad},→{next_val}]'
                 conf = min(0.83, 0.70 + rad * 0.03)
                 if best is None or rad > best[3]:
                     best = (next_val, label, conf, rad)
+
+    # 짝수 중심: center 사이(c-1과 c 사이)에 축
+    for c in range(1, n):
+        rad = 0
+        while c - 1 - rad >= 0 and c + rad < n:
+            if seq[c - 1 - rad] == seq[c + rad]:
+                rad += 1
+            else:
+                break
+        if rad >= 2 and c + rad == n:
+            left_idx = c - 1 - rad
+            if left_idx >= 0:
+                next_val = seq[left_idx]
+                label = f'짝수팰린드롬확장[중심{c}-{c+1},반경{rad},→{next_val}]'
+                conf = min(0.83, 0.70 + rad * 0.03)
+                if best is None or rad > best[3]:
+                    best = (next_val, label, conf, rad)
+
     if best:
         return best[0], best[1], best[2]
     return None, None, 0.0
@@ -158,6 +178,107 @@ def check_alternating_pairs(seq):
             label = f'교차쌍[k={k},{"".join(str(v)*k for v in vals)}→{next_val}]'
             conf = 0.80
         return next_val, label, conf
+    return None, None, 0.0
+
+
+def check_tail_cyclic(seq, min_period=2, min_reps=3):
+    """끝 N개가 [AB]×k 형태로 주기적 반복 → 다음 값 예측
+    예: [..., 1,0,1,0,1,0,1,0] → [10]×4 → 다음=1
+    예: [..., 0,1,0,1,0,1] → [01]×3 → 다음=0
+    """
+    n = len(seq)
+    best = None
+    for p in range(min_period, n // min_reps + 1):
+        template = list(seq[-p:])
+        reps = 0
+        pos = n
+        while pos - p >= 0 and list(seq[pos - p:pos]) == template:
+            reps += 1
+            pos -= p
+        if reps >= min_reps:
+            tail_len = reps * p
+            next_val = template[tail_len % p]  # 다음 위치
+            s_tmpl = ''.join(str(x) for x in template)
+            label = f'꼬리주기[{s_tmpl}]×{reps}→{next_val}'
+            conf = min(0.86, 0.72 + reps * 0.04)
+            if best is None or reps > best[3]:
+                best = (next_val, label, conf, reps)
+    if best:
+        return best[0], best[1], best[2]
+    return None, None, 0.0
+
+
+def check_fold_palindrome_tail(seq):
+    """접기 후 나머지가 팰린드롬: [...A|flip(A)...palindrome]
+    접기 위치를 찾고, 그 뒤 꼬리가 팰린드롬이면 팰린드롬의 다음 값 예측
+    예: [...|01|10|1001] → 접기[01|10] + 팰린드롬[1001] → 다음=flip(1001[-1])
+    """
+    n = len(seq)
+    best = None
+    for sp in range(2, n - 3):
+        for fold_len in range(2, sp + 1):
+            front = list(seq[sp - fold_len:sp])
+            back  = list(seq[sp:sp + fold_len])
+            if len(back) < fold_len:
+                continue
+            if back != [1 - x for x in front]:
+                continue
+            rest = list(seq[sp + fold_len:])
+            if len(rest) < 2:
+                continue
+            if rest == rest[::-1]:
+                # 팰린드롬 꼬리 → 다음은 팰린드롬 반대편 진행 방향 값
+                next_val = 1 - rest[-1]
+                sf = ''.join(str(x) for x in front)
+                sb = ''.join(str(x) for x in back)
+                sr = ''.join(str(x) for x in rest)
+                label = f'접기팰꼬리[{sf}|{sb}]+팰[{sr}]→{next_val}'
+                conf = min(0.84, 0.72 + len(rest) * 0.02)
+                if best is None or len(rest) > best[3]:
+                    best = (next_val, label, conf, len(rest))
+    if best:
+        return best[0], best[1], best[2]
+    return None, None, 0.0
+
+
+def check_double_fold(seq):
+    """이중 접기: [A|flip(A)|B|flip(B)] 4등분 구조
+    완전 4등분: next = A[0] (새 A 시작)
+    진행 중: [A|flip(A)|B|flip(B)|partial_C] → partial_C가 B와 같은 방향이면 B[len(partial)]
+    """
+    n = len(seq)
+    best = None
+    for q in range(2, n // 4 + 1):
+        if 4 * q > n:
+            break
+        A = list(seq[:q])
+        B = list(seq[q:2 * q])
+        C = list(seq[2 * q:3 * q])
+        D = list(seq[3 * q:4 * q])
+        if B != [1 - x for x in A]:
+            continue
+        if D != [1 - x for x in C]:
+            continue
+        rest = list(seq[4 * q:])
+        sa = ''.join(str(x) for x in A)
+        sb = ''.join(str(x) for x in B)
+        sc = ''.join(str(x) for x in C)
+        sd = ''.join(str(x) for x in D)
+        if not rest:
+            next_val = A[0]
+            label = f'이중접기[{sa}|{sb}|{sc}|{sd}]→{next_val}'
+            conf = 0.84
+        elif list(rest) == list(A[:len(rest)]):
+            next_val = A[len(rest)] if len(rest) < q else (1 - A[0])
+            sr = ''.join(str(x) for x in rest)
+            label = f'이중접기[{sa}|{sb}|{sc}|{sd}]+[{sr}]→{next_val}'
+            conf = 0.82
+        else:
+            continue
+        if best is None or q > best[3]:
+            best = (next_val, label, conf, q)
+    if best:
+        return best[0], best[1], best[2]
     return None, None, 0.0
 
 
@@ -707,6 +828,27 @@ def analyze_pattern(seq, full_history=None):
                                'rec': rec, 'score': 0.72})
             break
 
+    tc_val, tc_desc, tc_score = check_tail_cyclic(seq)
+    if tc_val is not None:
+        candidates.append({'type':'꼬리주기',
+                           'desc': tc_desc,
+                           'rec':  tc_val,
+                           'score': tc_score})
+
+    fp_val, fp_desc, fp_score = check_fold_palindrome_tail(seq)
+    if fp_val is not None:
+        candidates.append({'type':'접기팰꼬리',
+                           'desc': fp_desc,
+                           'rec':  fp_val,
+                           'score': fp_score})
+
+    df_val, df_desc, df_score = check_double_fold(seq)
+    if df_val is not None:
+        candidates.append({'type':'이중접기',
+                           'desc': df_desc,
+                           'rec':  df_val,
+                           'score': df_score})
+
     run_mir_val, run_mir_desc, run_mir_score = check_run_mirror_pattern(seq)
     if run_mir_val is not None:
         candidates.append({'type':'런분할',
@@ -1006,7 +1148,8 @@ def pat_rec(seq, full_history=None):
 
 def _extract_pattern_type(desc):
     """설명 문자열에서 패턴 유형명 추출"""
-    for keyword in ['꼬리미러', '꼬리부분미러', '팰린드롬확장', '교차쌍', 'Mirror', 'Fold+꼬리',
+    for keyword in ['꼬리미러', '꼬리부분미러', '팰린드롬확장', '짝수팰린드롬확장', '교차쌍', 'Mirror', 'Fold+꼬리',
+                    '꼬리주기', '접기팰꼬리', '이중접기',
                     '반복블록', '블록분할', '교차', '연속', '계단식', '런분할', '분할:', '짝맞춤:', '롤링모멘텀']:
         if keyword in desc:
             return keyword
@@ -1079,10 +1222,25 @@ def collect_pattern_votes(seq, full_history=None):
         if tv is not None:
             add(tv, tw, td, m)
 
-        # 팰린드롬 확장
+        # 팰린드롬 확장 (홀수+짝수 중심)
         pv, pd, pw = check_palindrome_build(sub)
         if pv is not None:
             add(pv, pw, pd, m)
+
+        # 꼬리 주기 반복
+        tc_v, tc_d, tc_w = check_tail_cyclic(sub)
+        if tc_v is not None:
+            add(tc_v, tc_w, tc_d, m)
+
+        # 접기 + 팰린드롬 꼬리
+        fp_v, fp_d, fp_w = check_fold_palindrome_tail(sub)
+        if fp_v is not None:
+            add(fp_v, fp_w, fp_d, m)
+
+        # 이중 접기
+        df_v, df_d, df_w = check_double_fold(sub)
+        if df_v is not None:
+            add(df_v, df_w, df_d, m)
 
         # 교차 쌍 패턴 (11|00|11... 또는 00|11...)
         cv, cd, cw = check_alternating_pairs(sub)
