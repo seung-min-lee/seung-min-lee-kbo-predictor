@@ -230,5 +230,13 @@
     "away": "NC Dinos",
     "pick": "HOME(Doosan Bears)",
     "saved_at": "2026-05-19T06:53:16"
+  },
+  "2026-05-19|3.0|KIA Tigers|LG Twins": {
+    "date": "2026-05-19",
+    "slot": 3.0,
+    "home": "KIA Tigers",
+    "away": "LG Twins",
+    "pick": "HOME(KIA Tigers)",
+    "saved_at": "2026-05-19T06:53:21"
   }
 }
