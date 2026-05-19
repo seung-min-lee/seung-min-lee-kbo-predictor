@@ -198,5 +198,13 @@
     "away": "LG Twins",
     "pick": "AWAY(LG Twins)",
     "saved_at": "2026-05-17T09:00:00"
+  },
+  "2026-05-19|2.0|Hanwha Eagles|Lotte Giants": {
+    "date": "2026-05-19",
+    "slot": 2.0,
+    "home": "Hanwha Eagles",
+    "away": "Lotte Giants",
+    "pick": "AWAY(Lotte Giants)",
+    "saved_at": "2026-05-19T06:52:38"
   }
 }
