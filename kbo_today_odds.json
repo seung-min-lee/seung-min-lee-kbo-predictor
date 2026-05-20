@@ -1022,8 +1022,8 @@
         "away": 1.47
       },
       "BetInAsia": {
-        "home": 2.8,
-        "away": 1.46
+        "home": 2.78,
+        "away": 1.47
       },
       "Bets.io": {
         "home": 2.68,
@@ -1051,7 +1051,7 @@
       },
       "Roobet": {
         "home": 2.68,
-        "away": 1.44
+        "away": 1.45
       },
       "Stake.com": {
         "home": 2.75,
@@ -1063,8 +1063,8 @@
       }
     },
     "match_url": "https://www.oddsportal.com/baseball/south-korea/kbo/kiwoom-heroes-ssg-landers-vy7rPpH5/",
-    "home_odds": 2.768,
-    "away_odds": 1.456,
+    "home_odds": 2.766,
+    "away_odds": 1.457,
     "bm_open": {
       "10x10bet": {
         "home": 2.85,
