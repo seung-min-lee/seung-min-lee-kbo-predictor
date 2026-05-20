@@ -1,4 +1,4 @@
-date,slot,home,away,prediction,actual_winner,correct,confidence,ml_home_prob,ml_away_prob,ml_intervened,pattern_reason,home_win_desc,away_win_desc,slot_fav_desc,bm_label
+﻿date,slot,home,away,prediction,actual_winner,correct,confidence,ml_home_prob,ml_away_prob,ml_intervened,pattern_reason,home_win_desc,away_win_desc,slot_fav_desc,bm_label
 2026-04-03,1.0,Doosan Bears,Hanwha Eagles,PASS,Hanwha Eagles,,0.0,0.5,0.5,False,,,,,
 2026-04-03,2.0,KIA Tigers,NC Dinos,PASS,NC Dinos,,0.0,0.5,0.5,False,,,,,
 2026-04-03,3.0,Kiwoom Heroes,LG Twins,AWAY(LG Twins),Kiwoom Heroes,0.0,0.85,0.5,0.5,False,,,,,
@@ -182,3 +182,7 @@ date,slot,home,away,prediction,actual_winner,correct,confidence,ml_home_prob,ml_
 2026-05-16,3.0,Samsung Lions,KIA Tigers,HOME(1),HOME(1),1.0,0.785,0.59,0.41,,홈 승 패턴(85%) + 원정 패 패턴(78%) ※정배패턴충돌(역배승 18경기(홈정배)),다수결 ↑1 64/74(84%),다수결 ↓0 52/63(84%),[110000101110110110] Mirror [1|0],불명확 4/3
 2026-05-16,4.0,NC Dinos,Kiwoom Heroes,HOME(1),HOME(1),1.0,0.71,0.425,0.575,,원정 패 패턴(85%) (홈 불규칙) + 정배패턴일치(정배승 18경기(홈정배)),균형(43↑:41↓) → 불규칙,다수결 ↓0 75/87(84%),[100000110010100000] 반접기[00|11] + 꼬리[0010100000]=끝2연속0→1,배당↓팀이김 11/11(100%) (방향미확인)
 2026-05-16,5.0,SSG Landers,LG Twins,AWAY(0),HOME(1),0.0,0.65,0.585,0.415,,홈 승 패턴(85%) (원정 불규칙) ※정배패턴충돌(정배승 18경기(원정정배)),다수결 ↑1 50/79(61%),균형(35↑:49↓) → 불규칙,[000001010001101101] Mirror [0|1],불명확 5/7
+2026-05-19,2.0,Hanwha Eagles,Lotte Giants,AWAY(0),AWAY(0),1.0,0.75,0.595,0.405,,슬롯정배패턴(역배승 18경기(홈정배)),다수결 ↑1 72/89(79%),다수결 ↑1 59/66(90%),[110101100110101100] Mirror [11|00],배당↓팀이김 11/12(92%) (방향미확인)
+2026-05-19,3.0,KIA Tigers,LG Twins,HOME(1),HOME(1),1.0,0.71,0.5,0.5,,원정 패 패턴(85%) (홈 불규칙) + 정배패턴일치(정배승 18경기(홈정배)),균형(42↑:41↓) → 불규칙,다수결 ↓0 83/104(78%),[000010111011011101] Mirror [0|1],배당↑팀이김 7/10(70%) (방향미확인)
+2026-05-19,4.0,Kiwoom Heroes,SSG Landers,AWAY(0),HOME(1),0.0,0.885,0.48,0.52,,홈 패 패턴(86%) + 원정 승 패턴(85%) + 정배패턴일치(정배승 18경기(원정정배)),다수결 ↓0 97/108(89%),다수결 ↑1 99/122(80%),[000011001010000101] Mirror [0|1],배당↑팀이김 13/13(100%) (방향미확인)
+2026-05-19,5.0,Samsung Lions,KT Wiz Suwon,HOME(1),HOME(1),1.0,0.88,0.415,0.585,,홈 승 패턴(85%) + 원정 패 패턴(85%) + 정배패턴일치(정배승 18경기(홈정배)),다수결 ↑1 90/97(92%),다수결 ↓0 70/86(79%),[000101000110110101] Mirror [0|1],불명확 6/7
