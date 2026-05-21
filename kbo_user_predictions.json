@@ -254,5 +254,13 @@
     "away": "KT Wiz Suwon",
     "pick": "HOME(Samsung Lions)",
     "saved_at": "2026-05-21T07:51:53"
+  },
+  "2026-05-21|4.0|Kiwoom Heroes|SSG Landers": {
+    "date": "2026-05-21",
+    "slot": 4.0,
+    "home": "Kiwoom Heroes",
+    "away": "SSG Landers",
+    "pick": "HOME(Kiwoom Heroes)",
+    "saved_at": "2026-05-21T07:51:55"
   }
 }
