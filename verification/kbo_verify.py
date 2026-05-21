@@ -120,7 +120,19 @@ for key, pred in predictions.items():
         continue
 
     if str(winner).strip() == 'Postp':
-        print(f'[SLOT {slot}] {pred_date} {home} vs {away} → 우천취소(Postp) 스킵')
+        print(f'[SLOT {slot}] {pred_date} {home} vs {away} → 우천취소(Postp)')
+        new_rows.append({
+            'date': pred_date, 'slot': slot, 'home': home, 'away': away,
+            'prediction': rec, 'actual_winner': 'Postp', 'correct': None,
+            'confidence': pred['confidence'],
+            'ml_home_prob': pred.get('ml_home_prob', 0.5),
+            'ml_away_prob': pred.get('ml_away_prob', 0.5),
+            'pattern_reason': pred.get('pattern_reason', ''),
+            'home_win_desc': pred.get('home_win_desc', ''),
+            'away_win_desc': pred.get('away_win_desc', ''),
+            'slot_fav_desc': pred.get('slot_fav_desc', ''),
+            'bm_label': pred.get('bm_label', ''),
+        })
         continue
 
     # 실제 결과
