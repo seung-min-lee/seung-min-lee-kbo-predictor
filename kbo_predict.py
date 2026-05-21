@@ -1481,6 +1481,12 @@ def get_slot_bm_odds_seqs(slot, before_date_order, seq_len=BM_SEQ_LEN):
             h_open, h_close = e['h_open'], e['h_close']
             a_open, a_close = e['a_open'], e['a_close']
 
+            # Postp: BM 데이터가 있어도 P
+            if mid in postp_mids:
+                all_seq.append('P')
+                all_date_seq.append(date)
+                continue
+
             # 무승부: winner_is_home이 None/NaN → N 유지
             if wih is None or (isinstance(wih, float) and pd.isna(wih)):
                 all_seq.append('N')
