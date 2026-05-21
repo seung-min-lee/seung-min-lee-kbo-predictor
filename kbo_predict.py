@@ -1729,10 +1729,10 @@ for i, game in enumerate(upcoming_games):
     # 패턴 분석 (각 팀 × 4 시퀀스)
     h_dir_rec,  h_dir_desc  = pat_rec(h_dir)
     h_agr_rec,  h_agr_desc  = pat_rec(h_agr)
-    h_faw_rec,  h_faw_desc  = pat_rec(h_fav_win)
+    h_faw_rec,  h_faw_desc, _  = vote_pat_rec_detailed(h_fav_win)
     h_win_rec,  h_win_desc, h_pattern_log  = vote_pat_rec_detailed(h_team_win)
 
-    slot_fav_rec, slot_fav_desc = pat_rec(slot_fav_seq)
+    slot_fav_rec, slot_fav_desc, _ = vote_pat_rec_detailed(slot_fav_seq)
 
     # 오늘 슬롯의 정배팀(홈/원정)을 실제 배당으로 확인 → team 추천 변환
     # 1순위: 동일 홈/원정 매치업 중 가장 최근 컨센서스 (팀 구성 기반)
@@ -1766,7 +1766,7 @@ for i, game in enumerate(upcoming_games):
 
     a_dir_rec,  a_dir_desc  = pat_rec(a_dir)
     a_agr_rec,  a_agr_desc  = pat_rec(a_agr)
-    a_faw_rec,  a_faw_desc  = pat_rec(a_fav_win)
+    a_faw_rec,  a_faw_desc, _  = vote_pat_rec_detailed(a_fav_win)
     a_win_rec,  a_win_desc, a_pattern_log  = vote_pat_rec_detailed(a_team_win)
 
     # 현재 경기 북메이커 통계 (game_df의 가장 최신 행 재사용)
