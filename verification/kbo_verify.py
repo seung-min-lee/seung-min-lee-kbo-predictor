@@ -119,6 +119,10 @@ for key, pred in predictions.items():
         print(f'[SLOT {slot}] {pred_date} {home} vs {away} 결과 미입력')
         continue
 
+    if str(winner).strip() == 'Postp':
+        print(f'[SLOT {slot}] {pred_date} {home} vs {away} → 우천취소(Postp) 스킵')
+        continue
+
     # 실제 결과
     actual_val = 1 if winner == home else 0
     actual_str = 'HOME(1)' if actual_val == 1 else 'AWAY(0)'
