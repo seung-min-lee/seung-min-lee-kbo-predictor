@@ -27,9 +27,9 @@
     "home_is_fav": true,
     "slot_bm": {
       "10x10bet": {
-        "seq": "101101N11001000PN",
-        "rec": 1,
-        "desc": "다수결 ↑1 13/23(55%)",
+        "seq": "101101N11001000P0",
+        "rec": 0,
+        "desc": "다수결 ↓0 19/27(71%)",
         "current_odds": 1.7
       },
       "1xBet": {
@@ -45,9 +45,9 @@
         "current_odds": 1.69
       },
       "Alphabet": {
-        "seq": "101101N11001000PN",
-        "rec": null,
-        "desc": "균형(12↑:12↓) → 불규칙",
+        "seq": "101101N11001000P0",
+        "rec": 0,
+        "desc": "다수결 ↓0 18/28(64%)",
         "current_odds": 1.7
       },
       "BetInAsia": {
@@ -69,9 +69,9 @@
         "current_odds": 1.72
       },
       "GambleCity": {
-        "seq": "101100N11001000PN",
-        "rec": 1,
-        "desc": "다수결 ↑1 14/24(57%)",
+        "seq": "101100N11001000P0",
+        "rec": 0,
+        "desc": "다수결 ↓0 19/27(71%)",
         "current_odds": 1.66
       },
       "Kobet": {
@@ -87,15 +87,15 @@
         "current_odds": 1.69
       },
       "Momobet": {
-        "seq": "101101N11001000PN",
-        "rec": 1,
-        "desc": "다수결 ↑1 14/24(57%)",
+        "seq": "101101N11001000P0",
+        "rec": 0,
+        "desc": "다수결 ↓0 18/27(67%)",
         "current_odds": 1.7
       },
       "Roobet": {
-        "seq": "100100011001000PN",
-        "rec": 1,
-        "desc": "다수결 ↑1 45/62(73%)",
+        "seq": "100100011001000P1",
+        "rec": 0,
+        "desc": "다수결 ↓0 52/75(67%)",
         "current_odds": 1.67
       },
       "Stake.com": {
@@ -105,9 +105,9 @@
         "current_odds": 1.69
       },
       "VOBET": {
-        "seq": "101101N11001000PN",
-        "rec": null,
-        "desc": "균형(12↑:12↓) → 불규칙",
+        "seq": "101101N11001000P0",
+        "rec": 0,
+        "desc": "다수결 ↓0 18/27(66%)",
         "current_odds": 1.7
       },
       "bwin": {
@@ -122,10 +122,10 @@
     "pattern_reason": "홈 승 패턴(85%) + 원정 패 패턴(80%) ※정배패턴충돌(역배승 18경기(홈정배))",
     "home_win_desc": "다수결 ↑1 46/72(61%)",
     "away_win_desc": "다수결 ↓0 47/87(56%)",
-    "bm_label": "배당↓팀이김 9/10(90%) (방향미확인)",
-    "bm_dir_vote": 1,
+    "bm_label": "불명확 5/7",
+    "bm_dir_vote": null,
     "bm_team_rec": null,
-    "bm_dir_ratio": 0.9,
+    "bm_dir_ratio": 0.583,
     "ml_home_prob": 0.535,
     "ml_away_prob": 0.465,
     "home_pattern_log": [
