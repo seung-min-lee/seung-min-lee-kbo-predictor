@@ -310,5 +310,13 @@
     "away": "SSG Landers",
     "pick": "AWAY(SSG Landers)",
     "saved_at": "2026-05-22T09:11:04"
+  },
+  "2026-05-22|4.0|KT Wiz Suwon|NC Dinos": {
+    "date": "2026-05-22",
+    "slot": 4.0,
+    "home": "KT Wiz Suwon",
+    "away": "NC Dinos",
+    "pick": "HOME(KT Wiz Suwon)",
+    "saved_at": "2026-05-22T09:11:07"
   }
 }
