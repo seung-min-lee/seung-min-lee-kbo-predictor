@@ -278,5 +278,13 @@
     "away": "NC Dinos",
     "pick": "HOME(Doosan Bears)",
     "saved_at": "2026-05-21T08:53:29"
+  },
+  "2026-05-22|1.0|Hanwha Eagles|Doosan Bears": {
+    "date": "2026-05-22",
+    "slot": 1.0,
+    "home": "Hanwha Eagles",
+    "away": "Doosan Bears",
+    "pick": "AWAY(Doosan Bears)",
+    "saved_at": "2026-05-22T09:10:51"
   }
 }
