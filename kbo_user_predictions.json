@@ -302,5 +302,13 @@
     "away": "Samsung Lions",
     "pick": "HOME(Lotte Giants)",
     "saved_at": "2026-05-22T09:10:55"
+  },
+  "2026-05-22|2.0|KIA Tigers|SSG Landers": {
+    "date": "2026-05-22",
+    "slot": 2.0,
+    "home": "KIA Tigers",
+    "away": "SSG Landers",
+    "pick": "AWAY(SSG Landers)",
+    "saved_at": "2026-05-22T09:10:59"
   }
 }
