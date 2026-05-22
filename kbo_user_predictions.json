@@ -287,12 +287,12 @@
     "pick": "AWAY(Doosan Bears)",
     "saved_at": "2026-05-22T09:10:51"
   },
-  "2026-05-22|2.0|KIA Tigers|SSG Landers": {
+  "2026-05-22|3.0|LG Twins|Kiwoom Heroes": {
     "date": "2026-05-22",
-    "slot": 2.0,
-    "home": "KIA Tigers",
-    "away": "SSG Landers",
-    "pick": "AWAY(SSG Landers)",
-    "saved_at": "2026-05-22T09:10:52"
+    "slot": 3.0,
+    "home": "LG Twins",
+    "away": "Kiwoom Heroes",
+    "pick": "HOME(LG Twins)",
+    "saved_at": "2026-05-22T09:10:54"
   }
 }
