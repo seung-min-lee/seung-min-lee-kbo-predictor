@@ -287,20 +287,20 @@
     "pick": "AWAY(Doosan Bears)",
     "saved_at": "2026-05-22T09:10:51"
   },
-  "2026-05-22|2.0|KIA Tigers|SSG Landers": {
+  "2026-05-22|3.0|LG Twins|Kiwoom Heroes": {
     "date": "2026-05-22",
-    "slot": 2.0,
-    "home": "KIA Tigers",
-    "away": "SSG Landers",
-    "pick": "AWAY(SSG Landers)",
-    "saved_at": "2026-05-22T09:10:52"
-  },
-  "2026-05-22|4.0|KT Wiz Suwon|NC Dinos": {
-    "date": "2026-05-22",
-    "slot": 4.0,
-    "home": "KT Wiz Suwon",
-    "away": "NC Dinos",
-    "pick": "HOME(KT Wiz Suwon)",
+    "slot": 3.0,
+    "home": "LG Twins",
+    "away": "Kiwoom Heroes",
+    "pick": "HOME(LG Twins)",
     "saved_at": "2026-05-22T09:10:54"
+  },
+  "2026-05-22|5.0|Lotte Giants|Samsung Lions": {
+    "date": "2026-05-22",
+    "slot": 5.0,
+    "home": "Lotte Giants",
+    "away": "Samsung Lions",
+    "pick": "HOME(Lotte Giants)",
+    "saved_at": "2026-05-22T09:10:55"
   }
 }
