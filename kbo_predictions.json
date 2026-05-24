@@ -1,158 +1,138 @@
 {
   "slot_1.0": {
     "slot": 1.0,
-    "home": "LG Twins",
-    "away": "Kiwoom Heroes",
-    "pred_date": "2026-05-23",
-    "home_direction": "1111111111101111101",
+    "home": "Hanwha Eagles",
+    "away": "Doosan Bears",
+    "pred_date": "2026-05-24",
+    "home_direction": "1000000011111101001",
     "home_bm_agree": "1111111111111111111",
-    "home_fav_win": "1110110100000101000",
-    "home_team_win": "1110110100010101010",
+    "home_fav_win": "1110010010111010001",
+    "home_team_win": "1001101110111000100",
     "home_dir_rec": 1,
     "home_agr_rec": 1,
-    "home_fav_rec": null,
-    "home_win_rec": 1,
-    "away_direction": "0000000000001110000",
+    "home_fav_rec": 0,
+    "home_win_rec": null,
+    "away_direction": "1100011100100001110",
     "away_bm_agree": "1111111111111111111",
-    "away_fav_win": "1101111101011010000",
-    "away_team_win": "0100000010101011111",
-    "away_dir_rec": 1,
+    "away_fav_win": "0111001101010001001",
+    "away_team_win": "0100101110001111000",
+    "away_dir_rec": 0,
     "away_agr_rec": 1,
     "away_fav_rec": 0,
-    "away_win_rec": 0,
-    "slot_fav_win": "101110001010110010",
-    "slot_fav_rec": null,
-    "slot_fav_desc": "균형(45↑:41↓) → 불규칙",
-    "slot_fav_team_rec": null,
+    "away_win_rec": 1,
+    "slot_fav_win": "111000101011001011",
+    "slot_fav_rec": 0,
+    "slot_fav_desc": "다수결 ↓0 41/44(93%)",
+    "slot_fav_team_rec": 0,
     "home_is_fav": true,
     "slot_bm": {
       "10x10bet": {
-        "seq": "1101N1100100NP01P",
+        "seq": "101N1100100NP0100",
         "rec": 0,
-        "desc": "다수결 ↓0 38/55(66%)",
-        "current_odds": 1.95
+        "desc": "다수결 ↓0 26/45(55%)",
+        "current_odds": 1.57
       },
       "1xBet": {
-        "seq": "N11001100100NP01P",
+        "seq": "11001100100NP0101",
         "rec": 0,
-        "desc": "다수결 ↓0 40/53(73%)",
-        "current_odds": 1.95
+        "desc": "다수결 ↓0 43/58(71%)",
+        "current_odds": 1.61
       },
       "22Bet": {
-        "seq": "N11001100100NP01P",
+        "seq": "11001100100NP0101",
         "rec": 0,
-        "desc": "다수결 ↓0 40/53(73%)",
-        "current_odds": 1.9
+        "desc": "다수결 ↓0 43/58(71%)",
+        "current_odds": 1.57
       },
       "Alphabet": {
-        "seq": "1101N1100100NP01P",
+        "seq": "101N1100100NP0100",
         "rec": 0,
-        "desc": "다수결 ↓0 38/55(66%)",
-        "current_odds": 1.95
+        "desc": "다수결 ↓0 27/46(56%)",
+        "current_odds": 1.57
       },
       "BetInAsia": {
-        "seq": "110001100110NP00P",
-        "rec": 1,
-        "desc": "다수결 ↑1 44/59(75%)",
-        "current_odds": 1.96
+        "seq": "10001100110NP0001",
+        "rec": null,
+        "desc": "균형(28↑:31↓) → 불규칙",
+        "current_odds": 1.58
       },
       "Bets.io": {
-        "seq": "110NN1100100NP01P",
+        "seq": "10NN1100100NP0100",
         "rec": 0,
-        "desc": "다수결 ↓0 36/47(74%)",
-        "current_odds": 1.86
+        "desc": "다수결 ↓0 26/39(66%)",
+        "current_odds": 1.51
       },
       "Cloudbet": {
-        "seq": "FFFFFFFFFNNFFP01P",
-        "rec": null,
-        "desc": "데이터 부족",
-        "current_odds": 1.96
+        "seq": "FFFFFFFFNNFFP0101",
+        "rec": 0,
+        "desc": "다수결 ↓0 8/9(88%)",
+        "current_odds": 1.56
       },
       "GambleCity": {
-        "seq": "1100N1100100NP01P",
+        "seq": "100N1100100NP0101",
         "rec": 0,
-        "desc": "다수결 ↓0 40/53(73%)",
-        "current_odds": 1.89
+        "desc": "다수결 ↓0 39/53(70%)",
+        "current_odds": 1.53
       },
       "Kobet": {
-        "seq": "110001110110NP00P",
+        "seq": "10001110110NP0001",
         "rec": 1,
-        "desc": "다수결 ↑1 40/48(84%)",
-        "current_odds": 1.74
+        "desc": "다수결 ↑1 29/52(58%)",
+        "current_odds": 1.53
       },
       "Melbet": {
-        "seq": "N11001100000NP01P",
+        "seq": "11001100000NP0101",
         "rec": 0,
-        "desc": "다수결 ↓0 35/49(69%)",
-        "current_odds": 1.9
+        "desc": "다수결 ↓0 48/62(74%)",
+        "current_odds": 1.57
       },
       "Momobet": {
-        "seq": "1101N1100100NP01P",
+        "seq": "101N1100100NP0100",
         "rec": 0,
-        "desc": "다수결 ↓0 38/55(66%)",
-        "current_odds": 1.95
+        "desc": "다수결 ↓0 27/46(57%)",
+        "current_odds": 1.58
       },
       "Roobet": {
-        "seq": "010001100100NP01P",
+        "seq": "10001100100NP01N1",
         "rec": 0,
-        "desc": "다수결 ↓0 42/59(69%)",
-        "current_odds": 1.86
+        "desc": "다수결 ↓0 32/48(64%)",
+        "current_odds": 1.56
       },
       "Stake.com": {
-        "seq": "110011100100NP01P",
+        "seq": "10011100100NP0111",
         "rec": 0,
-        "desc": "다수결 ↓0 44/59(72%)",
-        "current_odds": 1.92
+        "desc": "다수결 ↓0 36/60(57%)",
+        "current_odds": 1.57
       },
       "VOBET": {
-        "seq": "1101N1100100NP01P",
+        "seq": "101N1100100NP0100",
         "rec": 0,
-        "desc": "다수결 ↓0 38/55(66%)",
-        "current_odds": 1.95
+        "desc": "다수결 ↓0 27/46(56%)",
+        "current_odds": 1.57
       },
       "bwin": {
-        "seq": "11NNN1NN0N00NPNNP",
-        "rec": 1,
-        "desc": "다수결 ↑1 12/19(63%)",
-        "current_odds": 1.8
+        "seq": "1NNN1NN0N00NPNNNN",
+        "rec": 0,
+        "desc": "다수결 ↓0 6/11(56%)",
+        "current_odds": 1.53
       }
     },
-    "recommendation": "HOME(1)",
-    "confidence": 0.84,
-    "pattern_reason": "홈 승 패턴(86%) + 원정 패 패턴(82%)",
-    "home_win_desc": "다수결 ↑1 97/129(74%)",
-    "away_win_desc": "다수결 ↓0 44/78(57%)",
-    "bm_label": "배당↑팀이김 11/14(79%) (방향미확인)",
+    "recommendation": "AWAY(0)",
+    "confidence": 0.71,
+    "pattern_reason": "원정 승 패턴(85%) (홈 불규칙) + 정배패턴일치(역배승 18경기(홈정배))",
+    "home_win_desc": "균형(41↑:44↓) → 불규칙",
+    "away_win_desc": "다수결 ↑1 76/101(74%)",
+    "bm_label": "배당↑팀이김 13/14(93%) (방향미확인)",
     "bm_dir_vote": 0,
     "bm_team_rec": null,
-    "bm_dir_ratio": 0.786,
-    "ml_home_prob": 0.455,
-    "ml_away_prob": 0.545,
+    "bm_dir_ratio": 0.929,
+    "ml_home_prob": 0.685,
+    "ml_away_prob": 0.315,
     "home_pattern_log": [
       {
-        "type": "교차",
+        "type": "블록분할",
         "pred": 1,
-        "weight": 0.434
-      },
-      {
-        "type": "Mirror",
-        "pred": 1,
-        "weight": 0.492
-      },
-      {
-        "type": "교차",
-        "pred": 1,
-        "weight": 0.454
-      },
-      {
-        "type": "Mirror",
-        "pred": 1,
-        "weight": 0.514
-      },
-      {
-        "type": "반복",
-        "pred": 1,
-        "weight": 0.484
+        "weight": 0.475
       },
       {
         "type": "런분할",
@@ -160,676 +140,14 @@
         "weight": 0.514
       },
       {
-        "type": "팰린드롬확장",
-        "pred": 1,
-        "weight": 0.46
-      },
-      {
-        "type": "교차",
-        "pred": 1,
-        "weight": 0.474
-      },
-      {
-        "type": "Mirror",
-        "pred": 1,
-        "weight": 0.537
-      },
-      {
-        "type": "반복",
-        "pred": 1,
-        "weight": 0.505
-      },
-      {
         "type": "런분할",
-        "pred": 1,
-        "weight": 0.537
-      },
-      {
-        "type": "팰린드롬확장",
-        "pred": 1,
-        "weight": 0.48
-      },
-      {
-        "type": "교차",
         "pred": 1,
         "weight": 0.493
       },
       {
-        "type": "Mirror",
-        "pred": 1,
-        "weight": 0.559
-      },
-      {
-        "type": "반복",
-        "pred": 1,
-        "weight": 0.526
-      },
-      {
-        "type": "런분할",
-        "pred": 1,
-        "weight": 0.559
-      },
-      {
-        "type": "꼬리부분미러",
-        "pred": 1,
-        "weight": 0.526
-      },
-      {
-        "type": "팰린드롬확장",
-        "pred": 1,
-        "weight": 0.52
-      },
-      {
-        "type": "꼬리주기",
-        "pred": 1,
-        "weight": 0.553
-      },
-      {
-        "type": "교차",
-        "pred": 1,
-        "weight": 0.513
-      },
-      {
-        "type": "Mirror",
-        "pred": 1,
-        "weight": 0.582
-      },
-      {
-        "type": "반복",
-        "pred": 1,
-        "weight": 0.547
-      },
-      {
-        "type": "런분할",
-        "pred": 0,
-        "weight": 0.582
-      },
-      {
-        "type": "꼬리부분미러",
-        "pred": 0,
-        "weight": 0.547
-      },
-      {
-        "type": "팰린드롬확장",
-        "pred": 1,
-        "weight": 0.541
-      },
-      {
-        "type": "꼬리주기",
-        "pred": 1,
-        "weight": 0.575
-      },
-      {
-        "type": "교차",
-        "pred": 1,
-        "weight": 0.533
-      },
-      {
-        "type": "Mirror",
-        "pred": 1,
-        "weight": 0.604
-      },
-      {
-        "type": "반복",
-        "pred": 1,
-        "weight": 0.568
-      },
-      {
-        "type": "Fold+꼬리",
-        "pred": 1,
-        "weight": 0.604
-      },
-      {
-        "type": "런분할",
-        "pred": 0,
-        "weight": 0.604
-      },
-      {
-        "type": "꼬리부분미러",
-        "pred": 1,
-        "weight": 0.568
-      },
-      {
-        "type": "팰린드롬확장",
-        "pred": 1,
-        "weight": 0.583
-      },
-      {
-        "type": "꼬리주기",
-        "pred": 1,
-        "weight": 0.611
-      },
-      {
-        "type": "교차",
-        "pred": 1,
-        "weight": 0.553
-      },
-      {
-        "type": "Mirror",
-        "pred": 1,
-        "weight": 0.626
-      },
-      {
-        "type": "반복",
-        "pred": 1,
-        "weight": 0.589
-      },
-      {
-        "type": "Fold+꼬리",
-        "pred": 1,
-        "weight": 0.626
-      },
-      {
-        "type": "Fold+꼬리",
-        "pred": 1,
-        "weight": 0.626
-      },
-      {
-        "type": "런분할",
-        "pred": 1,
-        "weight": 0.626
-      },
-      {
-        "type": "꼬리부분미러",
-        "pred": 0,
-        "weight": 0.589
-      },
-      {
-        "type": "팰린드롬확장",
-        "pred": 1,
-        "weight": 0.604
-      },
-      {
-        "type": "꼬리주기",
-        "pred": 1,
-        "weight": 0.634
-      },
-      {
-        "type": "접기팰꼬리",
-        "pred": 1,
-        "weight": 0.575
-      },
-      {
-        "type": "Mirror",
-        "pred": 1,
-        "weight": 0.649
-      },
-      {
-        "type": "Fold+꼬리",
-        "pred": 1,
-        "weight": 0.649
-      },
-      {
-        "type": "Fold+꼬리",
-        "pred": 1,
-        "weight": 0.649
-      },
-      {
-        "type": "런분할",
-        "pred": 1,
-        "weight": 0.595
-      },
-      {
-        "type": "꼬리부분미러",
-        "pred": 0,
-        "weight": 0.611
-      },
-      {
-        "type": "팰린드롬확장",
-        "pred": 0,
-        "weight": 0.633
-      },
-      {
-        "type": "꼬리주기",
-        "pred": 1,
-        "weight": 0.656
-      },
-      {
-        "type": "접기팰꼬리",
-        "pred": 1,
-        "weight": 0.595
-      },
-      {
-        "type": "Mirror",
-        "pred": 1,
-        "weight": 0.671
-      },
-      {
-        "type": "Fold+꼬리",
-        "pred": 1,
-        "weight": 0.671
-      },
-      {
-        "type": "Fold+꼬리",
-        "pred": 1,
-        "weight": 0.671
-      },
-      {
-        "type": "런분할",
-        "pred": 1,
-        "weight": 0.616
-      },
-      {
-        "type": "꼬리부분미러",
-        "pred": 0,
-        "weight": 0.632
-      },
-      {
-        "type": "팰린드롬확장",
-        "pred": 0,
-        "weight": 0.655
-      },
-      {
-        "type": "꼬리주기",
-        "pred": 1,
-        "weight": 0.679
-      },
-      {
-        "type": "접기팰꼬리",
-        "pred": 1,
-        "weight": 0.616
-      },
-      {
-        "type": "Mirror",
-        "pred": 1,
-        "weight": 0.693
-      },
-      {
-        "type": "Fold+꼬리",
-        "pred": 1,
-        "weight": 0.693
-      },
-      {
-        "type": "Fold+꼬리",
-        "pred": 1,
-        "weight": 0.693
-      },
-      {
-        "type": "런분할",
-        "pred": 1,
-        "weight": 0.636
-      },
-      {
-        "type": "꼬리부분미러",
-        "pred": 0,
-        "weight": 0.653
-      },
-      {
-        "type": "팰린드롬확장",
-        "pred": 0,
-        "weight": 0.677
-      },
-      {
-        "type": "꼬리주기",
-        "pred": 1,
-        "weight": 0.702
-      },
-      {
-        "type": "접기팰꼬리",
-        "pred": 1,
-        "weight": 0.636
-      },
-      {
-        "type": "Mirror",
-        "pred": 1,
-        "weight": 0.716
-      },
-      {
-        "type": "Fold+꼬리",
-        "pred": 1,
-        "weight": 0.716
-      },
-      {
-        "type": "Fold+꼬리",
-        "pred": 1,
-        "weight": 0.716
-      },
-      {
-        "type": "런분할",
-        "pred": 1,
-        "weight": 0.657
-      },
-      {
-        "type": "꼬리부분미러",
-        "pred": 0,
-        "weight": 0.674
-      },
-      {
-        "type": "팰린드롬확장",
-        "pred": 0,
-        "weight": 0.699
-      },
-      {
-        "type": "꼬리주기",
-        "pred": 1,
-        "weight": 0.724
-      },
-      {
-        "type": "접기팰꼬리",
-        "pred": 1,
-        "weight": 0.657
-      },
-      {
-        "type": "Mirror",
-        "pred": 1,
-        "weight": 0.738
-      },
-      {
-        "type": "Fold+꼬리",
-        "pred": 1,
-        "weight": 0.738
-      },
-      {
-        "type": "Fold+꼬리",
-        "pred": 1,
-        "weight": 0.738
-      },
-      {
-        "type": "런분할",
-        "pred": 1,
-        "weight": 0.677
-      },
-      {
-        "type": "꼬리부분미러",
-        "pred": 0,
-        "weight": 0.695
-      },
-      {
-        "type": "팰린드롬확장",
-        "pred": 0,
-        "weight": 0.721
-      },
-      {
-        "type": "꼬리주기",
-        "pred": 1,
-        "weight": 0.747
-      },
-      {
-        "type": "접기팰꼬리",
-        "pred": 1,
-        "weight": 0.677
-      },
-      {
-        "type": "Mirror",
-        "pred": 1,
-        "weight": 0.761
-      },
-      {
-        "type": "Fold+꼬리",
-        "pred": 1,
-        "weight": 0.761
-      },
-      {
-        "type": "Fold+꼬리",
-        "pred": 1,
-        "weight": 0.761
-      },
-      {
-        "type": "런분할",
-        "pred": 1,
-        "weight": 0.698
-      },
-      {
-        "type": "꼬리부분미러",
-        "pred": 0,
-        "weight": 0.716
-      },
-      {
-        "type": "팰린드롬확장",
-        "pred": 0,
-        "weight": 0.743
-      },
-      {
-        "type": "꼬리주기",
-        "pred": 1,
-        "weight": 0.769
-      },
-      {
-        "type": "접기팰꼬리",
-        "pred": 1,
-        "weight": 0.734
-      },
-      {
-        "type": "Mirror",
-        "pred": 1,
-        "weight": 0.783
-      },
-      {
-        "type": "Mirror",
-        "pred": 0,
-        "weight": 0.783
-      },
-      {
-        "type": "Fold+꼬리",
-        "pred": 1,
-        "weight": 0.783
-      },
-      {
-        "type": "런분할",
-        "pred": 1,
-        "weight": 0.718
-      },
-      {
-        "type": "꼬리부분미러",
-        "pred": 0,
-        "weight": 0.737
-      },
-      {
-        "type": "팰린드롬확장",
-        "pred": 0,
-        "weight": 0.764
-      },
-      {
-        "type": "꼬리주기",
-        "pred": 1,
-        "weight": 0.792
-      },
-      {
-        "type": "접기팰꼬리",
-        "pred": 1,
-        "weight": 0.755
-      },
-      {
-        "type": "Mirror",
-        "pred": 1,
-        "weight": 0.805
-      },
-      {
-        "type": "Mirror",
-        "pred": 0,
-        "weight": 0.805
-      },
-      {
-        "type": "Fold+꼬리",
-        "pred": 1,
-        "weight": 0.805
-      },
-      {
-        "type": "런분할",
-        "pred": 1,
-        "weight": 0.739
-      },
-      {
-        "type": "꼬리부분미러",
-        "pred": 0,
-        "weight": 0.758
-      },
-      {
-        "type": "팰린드롬확장",
-        "pred": 0,
-        "weight": 0.786
-      },
-      {
-        "type": "꼬리주기",
-        "pred": 1,
-        "weight": 0.815
-      },
-      {
-        "type": "접기팰꼬리",
-        "pred": 1,
-        "weight": 0.796
-      },
-      {
-        "type": "Mirror",
-        "pred": 1,
-        "weight": 0.828
-      },
-      {
-        "type": "Mirror",
-        "pred": 0,
-        "weight": 0.828
-      },
-      {
-        "type": "Fold+꼬리",
-        "pred": 1,
-        "weight": 0.828
-      },
-      {
-        "type": "런분할",
-        "pred": 1,
-        "weight": 0.759
-      },
-      {
-        "type": "꼬리부분미러",
-        "pred": 0,
-        "weight": 0.779
-      },
-      {
-        "type": "팰린드롬확장",
-        "pred": 0,
-        "weight": 0.808
-      },
-      {
-        "type": "꼬리주기",
-        "pred": 1,
-        "weight": 0.837
-      },
-      {
-        "type": "접기팰꼬리",
-        "pred": 1,
-        "weight": 0.818
-      },
-      {
-        "type": "Mirror",
-        "pred": 1,
-        "weight": 0.85
-      },
-      {
-        "type": "Mirror",
-        "pred": 0,
-        "weight": 0.85
-      },
-      {
-        "type": "Fold+꼬리",
-        "pred": 1,
-        "weight": 0.85
-      },
-      {
-        "type": "런분할",
-        "pred": 1,
-        "weight": 0.78
-      },
-      {
-        "type": "꼬리부분미러",
-        "pred": 0,
-        "weight": 0.8
-      },
-      {
-        "type": "팰린드롬확장",
-        "pred": 0,
-        "weight": 0.83
-      },
-      {
-        "type": "꼬리주기",
-        "pred": 1,
-        "weight": 0.86
-      },
-      {
-        "type": "접기팰꼬리",
-        "pred": 1,
-        "weight": 0.84
-      },
-      {
-        "type": "Mirror",
-        "pred": 0,
-        "weight": 0.78
-      },
-      {
-        "type": "Mirror",
-        "pred": 0,
-        "weight": 0.78
-      },
-      {
-        "type": "Mirror",
-        "pred": 0,
-        "weight": 0.78
-      },
-      {
-        "type": "Mirror",
-        "pred": 1,
-        "weight": 0.78
-      },
-      {
-        "type": "Mirror",
-        "pred": 1,
-        "weight": 0.78
-      }
-    ],
-    "away_pattern_log": [
-      {
-        "type": "연속",
-        "pred": 0,
-        "weight": 0.405
-      },
-      {
-        "type": "반복",
-        "pred": 1,
-        "weight": 0.463
-      },
-      {
-        "type": "연속",
-        "pred": 0,
-        "weight": 0.424
-      },
-      {
-        "type": "반복",
-        "pred": 1,
-        "weight": 0.484
-      },
-      {
-        "type": "팰린드롬확장",
-        "pred": 1,
-        "weight": 0.46
-      },
-      {
-        "type": "연속",
-        "pred": 0,
-        "weight": 0.442
-      },
-      {
-        "type": "반복",
-        "pred": 1,
-        "weight": 0.505
-      },
-      {
-        "type": "팰린드롬확장",
-        "pred": 1,
-        "weight": 0.48
-      },
-      {
-        "type": "블록분할",
-        "pred": 0,
-        "weight": 0.539
-      },
-      {
         "type": "팰린드롬확장",
         "pred": 0,
         "weight": 0.52
-      },
-      {
-        "type": "런분할",
-        "pred": 1,
-        "weight": 0.582
       },
       {
         "type": "팰린드롬확장",
@@ -838,13 +156,18 @@
       },
       {
         "type": "롤링모멘텀",
-        "pred": 1,
+        "pred": 0,
         "weight": 0.506
       },
       {
-        "type": "런분할",
+        "type": "Fold+꼬리",
+        "pred": 1,
+        "weight": 0.604
+      },
+      {
+        "type": "Fold+꼬리",
         "pred": 0,
-        "weight": 0.512
+        "weight": 0.604
       },
       {
         "type": "팰린드롬확장",
@@ -852,13 +175,28 @@
         "weight": 0.561
       },
       {
-        "type": "롤링모멘텀",
+        "type": "접기팰꼬리",
         "pred": 1,
-        "weight": 0.526
+        "weight": 0.54
+      },
+      {
+        "type": "롤링모멘텀",
+        "pred": 0,
+        "weight": 0.525
+      },
+      {
+        "type": "Fold+꼬리",
+        "pred": 1,
+        "weight": 0.626
+      },
+      {
+        "type": "Fold+꼬리",
+        "pred": 1,
+        "weight": 0.626
       },
       {
         "type": "런분할",
-        "pred": 0,
+        "pred": 1,
         "weight": 0.531
       },
       {
@@ -867,8 +205,13 @@
         "weight": 0.582
       },
       {
-        "type": "롤링모멘텀",
+        "type": "접기팰꼬리",
         "pred": 1,
+        "weight": 0.56
+      },
+      {
+        "type": "롤링모멘텀",
+        "pred": 0,
         "weight": 0.545
       },
       {
@@ -877,9 +220,9 @@
         "weight": 0.649
       },
       {
-        "type": "런분할",
-        "pred": 0,
-        "weight": 0.549
+        "type": "Fold+꼬리",
+        "pred": 1,
+        "weight": 0.649
       },
       {
         "type": "팰린드롬확장",
@@ -888,13 +231,13 @@
       },
       {
         "type": "접기팰꼬리",
-        "pred": 0,
-        "weight": 0.611
+        "pred": 1,
+        "weight": 0.58
       },
       {
         "type": "롤링모멘텀",
-        "pred": 1,
-        "weight": 0.565
+        "pred": 0,
+        "weight": 0.564
       },
       {
         "type": "Fold+꼬리",
@@ -909,7 +252,7 @@
       {
         "type": "런분할",
         "pred": 1,
-        "weight": 0.671
+        "weight": 0.568
       },
       {
         "type": "팰린드롬확장",
@@ -918,17 +261,17 @@
       },
       {
         "type": "접기팰꼬리",
-        "pred": 0,
-        "weight": 0.647
+        "pred": 1,
+        "weight": 0.6
       },
       {
         "type": "롤링모멘텀",
-        "pred": 1,
+        "pred": 0,
         "weight": 0.584
       },
       {
         "type": "Fold+꼬리",
-        "pred": 0,
+        "pred": 1,
         "weight": 0.693
       },
       {
@@ -939,7 +282,7 @@
       {
         "type": "런분할",
         "pred": 0,
-        "weight": 0.587
+        "weight": 0.636
       },
       {
         "type": "팰린드롬확장",
@@ -948,17 +291,17 @@
       },
       {
         "type": "접기팰꼬리",
-        "pred": 0,
-        "weight": 0.669
+        "pred": 1,
+        "weight": 0.62
       },
       {
         "type": "롤링모멘텀",
-        "pred": 1,
-        "weight": 0.604
+        "pred": 0,
+        "weight": 0.603
       },
       {
         "type": "Fold+꼬리",
-        "pred": 0,
+        "pred": 1,
         "weight": 0.716
       },
       {
@@ -973,16 +316,16 @@
       },
       {
         "type": "접기팰꼬리",
-        "pred": 0,
-        "weight": 0.691
+        "pred": 1,
+        "weight": 0.64
       },
       {
         "type": "롤링모멘텀",
-        "pred": 1,
+        "pred": 0,
         "weight": 0.623
       },
       {
-        "type": "Fold+꼬리",
+        "type": "Mirror",
         "pred": 0,
         "weight": 0.738
       },
@@ -990,6 +333,11 @@
         "type": "Fold+꼬리",
         "pred": 1,
         "weight": 0.738
+      },
+      {
+        "type": "꼬리미러",
+        "pred": 0,
+        "weight": 0.721
       },
       {
         "type": "팰린드롬확장",
@@ -998,16 +346,16 @@
       },
       {
         "type": "접기팰꼬리",
-        "pred": 0,
-        "weight": 0.712
+        "pred": 1,
+        "weight": 0.66
       },
       {
         "type": "롤링모멘텀",
-        "pred": 1,
-        "weight": 0.643
+        "pred": 0,
+        "weight": 0.642
       },
       {
-        "type": "Fold+꼬리",
+        "type": "Mirror",
         "pred": 0,
         "weight": 0.761
       },
@@ -1015,6 +363,16 @@
         "type": "Fold+꼬리",
         "pred": 1,
         "weight": 0.761
+      },
+      {
+        "type": "런분할",
+        "pred": 1,
+        "weight": 0.644
+      },
+      {
+        "type": "꼬리미러",
+        "pred": 0,
+        "weight": 0.743
       },
       {
         "type": "팰린드롬확장",
@@ -1023,16 +381,16 @@
       },
       {
         "type": "접기팰꼬리",
-        "pred": 0,
-        "weight": 0.734
+        "pred": 1,
+        "weight": 0.68
       },
       {
         "type": "롤링모멘텀",
-        "pred": 1,
-        "weight": 0.662
+        "pred": 0,
+        "weight": 0.661
       },
       {
-        "type": "Fold+꼬리",
+        "type": "Mirror",
         "pred": 0,
         "weight": 0.783
       },
@@ -1042,9 +400,9 @@
         "weight": 0.783
       },
       {
-        "type": "런분할",
+        "type": "꼬리미러",
         "pred": 0,
-        "weight": 0.718
+        "weight": 0.764
       },
       {
         "type": "팰린드롬확장",
@@ -1053,16 +411,16 @@
       },
       {
         "type": "접기팰꼬리",
-        "pred": 0,
-        "weight": 0.755
+        "pred": 1,
+        "weight": 0.7
       },
       {
         "type": "롤링모멘텀",
-        "pred": 1,
-        "weight": 0.682
+        "pred": 0,
+        "weight": 0.681
       },
       {
-        "type": "Fold+꼬리",
+        "type": "Mirror",
         "pred": 0,
         "weight": 0.805
       },
@@ -1070,6 +428,16 @@
         "type": "Fold+꼬리",
         "pred": 1,
         "weight": 0.805
+      },
+      {
+        "type": "Fold+꼬리",
+        "pred": 1,
+        "weight": 0.805
+      },
+      {
+        "type": "꼬리미러",
+        "pred": 0,
+        "weight": 0.786
       },
       {
         "type": "팰린드롬확장",
@@ -1078,23 +446,38 @@
       },
       {
         "type": "접기팰꼬리",
-        "pred": 0,
-        "weight": 0.777
+        "pred": 1,
+        "weight": 0.72
       },
       {
         "type": "롤링모멘텀",
+        "pred": 0,
+        "weight": 0.7
+      },
+      {
+        "type": "Mirror",
+        "pred": 0,
+        "weight": 0.828
+      },
+      {
+        "type": "Mirror",
+        "pred": 1,
+        "weight": 0.828
+      },
+      {
+        "type": "Fold+꼬리",
+        "pred": 1,
+        "weight": 0.828
+      },
+      {
+        "type": "런분할",
         "pred": 1,
         "weight": 0.701
       },
       {
-        "type": "Fold+꼬리",
+        "type": "꼬리미러",
         "pred": 0,
-        "weight": 0.828
-      },
-      {
-        "type": "Fold+꼬리",
-        "pred": 1,
-        "weight": 0.828
+        "weight": 0.808
       },
       {
         "type": "팰린드롬확장",
@@ -1103,28 +486,33 @@
       },
       {
         "type": "접기팰꼬리",
-        "pred": 0,
-        "weight": 0.798
+        "pred": 1,
+        "weight": 0.74
       },
       {
         "type": "롤링모멘텀",
-        "pred": 1,
-        "weight": 0.721
-      },
-      {
-        "type": "Fold+꼬리",
-        "pred": 0,
-        "weight": 0.85
-      },
-      {
-        "type": "Fold+꼬리",
-        "pred": 1,
-        "weight": 0.85
-      },
-      {
-        "type": "런분할",
         "pred": 0,
         "weight": 0.72
+      },
+      {
+        "type": "Mirror",
+        "pred": 0,
+        "weight": 0.85
+      },
+      {
+        "type": "Mirror",
+        "pred": 1,
+        "weight": 0.85
+      },
+      {
+        "type": "Mirror",
+        "pred": 1,
+        "weight": 0.85
+      },
+      {
+        "type": "꼬리미러",
+        "pred": 0,
+        "weight": 0.83
       },
       {
         "type": "팰린드롬확장",
@@ -1133,16 +521,523 @@
       },
       {
         "type": "접기팰꼬리",
-        "pred": 0,
-        "weight": 0.82
+        "pred": 1,
+        "weight": 0.76
       },
       {
         "type": "롤링모멘텀",
+        "pred": 0,
+        "weight": 0.739
+      },
+      {
+        "type": "Mirror",
+        "pred": 0,
+        "weight": 0.78
+      },
+      {
+        "type": "Mirror",
+        "pred": 1,
+        "weight": 0.78
+      },
+      {
+        "type": "Mirror",
+        "pred": 1,
+        "weight": 0.78
+      },
+      {
+        "type": "Mirror",
+        "pred": 1,
+        "weight": 0.78
+      },
+      {
+        "type": "Mirror",
+        "pred": 0,
+        "weight": 0.78
+      }
+    ],
+    "away_pattern_log": [
+      {
+        "type": "연속",
+        "pred": 1,
+        "weight": 0.405
+      },
+      {
+        "type": "반복",
+        "pred": 0,
+        "weight": 0.463
+      },
+      {
+        "type": "블록분할",
+        "pred": 1,
+        "weight": 0.496
+      },
+      {
+        "type": "팰린드롬확장",
+        "pred": 1,
+        "weight": 0.46
+      },
+      {
+        "type": "블록분할",
+        "pred": 1,
+        "weight": 0.518
+      },
+      {
+        "type": "팰린드롬확장",
+        "pred": 1,
+        "weight": 0.48
+      },
+      {
+        "type": "교차쌍",
+        "pred": 0,
+        "weight": 0.518
+      },
+      {
+        "type": "Mirror",
+        "pred": 1,
+        "weight": 0.559
+      },
+      {
+        "type": "블록분할",
+        "pred": 1,
+        "weight": 0.539
+      },
+      {
+        "type": "런분할",
+        "pred": 1,
+        "weight": 0.526
+      },
+      {
+        "type": "꼬리부분미러",
+        "pred": 1,
+        "weight": 0.526
+      },
+      {
+        "type": "팰린드롬확장",
+        "pred": 1,
+        "weight": 0.5
+      },
+      {
+        "type": "교차쌍",
+        "pred": 1,
+        "weight": 0.526
+      },
+      {
+        "type": "Mirror",
+        "pred": 1,
+        "weight": 0.582
+      },
+      {
+        "type": "블록분할",
+        "pred": 1,
+        "weight": 0.561
+      },
+      {
+        "type": "꼬리부분미러",
+        "pred": 1,
+        "weight": 0.547
+      },
+      {
+        "type": "팰린드롬확장",
+        "pred": 1,
+        "weight": 0.52
+      },
+      {
+        "type": "Mirror",
+        "pred": 1,
+        "weight": 0.604
+      },
+      {
+        "type": "꼬리부분미러",
+        "pred": 0,
+        "weight": 0.568
+      },
+      {
+        "type": "팰린드롬확장",
+        "pred": 1,
+        "weight": 0.54
+      },
+      {
+        "type": "Mirror",
+        "pred": 1,
+        "weight": 0.626
+      },
+      {
+        "type": "Fold+꼬리",
+        "pred": 1,
+        "weight": 0.626
+      },
+      {
+        "type": "꼬리부분미러",
+        "pred": 0,
+        "weight": 0.589
+      },
+      {
+        "type": "팰린드롬확장",
+        "pred": 1,
+        "weight": 0.56
+      },
+      {
+        "type": "이중접기",
+        "pred": 0,
+        "weight": 0.604
+      },
+      {
+        "type": "Mirror",
+        "pred": 1,
+        "weight": 0.649
+      },
+      {
+        "type": "Fold+꼬리",
+        "pred": 1,
+        "weight": 0.649
+      },
+      {
+        "type": "Fold+꼬리",
+        "pred": 1,
+        "weight": 0.649
+      },
+      {
+        "type": "런분할",
+        "pred": 1,
+        "weight": 0.595
+      },
+      {
+        "type": "꼬리부분미러",
+        "pred": 0,
+        "weight": 0.611
+      },
+      {
+        "type": "팰린드롬확장",
+        "pred": 1,
+        "weight": 0.58
+      },
+      {
+        "type": "접기팰꼬리",
+        "pred": 1,
+        "weight": 0.58
+      },
+      {
+        "type": "Mirror",
+        "pred": 1,
+        "weight": 0.671
+      },
+      {
+        "type": "Fold+꼬리",
+        "pred": 1,
+        "weight": 0.671
+      },
+      {
+        "type": "Fold+꼬리",
+        "pred": 1,
+        "weight": 0.671
+      },
+      {
+        "type": "런분할",
+        "pred": 1,
+        "weight": 0.616
+      },
+      {
+        "type": "꼬리부분미러",
+        "pred": 1,
+        "weight": 0.632
+      },
+      {
+        "type": "팰린드롬확장",
+        "pred": 1,
+        "weight": 0.655
+      },
+      {
+        "type": "접기팰꼬리",
+        "pred": 1,
+        "weight": 0.6
+      },
+      {
+        "type": "Mirror",
+        "pred": 1,
+        "weight": 0.693
+      },
+      {
+        "type": "Mirror",
+        "pred": 0,
+        "weight": 0.693
+      },
+      {
+        "type": "Mirror",
+        "pred": 0,
+        "weight": 0.693
+      },
+      {
+        "type": "런분할",
+        "pred": 1,
+        "weight": 0.636
+      },
+      {
+        "type": "꼬리부분미러",
+        "pred": 1,
+        "weight": 0.653
+      },
+      {
+        "type": "팰린드롬확장",
+        "pred": 1,
+        "weight": 0.677
+      },
+      {
+        "type": "접기팰꼬리",
+        "pred": 1,
+        "weight": 0.62
+      },
+      {
+        "type": "이중접기",
+        "pred": 1,
+        "weight": 0.685
+      },
+      {
+        "type": "Mirror",
+        "pred": 1,
+        "weight": 0.716
+      },
+      {
+        "type": "Mirror",
+        "pred": 0,
+        "weight": 0.716
+      },
+      {
+        "type": "Mirror",
+        "pred": 0,
+        "weight": 0.716
+      },
+      {
+        "type": "런분할",
+        "pred": 1,
+        "weight": 0.657
+      },
+      {
+        "type": "꼬리부분미러",
+        "pred": 1,
+        "weight": 0.674
+      },
+      {
+        "type": "팰린드롬확장",
+        "pred": 1,
+        "weight": 0.699
+      },
+      {
+        "type": "접기팰꼬리",
+        "pred": 1,
+        "weight": 0.64
+      },
+      {
+        "type": "Mirror",
+        "pred": 1,
+        "weight": 0.738
+      },
+      {
+        "type": "Mirror",
+        "pred": 0,
+        "weight": 0.738
+      },
+      {
+        "type": "Mirror",
+        "pred": 0,
+        "weight": 0.738
+      },
+      {
+        "type": "런분할",
+        "pred": 1,
+        "weight": 0.677
+      },
+      {
+        "type": "꼬리부분미러",
+        "pred": 1,
+        "weight": 0.695
+      },
+      {
+        "type": "팰린드롬확장",
+        "pred": 1,
+        "weight": 0.721
+      },
+      {
+        "type": "접기팰꼬리",
+        "pred": 1,
+        "weight": 0.66
+      },
+      {
+        "type": "Mirror",
+        "pred": 1,
+        "weight": 0.761
+      },
+      {
+        "type": "Mirror",
+        "pred": 0,
+        "weight": 0.761
+      },
+      {
+        "type": "Mirror",
+        "pred": 0,
+        "weight": 0.761
+      },
+      {
+        "type": "런분할",
+        "pred": 1,
+        "weight": 0.698
+      },
+      {
+        "type": "꼬리부분미러",
+        "pred": 1,
+        "weight": 0.716
+      },
+      {
+        "type": "팰린드롬확장",
+        "pred": 1,
+        "weight": 0.743
+      },
+      {
+        "type": "접기팰꼬리",
+        "pred": 1,
+        "weight": 0.68
+      },
+      {
+        "type": "Mirror",
+        "pred": 1,
+        "weight": 0.783
+      },
+      {
+        "type": "Mirror",
+        "pred": 0,
+        "weight": 0.783
+      },
+      {
+        "type": "Mirror",
+        "pred": 0,
+        "weight": 0.783
+      },
+      {
+        "type": "런분할",
+        "pred": 1,
+        "weight": 0.718
+      },
+      {
+        "type": "꼬리부분미러",
+        "pred": 1,
+        "weight": 0.737
+      },
+      {
+        "type": "팰린드롬확장",
+        "pred": 1,
+        "weight": 0.764
+      },
+      {
+        "type": "접기팰꼬리",
+        "pred": 1,
+        "weight": 0.7
+      },
+      {
+        "type": "Mirror",
+        "pred": 1,
+        "weight": 0.805
+      },
+      {
+        "type": "Mirror",
+        "pred": 0,
+        "weight": 0.805
+      },
+      {
+        "type": "Mirror",
+        "pred": 0,
+        "weight": 0.805
+      },
+      {
+        "type": "런분할",
+        "pred": 1,
+        "weight": 0.739
+      },
+      {
+        "type": "꼬리부분미러",
+        "pred": 1,
+        "weight": 0.758
+      },
+      {
+        "type": "팰린드롬확장",
+        "pred": 1,
+        "weight": 0.786
+      },
+      {
+        "type": "접기팰꼬리",
+        "pred": 1,
+        "weight": 0.72
+      },
+      {
+        "type": "Mirror",
+        "pred": 1,
+        "weight": 0.828
+      },
+      {
+        "type": "Mirror",
+        "pred": 0,
+        "weight": 0.828
+      },
+      {
+        "type": "Mirror",
+        "pred": 0,
+        "weight": 0.828
+      },
+      {
+        "type": "런분할",
+        "pred": 1,
+        "weight": 0.759
+      },
+      {
+        "type": "꼬리부분미러",
+        "pred": 1,
+        "weight": 0.779
+      },
+      {
+        "type": "팰린드롬확장",
+        "pred": 1,
+        "weight": 0.808
+      },
+      {
+        "type": "접기팰꼬리",
         "pred": 1,
         "weight": 0.74
       },
       {
         "type": "Mirror",
+        "pred": 1,
+        "weight": 0.85
+      },
+      {
+        "type": "Mirror",
+        "pred": 0,
+        "weight": 0.85
+      },
+      {
+        "type": "Mirror",
+        "pred": 0,
+        "weight": 0.85
+      },
+      {
+        "type": "런분할",
+        "pred": 1,
+        "weight": 0.78
+      },
+      {
+        "type": "꼬리부분미러",
+        "pred": 1,
+        "weight": 0.8
+      },
+      {
+        "type": "팰린드롬확장",
+        "pred": 1,
+        "weight": 0.83
+      },
+      {
+        "type": "접기팰꼬리",
+        "pred": 1,
+        "weight": 0.76
+      },
+      {
+        "type": "Mirror",
         "pred": 0,
         "weight": 0.78
       },
@@ -1153,7 +1048,7 @@
       },
       {
         "type": "Mirror",
-        "pred": 1,
+        "pred": 0,
         "weight": 0.78
       },
       {
@@ -1172,262 +1067,197 @@
   },
   "slot_2.0": {
     "slot": 2.0,
-    "home": "Hanwha Eagles",
-    "away": "Doosan Bears",
-    "pred_date": "2026-05-23",
-    "home_direction": "1010000000111111010",
+    "home": "KIA Tigers",
+    "away": "SSG Landers",
+    "pred_date": "2026-05-24",
+    "home_direction": "0111101011011101111",
     "home_bm_agree": "1111111111111111111",
-    "home_fav_win": "0111100100101110100",
-    "home_team_win": "0010011011101110001",
+    "home_fav_win": "0010001101010100111",
+    "home_team_win": "1010011001110110100",
     "home_dir_rec": 0,
     "home_agr_rec": 1,
-    "home_fav_rec": 1,
-    "home_win_rec": 0,
-    "away_direction": "0111000111001000011",
+    "home_fav_rec": 0,
+    "home_win_rec": 1,
+    "away_direction": "1101000001000111000",
     "away_bm_agree": "1111111111111111111",
-    "away_fav_win": "0101110011010100010",
-    "away_team_win": "1101001011100011110",
-    "away_dir_rec": 1,
+    "away_fav_win": "0000011011101000111",
+    "away_team_win": "0010100101010000000",
+    "away_dir_rec": 0,
     "away_agr_rec": 1,
     "away_fav_rec": 0,
     "away_win_rec": null,
-    "slot_fav_win": "101100110101100101",
+    "slot_fav_win": "110011010110010101",
     "slot_fav_rec": 0,
-    "slot_fav_desc": "다수결 ↓0 80/96(81%)",
-    "slot_fav_team_rec": 1,
-    "home_is_fav": false,
+    "slot_fav_desc": "다수결 ↓0 93/115(79%)",
+    "slot_fav_team_rec": 0,
+    "home_is_fav": true,
     "slot_bm": {
       "10x10bet": {
-        "seq": "11001100N110NP10P",
+        "seq": "1001100N110NP1000",
         "rec": 1,
-        "desc": "다수결 ↑1 49/63(75%)",
-        "current_odds": 1.73
+        "desc": "다수결 ↑1 33/39(84%)",
+        "current_odds": 1.53
       },
       "1xBet": {
-        "seq": "N1011N001110NP10P",
+        "seq": "1011N001110NP1000",
         "rec": 1,
-        "desc": "다수결 ↑1 37/47(76%)",
-        "current_odds": 1.68
+        "desc": "다수결 ↑1 35/40(88%)",
+        "current_odds": 1.56
       },
       "22Bet": {
-        "seq": "11011N001110NP10P",
+        "seq": "1011N001110NP1000",
         "rec": 1,
-        "desc": "다수결 ↑1 40/53(73%)",
-        "current_odds": 1.63
+        "desc": "다수결 ↑1 34/40(85%)",
+        "current_odds": 1.52
       },
       "Alphabet": {
-        "seq": "11001100N110NP10P",
+        "seq": "1001100N110NP1000",
         "rec": 1,
-        "desc": "다수결 ↑1 49/63(75%)",
-        "current_odds": 1.73
+        "desc": "다수결 ↑1 33/39(84%)",
+        "current_odds": 1.54
       },
       "BetInAsia": {
-        "seq": "N10010011110NP10P",
+        "seq": "10010011110NP1000",
         "rec": 1,
-        "desc": "다수결 ↑1 37/50(71%)",
-        "current_odds": 1.71
+        "desc": "다수결 ↑1 30/35(86%)",
+        "current_odds": 1.51
       },
       "Bets.io": {
-        "seq": "11001101N110NP10P",
+        "seq": "1001101N110NP1000",
         "rec": 1,
-        "desc": "다수결 ↑1 36/48(72%)",
-        "current_odds": 1.66
+        "desc": "다수결 ↑1 35/44(79%)",
+        "current_odds": 1.48
       },
       "Cloudbet": {
-        "seq": "FFFFFFFFFFFFFP10P",
+        "seq": "FFFFFFFFFFFFP1000",
         "rec": null,
-        "desc": "데이터 부족",
-        "current_odds": 1.69
+        "desc": "균형(3↑:3↓) → 불규칙",
+        "current_odds": 1.49
       },
       "GambleCity": {
-        "seq": "110111001110NP10P",
+        "seq": "10111001110NP1000",
         "rec": 1,
-        "desc": "다수결 ↑1 43/58(71%)",
-        "current_odds": 1.68
+        "desc": "다수결 ↑1 37/44(83%)",
+        "current_odds": 1.5
       },
       "Kobet": {
-        "seq": "100100001110NP1NP",
-        "rec": 0,
-        "desc": "다수결 ↓0 36/52(70%)",
-        "current_odds": 1.67
+        "seq": "00100001110NP1N00",
+        "rec": 1,
+        "desc": "다수결 ↑1 20/25(80%)",
+        "current_odds": 1.55
       },
       "Melbet": {
-        "seq": "11011N001110NP10P",
+        "seq": "1011N001110NP1000",
         "rec": 1,
-        "desc": "다수결 ↑1 40/53(73%)",
-        "current_odds": 1.63
+        "desc": "다수결 ↑1 34/40(85%)",
+        "current_odds": 1.52
       },
       "Momobet": {
-        "seq": "11001100N110NP10P",
+        "seq": "1001100N110NP1000",
         "rec": 1,
-        "desc": "다수결 ↑1 50/63(77%)",
-        "current_odds": 1.73
+        "desc": "다수결 ↑1 33/39(84%)",
+        "current_odds": 1.53
       },
       "Roobet": {
-        "seq": "110010001110NP1NP",
-        "rec": 0,
-        "desc": "다수결 ↓0 34/52(66%)",
-        "current_odds": 1.7
+        "seq": "10010001110NP1N00",
+        "rec": 1,
+        "desc": "다수결 ↑1 22/25(88%)",
+        "current_odds": 1.55
       },
       "Stake.com": {
-        "seq": "01001000N110NP10P",
+        "seq": "1001000N110NP1010",
         "rec": 1,
-        "desc": "다수결 ↑1 59/63(93%)",
-        "current_odds": 1.72
+        "desc": "다수결 ↑1 79/85(93%)",
+        "current_odds": 1.53
       },
       "VOBET": {
-        "seq": "11001100N110NP10P",
+        "seq": "1001100N110NP1000",
         "rec": 1,
-        "desc": "다수결 ↑1 49/63(75%)",
-        "current_odds": 1.73
+        "desc": "다수결 ↑1 32/38(84%)",
+        "current_odds": 1.54
       },
       "bwin": {
-        "seq": "0N0110N0N110NP10P",
+        "seq": "N0110N0N110NP10N0",
         "rec": 1,
-        "desc": "다수결 ↑1 43/51(83%)",
-        "current_odds": 1.8
+        "desc": "다수결 ↑1 20/24(83%)",
+        "current_odds": 1.48
       }
     },
-    "recommendation": "AWAY(0)",
+    "recommendation": "HOME(1)",
     "confidence": 0.65,
-    "pattern_reason": "홈 패 패턴(85%) (원정 불규칙) ※정배패턴충돌(역배승 18경기(원정정배))",
-    "home_win_desc": "다수결 ↓0 53/93(56%)",
-    "away_win_desc": "균형(46↑:48↓) → 불규칙",
-    "bm_label": "배당↓팀이김 12/14(86%) (방향미확인)",
+    "pattern_reason": "홈 승 패턴(85%) (원정 불규칙) ※정배패턴충돌(역배승 18경기(홈정배))",
+    "home_win_desc": "다수결 ↑1 40/67(57%)",
+    "away_win_desc": "균형(42↑:48↓) → 불규칙",
+    "bm_label": "배당↓팀이김 14/14(100%) (방향미확인)",
     "bm_dir_vote": 1,
     "bm_team_rec": null,
-    "bm_dir_ratio": 0.857,
-    "ml_home_prob": 0.535,
-    "ml_away_prob": 0.465,
+    "bm_dir_ratio": 1.0,
+    "ml_home_prob": 0.7,
+    "ml_away_prob": 0.3,
     "home_pattern_log": [
       {
-        "type": "Mirror",
-        "pred": 0,
-        "weight": 0.492
-      },
-      {
         "type": "블록분할",
-        "pred": 0,
+        "pred": 1,
         "weight": 0.475
       },
       {
-        "type": "Mirror",
+        "type": "런분할",
         "pred": 0,
         "weight": 0.514
       },
       {
-        "type": "블록분할",
-        "pred": 0,
-        "weight": 0.496
-      },
-      {
-        "type": "Mirror",
-        "pred": 0,
-        "weight": 0.537
+        "type": "런분할",
+        "pred": 1,
+        "weight": 0.455
       },
       {
         "type": "런분할",
-        "pred": 0,
-        "weight": 0.493
-      },
-      {
-        "type": "Mirror",
-        "pred": 0,
-        "weight": 0.559
+        "pred": 1,
+        "weight": 0.513
       },
       {
         "type": "Fold+꼬리",
-        "pred": 0,
-        "weight": 0.559
-      },
-      {
-        "type": "꼬리부분미러",
         "pred": 1,
-        "weight": 0.526
-      },
-      {
-        "type": "팰린드롬확장",
-        "pred": 1,
-        "weight": 0.52
-      },
-      {
-        "type": "Mirror",
-        "pred": 0,
-        "weight": 0.582
-      },
-      {
-        "type": "Fold+꼬리",
-        "pred": 0,
         "weight": 0.582
       },
       {
         "type": "런분할",
         "pred": 1,
-        "weight": 0.582
-      },
-      {
-        "type": "꼬리부분미러",
-        "pred": 1,
-        "weight": 0.547
-      },
-      {
-        "type": "팰린드롬확장",
-        "pred": 1,
-        "weight": 0.541
-      },
-      {
-        "type": "교차쌍",
-        "pred": 1,
-        "weight": 0.561
+        "weight": 0.534
       },
       {
         "type": "Mirror",
-        "pred": 0,
+        "pred": 1,
         "weight": 0.604
       },
       {
         "type": "Fold+꼬리",
-        "pred": 0,
-        "weight": 0.604
-      },
-      {
-        "type": "Fold+꼬리",
-        "pred": 0,
+        "pred": 1,
         "weight": 0.604
       },
       {
         "type": "런분할",
-        "pred": 0,
-        "weight": 0.554
+        "pred": 1,
+        "weight": 0.604
       },
       {
         "type": "꼬리부분미러",
-        "pred": 0,
+        "pred": 1,
         "weight": 0.568
       },
       {
-        "type": "팰린드롬확장",
-        "pred": 1,
-        "weight": 0.561
-      },
-      {
         "type": "Mirror",
-        "pred": 0,
+        "pred": 1,
         "weight": 0.626
       },
       {
         "type": "Fold+꼬리",
-        "pred": 0,
-        "weight": 0.626
-      },
-      {
-        "type": "Fold+꼬리",
-        "pred": 0,
+        "pred": 1,
         "weight": 0.626
       },
       {
         "type": "런분할",
-        "pred": 0,
+        "pred": 1,
         "weight": 0.575
       },
       {
@@ -1436,28 +1266,18 @@
         "weight": 0.589
       },
       {
-        "type": "팰린드롬확장",
-        "pred": 1,
-        "weight": 0.582
-      },
-      {
         "type": "Mirror",
-        "pred": 0,
+        "pred": 1,
         "weight": 0.649
       },
       {
         "type": "Fold+꼬리",
-        "pred": 0,
-        "weight": 0.649
-      },
-      {
-        "type": "Fold+꼬리",
-        "pred": 0,
+        "pred": 1,
         "weight": 0.649
       },
       {
         "type": "런분할",
-        "pred": 0,
+        "pred": 1,
         "weight": 0.595
       },
       {
@@ -1466,39 +1286,29 @@
         "weight": 0.611
       },
       {
-        "type": "팰린드롬확장",
-        "pred": 1,
-        "weight": 0.603
-      },
-      {
         "type": "Mirror",
-        "pred": 0,
+        "pred": 1,
         "weight": 0.671
       },
       {
         "type": "Fold+꼬리",
-        "pred": 0,
-        "weight": 0.671
-      },
-      {
-        "type": "Fold+꼬리",
-        "pred": 0,
+        "pred": 1,
         "weight": 0.671
       },
       {
         "type": "런분할",
-        "pred": 0,
+        "pred": 1,
         "weight": 0.616
       },
       {
         "type": "꼬리부분미러",
-        "pred": 1,
+        "pred": 0,
         "weight": 0.632
       },
       {
-        "type": "팰린드롬확장",
+        "type": "Mirror",
         "pred": 1,
-        "weight": 0.624
+        "weight": 0.693
       },
       {
         "type": "Mirror",
@@ -1507,28 +1317,23 @@
       },
       {
         "type": "Fold+꼬리",
-        "pred": 0,
-        "weight": 0.693
-      },
-      {
-        "type": "Fold+꼬리",
-        "pred": 0,
+        "pred": 1,
         "weight": 0.693
       },
       {
         "type": "런분할",
-        "pred": 0,
+        "pred": 1,
         "weight": 0.636
       },
       {
         "type": "꼬리부분미러",
-        "pred": 1,
+        "pred": 0,
         "weight": 0.653
       },
       {
-        "type": "팰린드롬확장",
+        "type": "Mirror",
         "pred": 1,
-        "weight": 0.644
+        "weight": 0.716
       },
       {
         "type": "Mirror",
@@ -1536,29 +1341,24 @@
         "weight": 0.716
       },
       {
-        "type": "Fold+꼬리",
-        "pred": 0,
-        "weight": 0.716
-      },
-      {
-        "type": "Fold+꼬리",
+        "type": "Mirror",
         "pred": 0,
         "weight": 0.716
       },
       {
         "type": "런분할",
-        "pred": 0,
+        "pred": 1,
         "weight": 0.657
       },
       {
         "type": "꼬리부분미러",
-        "pred": 1,
+        "pred": 0,
         "weight": 0.674
       },
       {
-        "type": "팰린드롬확장",
+        "type": "Mirror",
         "pred": 1,
-        "weight": 0.665
+        "weight": 0.738
       },
       {
         "type": "Mirror",
@@ -1566,29 +1366,24 @@
         "weight": 0.738
       },
       {
-        "type": "Fold+꼬리",
-        "pred": 0,
-        "weight": 0.738
-      },
-      {
-        "type": "Fold+꼬리",
+        "type": "Mirror",
         "pred": 0,
         "weight": 0.738
       },
       {
         "type": "런분할",
-        "pred": 0,
+        "pred": 1,
         "weight": 0.677
       },
       {
         "type": "꼬리부분미러",
-        "pred": 1,
+        "pred": 0,
         "weight": 0.695
       },
       {
-        "type": "팰린드롬확장",
+        "type": "Mirror",
         "pred": 1,
-        "weight": 0.686
+        "weight": 0.761
       },
       {
         "type": "Mirror",
@@ -1597,148 +1392,570 @@
       },
       {
         "type": "Mirror",
-        "pred": 1,
-        "weight": 0.761
-      },
-      {
-        "type": "Fold+꼬리",
         "pred": 0,
         "weight": 0.761
       },
       {
         "type": "런분할",
-        "pred": 0,
+        "pred": 1,
         "weight": 0.698
       },
       {
         "type": "꼬리부분미러",
+        "pred": 0,
+        "weight": 0.716
+      },
+      {
+        "type": "Mirror",
         "pred": 1,
+        "weight": 0.783
+      },
+      {
+        "type": "Mirror",
+        "pred": 0,
+        "weight": 0.783
+      },
+      {
+        "type": "Mirror",
+        "pred": 0,
+        "weight": 0.783
+      },
+      {
+        "type": "런분할",
+        "pred": 1,
+        "weight": 0.718
+      },
+      {
+        "type": "꼬리부분미러",
+        "pred": 0,
+        "weight": 0.737
+      },
+      {
+        "type": "Mirror",
+        "pred": 1,
+        "weight": 0.805
+      },
+      {
+        "type": "Mirror",
+        "pred": 0,
+        "weight": 0.805
+      },
+      {
+        "type": "Mirror",
+        "pred": 0,
+        "weight": 0.805
+      },
+      {
+        "type": "런분할",
+        "pred": 1,
+        "weight": 0.739
+      },
+      {
+        "type": "꼬리부분미러",
+        "pred": 0,
+        "weight": 0.758
+      },
+      {
+        "type": "Mirror",
+        "pred": 1,
+        "weight": 0.828
+      },
+      {
+        "type": "Mirror",
+        "pred": 0,
+        "weight": 0.828
+      },
+      {
+        "type": "Mirror",
+        "pred": 0,
+        "weight": 0.828
+      },
+      {
+        "type": "런분할",
+        "pred": 1,
+        "weight": 0.759
+      },
+      {
+        "type": "꼬리부분미러",
+        "pred": 0,
+        "weight": 0.779
+      },
+      {
+        "type": "Mirror",
+        "pred": 1,
+        "weight": 0.85
+      },
+      {
+        "type": "Mirror",
+        "pred": 0,
+        "weight": 0.85
+      },
+      {
+        "type": "Mirror",
+        "pred": 0,
+        "weight": 0.85
+      },
+      {
+        "type": "런분할",
+        "pred": 1,
+        "weight": 0.78
+      },
+      {
+        "type": "꼬리부분미러",
+        "pred": 0,
+        "weight": 0.8
+      },
+      {
+        "type": "Mirror",
+        "pred": 1,
+        "weight": 0.78
+      },
+      {
+        "type": "Mirror",
+        "pred": 0,
+        "weight": 0.78
+      },
+      {
+        "type": "Mirror",
+        "pred": 0,
+        "weight": 0.78
+      },
+      {
+        "type": "Mirror",
+        "pred": 1,
+        "weight": 0.78
+      },
+      {
+        "type": "Mirror",
+        "pred": 1,
+        "weight": 0.78
+      }
+    ],
+    "away_pattern_log": [
+      {
+        "type": "연속",
+        "pred": 1,
+        "weight": 0.405
+      },
+      {
+        "type": "반복",
+        "pred": 0,
+        "weight": 0.463
+      },
+      {
+        "type": "연속",
+        "pred": 1,
+        "weight": 0.424
+      },
+      {
+        "type": "반복",
+        "pred": 0,
+        "weight": 0.484
+      },
+      {
+        "type": "팰린드롬확장",
+        "pred": 0,
+        "weight": 0.46
+      },
+      {
+        "type": "연속",
+        "pred": 1,
+        "weight": 0.442
+      },
+      {
+        "type": "반복",
+        "pred": 0,
+        "weight": 0.505
+      },
+      {
+        "type": "팰린드롬확장",
+        "pred": 0,
+        "weight": 0.48
+      },
+      {
+        "type": "연속",
+        "pred": 1,
+        "weight": 0.461
+      },
+      {
+        "type": "반복",
+        "pred": 0,
+        "weight": 0.526
+      },
+      {
+        "type": "팰린드롬확장",
+        "pred": 0,
+        "weight": 0.52
+      },
+      {
+        "type": "꼬리주기",
+        "pred": 0,
+        "weight": 0.553
+      },
+      {
+        "type": "연속",
+        "pred": 1,
+        "weight": 0.479
+      },
+      {
+        "type": "반복",
+        "pred": 0,
+        "weight": 0.547
+      },
+      {
+        "type": "팰린드롬확장",
+        "pred": 0,
+        "weight": 0.541
+      },
+      {
+        "type": "꼬리주기",
+        "pred": 0,
+        "weight": 0.575
+      },
+      {
+        "type": "롤링모멘텀",
+        "pred": 0,
+        "weight": 0.506
+      },
+      {
+        "type": "블록분할",
+        "pred": 1,
+        "weight": 0.583
+      },
+      {
+        "type": "팰린드롬확장",
+        "pred": 1,
+        "weight": 0.583
+      },
+      {
+        "type": "꼬리주기",
+        "pred": 0,
+        "weight": 0.597
+      },
+      {
+        "type": "롤링모멘텀",
+        "pred": 0,
+        "weight": 0.526
+      },
+      {
+        "type": "런분할",
+        "pred": 0,
+        "weight": 0.626
+      },
+      {
+        "type": "팰린드롬확장",
+        "pred": 1,
+        "weight": 0.604
+      },
+      {
+        "type": "꼬리주기",
+        "pred": 0,
+        "weight": 0.619
+      },
+      {
+        "type": "롤링모멘텀",
+        "pred": 0,
+        "weight": 0.545
+      },
+      {
+        "type": "런분할",
+        "pred": 1,
+        "weight": 0.549
+      },
+      {
+        "type": "팰린드롬확장",
+        "pred": 1,
+        "weight": 0.626
+      },
+      {
+        "type": "꼬리주기",
+        "pred": 0,
+        "weight": 0.641
+      },
+      {
+        "type": "롤링모멘텀",
+        "pred": 0,
+        "weight": 0.565
+      },
+      {
+        "type": "런분할",
+        "pred": 1,
+        "weight": 0.568
+      },
+      {
+        "type": "팰린드롬확장",
+        "pred": 1,
+        "weight": 0.647
+      },
+      {
+        "type": "꼬리주기",
+        "pred": 0,
+        "weight": 0.663
+      },
+      {
+        "type": "롤링모멘텀",
+        "pred": 0,
+        "weight": 0.584
+      },
+      {
+        "type": "Fold+꼬리",
+        "pred": 0,
+        "weight": 0.693
+      },
+      {
+        "type": "런분할",
+        "pred": 1,
+        "weight": 0.587
+      },
+      {
+        "type": "팰린드롬확장",
+        "pred": 1,
+        "weight": 0.669
+      },
+      {
+        "type": "꼬리주기",
+        "pred": 0,
+        "weight": 0.685
+      },
+      {
+        "type": "접기팰꼬리",
+        "pred": 1,
+        "weight": 0.685
+      },
+      {
+        "type": "롤링모멘텀",
+        "pred": 0,
+        "weight": 0.604
+      },
+      {
+        "type": "Fold+꼬리",
+        "pred": 0,
+        "weight": 0.716
+      },
+      {
+        "type": "Fold+꼬리",
+        "pred": 0,
+        "weight": 0.716
+      },
+      {
+        "type": "런분할",
+        "pred": 0,
         "weight": 0.716
       },
       {
         "type": "팰린드롬확장",
         "pred": 1,
+        "weight": 0.691
+      },
+      {
+        "type": "꼬리주기",
+        "pred": 0,
         "weight": 0.707
       },
       {
-        "type": "Mirror",
+        "type": "접기팰꼬리",
+        "pred": 1,
+        "weight": 0.707
+      },
+      {
+        "type": "롤링모멘텀",
+        "pred": 0,
+        "weight": 0.623
+      },
+      {
+        "type": "Fold+꼬리",
+        "pred": 0,
+        "weight": 0.738
+      },
+      {
+        "type": "Fold+꼬리",
+        "pred": 0,
+        "weight": 0.738
+      },
+      {
+        "type": "팰린드롬확장",
+        "pred": 1,
+        "weight": 0.712
+      },
+      {
+        "type": "꼬리주기",
+        "pred": 0,
+        "weight": 0.729
+      },
+      {
+        "type": "접기팰꼬리",
+        "pred": 1,
+        "weight": 0.729
+      },
+      {
+        "type": "롤링모멘텀",
+        "pred": 0,
+        "weight": 0.643
+      },
+      {
+        "type": "Fold+꼬리",
+        "pred": 1,
+        "weight": 0.761
+      },
+      {
+        "type": "Fold+꼬리",
+        "pred": 0,
+        "weight": 0.761
+      },
+      {
+        "type": "팰린드롬확장",
+        "pred": 1,
+        "weight": 0.734
+      },
+      {
+        "type": "꼬리주기",
+        "pred": 0,
+        "weight": 0.752
+      },
+      {
+        "type": "접기팰꼬리",
+        "pred": 1,
+        "weight": 0.752
+      },
+      {
+        "type": "롤링모멘텀",
+        "pred": 0,
+        "weight": 0.662
+      },
+      {
+        "type": "Fold+꼬리",
+        "pred": 1,
+        "weight": 0.783
+      },
+      {
+        "type": "Fold+꼬리",
         "pred": 0,
         "weight": 0.783
       },
       {
-        "type": "Mirror",
-        "pred": 1,
-        "weight": 0.783
-      },
-      {
-        "type": "Mirror",
-        "pred": 1,
-        "weight": 0.783
-      },
-      {
         "type": "런분할",
-        "pred": 0,
-        "weight": 0.718
-      },
-      {
-        "type": "꼬리부분미러",
         "pred": 1,
-        "weight": 0.737
+        "weight": 0.663
       },
       {
         "type": "팰린드롬확장",
         "pred": 1,
-        "weight": 0.728
+        "weight": 0.755
       },
       {
-        "type": "Mirror",
+        "type": "꼬리주기",
         "pred": 0,
-        "weight": 0.805
+        "weight": 0.774
       },
       {
-        "type": "Mirror",
+        "type": "접기팰꼬리",
+        "pred": 1,
+        "weight": 0.774
+      },
+      {
+        "type": "롤링모멘텀",
+        "pred": 0,
+        "weight": 0.682
+      },
+      {
+        "type": "Fold+꼬리",
         "pred": 1,
         "weight": 0.805
       },
       {
-        "type": "Mirror",
+        "type": "Fold+꼬리",
         "pred": 1,
         "weight": 0.805
       },
       {
         "type": "런분할",
-        "pred": 0,
-        "weight": 0.739
-      },
-      {
-        "type": "꼬리부분미러",
         "pred": 1,
-        "weight": 0.758
+        "weight": 0.682
       },
       {
         "type": "팰린드롬확장",
         "pred": 1,
-        "weight": 0.748
+        "weight": 0.777
       },
       {
-        "type": "Mirror",
+        "type": "꼬리주기",
         "pred": 0,
-        "weight": 0.828
+        "weight": 0.796
       },
       {
-        "type": "Mirror",
+        "type": "접기팰꼬리",
+        "pred": 1,
+        "weight": 0.796
+      },
+      {
+        "type": "롤링모멘텀",
+        "pred": 0,
+        "weight": 0.701
+      },
+      {
+        "type": "Fold+꼬리",
         "pred": 1,
         "weight": 0.828
       },
       {
-        "type": "Mirror",
+        "type": "Fold+꼬리",
         "pred": 1,
         "weight": 0.828
       },
       {
         "type": "런분할",
-        "pred": 0,
-        "weight": 0.759
-      },
-      {
-        "type": "꼬리부분미러",
         "pred": 1,
-        "weight": 0.779
+        "weight": 0.701
       },
       {
         "type": "팰린드롬확장",
         "pred": 1,
-        "weight": 0.769
+        "weight": 0.798
       },
       {
-        "type": "Mirror",
+        "type": "꼬리주기",
         "pred": 0,
-        "weight": 0.85
+        "weight": 0.818
       },
       {
-        "type": "Mirror",
+        "type": "접기팰꼬리",
         "pred": 1,
-        "weight": 0.85
+        "weight": 0.818
       },
       {
-        "type": "Mirror",
-        "pred": 1,
-        "weight": 0.85
-      },
-      {
-        "type": "런분할",
+        "type": "롤링모멘텀",
         "pred": 0,
-        "weight": 0.78
+        "weight": 0.721
       },
       {
-        "type": "꼬리부분미러",
+        "type": "Fold+꼬리",
         "pred": 1,
-        "weight": 0.8
+        "weight": 0.85
+      },
+      {
+        "type": "Fold+꼬리",
+        "pred": 1,
+        "weight": 0.85
       },
       {
         "type": "팰린드롬확장",
         "pred": 1,
-        "weight": 0.79
+        "weight": 0.82
+      },
+      {
+        "type": "꼬리주기",
+        "pred": 0,
+        "weight": 0.84
+      },
+      {
+        "type": "접기팰꼬리",
+        "pred": 1,
+        "weight": 0.84
+      },
+      {
+        "type": "롤링모멘텀",
+        "pred": 0,
+        "weight": 0.74
       },
       {
         "type": "Mirror",
@@ -1766,12 +1983,571 @@
         "weight": 0.78
       }
     ],
-    "away_pattern_log": [
+    "verified": false,
+    "actual": null
+  },
+  "slot_3.0": {
+    "slot": 3.0,
+    "home": "LG Twins",
+    "away": "Kiwoom Heroes",
+    "pred_date": "2026-05-24",
+    "home_direction": "1111111110111110111",
+    "home_bm_agree": "1111111111111111111",
+    "home_fav_win": "1011010000010100011",
+    "home_team_win": "1011010001010101000",
+    "home_dir_rec": 1,
+    "home_agr_rec": 1,
+    "home_fav_rec": 0,
+    "home_win_rec": 1,
+    "away_direction": "0000000000111000000",
+    "away_bm_agree": "1111111111111111111",
+    "away_fav_win": "0111110101101000011",
+    "away_team_win": "0000001010101111100",
+    "away_dir_rec": 0,
+    "away_agr_rec": 1,
+    "away_fav_rec": null,
+    "away_win_rec": null,
+    "slot_fav_win": "011101101110100011",
+    "slot_fav_rec": 0,
+    "slot_fav_desc": "다수결 ↓0 44/63(67%)",
+    "slot_fav_team_rec": 0,
+    "home_is_fav": true,
+    "slot_bm": {
+      "10x10bet": {
+        "seq": "001101NN101NP1000",
+        "rec": 1,
+        "desc": "다수결 ↑1 37/49(75%)",
+        "current_odds": 1.38
+      },
+      "1xBet": {
+        "seq": "00110NN1101NP10N0",
+        "rec": 1,
+        "desc": "다수결 ↑1 26/40(63%)",
+        "current_odds": 1.39
+      },
+      "22Bet": {
+        "seq": "00110111101NP1000",
+        "rec": 1,
+        "desc": "다수결 ↑1 36/50(71%)",
+        "current_odds": 1.35
+      },
+      "Alphabet": {
+        "seq": "0011011N101NP1000",
+        "rec": 1,
+        "desc": "다수결 ↑1 33/47(69%)",
+        "current_odds": 1.38
+      },
+      "BetInAsia": {
+        "seq": "00110111111NP1010",
+        "rec": 1,
+        "desc": "다수결 ↑1 47/56(81%)",
+        "current_odds": 1.37
+      },
+      "Bets.io": {
+        "seq": "0011011N101NP1010",
+        "rec": 1,
+        "desc": "다수결 ↑1 45/55(79%)",
+        "current_odds": 1.34
+      },
+      "Cloudbet": {
+        "seq": "FFFFFFFFNFFFP1010",
+        "rec": 1,
+        "desc": "다수결 ↑1 7/9(76%)",
+        "current_odds": 1.35
+      },
+      "GambleCity": {
+        "seq": "001101NN101NP1000",
+        "rec": 1,
+        "desc": "다수결 ↑1 38/49(77%)",
+        "current_odds": 1.35
+      },
+      "Kobet": {
+        "seq": "00000110110NP101N",
+        "rec": 0,
+        "desc": "다수결 ↓0 46/67(66%)",
+        "current_odds": 1.44
+      },
+      "Melbet": {
+        "seq": "001101111N1NP1000",
+        "rec": 1,
+        "desc": "다수결 ↑1 44/52(83%)",
+        "current_odds": 1.35
+      },
+      "Momobet": {
+        "seq": "0011011N101NP1000",
+        "rec": 1,
+        "desc": "다수결 ↑1 33/47(69%)",
+        "current_odds": 1.38
+      },
+      "Roobet": {
+        "seq": "00110111101NP1010",
+        "rec": 1,
+        "desc": "다수결 ↑1 50/59(82%)",
+        "current_odds": 1.4
+      },
+      "Stake.com": {
+        "seq": "00010111101NP1000",
+        "rec": 1,
+        "desc": "다수결 ↑1 35/48(71%)",
+        "current_odds": 1.38
+      },
+      "VOBET": {
+        "seq": "0011011N1N1NP1000",
+        "rec": 1,
+        "desc": "다수결 ↑1 40/48(82%)",
+        "current_odds": 1.38
+      },
+      "bwin": {
+        "seq": "N0N10N0NNNNNP11N0",
+        "rec": 1,
+        "desc": "다수결 ↑1 19/27(72%)",
+        "current_odds": 1.36
+      }
+    },
+    "recommendation": "HOME(1)",
+    "confidence": 0.594,
+    "pattern_reason": "홈 승 패턴(78%) (원정 불규칙) ※정배패턴충돌(역배승 18경기(홈정배))",
+    "home_win_desc": "다수결 ↑1 57/86(67%)",
+    "away_win_desc": "균형(37↑:28↓) → 불규칙",
+    "bm_label": "배당↓팀이김 14/15(93%) (방향미확인)",
+    "bm_dir_vote": 1,
+    "bm_team_rec": null,
+    "bm_dir_ratio": 0.933,
+    "ml_home_prob": 0.635,
+    "ml_away_prob": 0.365,
+    "home_pattern_log": [
+      {
+        "type": "연속",
+        "pred": 1,
+        "weight": 0.405
+      },
+      {
+        "type": "반복",
+        "pred": 0,
+        "weight": 0.463
+      },
+      {
+        "type": "블록분할",
+        "pred": 1,
+        "weight": 0.496
+      },
+      {
+        "type": "팰린드롬확장",
+        "pred": 1,
+        "weight": 0.46
+      },
+      {
+        "type": "런분할",
+        "pred": 0,
+        "weight": 0.537
+      },
+      {
+        "type": "팰린드롬확장",
+        "pred": 1,
+        "weight": 0.48
+      },
+      {
+        "type": "런분할",
+        "pred": 1,
+        "weight": 0.474
+      },
+      {
+        "type": "팰린드롬확장",
+        "pred": 1,
+        "weight": 0.5
+      },
+      {
+        "type": "런분할",
+        "pred": 1,
+        "weight": 0.493
+      },
+      {
+        "type": "팰린드롬확장",
+        "pred": 1,
+        "weight": 0.52
+      },
+      {
+        "type": "롤링모멘텀",
+        "pred": 0,
+        "weight": 0.506
+      },
+      {
+        "type": "Fold+꼬리",
+        "pred": 0,
+        "weight": 0.604
+      },
+      {
+        "type": "런분할",
+        "pred": 1,
+        "weight": 0.512
+      },
+      {
+        "type": "팰린드롬확장",
+        "pred": 1,
+        "weight": 0.54
+      },
+      {
+        "type": "접기팰꼬리",
+        "pred": 1,
+        "weight": 0.54
+      },
+      {
+        "type": "롤링모멘텀",
+        "pred": 0,
+        "weight": 0.525
+      },
+      {
+        "type": "Fold+꼬리",
+        "pred": 0,
+        "weight": 0.626
+      },
+      {
+        "type": "Fold+꼬리",
+        "pred": 0,
+        "weight": 0.626
+      },
+      {
+        "type": "런분할",
+        "pred": 0,
+        "weight": 0.626
+      },
+      {
+        "type": "팰린드롬확장",
+        "pred": 1,
+        "weight": 0.56
+      },
+      {
+        "type": "접기팰꼬리",
+        "pred": 1,
+        "weight": 0.575
+      },
+      {
+        "type": "롤링모멘텀",
+        "pred": 0,
+        "weight": 0.545
+      },
+      {
+        "type": "Fold+꼬리",
+        "pred": 1,
+        "weight": 0.649
+      },
+      {
+        "type": "Fold+꼬리",
+        "pred": 0,
+        "weight": 0.649
+      },
+      {
+        "type": "런분할",
+        "pred": 1,
+        "weight": 0.549
+      },
+      {
+        "type": "팰린드롬확장",
+        "pred": 1,
+        "weight": 0.58
+      },
+      {
+        "type": "접기팰꼬리",
+        "pred": 1,
+        "weight": 0.595
+      },
+      {
+        "type": "롤링모멘텀",
+        "pred": 0,
+        "weight": 0.564
+      },
+      {
+        "type": "Fold+꼬리",
+        "pred": 1,
+        "weight": 0.671
+      },
+      {
+        "type": "Fold+꼬리",
+        "pred": 1,
+        "weight": 0.671
+      },
+      {
+        "type": "런분할",
+        "pred": 1,
+        "weight": 0.568
+      },
+      {
+        "type": "팰린드롬확장",
+        "pred": 1,
+        "weight": 0.6
+      },
+      {
+        "type": "접기팰꼬리",
+        "pred": 1,
+        "weight": 0.616
+      },
+      {
+        "type": "롤링모멘텀",
+        "pred": 0,
+        "weight": 0.584
+      },
+      {
+        "type": "Fold+꼬리",
+        "pred": 1,
+        "weight": 0.693
+      },
+      {
+        "type": "Fold+꼬리",
+        "pred": 1,
+        "weight": 0.693
+      },
+      {
+        "type": "팰린드롬확장",
+        "pred": 1,
+        "weight": 0.62
+      },
+      {
+        "type": "접기팰꼬리",
+        "pred": 1,
+        "weight": 0.636
+      },
+      {
+        "type": "롤링모멘텀",
+        "pred": 0,
+        "weight": 0.603
+      },
+      {
+        "type": "Fold+꼬리",
+        "pred": 1,
+        "weight": 0.716
+      },
+      {
+        "type": "Fold+꼬리",
+        "pred": 1,
+        "weight": 0.716
+      },
+      {
+        "type": "런분할",
+        "pred": 0,
+        "weight": 0.657
+      },
+      {
+        "type": "팰린드롬확장",
+        "pred": 1,
+        "weight": 0.64
+      },
+      {
+        "type": "접기팰꼬리",
+        "pred": 1,
+        "weight": 0.657
+      },
+      {
+        "type": "롤링모멘텀",
+        "pred": 0,
+        "weight": 0.623
+      },
+      {
+        "type": "Fold+꼬리",
+        "pred": 1,
+        "weight": 0.738
+      },
+      {
+        "type": "Fold+꼬리",
+        "pred": 1,
+        "weight": 0.738
+      },
+      {
+        "type": "런분할",
+        "pred": 0,
+        "weight": 0.677
+      },
+      {
+        "type": "팰린드롬확장",
+        "pred": 1,
+        "weight": 0.721
+      },
+      {
+        "type": "접기팰꼬리",
+        "pred": 1,
+        "weight": 0.677
+      },
+      {
+        "type": "롤링모멘텀",
+        "pred": 0,
+        "weight": 0.642
+      },
+      {
+        "type": "Fold+꼬리",
+        "pred": 1,
+        "weight": 0.761
+      },
+      {
+        "type": "Fold+꼬리",
+        "pred": 1,
+        "weight": 0.761
+      },
+      {
+        "type": "런분할",
+        "pred": 0,
+        "weight": 0.761
+      },
+      {
+        "type": "팰린드롬확장",
+        "pred": 1,
+        "weight": 0.743
+      },
+      {
+        "type": "접기팰꼬리",
+        "pred": 1,
+        "weight": 0.698
+      },
+      {
+        "type": "롤링모멘텀",
+        "pred": 0,
+        "weight": 0.655
+      },
+      {
+        "type": "Fold+꼬리",
+        "pred": 1,
+        "weight": 0.783
+      },
+      {
+        "type": "Fold+꼬리",
+        "pred": 1,
+        "weight": 0.783
+      },
+      {
+        "type": "런분할",
+        "pred": 0,
+        "weight": 0.718
+      },
+      {
+        "type": "팰린드롬확장",
+        "pred": 1,
+        "weight": 0.764
+      },
+      {
+        "type": "접기팰꼬리",
+        "pred": 1,
+        "weight": 0.718
+      },
+      {
+        "type": "롤링모멘텀",
+        "pred": 0,
+        "weight": 0.674
+      },
+      {
+        "type": "Fold+꼬리",
+        "pred": 1,
+        "weight": 0.805
+      },
+      {
+        "type": "Fold+꼬리",
+        "pred": 1,
+        "weight": 0.805
+      },
+      {
+        "type": "런분할",
+        "pred": 0,
+        "weight": 0.739
+      },
+      {
+        "type": "팰린드롬확장",
+        "pred": 1,
+        "weight": 0.786
+      },
+      {
+        "type": "접기팰꼬리",
+        "pred": 1,
+        "weight": 0.739
+      },
+      {
+        "type": "롤링모멘텀",
+        "pred": 0,
+        "weight": 0.693
+      },
+      {
+        "type": "Fold+꼬리",
+        "pred": 1,
+        "weight": 0.828
+      },
+      {
+        "type": "Fold+꼬리",
+        "pred": 1,
+        "weight": 0.828
+      },
+      {
+        "type": "런분할",
+        "pred": 0,
+        "weight": 0.759
+      },
+      {
+        "type": "팰린드롬확장",
+        "pred": 1,
+        "weight": 0.808
+      },
+      {
+        "type": "접기팰꼬리",
+        "pred": 1,
+        "weight": 0.759
+      },
+      {
+        "type": "롤링모멘텀",
+        "pred": 0,
+        "weight": 0.712
+      },
+      {
+        "type": "Fold+꼬리",
+        "pred": 1,
+        "weight": 0.85
+      },
+      {
+        "type": "Fold+꼬리",
+        "pred": 1,
+        "weight": 0.85
+      },
+      {
+        "type": "런분할",
+        "pred": 0,
+        "weight": 0.78
+      },
+      {
+        "type": "팰린드롬확장",
+        "pred": 1,
+        "weight": 0.83
+      },
+      {
+        "type": "접기팰꼬리",
+        "pred": 1,
+        "weight": 0.78
+      },
+      {
+        "type": "롤링모멘텀",
+        "pred": 0,
+        "weight": 0.732
+      },
       {
         "type": "Mirror",
         "pred": 1,
-        "weight": 0.492
+        "weight": 0.78
       },
+      {
+        "type": "Mirror",
+        "pred": 1,
+        "weight": 0.78
+      },
+      {
+        "type": "Mirror",
+        "pred": 0,
+        "weight": 0.78
+      },
+      {
+        "type": "Mirror",
+        "pred": 0,
+        "weight": 0.78
+      },
+      {
+        "type": "분할:",
+        "pred": 1,
+        "weight": 0.78
+      }
+    ],
+    "away_pattern_log": [
       {
         "type": "블록분할",
         "pred": 1,
@@ -1788,6 +2564,21 @@
         "weight": 0.496
       },
       {
+        "type": "런분할",
+        "pred": 1,
+        "weight": 0.484
+      },
+      {
+        "type": "꼬리부분미러",
+        "pred": 1,
+        "weight": 0.484
+      },
+      {
+        "type": "교차쌍",
+        "pred": 1,
+        "weight": 0.484
+      },
+      {
         "type": "Mirror",
         "pred": 1,
         "weight": 0.537
@@ -1798,14 +2589,24 @@
         "weight": 0.518
       },
       {
+        "type": "꼬리부분미러",
+        "pred": 1,
+        "weight": 0.505
+      },
+      {
         "type": "Mirror",
         "pred": 1,
         "weight": 0.559
       },
       {
-        "type": "런분할",
+        "type": "블록분할",
         "pred": 1,
-        "weight": 0.513
+        "weight": 0.539
+      },
+      {
+        "type": "꼬리부분미러",
+        "pred": 1,
+        "weight": 0.526
       },
       {
         "type": "Mirror",
@@ -1813,27 +2614,17 @@
         "weight": 0.582
       },
       {
-        "type": "Mirror",
-        "pred": 0,
-        "weight": 0.582
-      },
-      {
-        "type": "팰린드롬확장",
-        "pred": 0,
-        "weight": 0.541
-      },
-      {
-        "type": "Mirror",
+        "type": "블록분할",
         "pred": 1,
-        "weight": 0.604
+        "weight": 0.561
+      },
+      {
+        "type": "꼬리부분미러",
+        "pred": 1,
+        "weight": 0.547
       },
       {
         "type": "Mirror",
-        "pred": 0,
-        "weight": 0.604
-      },
-      {
-        "type": "Fold+꼬리",
         "pred": 1,
         "weight": 0.604
       },
@@ -1843,29 +2634,14 @@
         "weight": 0.568
       },
       {
-        "type": "팰린드롬확장",
-        "pred": 0,
-        "weight": 0.561
-      },
-      {
-        "type": "교차쌍",
-        "pred": 1,
-        "weight": 0.583
-      },
-      {
         "type": "Mirror",
         "pred": 1,
         "weight": 0.626
       },
       {
-        "type": "Mirror",
-        "pred": 0,
-        "weight": 0.626
-      },
-      {
-        "type": "Mirror",
-        "pred": 0,
-        "weight": 0.626
+        "type": "런분할",
+        "pred": 1,
+        "weight": 0.531
       },
       {
         "type": "꼬리부분미러",
@@ -1873,53 +2649,23 @@
         "weight": 0.589
       },
       {
-        "type": "팰린드롬확장",
-        "pred": 0,
-        "weight": 0.582
-      },
-      {
         "type": "Mirror",
         "pred": 1,
         "weight": 0.649
       },
       {
-        "type": "Mirror",
-        "pred": 0,
-        "weight": 0.649
-      },
-      {
-        "type": "Mirror",
-        "pred": 0,
-        "weight": 0.649
+        "type": "런분할",
+        "pred": 1,
+        "weight": 0.549
       },
       {
         "type": "꼬리부분미러",
-        "pred": 1,
+        "pred": 0,
         "weight": 0.611
       },
       {
-        "type": "팰린드롬확장",
-        "pred": 0,
-        "weight": 0.603
-      },
-      {
-        "type": "접기팰꼬리",
-        "pred": 1,
-        "weight": 0.641
-      },
-      {
         "type": "Mirror",
         "pred": 1,
-        "weight": 0.671
-      },
-      {
-        "type": "Mirror",
-        "pred": 0,
-        "weight": 0.671
-      },
-      {
-        "type": "Mirror",
-        "pred": 0,
         "weight": 0.671
       },
       {
@@ -1929,25 +2675,10 @@
       },
       {
         "type": "꼬리부분미러",
-        "pred": 1,
+        "pred": 0,
         "weight": 0.632
       },
       {
-        "type": "팰린드롬확장",
-        "pred": 0,
-        "weight": 0.624
-      },
-      {
-        "type": "접기팰꼬리",
-        "pred": 1,
-        "weight": 0.663
-      },
-      {
-        "type": "교차쌍",
-        "pred": 1,
-        "weight": 0.647
-      },
-      {
         "type": "Mirror",
         "pred": 1,
         "weight": 0.693
@@ -1958,24 +2689,14 @@
         "weight": 0.693
       },
       {
-        "type": "Mirror",
-        "pred": 0,
-        "weight": 0.693
+        "type": "런분할",
+        "pred": 1,
+        "weight": 0.587
       },
       {
         "type": "꼬리부분미러",
         "pred": 0,
         "weight": 0.653
-      },
-      {
-        "type": "팰린드롬확장",
-        "pred": 0,
-        "weight": 0.644
-      },
-      {
-        "type": "접기팰꼬리",
-        "pred": 1,
-        "weight": 0.685
       },
       {
         "type": "Mirror",
@@ -2003,16 +2724,6 @@
         "weight": 0.674
       },
       {
-        "type": "팰린드롬확장",
-        "pred": 0,
-        "weight": 0.665
-      },
-      {
-        "type": "접기팰꼬리",
-        "pred": 1,
-        "weight": 0.707
-      },
-      {
         "type": "Mirror",
         "pred": 1,
         "weight": 0.738
@@ -2038,16 +2749,6 @@
         "weight": 0.695
       },
       {
-        "type": "팰린드롬확장",
-        "pred": 0,
-        "weight": 0.686
-      },
-      {
-        "type": "접기팰꼬리",
-        "pred": 1,
-        "weight": 0.729
-      },
-      {
         "type": "Mirror",
         "pred": 1,
         "weight": 0.761
@@ -2066,16 +2767,6 @@
         "type": "꼬리부분미러",
         "pred": 0,
         "weight": 0.716
-      },
-      {
-        "type": "팰린드롬확장",
-        "pred": 0,
-        "weight": 0.707
-      },
-      {
-        "type": "접기팰꼬리",
-        "pred": 1,
-        "weight": 0.752
       },
       {
         "type": "Mirror",
@@ -2098,16 +2789,6 @@
         "weight": 0.737
       },
       {
-        "type": "팰린드롬확장",
-        "pred": 0,
-        "weight": 0.728
-      },
-      {
-        "type": "접기팰꼬리",
-        "pred": 1,
-        "weight": 0.774
-      },
-      {
         "type": "Mirror",
         "pred": 1,
         "weight": 0.805
@@ -2121,11 +2802,6 @@
         "type": "Mirror",
         "pred": 0,
         "weight": 0.805
-      },
-      {
-        "type": "런분할",
-        "pred": 1,
-        "weight": 0.682
       },
       {
         "type": "꼬리부분미러",
@@ -2133,16 +2809,6 @@
         "weight": 0.758
       },
       {
-        "type": "팰린드롬확장",
-        "pred": 0,
-        "weight": 0.748
-      },
-      {
-        "type": "접기팰꼬리",
-        "pred": 1,
-        "weight": 0.796
-      },
-      {
         "type": "Mirror",
         "pred": 1,
         "weight": 0.828
@@ -2156,11 +2822,6 @@
         "type": "Mirror",
         "pred": 0,
         "weight": 0.828
-      },
-      {
-        "type": "런분할",
-        "pred": 1,
-        "weight": 0.701
       },
       {
         "type": "꼬리부분미러",
@@ -2168,16 +2829,6 @@
         "weight": 0.779
       },
       {
-        "type": "팰린드롬확장",
-        "pred": 0,
-        "weight": 0.769
-      },
-      {
-        "type": "접기팰꼬리",
-        "pred": 1,
-        "weight": 0.818
-      },
-      {
         "type": "Mirror",
         "pred": 1,
         "weight": 0.85
@@ -2191,11 +2842,6 @@
         "type": "Mirror",
         "pred": 0,
         "weight": 0.85
-      },
-      {
-        "type": "런분할",
-        "pred": 1,
-        "weight": 0.72
       },
       {
         "type": "꼬리부분미러",
@@ -2203,21 +2849,6 @@
         "weight": 0.8
       },
       {
-        "type": "팰린드롬확장",
-        "pred": 0,
-        "weight": 0.79
-      },
-      {
-        "type": "접기팰꼬리",
-        "pred": 1,
-        "weight": 0.84
-      },
-      {
-        "type": "Mirror",
-        "pred": 1,
-        "weight": 0.78
-      },
-      {
         "type": "Mirror",
         "pred": 1,
         "weight": 0.78
@@ -2230,6 +2861,11 @@
       {
         "type": "Mirror",
         "pred": 0,
+        "weight": 0.78
+      },
+      {
+        "type": "Mirror",
+        "pred": 1,
         "weight": 0.78
       },
       {
@@ -2241,175 +2877,160 @@
     "verified": false,
     "actual": null
   },
-  "slot_3.0": {
-    "slot": 3.0,
-    "home": "KIA Tigers",
-    "away": "SSG Landers",
-    "pred_date": "2026-05-23",
-    "home_direction": "1101111010110111011",
+  "slot_4.0": {
+    "slot": 4.0,
+    "home": "KT Wiz Suwon",
+    "away": "NC Dinos",
+    "pred_date": "2026-05-24",
+    "home_direction": "0010111111000010100",
     "home_bm_agree": "1111111111111111111",
-    "home_fav_win": "0000100011010101001",
-    "home_team_win": "0010100110011101101",
-    "home_dir_rec": 0,
+    "home_fav_win": "1000101001111001101",
+    "home_team_win": "1011010001000100100",
+    "home_dir_rec": 1,
     "home_agr_rec": 1,
-    "home_fav_rec": 0,
+    "home_fav_rec": null,
     "home_win_rec": null,
-    "away_direction": "0111010000010001110",
+    "away_direction": "0001000110000010011",
     "away_bm_agree": "1111111111111111111",
-    "away_fav_win": "0000000110111010001",
-    "away_team_win": "0000101001010100000",
-    "away_dir_rec": 0,
+    "away_fav_win": "1100011011010101101",
+    "away_team_win": "0100100010101000000",
+    "away_dir_rec": 1,
     "away_agr_rec": 1,
-    "away_fav_rec": 0,
-    "away_win_rec": 1,
-    "slot_fav_win": "010111011011101000",
-    "slot_fav_rec": 1,
-    "slot_fav_desc": "다수결 ↑1 54/61(88%)",
+    "away_fav_rec": null,
+    "away_win_rec": 0,
+    "slot_fav_win": "001010000101000101",
+    "slot_fav_rec": 0,
+    "slot_fav_desc": "다수결 ↓0 52/55(94%)",
     "slot_fav_team_rec": 1,
-    "home_is_fav": true,
+    "home_is_fav": false,
     "slot_bm": {
       "10x10bet": {
-        "seq": "0001101NN101NP10P",
-        "rec": 1,
-        "desc": "다수결 ↑1 46/64(70%)",
-        "current_odds": 1.85
+        "seq": "1P0N101N101NN00N1",
+        "rec": 0,
+        "desc": "다수결 ↓0 39/51(76%)",
+        "current_odds": 2.4
       },
       "1xBet": {
-        "seq": "000110NN1101NP10P",
-        "rec": 1,
-        "desc": "다수결 ↑1 46/64(70%)",
-        "current_odds": 1.85
+        "seq": "1P0N1000101NN0001",
+        "rec": 0,
+        "desc": "다수결 ↓0 35/39(89%)",
+        "current_odds": 2.39
       },
       "22Bet": {
-        "seq": "000110111101NP10P",
-        "rec": 1,
-        "desc": "다수결 ↑1 50/63(77%)",
-        "current_odds": 1.8
+        "seq": "1P0N1000101NN0001",
+        "rec": 0,
+        "desc": "다수결 ↓0 35/39(89%)",
+        "current_odds": 2.33
       },
       "Alphabet": {
-        "seq": "00011011N101NP10P",
-        "rec": 1,
-        "desc": "다수결 ↑1 45/59(73%)",
-        "current_odds": 1.85
+        "seq": "1P0N1010101NN00N1",
+        "rec": 0,
+        "desc": "다수결 ↓0 39/56(67%)",
+        "current_odds": 2.4
       },
       "BetInAsia": {
-        "seq": "000110111111NP10P",
-        "rec": 1,
-        "desc": "다수결 ↑1 43/51(82%)",
-        "current_odds": 1.85
+        "seq": "1P0N1010101N000N1",
+        "rec": 0,
+        "desc": "다수결 ↓0 38/49(75%)",
+        "current_odds": 2.36
       },
       "Bets.io": {
-        "seq": "00011011N101NP10P",
-        "rec": 1,
-        "desc": "다수결 ↑1 46/59(75%)",
-        "current_odds": 1.77
+        "seq": "1P0N1010101NN0011",
+        "rec": 0,
+        "desc": "다수결 ↓0 32/48(64%)",
+        "current_odds": 2.25
       },
       "Cloudbet": {
-        "seq": "FFFFFFFFFNFFFP10P",
-        "rec": null,
-        "desc": "데이터 부족",
-        "current_odds": 1.83
+        "seq": "FPFNFFFF1FFFF0011",
+        "rec": 0,
+        "desc": "다수결 ↓0 9/11(81%)",
+        "current_odds": 2.3
       },
       "GambleCity": {
-        "seq": "0001101NN101NP10P",
-        "rec": 1,
-        "desc": "다수결 ↑1 46/64(70%)",
-        "current_odds": 1.79
+        "seq": "1P0N1010101NN0001",
+        "rec": 0,
+        "desc": "다수결 ↓0 38/49(75%)",
+        "current_odds": 2.3
       },
       "Kobet": {
-        "seq": "000000110110NP10P",
-        "rec": 1,
-        "desc": "다수결 ↑1 43/59(70%)",
-        "current_odds": 1.84
+        "seq": "1P0N1010101NN0101",
+        "rec": 0,
+        "desc": "다수결 ↓0 84/93(90%)",
+        "current_odds": 2.3
       },
       "Melbet": {
-        "seq": "0001101111N1NP10P",
-        "rec": 1,
-        "desc": "다수결 ↑1 40/48(81%)",
-        "current_odds": 1.8
+        "seq": "1P0N1000101NN0001",
+        "rec": 0,
+        "desc": "다수결 ↓0 35/39(89%)",
+        "current_odds": 2.33
       },
       "Momobet": {
-        "seq": "00011011N101NP10P",
-        "rec": 1,
-        "desc": "다수결 ↑1 45/59(73%)",
-        "current_odds": 1.83
+        "seq": "1P0N101N101NN00N1",
+        "rec": 0,
+        "desc": "다수결 ↓0 38/51(73%)",
+        "current_odds": 2.4
       },
       "Roobet": {
-        "seq": "000110111101NP10P",
-        "rec": 1,
-        "desc": "다수결 ↑1 52/64(79%)",
-        "current_odds": 1.76
+        "seq": "1P0N1N10101N00NN1",
+        "rec": 0,
+        "desc": "다수결 ↓0 36/45(79%)",
+        "current_odds": 2.3
       },
       "Stake.com": {
-        "seq": "000010111101NP10P",
-        "rec": 1,
-        "desc": "다수결 ↑1 53/58(91%)",
-        "current_odds": 1.83
+        "seq": "0P0N1N00101NNN0N1",
+        "rec": 0,
+        "desc": "다수결 ↓0 46/49(94%)",
+        "current_odds": 2.36
       },
       "VOBET": {
-        "seq": "00011011N1N1NP10P",
-        "rec": 1,
-        "desc": "다수결 ↑1 37/45(80%)",
-        "current_odds": 1.85
+        "seq": "1P0N1010101NN0NN1",
+        "rec": 0,
+        "desc": "다수결 ↓0 64/71(90%)",
+        "current_odds": 2.4
       },
       "bwin": {
-        "seq": "0N0N10N0NNNNNP11P",
-        "rec": 0,
-        "desc": "다수결 ↓0 16/20(79%)",
-        "current_odds": 1.67
+        "seq": "0PNN1NN01N1NNN10N",
+        "rec": 1,
+        "desc": "다수결 ↑1 18/19(94%)",
+        "current_odds": 2.4
       }
     },
-    "recommendation": "AWAY(0)",
-    "confidence": 0.626,
-    "pattern_reason": "원정 승 패턴(82%) (홈 불규칙) ※정배패턴충돌(정배승 18경기(홈정배))",
-    "home_win_desc": "균형(42↑:35↓) → 불규칙",
-    "away_win_desc": "다수결 ↑1 48/78(63%)",
-    "bm_label": "배당↓팀이김 13/14(93%) (방향미확인)",
-    "bm_dir_vote": 1,
+    "recommendation": "HOME(1)",
+    "confidence": 0.702,
+    "pattern_reason": "원정 패 패턴(84%) (홈 불규칙) + 정배패턴일치(역배승 18경기(원정정배))",
+    "home_win_desc": "균형(43↑:39↓) → 불규칙",
+    "away_win_desc": "다수결 ↓0 67/90(75%)",
+    "bm_label": "배당↑팀이김 14/15(93%) (방향미확인)",
+    "bm_dir_vote": 0,
     "bm_team_rec": null,
-    "bm_dir_ratio": 0.929,
-    "ml_home_prob": 0.495,
-    "ml_away_prob": 0.505,
+    "bm_dir_ratio": 0.933,
+    "ml_home_prob": 0.425,
+    "ml_away_prob": 0.575,
     "home_pattern_log": [
       {
-        "type": "교차",
-        "pred": 0,
-        "weight": 0.434
+        "type": "블록분할",
+        "pred": 1,
+        "weight": 0.475
       },
       {
-        "type": "Mirror",
-        "pred": 0,
-        "weight": 0.492
-      },
-      {
-        "type": "Mirror",
+        "type": "런분할",
         "pred": 0,
         "weight": 0.514
       },
       {
-        "type": "팰린드롬확장",
+        "type": "런분할",
         "pred": 1,
-        "weight": 0.46
-      },
-      {
-        "type": "Mirror",
-        "pred": 0,
-        "weight": 0.537
-      },
-      {
-        "type": "팰린드롬확장",
-        "pred": 1,
-        "weight": 0.48
-      },
-      {
-        "type": "Mirror",
-        "pred": 0,
-        "weight": 0.559
+        "weight": 0.493
       },
       {
         "type": "반복",
         "pred": 1,
         "weight": 0.526
+      },
+      {
+        "type": "Fold+꼬리",
+        "pred": 0,
+        "weight": 0.559
       },
       {
         "type": "런분할",
@@ -2419,12 +3040,12 @@
       {
         "type": "팰린드롬확장",
         "pred": 1,
-        "weight": 0.5
+        "weight": 0.52
       },
       {
-        "type": "Mirror",
-        "pred": 0,
-        "weight": 0.582
+        "type": "접기팰꼬리",
+        "pred": 1,
+        "weight": 0.5
       },
       {
         "type": "반복",
@@ -2432,14 +3053,44 @@
         "weight": 0.547
       },
       {
+        "type": "Fold+꼬리",
+        "pred": 0,
+        "weight": 0.582
+      },
+      {
+        "type": "런분할",
+        "pred": 1,
+        "weight": 0.582
+      },
+      {
         "type": "팰린드롬확장",
         "pred": 1,
         "weight": 0.541
       },
       {
-        "type": "Mirror",
+        "type": "접기팰꼬리",
+        "pred": 1,
+        "weight": 0.52
+      },
+      {
+        "type": "롤링모멘텀",
+        "pred": 0,
+        "weight": 0.506
+      },
+      {
+        "type": "반복",
+        "pred": 1,
+        "weight": 0.568
+      },
+      {
+        "type": "Fold+꼬리",
         "pred": 0,
         "weight": 0.604
+      },
+      {
+        "type": "런분할",
+        "pred": 1,
+        "weight": 0.554
       },
       {
         "type": "팰린드롬확장",
@@ -2447,293 +3098,303 @@
         "weight": 0.561
       },
       {
-        "type": "Mirror",
+        "type": "접기팰꼬리",
+        "pred": 1,
+        "weight": 0.54
+      },
+      {
+        "type": "롤링모멘텀",
+        "pred": 0,
+        "weight": 0.525
+      },
+      {
+        "type": "Fold+꼬리",
         "pred": 0,
         "weight": 0.626
       },
       {
-        "type": "팰린드롬확장",
+        "type": "런분할",
         "pred": 1,
-        "weight": 0.582
+        "weight": 0.575
       },
       {
-        "type": "Mirror",
+        "type": "팰린드롬확장",
+        "pred": 0,
+        "weight": 0.604
+      },
+      {
+        "type": "접기팰꼬리",
+        "pred": 1,
+        "weight": 0.56
+      },
+      {
+        "type": "롤링모멘텀",
+        "pred": 0,
+        "weight": 0.545
+      },
+      {
+        "type": "Fold+꼬리",
         "pred": 0,
         "weight": 0.649
       },
       {
-        "type": "Mirror",
+        "type": "런분할",
         "pred": 1,
-        "weight": 0.649
-      },
-      {
-        "type": "Mirror",
-        "pred": 1,
-        "weight": 0.649
+        "weight": 0.595
       },
       {
         "type": "팰린드롬확장",
-        "pred": 1,
-        "weight": 0.603
+        "pred": 0,
+        "weight": 0.626
       },
       {
         "type": "접기팰꼬리",
-        "pred": 0,
-        "weight": 0.641
+        "pred": 1,
+        "weight": 0.58
       },
       {
-        "type": "Mirror",
+        "type": "롤링모멘텀",
+        "pred": 0,
+        "weight": 0.561
+      },
+      {
+        "type": "Fold+꼬리",
         "pred": 0,
         "weight": 0.671
       },
       {
-        "type": "Mirror",
+        "type": "런분할",
         "pred": 1,
-        "weight": 0.671
-      },
-      {
-        "type": "Mirror",
-        "pred": 1,
-        "weight": 0.671
+        "weight": 0.616
       },
       {
         "type": "팰린드롬확장",
-        "pred": 1,
-        "weight": 0.624
+        "pred": 0,
+        "weight": 0.647
       },
       {
         "type": "접기팰꼬리",
-        "pred": 0,
-        "weight": 0.663
+        "pred": 1,
+        "weight": 0.6
       },
       {
-        "type": "Mirror",
+        "type": "롤링모멘텀",
+        "pred": 0,
+        "weight": 0.58
+      },
+      {
+        "type": "Fold+꼬리",
         "pred": 0,
         "weight": 0.693
       },
       {
-        "type": "Mirror",
-        "pred": 1,
-        "weight": 0.693
-      },
-      {
-        "type": "Mirror",
-        "pred": 1,
-        "weight": 0.693
-      },
-      {
         "type": "런분할",
-        "pred": 0,
-        "weight": 0.587
+        "pred": 1,
+        "weight": 0.636
       },
       {
         "type": "팰린드롬확장",
-        "pred": 1,
-        "weight": 0.644
+        "pred": 0,
+        "weight": 0.669
       },
       {
         "type": "접기팰꼬리",
-        "pred": 0,
-        "weight": 0.685
+        "pred": 1,
+        "weight": 0.62
       },
       {
-        "type": "Mirror",
+        "type": "롤링모멘텀",
+        "pred": 0,
+        "weight": 0.599
+      },
+      {
+        "type": "Fold+꼬리",
         "pred": 0,
         "weight": 0.716
       },
       {
-        "type": "Mirror",
+        "type": "런분할",
         "pred": 1,
-        "weight": 0.716
-      },
-      {
-        "type": "Mirror",
-        "pred": 1,
-        "weight": 0.716
+        "weight": 0.657
       },
       {
         "type": "팰린드롬확장",
-        "pred": 1,
-        "weight": 0.665
+        "pred": 0,
+        "weight": 0.691
       },
       {
         "type": "접기팰꼬리",
-        "pred": 0,
-        "weight": 0.707
+        "pred": 1,
+        "weight": 0.64
       },
       {
-        "type": "Mirror",
+        "type": "롤링모멘텀",
+        "pred": 0,
+        "weight": 0.619
+      },
+      {
+        "type": "Fold+꼬리",
         "pred": 0,
         "weight": 0.738
       },
       {
-        "type": "Mirror",
-        "pred": 1,
-        "weight": 0.738
-      },
-      {
-        "type": "Mirror",
-        "pred": 1,
-        "weight": 0.738
-      },
-      {
         "type": "런분할",
-        "pred": 0,
-        "weight": 0.625
+        "pred": 1,
+        "weight": 0.677
       },
       {
         "type": "팰린드롬확장",
-        "pred": 1,
-        "weight": 0.686
+        "pred": 0,
+        "weight": 0.712
       },
       {
         "type": "접기팰꼬리",
-        "pred": 0,
-        "weight": 0.729
+        "pred": 1,
+        "weight": 0.66
       },
       {
-        "type": "Mirror",
+        "type": "롤링모멘텀",
+        "pred": 0,
+        "weight": 0.638
+      },
+      {
+        "type": "Fold+꼬리",
         "pred": 0,
         "weight": 0.761
       },
       {
-        "type": "Mirror",
+        "type": "런분할",
         "pred": 1,
-        "weight": 0.761
-      },
-      {
-        "type": "Mirror",
-        "pred": 1,
-        "weight": 0.761
+        "weight": 0.698
       },
       {
         "type": "팰린드롬확장",
-        "pred": 1,
-        "weight": 0.707
+        "pred": 0,
+        "weight": 0.734
       },
       {
         "type": "접기팰꼬리",
-        "pred": 0,
-        "weight": 0.752
+        "pred": 1,
+        "weight": 0.68
       },
       {
-        "type": "Mirror",
+        "type": "롤링모멘텀",
+        "pred": 0,
+        "weight": 0.657
+      },
+      {
+        "type": "Fold+꼬리",
         "pred": 0,
         "weight": 0.783
       },
       {
-        "type": "Mirror",
-        "pred": 1,
-        "weight": 0.783
-      },
-      {
-        "type": "Mirror",
-        "pred": 1,
-        "weight": 0.783
-      },
-      {
         "type": "런분할",
-        "pred": 0,
-        "weight": 0.663
+        "pred": 1,
+        "weight": 0.718
       },
       {
         "type": "팰린드롬확장",
-        "pred": 1,
-        "weight": 0.728
+        "pred": 0,
+        "weight": 0.755
       },
       {
         "type": "접기팰꼬리",
-        "pred": 0,
-        "weight": 0.774
+        "pred": 1,
+        "weight": 0.7
       },
       {
-        "type": "Mirror",
+        "type": "롤링모멘텀",
+        "pred": 0,
+        "weight": 0.676
+      },
+      {
+        "type": "Fold+꼬리",
         "pred": 0,
         "weight": 0.805
       },
       {
-        "type": "Mirror",
-        "pred": 1,
-        "weight": 0.805
-      },
-      {
-        "type": "Mirror",
-        "pred": 1,
-        "weight": 0.805
-      },
-      {
         "type": "런분할",
-        "pred": 0,
-        "weight": 0.682
+        "pred": 1,
+        "weight": 0.739
       },
       {
         "type": "팰린드롬확장",
-        "pred": 1,
-        "weight": 0.748
+        "pred": 0,
+        "weight": 0.777
       },
       {
         "type": "접기팰꼬리",
-        "pred": 0,
-        "weight": 0.796
+        "pred": 1,
+        "weight": 0.72
       },
       {
-        "type": "Mirror",
+        "type": "롤링모멘텀",
         "pred": 0,
-        "weight": 0.828
+        "weight": 0.696
       },
       {
-        "type": "Mirror",
+        "type": "Fold+꼬리",
         "pred": 1,
         "weight": 0.828
       },
       {
-        "type": "Mirror",
-        "pred": 1,
+        "type": "Fold+꼬리",
+        "pred": 0,
         "weight": 0.828
       },
       {
         "type": "런분할",
-        "pred": 0,
-        "weight": 0.701
+        "pred": 1,
+        "weight": 0.759
       },
       {
         "type": "팰린드롬확장",
-        "pred": 1,
-        "weight": 0.769
+        "pred": 0,
+        "weight": 0.798
       },
       {
         "type": "접기팰꼬리",
-        "pred": 0,
-        "weight": 0.818
+        "pred": 1,
+        "weight": 0.74
       },
       {
-        "type": "Mirror",
+        "type": "롤링모멘텀",
         "pred": 0,
-        "weight": 0.85
+        "weight": 0.715
       },
       {
-        "type": "Mirror",
+        "type": "Fold+꼬리",
         "pred": 1,
         "weight": 0.85
       },
       {
-        "type": "Mirror",
+        "type": "Fold+꼬리",
         "pred": 1,
         "weight": 0.85
+      },
+      {
+        "type": "런분할",
+        "pred": 1,
+        "weight": 0.78
       },
       {
         "type": "팰린드롬확장",
-        "pred": 1,
-        "weight": 0.79
+        "pred": 0,
+        "weight": 0.82
       },
       {
         "type": "접기팰꼬리",
+        "pred": 1,
+        "weight": 0.76
+      },
+      {
+        "type": "롤링모멘텀",
         "pred": 0,
-        "weight": 0.84
+        "weight": 0.734
       },
       {
         "type": "Mirror",
-        "pred": 0,
+        "pred": 1,
         "weight": 0.78
       },
       {
@@ -2743,12 +3404,12 @@
       },
       {
         "type": "Mirror",
-        "pred": 1,
+        "pred": 0,
         "weight": 0.78
       },
       {
         "type": "Mirror",
-        "pred": 0,
+        "pred": 1,
         "weight": 0.78
       },
       {
@@ -2799,24 +3460,39 @@
         "weight": 0.48
       },
       {
-        "type": "블록분할",
+        "type": "연속",
         "pred": 1,
-        "weight": 0.539
+        "weight": 0.461
+      },
+      {
+        "type": "반복",
+        "pred": 0,
+        "weight": 0.526
       },
       {
         "type": "팰린드롬확장",
-        "pred": 1,
+        "pred": 0,
         "weight": 0.52
       },
       {
-        "type": "런분할",
+        "type": "꼬리주기",
         "pred": 0,
-        "weight": 0.582
+        "weight": 0.553
+      },
+      {
+        "type": "블록분할",
+        "pred": 1,
+        "weight": 0.561
       },
       {
         "type": "팰린드롬확장",
-        "pred": 1,
+        "pred": 0,
         "weight": 0.541
+      },
+      {
+        "type": "꼬리주기",
+        "pred": 0,
+        "weight": 0.575
       },
       {
         "type": "롤링모멘텀",
@@ -2825,13 +3501,18 @@
       },
       {
         "type": "런분할",
-        "pred": 1,
-        "weight": 0.512
+        "pred": 0,
+        "weight": 0.604
       },
       {
         "type": "팰린드롬확장",
-        "pred": 1,
+        "pred": 0,
         "weight": 0.561
+      },
+      {
+        "type": "꼬리주기",
+        "pred": 0,
+        "weight": 0.597
       },
       {
         "type": "롤링모멘텀",
@@ -2845,18 +3526,18 @@
       },
       {
         "type": "팰린드롬확장",
-        "pred": 1,
+        "pred": 0,
         "weight": 0.582
+      },
+      {
+        "type": "꼬리주기",
+        "pred": 0,
+        "weight": 0.619
       },
       {
         "type": "롤링모멘텀",
         "pred": 0,
         "weight": 0.545
-      },
-      {
-        "type": "Fold+꼬리",
-        "pred": 0,
-        "weight": 0.649
       },
       {
         "type": "런분할",
@@ -2865,13 +3546,13 @@
       },
       {
         "type": "팰린드롬확장",
-        "pred": 1,
+        "pred": 0,
         "weight": 0.603
       },
       {
-        "type": "접기팰꼬리",
-        "pred": 1,
-        "weight": 0.611
+        "type": "꼬리주기",
+        "pred": 0,
+        "weight": 0.641
       },
       {
         "type": "롤링모멘텀",
@@ -2884,19 +3565,19 @@
         "weight": 0.671
       },
       {
-        "type": "Fold+꼬리",
-        "pred": 0,
-        "weight": 0.671
-      },
-      {
         "type": "런분할",
-        "pred": 0,
-        "weight": 0.671
+        "pred": 1,
+        "weight": 0.568
       },
       {
         "type": "팰린드롬확장",
-        "pred": 1,
+        "pred": 0,
         "weight": 0.624
+      },
+      {
+        "type": "꼬리주기",
+        "pred": 0,
+        "weight": 0.663
       },
       {
         "type": "접기팰꼬리",
@@ -2919,14 +3600,24 @@
         "weight": 0.693
       },
       {
+        "type": "런분할",
+        "pred": 0,
+        "weight": 0.693
+      },
+      {
         "type": "팰린드롬확장",
-        "pred": 1,
+        "pred": 0,
         "weight": 0.644
+      },
+      {
+        "type": "꼬리주기",
+        "pred": 0,
+        "weight": 0.685
       },
       {
         "type": "접기팰꼬리",
         "pred": 1,
-        "weight": 0.669
+        "weight": 0.685
       },
       {
         "type": "롤링모멘텀",
@@ -2935,7 +3626,7 @@
       },
       {
         "type": "Fold+꼬리",
-        "pred": 1,
+        "pred": 0,
         "weight": 0.716
       },
       {
@@ -2945,13 +3636,18 @@
       },
       {
         "type": "팰린드롬확장",
-        "pred": 1,
+        "pred": 0,
         "weight": 0.665
+      },
+      {
+        "type": "꼬리주기",
+        "pred": 0,
+        "weight": 0.707
       },
       {
         "type": "접기팰꼬리",
         "pred": 1,
-        "weight": 0.691
+        "weight": 0.707
       },
       {
         "type": "롤링모멘텀",
@@ -2960,7 +3656,7 @@
       },
       {
         "type": "Fold+꼬리",
-        "pred": 1,
+        "pred": 0,
         "weight": 0.738
       },
       {
@@ -2969,19 +3665,19 @@
         "weight": 0.738
       },
       {
-        "type": "런분할",
-        "pred": 1,
-        "weight": 0.625
+        "type": "팰린드롬확장",
+        "pred": 0,
+        "weight": 0.686
       },
       {
-        "type": "팰린드롬확장",
-        "pred": 1,
-        "weight": 0.686
+        "type": "꼬리주기",
+        "pred": 0,
+        "weight": 0.729
       },
       {
         "type": "접기팰꼬리",
         "pred": 1,
-        "weight": 0.712
+        "weight": 0.729
       },
       {
         "type": "롤링모멘텀",
@@ -2990,28 +3686,28 @@
       },
       {
         "type": "Fold+꼬리",
-        "pred": 1,
+        "pred": 0,
         "weight": 0.761
       },
       {
         "type": "Fold+꼬리",
-        "pred": 1,
+        "pred": 0,
         "weight": 0.761
       },
       {
-        "type": "런분할",
-        "pred": 1,
-        "weight": 0.644
+        "type": "팰린드롬확장",
+        "pred": 0,
+        "weight": 0.707
       },
       {
-        "type": "팰린드롬확장",
-        "pred": 1,
-        "weight": 0.707
+        "type": "꼬리주기",
+        "pred": 0,
+        "weight": 0.752
       },
       {
         "type": "접기팰꼬리",
         "pred": 1,
-        "weight": 0.734
+        "weight": 0.752
       },
       {
         "type": "롤링모멘텀",
@@ -3020,12 +3716,12 @@
       },
       {
         "type": "Fold+꼬리",
-        "pred": 1,
+        "pred": 0,
         "weight": 0.783
       },
       {
         "type": "Fold+꼬리",
-        "pred": 1,
+        "pred": 0,
         "weight": 0.783
       },
       {
@@ -3035,13 +3731,18 @@
       },
       {
         "type": "팰린드롬확장",
-        "pred": 1,
+        "pred": 0,
         "weight": 0.728
+      },
+      {
+        "type": "꼬리주기",
+        "pred": 0,
+        "weight": 0.774
       },
       {
         "type": "접기팰꼬리",
         "pred": 1,
-        "weight": 0.755
+        "weight": 0.774
       },
       {
         "type": "롤링모멘텀",
@@ -3050,23 +3751,28 @@
       },
       {
         "type": "Fold+꼬리",
-        "pred": 1,
+        "pred": 0,
         "weight": 0.805
       },
       {
         "type": "Fold+꼬리",
-        "pred": 1,
+        "pred": 0,
         "weight": 0.805
       },
       {
         "type": "팰린드롬확장",
-        "pred": 1,
+        "pred": 0,
         "weight": 0.748
+      },
+      {
+        "type": "꼬리주기",
+        "pred": 0,
+        "weight": 0.796
       },
       {
         "type": "접기팰꼬리",
         "pred": 1,
-        "weight": 0.777
+        "weight": 0.796
       },
       {
         "type": "롤링모멘텀",
@@ -3080,18 +3786,23 @@
       },
       {
         "type": "Fold+꼬리",
-        "pred": 1,
+        "pred": 0,
         "weight": 0.828
       },
       {
         "type": "팰린드롬확장",
-        "pred": 1,
+        "pred": 0,
         "weight": 0.769
+      },
+      {
+        "type": "꼬리주기",
+        "pred": 0,
+        "weight": 0.818
       },
       {
         "type": "접기팰꼬리",
         "pred": 1,
-        "weight": 0.798
+        "weight": 0.818
       },
       {
         "type": "롤링모멘텀",
@@ -3105,989 +3816,33 @@
       },
       {
         "type": "Fold+꼬리",
-        "pred": 1,
+        "pred": 0,
         "weight": 0.85
       },
       {
-        "type": "팰린드롬확장",
+        "type": "런분할",
         "pred": 1,
+        "weight": 0.72
+      },
+      {
+        "type": "팰린드롬확장",
+        "pred": 0,
         "weight": 0.79
       },
       {
+        "type": "꼬리주기",
+        "pred": 0,
+        "weight": 0.84
+      },
+      {
         "type": "접기팰꼬리",
         "pred": 1,
-        "weight": 0.82
+        "weight": 0.84
       },
       {
         "type": "롤링모멘텀",
         "pred": 0,
         "weight": 0.74
-      },
-      {
-        "type": "연속",
-        "pred": 1,
-        "weight": 0.78
-      },
-      {
-        "type": "Mirror",
-        "pred": 0,
-        "weight": 0.78
-      },
-      {
-        "type": "Mirror",
-        "pred": 0,
-        "weight": 0.78
-      },
-      {
-        "type": "연속",
-        "pred": 1,
-        "weight": 0.78
-      },
-      {
-        "type": "Mirror",
-        "pred": 0,
-        "weight": 0.78
-      }
-    ],
-    "verified": false,
-    "actual": null
-  },
-  "slot_4.0": {
-    "slot": 4.0,
-    "home": "KT Wiz Suwon",
-    "away": "NC Dinos",
-    "pred_date": "2026-05-23",
-    "home_direction": "0000101111110000101",
-    "home_bm_agree": "1111111111111111111",
-    "home_fav_win": "0010001010011110011",
-    "home_team_win": "1010110100010001001",
-    "home_dir_rec": 1,
-    "home_agr_rec": 1,
-    "home_fav_rec": null,
-    "home_win_rec": 0,
-    "away_direction": "1000010001100000100",
-    "away_bm_agree": "1111111111111111111",
-    "away_fav_win": "0011000110110101011",
-    "away_team_win": "1001001000101010000",
-    "away_dir_rec": 1,
-    "away_agr_rec": 1,
-    "away_fav_rec": 0,
-    "away_win_rec": 0,
-    "slot_fav_win": "110010100001010001",
-    "slot_fav_rec": 0,
-    "slot_fav_desc": "다수결 ↓0 51/57(87%)",
-    "slot_fav_team_rec": 1,
-    "home_is_fav": false,
-    "slot_bm": {
-      "10x10bet": {
-        "seq": "11P0N101N101NN00P",
-        "rec": 1,
-        "desc": "다수결 ↑1 24/29(83%)",
-        "current_odds": 1.67
-      },
-      "1xBet": {
-        "seq": "11P0N1000101NN00P",
-        "rec": 0,
-        "desc": "다수결 ↓0 14/24(60%)",
-        "current_odds": 1.7
-      },
-      "22Bet": {
-        "seq": "11P0N1000101NN00P",
-        "rec": 0,
-        "desc": "다수결 ↓0 14/24(60%)",
-        "current_odds": 1.66
-      },
-      "Alphabet": {
-        "seq": "01P0N1010101NN00P",
-        "rec": 1,
-        "desc": "다수결 ↑1 23/31(74%)",
-        "current_odds": 1.67
-      },
-      "BetInAsia": {
-        "seq": "11P0N1010101N000P",
-        "rec": 1,
-        "desc": "다수결 ↑1 35/52(67%)",
-        "current_odds": 1.66
-      },
-      "Bets.io": {
-        "seq": "11P0N1010101NN00P",
-        "rec": 1,
-        "desc": "다수결 ↑1 22/30(72%)",
-        "current_odds": 1.61
-      },
-      "Cloudbet": {
-        "seq": "FFPFNFFFF1FFFF00P",
-        "rec": 1,
-        "desc": "다수결 ↑1 1/1(100%)",
-        "current_odds": 1.64
-      },
-      "GambleCity": {
-        "seq": "11P0N1010101NN00P",
-        "rec": 1,
-        "desc": "다수결 ↑1 22/30(72%)",
-        "current_odds": 1.63
-      },
-      "Kobet": {
-        "seq": "01P0N1010101NN01P",
-        "rec": 0,
-        "desc": "다수결 ↓0 74/82(90%)",
-        "current_odds": 1.64
-      },
-      "Melbet": {
-        "seq": "11P0N1000101NN00P",
-        "rec": 0,
-        "desc": "다수결 ↓0 14/24(60%)",
-        "current_odds": 1.66
-      },
-      "Momobet": {
-        "seq": "11P0N101N101NN00P",
-        "rec": 1,
-        "desc": "다수결 ↑1 25/29(87%)",
-        "current_odds": 1.67
-      },
-      "Roobet": {
-        "seq": "01P0N1N10101N00NP",
-        "rec": 1,
-        "desc": "다수결 ↑1 13/20(65%)",
-        "current_odds": 1.65
-      },
-      "Stake.com": {
-        "seq": "10P0N1N00101NNN0P",
-        "rec": 1,
-        "desc": "다수결 ↑1 36/43(83%)",
-        "current_odds": 1.68
-      },
-      "VOBET": {
-        "seq": "01P0N1010101NN0NP",
-        "rec": 1,
-        "desc": "다수결 ↑1 64/71(90%)",
-        "current_odds": 1.67
-      },
-      "bwin": {
-        "seq": "10PNN1NN01N1NNN1P",
-        "rec": 0,
-        "desc": "다수결 ↓0 10/17(57%)",
-        "current_odds": 1.7
-      }
-    },
-    "recommendation": "HOME(1)",
-    "confidence": 0.75,
-    "pattern_reason": "슬롯정배패턴(역배승 18경기(원정정배))",
-    "home_win_desc": "다수결 ↓0 77/88(86%)",
-    "away_win_desc": "다수결 ↓0 52/78(66%)",
-    "bm_label": "배당↓팀이김 10/15(67%) (방향미확인)",
-    "bm_dir_vote": 1,
-    "bm_team_rec": null,
-    "bm_dir_ratio": 0.667,
-    "ml_home_prob": 0.665,
-    "ml_away_prob": 0.335,
-    "home_pattern_log": [
-      {
-        "type": "Mirror",
-        "pred": 0,
-        "weight": 0.492
-      },
-      {
-        "type": "블록분할",
-        "pred": 0,
-        "weight": 0.475
-      },
-      {
-        "type": "Mirror",
-        "pred": 0,
-        "weight": 0.514
-      },
-      {
-        "type": "런분할",
-        "pred": 0,
-        "weight": 0.472
-      },
-      {
-        "type": "꼬리부분미러",
-        "pred": 1,
-        "weight": 0.484
-      },
-      {
-        "type": "Mirror",
-        "pred": 0,
-        "weight": 0.537
-      },
-      {
-        "type": "런분할",
-        "pred": 0,
-        "weight": 0.493
-      },
-      {
-        "type": "꼬리부분미러",
-        "pred": 0,
-        "weight": 0.505
-      },
-      {
-        "type": "팰린드롬확장",
-        "pred": 0,
-        "weight": 0.48
-      },
-      {
-        "type": "Mirror",
-        "pred": 0,
-        "weight": 0.559
-      },
-      {
-        "type": "반복",
-        "pred": 0,
-        "weight": 0.526
-      },
-      {
-        "type": "런분할",
-        "pred": 0,
-        "weight": 0.513
-      },
-      {
-        "type": "꼬리부분미러",
-        "pred": 0,
-        "weight": 0.526
-      },
-      {
-        "type": "팰린드롬확장",
-        "pred": 0,
-        "weight": 0.5
-      },
-      {
-        "type": "Mirror",
-        "pred": 0,
-        "weight": 0.582
-      },
-      {
-        "type": "런분할",
-        "pred": 0,
-        "weight": 0.534
-      },
-      {
-        "type": "꼬리부분미러",
-        "pred": 0,
-        "weight": 0.547
-      },
-      {
-        "type": "팰린드롬확장",
-        "pred": 0,
-        "weight": 0.52
-      },
-      {
-        "type": "Mirror",
-        "pred": 0,
-        "weight": 0.604
-      },
-      {
-        "type": "런분할",
-        "pred": 0,
-        "weight": 0.554
-      },
-      {
-        "type": "꼬리부분미러",
-        "pred": 1,
-        "weight": 0.568
-      },
-      {
-        "type": "팰린드롬확장",
-        "pred": 0,
-        "weight": 0.54
-      },
-      {
-        "type": "Mirror",
-        "pred": 0,
-        "weight": 0.626
-      },
-      {
-        "type": "런분할",
-        "pred": 0,
-        "weight": 0.575
-      },
-      {
-        "type": "꼬리부분미러",
-        "pred": 0,
-        "weight": 0.589
-      },
-      {
-        "type": "팰린드롬확장",
-        "pred": 0,
-        "weight": 0.56
-      },
-      {
-        "type": "Mirror",
-        "pred": 0,
-        "weight": 0.649
-      },
-      {
-        "type": "런분할",
-        "pred": 0,
-        "weight": 0.595
-      },
-      {
-        "type": "꼬리부분미러",
-        "pred": 0,
-        "weight": 0.611
-      },
-      {
-        "type": "팰린드롬확장",
-        "pred": 0,
-        "weight": 0.58
-      },
-      {
-        "type": "롤링모멘텀",
-        "pred": 0,
-        "weight": 0.555
-      },
-      {
-        "type": "Mirror",
-        "pred": 0,
-        "weight": 0.671
-      },
-      {
-        "type": "런분할",
-        "pred": 0,
-        "weight": 0.616
-      },
-      {
-        "type": "꼬리부분미러",
-        "pred": 0,
-        "weight": 0.632
-      },
-      {
-        "type": "팰린드롬확장",
-        "pred": 0,
-        "weight": 0.6
-      },
-      {
-        "type": "롤링모멘텀",
-        "pred": 0,
-        "weight": 0.574
-      },
-      {
-        "type": "Mirror",
-        "pred": 0,
-        "weight": 0.693
-      },
-      {
-        "type": "런분할",
-        "pred": 0,
-        "weight": 0.636
-      },
-      {
-        "type": "꼬리부분미러",
-        "pred": 0,
-        "weight": 0.653
-      },
-      {
-        "type": "팰린드롬확장",
-        "pred": 0,
-        "weight": 0.62
-      },
-      {
-        "type": "롤링모멘텀",
-        "pred": 0,
-        "weight": 0.593
-      },
-      {
-        "type": "Mirror",
-        "pred": 0,
-        "weight": 0.716
-      },
-      {
-        "type": "런분할",
-        "pred": 0,
-        "weight": 0.657
-      },
-      {
-        "type": "꼬리부분미러",
-        "pred": 0,
-        "weight": 0.674
-      },
-      {
-        "type": "팰린드롬확장",
-        "pred": 0,
-        "weight": 0.64
-      },
-      {
-        "type": "롤링모멘텀",
-        "pred": 0,
-        "weight": 0.612
-      },
-      {
-        "type": "Mirror",
-        "pred": 0,
-        "weight": 0.738
-      },
-      {
-        "type": "런분할",
-        "pred": 0,
-        "weight": 0.677
-      },
-      {
-        "type": "꼬리부분미러",
-        "pred": 0,
-        "weight": 0.695
-      },
-      {
-        "type": "팰린드롬확장",
-        "pred": 0,
-        "weight": 0.66
-      },
-      {
-        "type": "롤링모멘텀",
-        "pred": 0,
-        "weight": 0.631
-      },
-      {
-        "type": "Mirror",
-        "pred": 0,
-        "weight": 0.761
-      },
-      {
-        "type": "런분할",
-        "pred": 0,
-        "weight": 0.698
-      },
-      {
-        "type": "꼬리부분미러",
-        "pred": 0,
-        "weight": 0.716
-      },
-      {
-        "type": "팰린드롬확장",
-        "pred": 0,
-        "weight": 0.68
-      },
-      {
-        "type": "롤링모멘텀",
-        "pred": 0,
-        "weight": 0.65
-      },
-      {
-        "type": "Mirror",
-        "pred": 0,
-        "weight": 0.783
-      },
-      {
-        "type": "Mirror",
-        "pred": 1,
-        "weight": 0.783
-      },
-      {
-        "type": "런분할",
-        "pred": 0,
-        "weight": 0.718
-      },
-      {
-        "type": "꼬리부분미러",
-        "pred": 0,
-        "weight": 0.737
-      },
-      {
-        "type": "팰린드롬확장",
-        "pred": 0,
-        "weight": 0.7
-      },
-      {
-        "type": "롤링모멘텀",
-        "pred": 0,
-        "weight": 0.669
-      },
-      {
-        "type": "Mirror",
-        "pred": 0,
-        "weight": 0.805
-      },
-      {
-        "type": "Mirror",
-        "pred": 1,
-        "weight": 0.805
-      },
-      {
-        "type": "Mirror",
-        "pred": 1,
-        "weight": 0.805
-      },
-      {
-        "type": "런분할",
-        "pred": 0,
-        "weight": 0.739
-      },
-      {
-        "type": "꼬리부분미러",
-        "pred": 0,
-        "weight": 0.758
-      },
-      {
-        "type": "팰린드롬확장",
-        "pred": 0,
-        "weight": 0.72
-      },
-      {
-        "type": "롤링모멘텀",
-        "pred": 0,
-        "weight": 0.689
-      },
-      {
-        "type": "Mirror",
-        "pred": 0,
-        "weight": 0.828
-      },
-      {
-        "type": "Mirror",
-        "pred": 1,
-        "weight": 0.828
-      },
-      {
-        "type": "Mirror",
-        "pred": 1,
-        "weight": 0.828
-      },
-      {
-        "type": "런분할",
-        "pred": 0,
-        "weight": 0.759
-      },
-      {
-        "type": "꼬리부분미러",
-        "pred": 0,
-        "weight": 0.779
-      },
-      {
-        "type": "팰린드롬확장",
-        "pred": 0,
-        "weight": 0.74
-      },
-      {
-        "type": "롤링모멘텀",
-        "pred": 0,
-        "weight": 0.708
-      },
-      {
-        "type": "Mirror",
-        "pred": 0,
-        "weight": 0.85
-      },
-      {
-        "type": "Mirror",
-        "pred": 1,
-        "weight": 0.85
-      },
-      {
-        "type": "Mirror",
-        "pred": 1,
-        "weight": 0.85
-      },
-      {
-        "type": "런분할",
-        "pred": 0,
-        "weight": 0.78
-      },
-      {
-        "type": "꼬리부분미러",
-        "pred": 0,
-        "weight": 0.8
-      },
-      {
-        "type": "팰린드롬확장",
-        "pred": 0,
-        "weight": 0.76
-      },
-      {
-        "type": "롤링모멘텀",
-        "pred": 0,
-        "weight": 0.727
-      },
-      {
-        "type": "Mirror",
-        "pred": 0,
-        "weight": 0.78
-      },
-      {
-        "type": "Mirror",
-        "pred": 0,
-        "weight": 0.78
-      },
-      {
-        "type": "Mirror",
-        "pred": 0,
-        "weight": 0.78
-      },
-      {
-        "type": "Mirror",
-        "pred": 1,
-        "weight": 0.78
-      },
-      {
-        "type": "Mirror",
-        "pred": 1,
-        "weight": 0.78
-      }
-    ],
-    "away_pattern_log": [
-      {
-        "type": "연속",
-        "pred": 1,
-        "weight": 0.405
-      },
-      {
-        "type": "반복",
-        "pred": 0,
-        "weight": 0.463
-      },
-      {
-        "type": "연속",
-        "pred": 1,
-        "weight": 0.424
-      },
-      {
-        "type": "반복",
-        "pred": 0,
-        "weight": 0.484
-      },
-      {
-        "type": "팰린드롬확장",
-        "pred": 0,
-        "weight": 0.46
-      },
-      {
-        "type": "블록분할",
-        "pred": 1,
-        "weight": 0.518
-      },
-      {
-        "type": "팰린드롬확장",
-        "pred": 0,
-        "weight": 0.48
-      },
-      {
-        "type": "런분할",
-        "pred": 0,
-        "weight": 0.559
-      },
-      {
-        "type": "팰린드롬확장",
-        "pred": 0,
-        "weight": 0.5
-      },
-      {
-        "type": "런분할",
-        "pred": 1,
-        "weight": 0.493
-      },
-      {
-        "type": "팰린드롬확장",
-        "pred": 0,
-        "weight": 0.52
-      },
-      {
-        "type": "롤링모멘텀",
-        "pred": 0,
-        "weight": 0.506
-      },
-      {
-        "type": "런분할",
-        "pred": 1,
-        "weight": 0.512
-      },
-      {
-        "type": "팰린드롬확장",
-        "pred": 0,
-        "weight": 0.54
-      },
-      {
-        "type": "롤링모멘텀",
-        "pred": 0,
-        "weight": 0.525
-      },
-      {
-        "type": "Fold+꼬리",
-        "pred": 0,
-        "weight": 0.626
-      },
-      {
-        "type": "런분할",
-        "pred": 1,
-        "weight": 0.531
-      },
-      {
-        "type": "팰린드롬확장",
-        "pred": 0,
-        "weight": 0.56
-      },
-      {
-        "type": "접기팰꼬리",
-        "pred": 1,
-        "weight": 0.575
-      },
-      {
-        "type": "롤링모멘텀",
-        "pred": 0,
-        "weight": 0.545
-      },
-      {
-        "type": "Fold+꼬리",
-        "pred": 0,
-        "weight": 0.649
-      },
-      {
-        "type": "Fold+꼬리",
-        "pred": 0,
-        "weight": 0.649
-      },
-      {
-        "type": "런분할",
-        "pred": 0,
-        "weight": 0.649
-      },
-      {
-        "type": "팰린드롬확장",
-        "pred": 0,
-        "weight": 0.58
-      },
-      {
-        "type": "접기팰꼬리",
-        "pred": 1,
-        "weight": 0.611
-      },
-      {
-        "type": "롤링모멘텀",
-        "pred": 0,
-        "weight": 0.561
-      },
-      {
-        "type": "Fold+꼬리",
-        "pred": 0,
-        "weight": 0.671
-      },
-      {
-        "type": "Fold+꼬리",
-        "pred": 0,
-        "weight": 0.671
-      },
-      {
-        "type": "팰린드롬확장",
-        "pred": 0,
-        "weight": 0.6
-      },
-      {
-        "type": "접기팰꼬리",
-        "pred": 1,
-        "weight": 0.632
-      },
-      {
-        "type": "롤링모멘텀",
-        "pred": 0,
-        "weight": 0.58
-      },
-      {
-        "type": "Fold+꼬리",
-        "pred": 0,
-        "weight": 0.693
-      },
-      {
-        "type": "Fold+꼬리",
-        "pred": 0,
-        "weight": 0.693
-      },
-      {
-        "type": "팰린드롬확장",
-        "pred": 0,
-        "weight": 0.62
-      },
-      {
-        "type": "접기팰꼬리",
-        "pred": 1,
-        "weight": 0.653
-      },
-      {
-        "type": "롤링모멘텀",
-        "pred": 0,
-        "weight": 0.599
-      },
-      {
-        "type": "Fold+꼬리",
-        "pred": 0,
-        "weight": 0.716
-      },
-      {
-        "type": "Fold+꼬리",
-        "pred": 0,
-        "weight": 0.716
-      },
-      {
-        "type": "팰린드롬확장",
-        "pred": 0,
-        "weight": 0.64
-      },
-      {
-        "type": "접기팰꼬리",
-        "pred": 1,
-        "weight": 0.674
-      },
-      {
-        "type": "롤링모멘텀",
-        "pred": 0,
-        "weight": 0.619
-      },
-      {
-        "type": "Fold+꼬리",
-        "pred": 0,
-        "weight": 0.738
-      },
-      {
-        "type": "Fold+꼬리",
-        "pred": 0,
-        "weight": 0.738
-      },
-      {
-        "type": "런분할",
-        "pred": 1,
-        "weight": 0.625
-      },
-      {
-        "type": "팰린드롬확장",
-        "pred": 0,
-        "weight": 0.66
-      },
-      {
-        "type": "접기팰꼬리",
-        "pred": 1,
-        "weight": 0.695
-      },
-      {
-        "type": "롤링모멘텀",
-        "pred": 0,
-        "weight": 0.638
-      },
-      {
-        "type": "Fold+꼬리",
-        "pred": 0,
-        "weight": 0.761
-      },
-      {
-        "type": "Fold+꼬리",
-        "pred": 0,
-        "weight": 0.761
-      },
-      {
-        "type": "팰린드롬확장",
-        "pred": 0,
-        "weight": 0.68
-      },
-      {
-        "type": "접기팰꼬리",
-        "pred": 1,
-        "weight": 0.716
-      },
-      {
-        "type": "롤링모멘텀",
-        "pred": 0,
-        "weight": 0.657
-      },
-      {
-        "type": "Fold+꼬리",
-        "pred": 1,
-        "weight": 0.783
-      },
-      {
-        "type": "Fold+꼬리",
-        "pred": 0,
-        "weight": 0.783
-      },
-      {
-        "type": "팰린드롬확장",
-        "pred": 0,
-        "weight": 0.7
-      },
-      {
-        "type": "접기팰꼬리",
-        "pred": 1,
-        "weight": 0.737
-      },
-      {
-        "type": "롤링모멘텀",
-        "pred": 0,
-        "weight": 0.676
-      },
-      {
-        "type": "Fold+꼬리",
-        "pred": 1,
-        "weight": 0.805
-      },
-      {
-        "type": "Fold+꼬리",
-        "pred": 0,
-        "weight": 0.805
-      },
-      {
-        "type": "런분할",
-        "pred": 1,
-        "weight": 0.682
-      },
-      {
-        "type": "팰린드롬확장",
-        "pred": 0,
-        "weight": 0.72
-      },
-      {
-        "type": "접기팰꼬리",
-        "pred": 1,
-        "weight": 0.758
-      },
-      {
-        "type": "롤링모멘텀",
-        "pred": 0,
-        "weight": 0.696
-      },
-      {
-        "type": "Fold+꼬리",
-        "pred": 1,
-        "weight": 0.828
-      },
-      {
-        "type": "Fold+꼬리",
-        "pred": 0,
-        "weight": 0.828
-      },
-      {
-        "type": "팰린드롬확장",
-        "pred": 0,
-        "weight": 0.74
-      },
-      {
-        "type": "접기팰꼬리",
-        "pred": 1,
-        "weight": 0.779
-      },
-      {
-        "type": "롤링모멘텀",
-        "pred": 0,
-        "weight": 0.715
-      },
-      {
-        "type": "Fold+꼬리",
-        "pred": 1,
-        "weight": 0.85
-      },
-      {
-        "type": "Fold+꼬리",
-        "pred": 1,
-        "weight": 0.85
-      },
-      {
-        "type": "팰린드롬확장",
-        "pred": 0,
-        "weight": 0.76
-      },
-      {
-        "type": "접기팰꼬리",
-        "pred": 1,
-        "weight": 0.8
-      },
-      {
-        "type": "롤링모멘텀",
-        "pred": 0,
-        "weight": 0.734
       },
       {
         "type": "Mirror",
@@ -4122,137 +3877,524 @@
     "slot": 5.0,
     "home": "Lotte Giants",
     "away": "Samsung Lions",
-    "pred_date": "2026-05-23",
-    "home_direction": "1100000101011111100",
+    "pred_date": "2026-05-24",
+    "home_direction": "0000010101111110000",
     "home_bm_agree": "1111111111111111111",
-    "home_fav_win": "0100010011110100101",
-    "home_team_win": "0111101001010100110",
+    "home_fav_win": "0001001111010010101",
+    "home_team_win": "1110100101010011000",
     "home_dir_rec": 0,
     "home_agr_rec": 1,
     "home_fav_rec": 0,
     "home_win_rec": 1,
-    "away_direction": "1101111110010000011",
+    "away_direction": "0111111001000001111",
     "away_bm_agree": "1111111111111111111",
-    "away_fav_win": "0111111110000101011",
-    "away_team_win": "0101111111101010111",
+    "away_fav_win": "1111111000010101101",
+    "away_team_win": "0111111110101011100",
     "away_dir_rec": 1,
     "away_agr_rec": 1,
     "away_fav_rec": 0,
     "away_win_rec": 1,
-    "slot_fav_win": "101000110110101011",
-    "slot_fav_rec": 0,
-    "slot_fav_desc": "다수결 ↓0 53/61(88%)",
-    "slot_fav_team_rec": 1,
+    "slot_fav_win": "100011011010101101",
+    "slot_fav_rec": null,
+    "slot_fav_desc": "균형(39↑:41↓) → 불규칙",
+    "slot_fav_team_rec": null,
     "home_is_fav": false,
     "slot_bm": {
       "10x10bet": {
-        "seq": "N01001101011NP01P",
-        "rec": null,
-        "desc": "균형(23↑:27↓) → 불규칙",
-        "current_odds": 2.24
+        "seq": "01001101011NP0110",
+        "rec": 1,
+        "desc": "다수결 ↑1 53/72(72%)",
+        "current_odds": 2.11
       },
       "1xBet": {
-        "seq": "N01011101111NP01P",
-        "rec": null,
-        "desc": "균형(21↑:18↓) → 불규칙",
-        "current_odds": 2.26
+        "seq": "01011101111NP0110",
+        "rec": 1,
+        "desc": "다수결 ↑1 57/63(90%)",
+        "current_odds": 2.07
       },
       "22Bet": {
-        "seq": "N01011101111NP01P",
-        "rec": null,
-        "desc": "균형(22↑:18↓) → 불규칙",
-        "current_odds": 2.2
+        "seq": "01011101111NP0110",
+        "rec": 1,
+        "desc": "다수결 ↑1 57/63(90%)",
+        "current_odds": 2.02
       },
       "Alphabet": {
-        "seq": "N01001101011NP01P",
-        "rec": null,
-        "desc": "균형(23↑:27↓) → 불규칙",
-        "current_odds": 2.24
+        "seq": "01001101011NP0110",
+        "rec": 1,
+        "desc": "다수결 ↑1 53/72(72%)",
+        "current_odds": 2.11
       },
       "BetInAsia": {
-        "seq": "N01011101111NP01P",
-        "rec": null,
-        "desc": "균형(21↑:19↓) → 불규칙",
-        "current_odds": 2.27
+        "seq": "01011101111NP0110",
+        "rec": 1,
+        "desc": "다수결 ↑1 57/63(90%)",
+        "current_odds": 2.05
       },
       "Bets.io": {
-        "seq": "N01011101011NP01P",
-        "rec": 0,
-        "desc": "다수결 ↓0 23/38(62%)",
-        "current_odds": 2.13
+        "seq": "01011101011NP0110",
+        "rec": 1,
+        "desc": "다수결 ↑1 53/68(77%)",
+        "current_odds": 1.97
       },
       "Cloudbet": {
-        "seq": "NFFFFFFFFNFFFP01P",
-        "rec": null,
-        "desc": "데이터 부족",
-        "current_odds": 2.2
+        "seq": "FFFFFFFFNFFFP0110",
+        "rec": 1,
+        "desc": "다수결 ↑1 5/6(83%)",
+        "current_odds": 2.02
       },
       "GambleCity": {
-        "seq": "N01011101011NP01P",
-        "rec": 0,
-        "desc": "다수결 ↓0 23/38(62%)",
-        "current_odds": 2.16
+        "seq": "01011101011NP0110",
+        "rec": 1,
+        "desc": "다수결 ↑1 53/68(77%)",
+        "current_odds": 2.03
       },
       "Kobet": {
-        "seq": "N01000N01011NP01P",
-        "rec": 0,
-        "desc": "다수결 ↓0 24/40(60%)",
-        "current_odds": 2.17
+        "seq": "01000N01011NP0110",
+        "rec": 1,
+        "desc": "다수결 ↑1 50/68(73%)",
+        "current_odds": 1.92
       },
       "Melbet": {
-        "seq": "N010111N1101NP01P",
-        "rec": 0,
-        "desc": "다수결 ↓0 31/43(72%)",
-        "current_odds": 2.2
+        "seq": "010111N1101NP0110",
+        "rec": 1,
+        "desc": "다수결 ↑1 46/52(88%)",
+        "current_odds": 2.02
       },
       "Momobet": {
-        "seq": "N01001101011NP01P",
-        "rec": null,
-        "desc": "균형(23↑:27↓) → 불규칙",
-        "current_odds": 2.24
+        "seq": "01001101011NP0110",
+        "rec": 1,
+        "desc": "다수결 ↑1 53/72(72%)",
+        "current_odds": 2.11
       },
       "Roobet": {
-        "seq": "N01011101011NP0NP",
+        "seq": "01011101011NP0N10",
         "rec": 1,
-        "desc": "다수결 ↑1 34/44(75%)",
-        "current_odds": 2.16
+        "desc": "다수결 ↑1 54/61(88%)",
+        "current_odds": 1.95
       },
       "Stake.com": {
-        "seq": "N11011001011NP01P",
-        "rec": null,
-        "desc": "균형(29↑:29↓) → 불규칙",
-        "current_odds": 2.23
+        "seq": "11011001011NP0110",
+        "rec": 1,
+        "desc": "다수결 ↑1 53/79(65%)",
+        "current_odds": 2.05
       },
       "VOBET": {
-        "seq": "N01001101011NP01P",
-        "rec": 0,
-        "desc": "다수결 ↓0 28/50(56%)",
-        "current_odds": 2.24
+        "seq": "01001101011NP0110",
+        "rec": 1,
+        "desc": "다수결 ↑1 53/72(72%)",
+        "current_odds": 2.11
       },
       "bwin": {
-        "seq": "N1NN11NN1NN1NP01P",
-        "rec": 0,
-        "desc": "다수결 ↓0 11/17(65%)",
-        "current_odds": 2.15
+        "seq": "1NN11NN1NN1NP0110",
+        "rec": 1,
+        "desc": "다수결 ↑1 29/31(94%)",
+        "current_odds": 1.95
       }
     },
-    "recommendation": "HOME(1)",
-    "confidence": 0.75,
-    "pattern_reason": "슬롯정배패턴(역배승 18경기(원정정배))",
-    "home_win_desc": "다수결 ↑1 63/105(60%)",
-    "away_win_desc": "다수결 ↑1 49/80(64%)",
-    "bm_label": "배당↑팀이김 6/7(86%) (방향미확인)",
-    "bm_dir_vote": 0,
+    "recommendation": "PASS",
+    "confidence": 0.0,
+    "pattern_reason": "팀승패 충돌 (둘 다 승 예측)",
+    "home_win_desc": "다수결 ↑1 64/78(83%)",
+    "away_win_desc": "다수결 ↑1 39/66(55%)",
+    "bm_label": "배당↓팀이김 15/15(100%) (방향미확인)",
+    "bm_dir_vote": 1,
     "bm_team_rec": null,
-    "bm_dir_ratio": 0.857,
-    "ml_home_prob": 0.63,
-    "ml_away_prob": 0.37,
+    "bm_dir_ratio": 1.0,
+    "ml_home_prob": 0.535,
+    "ml_away_prob": 0.465,
     "home_pattern_log": [
+      {
+        "type": "연속",
+        "pred": 1,
+        "weight": 0.405
+      },
+      {
+        "type": "반복",
+        "pred": 0,
+        "weight": 0.463
+      },
+      {
+        "type": "블록분할",
+        "pred": 1,
+        "weight": 0.496
+      },
+      {
+        "type": "팰린드롬확장",
+        "pred": 1,
+        "weight": 0.46
+      },
+      {
+        "type": "블록분할",
+        "pred": 1,
+        "weight": 0.518
+      },
+      {
+        "type": "팰린드롬확장",
+        "pred": 1,
+        "weight": 0.48
+      },
+      {
+        "type": "교차쌍",
+        "pred": 0,
+        "weight": 0.518
+      },
+      {
+        "type": "Fold+꼬리",
+        "pred": 0,
+        "weight": 0.559
+      },
+      {
+        "type": "계단식",
+        "pred": 1,
+        "weight": 0.539
+      },
+      {
+        "type": "팰린드롬확장",
+        "pred": 1,
+        "weight": 0.5
+      },
+      {
+        "type": "접기팰꼬리",
+        "pred": 1,
+        "weight": 0.5
+      },
+      {
+        "type": "Fold+꼬리",
+        "pred": 0,
+        "weight": 0.582
+      },
+      {
+        "type": "Fold+꼬리",
+        "pred": 0,
+        "weight": 0.582
+      },
+      {
+        "type": "런분할",
+        "pred": 0,
+        "weight": 0.582
+      },
+      {
+        "type": "팰린드롬확장",
+        "pred": 1,
+        "weight": 0.52
+      },
+      {
+        "type": "접기팰꼬리",
+        "pred": 1,
+        "weight": 0.534
+      },
+      {
+        "type": "교차쌍",
+        "pred": 0,
+        "weight": 0.561
+      },
+      {
+        "type": "Fold+꼬리",
+        "pred": 1,
+        "weight": 0.604
+      },
+      {
+        "type": "Fold+꼬리",
+        "pred": 0,
+        "weight": 0.604
+      },
+      {
+        "type": "팰린드롬확장",
+        "pred": 1,
+        "weight": 0.54
+      },
+      {
+        "type": "접기팰꼬리",
+        "pred": 1,
+        "weight": 0.554
+      },
+      {
+        "type": "Fold+꼬리",
+        "pred": 1,
+        "weight": 0.626
+      },
+      {
+        "type": "Fold+꼬리",
+        "pred": 0,
+        "weight": 0.626
+      },
+      {
+        "type": "런분할",
+        "pred": 1,
+        "weight": 0.531
+      },
+      {
+        "type": "팰린드롬확장",
+        "pred": 1,
+        "weight": 0.56
+      },
+      {
+        "type": "접기팰꼬리",
+        "pred": 1,
+        "weight": 0.575
+      },
+      {
+        "type": "Fold+꼬리",
+        "pred": 1,
+        "weight": 0.649
+      },
+      {
+        "type": "Fold+꼬리",
+        "pred": 0,
+        "weight": 0.649
+      },
+      {
+        "type": "런분할",
+        "pred": 1,
+        "weight": 0.549
+      },
+      {
+        "type": "팰린드롬확장",
+        "pred": 1,
+        "weight": 0.58
+      },
+      {
+        "type": "접기팰꼬리",
+        "pred": 1,
+        "weight": 0.595
+      },
+      {
+        "type": "Fold+꼬리",
+        "pred": 1,
+        "weight": 0.671
+      },
+      {
+        "type": "Fold+꼬리",
+        "pred": 0,
+        "weight": 0.671
+      },
+      {
+        "type": "런분할",
+        "pred": 1,
+        "weight": 0.568
+      },
+      {
+        "type": "팰린드롬확장",
+        "pred": 1,
+        "weight": 0.6
+      },
+      {
+        "type": "접기팰꼬리",
+        "pred": 1,
+        "weight": 0.616
+      },
+      {
+        "type": "Fold+꼬리",
+        "pred": 1,
+        "weight": 0.693
+      },
+      {
+        "type": "Fold+꼬리",
+        "pred": 1,
+        "weight": 0.693
+      },
+      {
+        "type": "런분할",
+        "pred": 1,
+        "weight": 0.587
+      },
+      {
+        "type": "팰린드롬확장",
+        "pred": 1,
+        "weight": 0.62
+      },
+      {
+        "type": "접기팰꼬리",
+        "pred": 1,
+        "weight": 0.636
+      },
+      {
+        "type": "Fold+꼬리",
+        "pred": 1,
+        "weight": 0.716
+      },
+      {
+        "type": "Fold+꼬리",
+        "pred": 1,
+        "weight": 0.716
+      },
+      {
+        "type": "런분할",
+        "pred": 1,
+        "weight": 0.606
+      },
+      {
+        "type": "팰린드롬확장",
+        "pred": 1,
+        "weight": 0.64
+      },
+      {
+        "type": "접기팰꼬리",
+        "pred": 1,
+        "weight": 0.657
+      },
+      {
+        "type": "Fold+꼬리",
+        "pred": 1,
+        "weight": 0.738
+      },
+      {
+        "type": "Fold+꼬리",
+        "pred": 1,
+        "weight": 0.738
+      },
+      {
+        "type": "팰린드롬확장",
+        "pred": 1,
+        "weight": 0.66
+      },
+      {
+        "type": "접기팰꼬리",
+        "pred": 1,
+        "weight": 0.677
+      },
+      {
+        "type": "Fold+꼬리",
+        "pred": 1,
+        "weight": 0.761
+      },
+      {
+        "type": "Fold+꼬리",
+        "pred": 1,
+        "weight": 0.761
+      },
+      {
+        "type": "팰린드롬확장",
+        "pred": 1,
+        "weight": 0.68
+      },
+      {
+        "type": "접기팰꼬리",
+        "pred": 1,
+        "weight": 0.698
+      },
+      {
+        "type": "Fold+꼬리",
+        "pred": 1,
+        "weight": 0.783
+      },
+      {
+        "type": "Fold+꼬리",
+        "pred": 1,
+        "weight": 0.783
+      },
+      {
+        "type": "런분할",
+        "pred": 1,
+        "weight": 0.663
+      },
+      {
+        "type": "팰린드롬확장",
+        "pred": 1,
+        "weight": 0.7
+      },
+      {
+        "type": "접기팰꼬리",
+        "pred": 1,
+        "weight": 0.718
+      },
+      {
+        "type": "Fold+꼬리",
+        "pred": 1,
+        "weight": 0.805
+      },
+      {
+        "type": "Fold+꼬리",
+        "pred": 1,
+        "weight": 0.805
+      },
+      {
+        "type": "런분할",
+        "pred": 1,
+        "weight": 0.682
+      },
+      {
+        "type": "팰린드롬확장",
+        "pred": 1,
+        "weight": 0.72
+      },
+      {
+        "type": "접기팰꼬리",
+        "pred": 1,
+        "weight": 0.739
+      },
+      {
+        "type": "Fold+꼬리",
+        "pred": 1,
+        "weight": 0.828
+      },
+      {
+        "type": "Fold+꼬리",
+        "pred": 1,
+        "weight": 0.828
+      },
+      {
+        "type": "런분할",
+        "pred": 1,
+        "weight": 0.701
+      },
+      {
+        "type": "팰린드롬확장",
+        "pred": 1,
+        "weight": 0.74
+      },
+      {
+        "type": "접기팰꼬리",
+        "pred": 1,
+        "weight": 0.759
+      },
+      {
+        "type": "Fold+꼬리",
+        "pred": 1,
+        "weight": 0.85
+      },
+      {
+        "type": "Fold+꼬리",
+        "pred": 1,
+        "weight": 0.85
+      },
+      {
+        "type": "팰린드롬확장",
+        "pred": 1,
+        "weight": 0.76
+      },
+      {
+        "type": "접기팰꼬리",
+        "pred": 1,
+        "weight": 0.78
+      },
       {
         "type": "Mirror",
         "pred": 1,
-        "weight": 0.492
+        "weight": 0.78
       },
+      {
+        "type": "Mirror",
+        "pred": 0,
+        "weight": 0.78
+      },
+      {
+        "type": "Mirror",
+        "pred": 0,
+        "weight": 0.78
+      },
+      {
+        "type": "Mirror",
+        "pred": 1,
+        "weight": 0.78
+      },
+      {
+        "type": "Mirror",
+        "pred": 0,
+        "weight": 0.78
+      }
+    ],
+    "away_pattern_log": [
       {
         "type": "블록분할",
         "pred": 1,
@@ -4264,13 +4406,23 @@
         "weight": 0.514
       },
       {
+        "type": "블록분할",
+        "pred": 1,
+        "weight": 0.496
+      },
+      {
         "type": "런분할",
         "pred": 1,
-        "weight": 0.472
+        "weight": 0.484
       },
       {
         "type": "꼬리부분미러",
-        "pred": 0,
+        "pred": 1,
+        "weight": 0.484
+      },
+      {
+        "type": "교차쌍",
+        "pred": 1,
         "weight": 0.484
       },
       {
@@ -4279,196 +4431,116 @@
         "weight": 0.537
       },
       {
-        "type": "런분할",
-        "pred": 0,
-        "weight": 0.537
-      },
-      {
-        "type": "꼬리부분미러",
-        "pred": 0,
-        "weight": 0.505
-      },
-      {
-        "type": "팰린드롬확장",
-        "pred": 0,
-        "weight": 0.48
-      },
-      {
-        "type": "교차쌍",
-        "pred": 0,
+        "type": "블록분할",
+        "pred": 1,
         "weight": 0.518
       },
       {
+        "type": "꼬리부분미러",
+        "pred": 1,
+        "weight": 0.505
+      },
+      {
         "type": "Mirror",
         "pred": 1,
         "weight": 0.559
       },
       {
-        "type": "Fold+꼬리",
-        "pred": 1,
-        "weight": 0.559
-      },
-      {
-        "type": "런분할",
-        "pred": 1,
-        "weight": 0.513
-      },
-      {
         "type": "꼬리부분미러",
-        "pred": 1,
+        "pred": 0,
         "weight": 0.526
       },
       {
-        "type": "팰린드롬확장",
-        "pred": 0,
-        "weight": 0.5
-      },
-      {
         "type": "Mirror",
-        "pred": 1,
-        "weight": 0.582
-      },
-      {
-        "type": "Fold+꼬리",
         "pred": 1,
         "weight": 0.582
       },
       {
         "type": "런분할",
         "pred": 1,
-        "weight": 0.534
+        "weight": 0.493
       },
       {
         "type": "꼬리부분미러",
-        "pred": 0,
+        "pred": 1,
         "weight": 0.547
       },
       {
-        "type": "팰린드롬확장",
-        "pred": 0,
-        "weight": 0.52
-      },
-      {
         "type": "Mirror",
-        "pred": 1,
-        "weight": 0.604
-      },
-      {
-        "type": "Fold+꼬리",
         "pred": 1,
         "weight": 0.604
       },
       {
         "type": "런분할",
         "pred": 1,
-        "weight": 0.604
+        "weight": 0.512
       },
       {
         "type": "꼬리부분미러",
+        "pred": 0,
+        "weight": 0.568
+      },
+      {
+        "type": "Mirror",
+        "pred": 1,
+        "weight": 0.626
+      },
+      {
+        "type": "런분할",
+        "pred": 1,
+        "weight": 0.531
+      },
+      {
+        "type": "꼬리부분미러",
+        "pred": 1,
+        "weight": 0.589
+      },
+      {
+        "type": "Mirror",
+        "pred": 1,
+        "weight": 0.649
+      },
+      {
+        "type": "Mirror",
+        "pred": 0,
+        "weight": 0.649
+      },
+      {
+        "type": "런분할",
+        "pred": 1,
+        "weight": 0.549
+      },
+      {
+        "type": "꼬리부분미러",
+        "pred": 0,
+        "weight": 0.611
+      },
+      {
+        "type": "Mirror",
+        "pred": 1,
+        "weight": 0.671
+      },
+      {
+        "type": "Mirror",
+        "pred": 0,
+        "weight": 0.671
+      },
+      {
+        "type": "Mirror",
+        "pred": 0,
+        "weight": 0.671
+      },
+      {
+        "type": "런분할",
         "pred": 1,
         "weight": 0.568
       },
       {
-        "type": "팰린드롬확장",
-        "pred": 0,
-        "weight": 0.54
-      },
-      {
-        "type": "Mirror",
-        "pred": 1,
-        "weight": 0.626
-      },
-      {
-        "type": "Fold+꼬리",
-        "pred": 1,
-        "weight": 0.626
-      },
-      {
-        "type": "런분할",
-        "pred": 1,
-        "weight": 0.575
-      },
-      {
-        "type": "꼬리부분미러",
-        "pred": 0,
-        "weight": 0.589
-      },
-      {
-        "type": "팰린드롬확장",
-        "pred": 0,
-        "weight": 0.56
-      },
-      {
-        "type": "Mirror",
-        "pred": 1,
-        "weight": 0.649
-      },
-      {
-        "type": "Mirror",
-        "pred": 0,
-        "weight": 0.649
-      },
-      {
-        "type": "Fold+꼬리",
-        "pred": 1,
-        "weight": 0.649
-      },
-      {
-        "type": "런분할",
-        "pred": 1,
-        "weight": 0.595
-      },
-      {
-        "type": "꼬리부분미러",
-        "pred": 1,
-        "weight": 0.611
-      },
-      {
-        "type": "팰린드롬확장",
-        "pred": 0,
-        "weight": 0.58
-      },
-      {
-        "type": "접기팰꼬리",
-        "pred": 1,
-        "weight": 0.611
-      },
-      {
-        "type": "Mirror",
-        "pred": 1,
-        "weight": 0.671
-      },
-      {
-        "type": "Mirror",
-        "pred": 0,
-        "weight": 0.671
-      },
-      {
-        "type": "Mirror",
-        "pred": 0,
-        "weight": 0.671
-      },
-      {
-        "type": "런분할",
-        "pred": 1,
-        "weight": 0.616
-      },
-      {
         "type": "꼬리부분미러",
         "pred": 1,
         "weight": 0.632
       },
       {
-        "type": "팰린드롬확장",
-        "pred": 0,
-        "weight": 0.6
-      },
-      {
-        "type": "접기팰꼬리",
-        "pred": 1,
-        "weight": 0.632
-      },
-      {
         "type": "Mirror",
         "pred": 1,
         "weight": 0.693
@@ -4482,24 +4554,9 @@
         "type": "Mirror",
         "pred": 0,
         "weight": 0.693
-      },
-      {
-        "type": "런분할",
-        "pred": 1,
-        "weight": 0.636
       },
       {
         "type": "꼬리부분미러",
-        "pred": 1,
-        "weight": 0.653
-      },
-      {
-        "type": "팰린드롬확장",
-        "pred": 0,
-        "weight": 0.62
-      },
-      {
-        "type": "접기팰꼬리",
         "pred": 1,
         "weight": 0.653
       },
@@ -4519,26 +4576,11 @@
         "weight": 0.716
       },
       {
-        "type": "런분할",
-        "pred": 1,
-        "weight": 0.657
-      },
-      {
         "type": "꼬리부분미러",
         "pred": 1,
         "weight": 0.674
       },
       {
-        "type": "팰린드롬확장",
-        "pred": 0,
-        "weight": 0.64
-      },
-      {
-        "type": "접기팰꼬리",
-        "pred": 1,
-        "weight": 0.674
-      },
-      {
         "type": "Mirror",
         "pred": 1,
         "weight": 0.738
@@ -4552,24 +4594,9 @@
         "type": "Mirror",
         "pred": 0,
         "weight": 0.738
-      },
-      {
-        "type": "런분할",
-        "pred": 1,
-        "weight": 0.677
       },
       {
         "type": "꼬리부분미러",
-        "pred": 1,
-        "weight": 0.695
-      },
-      {
-        "type": "팰린드롬확장",
-        "pred": 0,
-        "weight": 0.66
-      },
-      {
-        "type": "접기팰꼬리",
         "pred": 1,
         "weight": 0.695
       },
@@ -4589,26 +4616,11 @@
         "weight": 0.761
       },
       {
-        "type": "런분할",
-        "pred": 1,
-        "weight": 0.698
-      },
-      {
         "type": "꼬리부분미러",
         "pred": 1,
         "weight": 0.716
       },
       {
-        "type": "팰린드롬확장",
-        "pred": 0,
-        "weight": 0.68
-      },
-      {
-        "type": "접기팰꼬리",
-        "pred": 1,
-        "weight": 0.716
-      },
-      {
         "type": "Mirror",
         "pred": 1,
         "weight": 0.783
@@ -4622,24 +4634,9 @@
         "type": "Mirror",
         "pred": 0,
         "weight": 0.783
-      },
-      {
-        "type": "런분할",
-        "pred": 1,
-        "weight": 0.718
       },
       {
         "type": "꼬리부분미러",
-        "pred": 1,
-        "weight": 0.737
-      },
-      {
-        "type": "팰린드롬확장",
-        "pred": 0,
-        "weight": 0.7
-      },
-      {
-        "type": "접기팰꼬리",
         "pred": 1,
         "weight": 0.737
       },
@@ -4659,26 +4656,11 @@
         "weight": 0.805
       },
       {
-        "type": "런분할",
-        "pred": 1,
-        "weight": 0.739
-      },
-      {
         "type": "꼬리부분미러",
         "pred": 1,
         "weight": 0.758
       },
       {
-        "type": "팰린드롬확장",
-        "pred": 0,
-        "weight": 0.72
-      },
-      {
-        "type": "접기팰꼬리",
-        "pred": 1,
-        "weight": 0.758
-      },
-      {
         "type": "Mirror",
         "pred": 1,
         "weight": 0.828
@@ -4692,24 +4674,9 @@
         "type": "Mirror",
         "pred": 0,
         "weight": 0.828
-      },
-      {
-        "type": "런분할",
-        "pred": 1,
-        "weight": 0.759
       },
       {
         "type": "꼬리부분미러",
-        "pred": 1,
-        "weight": 0.779
-      },
-      {
-        "type": "팰린드롬확장",
-        "pred": 0,
-        "weight": 0.74
-      },
-      {
-        "type": "접기팰꼬리",
         "pred": 1,
         "weight": 0.779
       },
@@ -4729,429 +4696,17 @@
         "weight": 0.85
       },
       {
-        "type": "런분할",
-        "pred": 1,
-        "weight": 0.78
-      },
-      {
         "type": "꼬리부분미러",
         "pred": 1,
         "weight": 0.8
       },
       {
-        "type": "팰린드롬확장",
-        "pred": 0,
-        "weight": 0.76
-      },
-      {
-        "type": "접기팰꼬리",
-        "pred": 1,
-        "weight": 0.8
-      },
-      {
         "type": "Mirror",
         "pred": 0,
         "weight": 0.78
       },
       {
         "type": "Mirror",
-        "pred": 1,
-        "weight": 0.78
-      },
-      {
-        "type": "Mirror",
-        "pred": 0,
-        "weight": 0.78
-      },
-      {
-        "type": "Mirror",
-        "pred": 1,
-        "weight": 0.78
-      },
-      {
-        "type": "Mirror",
-        "pred": 1,
-        "weight": 0.78
-      }
-    ],
-    "away_pattern_log": [
-      {
-        "type": "연속",
-        "pred": 0,
-        "weight": 0.405
-      },
-      {
-        "type": "반복",
-        "pred": 1,
-        "weight": 0.463
-      },
-      {
-        "type": "블록분할",
-        "pred": 0,
-        "weight": 0.496
-      },
-      {
-        "type": "팰린드롬확장",
-        "pred": 0,
-        "weight": 0.46
-      },
-      {
-        "type": "런분할",
-        "pred": 1,
-        "weight": 0.537
-      },
-      {
-        "type": "팰린드롬확장",
-        "pred": 0,
-        "weight": 0.48
-      },
-      {
-        "type": "런분할",
-        "pred": 0,
-        "weight": 0.474
-      },
-      {
-        "type": "팰린드롬확장",
-        "pred": 0,
-        "weight": 0.5
-      },
-      {
-        "type": "런분할",
-        "pred": 0,
-        "weight": 0.493
-      },
-      {
-        "type": "팰린드롬확장",
-        "pred": 0,
-        "weight": 0.52
-      },
-      {
-        "type": "롤링모멘텀",
-        "pred": 1,
-        "weight": 0.506
-      },
-      {
-        "type": "Fold+꼬리",
-        "pred": 1,
-        "weight": 0.604
-      },
-      {
-        "type": "런분할",
-        "pred": 0,
-        "weight": 0.512
-      },
-      {
-        "type": "팰린드롬확장",
-        "pred": 0,
-        "weight": 0.54
-      },
-      {
-        "type": "접기팰꼬리",
-        "pred": 0,
-        "weight": 0.54
-      },
-      {
-        "type": "롤링모멘텀",
-        "pred": 1,
-        "weight": 0.525
-      },
-      {
-        "type": "Fold+꼬리",
-        "pred": 1,
-        "weight": 0.626
-      },
-      {
-        "type": "Fold+꼬리",
-        "pred": 1,
-        "weight": 0.626
-      },
-      {
-        "type": "런분할",
-        "pred": 1,
-        "weight": 0.626
-      },
-      {
-        "type": "팰린드롬확장",
-        "pred": 0,
-        "weight": 0.56
-      },
-      {
-        "type": "접기팰꼬리",
-        "pred": 0,
-        "weight": 0.575
-      },
-      {
-        "type": "롤링모멘텀",
-        "pred": 1,
-        "weight": 0.545
-      },
-      {
-        "type": "Fold+꼬리",
-        "pred": 1,
-        "weight": 0.649
-      },
-      {
-        "type": "Fold+꼬리",
-        "pred": 1,
-        "weight": 0.649
-      },
-      {
-        "type": "팰린드롬확장",
-        "pred": 0,
-        "weight": 0.58
-      },
-      {
-        "type": "접기팰꼬리",
-        "pred": 0,
-        "weight": 0.595
-      },
-      {
-        "type": "롤링모멘텀",
-        "pred": 1,
-        "weight": 0.561
-      },
-      {
-        "type": "Fold+꼬리",
-        "pred": 1,
-        "weight": 0.671
-      },
-      {
-        "type": "Fold+꼬리",
-        "pred": 1,
-        "weight": 0.671
-      },
-      {
-        "type": "런분할",
-        "pred": 0,
-        "weight": 0.616
-      },
-      {
-        "type": "팰린드롬확장",
-        "pred": 0,
-        "weight": 0.6
-      },
-      {
-        "type": "접기팰꼬리",
-        "pred": 0,
-        "weight": 0.616
-      },
-      {
-        "type": "롤링모멘텀",
-        "pred": 1,
-        "weight": 0.58
-      },
-      {
-        "type": "Fold+꼬리",
-        "pred": 1,
-        "weight": 0.693
-      },
-      {
-        "type": "Fold+꼬리",
-        "pred": 1,
-        "weight": 0.693
-      },
-      {
-        "type": "팰린드롬확장",
-        "pred": 1,
-        "weight": 0.677
-      },
-      {
-        "type": "접기팰꼬리",
-        "pred": 0,
-        "weight": 0.636
-      },
-      {
-        "type": "롤링모멘텀",
-        "pred": 1,
-        "weight": 0.599
-      },
-      {
-        "type": "Fold+꼬리",
-        "pred": 1,
-        "weight": 0.716
-      },
-      {
-        "type": "Fold+꼬리",
-        "pred": 1,
-        "weight": 0.716
-      },
-      {
-        "type": "팰린드롬확장",
-        "pred": 1,
-        "weight": 0.699
-      },
-      {
-        "type": "접기팰꼬리",
-        "pred": 0,
-        "weight": 0.657
-      },
-      {
-        "type": "롤링모멘텀",
-        "pred": 1,
-        "weight": 0.619
-      },
-      {
-        "type": "Fold+꼬리",
-        "pred": 1,
-        "weight": 0.738
-      },
-      {
-        "type": "Fold+꼬리",
-        "pred": 1,
-        "weight": 0.738
-      },
-      {
-        "type": "팰린드롬확장",
-        "pred": 1,
-        "weight": 0.721
-      },
-      {
-        "type": "접기팰꼬리",
-        "pred": 0,
-        "weight": 0.677
-      },
-      {
-        "type": "롤링모멘텀",
-        "pred": 1,
-        "weight": 0.638
-      },
-      {
-        "type": "Fold+꼬리",
-        "pred": 1,
-        "weight": 0.761
-      },
-      {
-        "type": "Fold+꼬리",
-        "pred": 1,
-        "weight": 0.761
-      },
-      {
-        "type": "팰린드롬확장",
-        "pred": 1,
-        "weight": 0.743
-      },
-      {
-        "type": "접기팰꼬리",
-        "pred": 0,
-        "weight": 0.698
-      },
-      {
-        "type": "롤링모멘텀",
-        "pred": 1,
-        "weight": 0.661
-      },
-      {
-        "type": "Fold+꼬리",
-        "pred": 1,
-        "weight": 0.783
-      },
-      {
-        "type": "Fold+꼬리",
-        "pred": 1,
-        "weight": 0.783
-      },
-      {
-        "type": "팰린드롬확장",
-        "pred": 1,
-        "weight": 0.764
-      },
-      {
-        "type": "접기팰꼬리",
-        "pred": 0,
-        "weight": 0.718
-      },
-      {
-        "type": "롤링모멘텀",
-        "pred": 1,
-        "weight": 0.68
-      },
-      {
-        "type": "Fold+꼬리",
-        "pred": 1,
-        "weight": 0.805
-      },
-      {
-        "type": "Fold+꼬리",
-        "pred": 1,
-        "weight": 0.805
-      },
-      {
-        "type": "팰린드롬확장",
-        "pred": 1,
-        "weight": 0.786
-      },
-      {
-        "type": "접기팰꼬리",
-        "pred": 0,
-        "weight": 0.739
-      },
-      {
-        "type": "롤링모멘텀",
-        "pred": 1,
-        "weight": 0.7
-      },
-      {
-        "type": "Fold+꼬리",
-        "pred": 1,
-        "weight": 0.828
-      },
-      {
-        "type": "Fold+꼬리",
-        "pred": 1,
-        "weight": 0.828
-      },
-      {
-        "type": "런분할",
-        "pred": 0,
-        "weight": 0.701
-      },
-      {
-        "type": "팰린드롬확장",
-        "pred": 1,
-        "weight": 0.808
-      },
-      {
-        "type": "접기팰꼬리",
-        "pred": 0,
-        "weight": 0.759
-      },
-      {
-        "type": "롤링모멘텀",
-        "pred": 1,
-        "weight": 0.719
-      },
-      {
-        "type": "Fold+꼬리",
-        "pred": 1,
-        "weight": 0.85
-      },
-      {
-        "type": "Fold+꼬리",
-        "pred": 1,
-        "weight": 0.85
-      },
-      {
-        "type": "런분할",
-        "pred": 0,
-        "weight": 0.72
-      },
-      {
-        "type": "팰린드롬확장",
-        "pred": 1,
-        "weight": 0.83
-      },
-      {
-        "type": "접기팰꼬리",
-        "pred": 0,
-        "weight": 0.78
-      },
-      {
-        "type": "롤링모멘텀",
-        "pred": 1,
-        "weight": 0.738
-      },
-      {
-        "type": "연속",
         "pred": 0,
         "weight": 0.78
       },
@@ -5162,16 +4717,11 @@
       },
       {
         "type": "Mirror",
-        "pred": 1,
+        "pred": 0,
         "weight": 0.78
       },
       {
         "type": "Mirror",
-        "pred": 1,
-        "weight": 0.78
-      },
-      {
-        "type": "분할:",
         "pred": 0,
         "weight": 0.78
       }
