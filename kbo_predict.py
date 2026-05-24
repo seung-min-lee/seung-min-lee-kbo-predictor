@@ -1126,16 +1126,10 @@ def seq_str(seq):
     return ''.join(str(x) for x in seq) if seq else '-'
 
 def preprocess_seq(seq):
-    """P 제거, 끝의 연속 N 제거 후 마지막 N 이후 시퀀스만 사용"""
-    # Step 1: P 제거
+    """P 제거, 끝의 연속 N/F 제거 후 0/1만 추출"""
     result = [v for v in seq if v != 'P']
-    # Step 2: 끝에서 연속된 N/F 제거
     while result and result[-1] in ('N', 'F'):
         result.pop()
-    # Step 3: 마지막 N/F 이후만 사용
-    last_n = max((i for i, v in enumerate(result) if v in ('N', 'F')), default=-1)
-    if last_n >= 0:
-        result = result[last_n + 1:]
     return [x for x in result if x in (0, 1)]
 
 def pat_rec(seq, full_history=None):
