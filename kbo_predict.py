@@ -1518,8 +1518,8 @@ def get_slot_bm_odds_seqs(slot, before_date_order, seq_len=BM_SEQ_LEN):
             w_chg = h_chg if w_is_home else a_chg
             l_chg = a_chg if w_is_home else h_chg
 
-            if   l_chg > w_chg: sig = 1
-            elif l_chg < w_chg: sig = 0
+            if   w_chg > l_chg: sig = 1
+            elif w_chg < l_chg: sig = 0
             
             all_seq.append(sig)
             all_date_seq.append(date)
