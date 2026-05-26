@@ -318,5 +318,13 @@
     "away": "NC Dinos",
     "pick": "HOME(KT Wiz Suwon)",
     "saved_at": "2026-05-22T09:11:11"
+  },
+  "2026-05-26|1.0|Doosan Bears|KT Wiz Suwon": {
+    "date": "2026-05-26",
+    "slot": 1.0,
+    "home": "Doosan Bears",
+    "away": "KT Wiz Suwon",
+    "pick": "AWAY(KT Wiz Suwon)",
+    "saved_at": "2026-05-26T08:58:14"
   }
 }
