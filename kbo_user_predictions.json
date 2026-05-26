@@ -334,5 +334,13 @@
     "away": "Hanwha Eagles",
     "pick": "HOME(NC Dinos)",
     "saved_at": "2026-05-26T08:58:18"
+  },
+  "2026-05-26|3.0|Kiwoom Heroes|KIA Tigers": {
+    "date": "2026-05-26",
+    "slot": 3.0,
+    "home": "Kiwoom Heroes",
+    "away": "KIA Tigers",
+    "pick": "AWAY(KIA Tigers)",
+    "saved_at": "2026-05-26T08:58:23"
   }
 }
