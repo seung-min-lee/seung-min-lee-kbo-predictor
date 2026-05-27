@@ -8,10 +8,10 @@ import numpy as np
 
 def compute_winner_direction(home_open, home_close, away_open, away_close, winner_is_home):
     """
-    승자 배당 방향 계산 (get_slot_bm_odds_seqs 로직 동일).
+    승자 배당 방향 계산 (kbo_update.py get_odds_direction 기준과 동일).
 
-    Returns: 1 (패자 배당이 더 올랐다 = 마켓이 승자를 정확히 예측),
-             0 (승자 배당이 더 올랐다 = 이변 / 마켓이 틀렸다),
+    Returns: 1 (승자 배당 변동 > 패자 배당 변동 = 승자 배당↑ = 이변),
+             0 (패자 배당 변동 > 승자 배당 변동 = 승자 배당↓ = 마켓 정배),
              None (N조건 / 데이터 부족)
 
     N조건:
@@ -45,20 +45,19 @@ def compute_winner_direction(home_open, home_close, away_open, away_close, winne
         w_chg = h_chg if w_is_home else a_chg
         l_chg = a_chg if w_is_home else h_chg
         if l_chg > w_chg:
-            return 1
+            return 0  # 패자 변동 > 승자 변동 → 승자 배당↓ = 마켓 정배
         elif l_chg < w_chg:
-            return 0
+            return 1  # 승자 변동 > 패자 변동 → 승자 배당↑ = 이변
         else:
             return None  # N: 변동량 동일
 
-    # 한쪽만 있는 경우: home 변화로 추론
-    # home 배당 상승 = home 비선호 → home이 패자면 1(정상), home이 승자면 0(이변)
+    # 한쪽만 있는 경우: 승자 배당 방향으로 직접 판단
     if h_chg is not None and h_chg != 0:
-        h_rose = h_chg > 0  # home 배당 올랐다
+        h_rose = h_chg > 0
         if w_is_home:
-            return 0 if h_rose else 1  # home=승자인데 배당 올랐다 → 이변(0)
+            return 1 if h_rose else 0  # home=승자, 배당↑→1, 배당↓→0
         else:
-            return 1 if h_rose else 0  # home=패자인데 배당 올랐다 → 정상(1)
+            return 0 if h_rose else 1  # home=패자, home↑이면 승자(away)는 ↓ → 0
 
     return None
 
