@@ -390,5 +390,13 @@
     "away": "Samsung Lions",
     "pick": "HOME(SSG Landers)",
     "saved_at": "2026-05-28T08:45:10"
+  },
+  "2026-05-28|4.0|Lotte Giants|LG Twins": {
+    "date": "2026-05-28",
+    "slot": 4.0,
+    "home": "Lotte Giants",
+    "away": "LG Twins",
+    "pick": "AWAY(LG Twins)",
+    "saved_at": "2026-05-28T08:45:13"
   }
 }
