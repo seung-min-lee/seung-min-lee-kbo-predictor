@@ -1528,8 +1528,8 @@
 2026-05-27,KIA Tigers,Kiwoom Heroes,9.0,2.0,KIA Tigers,0,3.0
 2026-05-27,LG Twins,Lotte Giants,8.0,6.0,LG Twins,0,4.0
 2026-05-27,Samsung Lions,SSG Landers,4.0,1.0,Samsung Lions,0,5.0
-2026-05-28,KT Wiz Suwon,Doosan Bears,,,,,1.0
-2026-05-28,Hanwha Eagles,NC Dinos,,,,,2.0
-2026-05-28,KIA Tigers,Kiwoom Heroes,,,,,3.0
-2026-05-28,LG Twins,Lotte Giants,,,,,4.0
-2026-05-28,Samsung Lions,SSG Landers,,,,,5.0
+2026-05-28,KT Wiz Suwon,Doosan Bears,11.0,3.0,KT Wiz Suwon,False,1.0
+2026-05-28,Hanwha Eagles,NC Dinos,18.0,7.0,Hanwha Eagles,False,2.0
+2026-05-28,KIA Tigers,Kiwoom Heroes,5.0,0.0,KIA Tigers,False,3.0
+2026-05-28,LG Twins,Lotte Giants,5.0,8.0,Lotte Giants,True,4.0
+2026-05-28,Samsung Lions,SSG Landers,10.0,1.0,Samsung Lions,False,5.0
