@@ -63,23 +63,131 @@
     .hero {
       position: relative; min-height: 100vh;
       display: flex; flex-direction: column; align-items: center; justify-content: center;
-      text-align: center; padding: 8rem 1.5rem 4rem;
+      text-align: center; padding: 8rem 1.5rem 6rem;
       overflow: hidden;
     }
-    .hero-bg {
+
+    /* Canvas particles */
+    #hero-canvas {
       position: absolute; inset: 0; z-index: 0;
-      background:
-        radial-gradient(ellipse 80% 60% at 50% 0%, rgba(79,110,247,.22) 0%, transparent 70%),
-        radial-gradient(ellipse 60% 40% at 80% 80%, rgba(6,214,160,.12) 0%, transparent 60%);
+      width: 100%; height: 100%; pointer-events: none;
     }
-    /* animated grid */
+
+    /* Aurora blobs */
+    .aurora {
+      position: absolute; border-radius: 50%;
+      filter: blur(90px); pointer-events: none;
+    }
+    .aurora-1 {
+      width: 700px; height: 500px;
+      background: radial-gradient(circle, rgba(79,110,247,.35), transparent 70%);
+      top: -150px; left: -200px;
+      animation: aurora1 14s ease-in-out infinite;
+    }
+    .aurora-2 {
+      width: 600px; height: 600px;
+      background: radial-gradient(circle, rgba(124,58,237,.28), transparent 70%);
+      top: 50px; right: -200px;
+      animation: aurora2 18s ease-in-out infinite;
+    }
+    .aurora-3 {
+      width: 500px; height: 350px;
+      background: radial-gradient(circle, rgba(6,214,160,.2), transparent 70%);
+      bottom: -50px; left: 25%;
+      animation: aurora3 11s ease-in-out infinite;
+    }
+    @keyframes aurora1 {
+      0%,100%{ transform: translate(0,0) scale(1); }
+      33%    { transform: translate(120px, 80px) scale(1.15); }
+      66%    { transform: translate(-60px, 140px) scale(.88); }
+    }
+    @keyframes aurora2 {
+      0%,100%{ transform: translate(0,0) scale(1); }
+      40%    { transform: translate(-100px, 60px) scale(1.1); }
+      75%    { transform: translate(60px, 130px) scale(.92); }
+    }
+    @keyframes aurora3 {
+      0%,100%{ transform: translate(0,0) scale(1); }
+      50%    { transform: translate(-80px, -60px) scale(1.2); }
+    }
+
+    /* Grid overlay */
     .hero-grid {
       position: absolute; inset: 0; z-index: 0;
       background-image:
-        linear-gradient(rgba(255,255,255,.03) 1px, transparent 1px),
-        linear-gradient(90deg, rgba(255,255,255,.03) 1px, transparent 1px);
+        linear-gradient(rgba(255,255,255,.025) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255,255,255,.025) 1px, transparent 1px);
       background-size: 60px 60px;
-      mask-image: radial-gradient(ellipse 80% 70% at 50% 50%, black 30%, transparent 100%);
+      mask-image: radial-gradient(ellipse 80% 70% at 50% 50%, black 20%, transparent 100%);
+    }
+
+    /* Floating preview card */
+    .hero-preview {
+      position: relative; z-index: 2;
+      margin-top: 3.5rem;
+      width: min(480px, 90vw);
+      background: rgba(14,14,28,.75);
+      border: 1px solid rgba(79,110,247,.3);
+      border-radius: 18px;
+      backdrop-filter: blur(20px);
+      box-shadow: 0 0 60px rgba(79,110,247,.15), 0 30px 80px rgba(0,0,0,.4);
+      animation: floatCard 6s ease-in-out infinite, fadeUp 1s .5s ease both;
+      overflow: hidden;
+    }
+    @keyframes floatCard {
+      0%,100%{ transform: translateY(0); }
+      50%    { transform: translateY(-10px); }
+    }
+    .preview-header {
+      display: flex; align-items: center; justify-content: space-between;
+      padding: .9rem 1.2rem;
+      border-bottom: 1px solid rgba(255,255,255,.07);
+      background: rgba(79,110,247,.08);
+    }
+    .preview-header span { font-size: .82rem; font-weight: 700; }
+    .preview-live {
+      font-size: .7rem !important; font-weight: 700 !important;
+      color: var(--accent2) !important;
+      animation: pulse 2s ease infinite;
+    }
+    .preview-row {
+      display: flex; align-items: center; justify-content: space-between;
+      padding: .75rem 1.2rem;
+      border-bottom: 1px solid rgba(255,255,255,.04);
+      transition: background .2s;
+    }
+    .preview-row:hover { background: rgba(255,255,255,.03); }
+    .preview-row:last-child { border-bottom: none; }
+    .preview-teams { font-size: .85rem; font-weight: 600; color: var(--text); }
+    .preview-sub { font-size: .72rem; color: var(--muted); margin-top: .1rem; }
+    .preview-pred {
+      display: flex; flex-direction: column; align-items: flex-end; gap: .3rem;
+    }
+    .pred-label {
+      font-size: .72rem; font-weight: 700; padding: .2rem .6rem;
+      border-radius: 99px;
+    }
+    .pred-label.home { background: rgba(79,110,247,.2); color: #a5b4fc; border: 1px solid rgba(79,110,247,.35); }
+    .pred-label.away { background: rgba(6,214,160,.15); color: var(--accent2); border: 1px solid rgba(6,214,160,.3); }
+    .pred-label.pass { background: rgba(255,255,255,.07); color: var(--muted); border: 1px solid rgba(255,255,255,.1); }
+    .pred-bar-wrap { display: flex; align-items: center; gap: .4rem; }
+    .pred-mini-bar {
+      height: 4px; border-radius: 99px;
+      background: linear-gradient(90deg, var(--accent), var(--accent2));
+      animation: barGrow 1.5s ease both;
+    }
+    @keyframes barGrow { from{ width:0 } }
+    .pred-pct { font-size: .72rem; color: var(--muted); }
+    .preview-footer {
+      padding: .6rem 1.2rem;
+      background: rgba(255,255,255,.02);
+      border-top: 1px solid rgba(255,255,255,.05);
+      display: flex; justify-content: space-between; align-items: center;
+    }
+    .preview-footer span { font-size: .68rem; color: rgba(148,163,184,.5); }
+    .preview-dot {
+      width: 6px; height: 6px; border-radius: 50%; background: var(--accent2);
+      animation: pulse 2s ease infinite;
     }
     .badge {
       position: relative; z-index: 1;
@@ -455,8 +563,12 @@
 
 <!-- HERO -->
 <section class="hero">
-  <div class="hero-bg"></div>
+  <canvas id="hero-canvas"></canvas>
+  <div class="aurora aurora-1"></div>
+  <div class="aurora aurora-2"></div>
+  <div class="aurora aurora-3"></div>
   <div class="hero-grid"></div>
+
   <div class="badge"><span class="badge-dot"></span>2026 캡스톤 디자인 프로젝트</div>
   <h1><span class="gradient">배당 흐름으로<br>승부를 예측한다</span></h1>
   <p class="hero-sub">
@@ -467,6 +579,54 @@
     <a class="btn-primary" href="https://seung-min-lee-kbo-predictor-olwfusfvwrg2up4qzgdrrp.streamlit.app/" target="_blank">예측 대시보드 보기</a>
     <a class="btn-ghost" href="#how">작동 방식 알아보기</a>
   </div>
+
+  <!-- Floating preview card -->
+  <div class="hero-preview">
+    <div class="preview-header">
+      <span>⚾ 오늘의 KBO 예측</span>
+      <span class="preview-live">● LIVE</span>
+    </div>
+    <div class="preview-row">
+      <div>
+        <div class="preview-teams">두산 Bears vs 한화 Eagles</div>
+        <div class="preview-sub">배당 방향 투표 · 신뢰도 0.85</div>
+      </div>
+      <div class="preview-pred">
+        <span class="pred-label home">HOME</span>
+        <div class="pred-bar-wrap">
+          <div class="pred-mini-bar" style="width:68px"></div>
+          <span class="pred-pct">72%</span>
+        </div>
+      </div>
+    </div>
+    <div class="preview-row">
+      <div>
+        <div class="preview-teams">KIA Tigers vs NC Dinos</div>
+        <div class="preview-sub">Mirror 패턴 감지 · 신뢰도 0.78</div>
+      </div>
+      <div class="preview-pred">
+        <span class="pred-label away">AWAY</span>
+        <div class="pred-bar-wrap">
+          <div class="pred-mini-bar" style="width:52px"></div>
+          <span class="pred-pct">63%</span>
+        </div>
+      </div>
+    </div>
+    <div class="preview-row">
+      <div>
+        <div class="preview-teams">키움 Heroes vs LG Twins</div>
+        <div class="preview-sub">패턴 미감지 · 배당 중립</div>
+      </div>
+      <div class="preview-pred">
+        <span class="pred-label pass">PASS</span>
+      </div>
+    </div>
+    <div class="preview-footer">
+      <span>2026-05-28 · 자동 업데이트 22:30 KST</span>
+      <div class="preview-dot"></div>
+    </div>
+  </div>
+
   <div class="scroll-hint">
     <span>Scroll</span>
     <div class="scroll-arrow"></div>
@@ -761,6 +921,82 @@
 </footer>
 
 <script>
+  /* ── Canvas Particle Network ── */
+  (function() {
+    const canvas = document.getElementById('hero-canvas');
+    const ctx = canvas.getContext('2d');
+    let W, H, particles = [], mouse = { x: -9999, y: -9999 };
+    const MAX_DIST = 130, MOUSE_DIST = 100;
+
+    function resize() {
+      W = canvas.width  = canvas.offsetWidth;
+      H = canvas.height = canvas.offsetHeight;
+    }
+
+    function Particle() {
+      this.x  = Math.random() * W;
+      this.y  = Math.random() * H;
+      this.vx = (Math.random() - .5) * .35;
+      this.vy = (Math.random() - .5) * .35;
+      this.r  = Math.random() * 1.4 + .5;
+      this.op = Math.random() * .45 + .15;
+    }
+    Particle.prototype.update = function() {
+      const dx = this.x - mouse.x, dy = this.y - mouse.y;
+      const d  = Math.sqrt(dx*dx + dy*dy);
+      if (d < MOUSE_DIST) {
+        const force = (MOUSE_DIST - d) / MOUSE_DIST * .6;
+        this.x += dx / d * force;
+        this.y += dy / d * force;
+      }
+      this.x += this.vx; this.y += this.vy;
+      if (this.x < 0 || this.x > W) this.vx *= -1;
+      if (this.y < 0 || this.y > H) this.vy *= -1;
+    };
+
+    function init() {
+      particles = [];
+      const n = Math.min(Math.floor(W * H / 7000), 120);
+      for (let i = 0; i < n; i++) particles.push(new Particle());
+    }
+
+    function draw() {
+      ctx.clearRect(0, 0, W, H);
+      const len = particles.length;
+      for (let i = 0; i < len; i++) {
+        particles[i].update();
+        for (let j = i + 1; j < len; j++) {
+          const dx = particles[i].x - particles[j].x;
+          const dy = particles[i].y - particles[j].y;
+          const d  = Math.sqrt(dx*dx + dy*dy);
+          if (d < MAX_DIST) {
+            const alpha = (1 - d / MAX_DIST) * .12;
+            ctx.beginPath();
+            ctx.strokeStyle = `rgba(79,110,247,${alpha})`;
+            ctx.lineWidth = .8;
+            ctx.moveTo(particles[i].x, particles[i].y);
+            ctx.lineTo(particles[j].x, particles[j].y);
+            ctx.stroke();
+          }
+        }
+        ctx.beginPath();
+        ctx.arc(particles[i].x, particles[i].y, particles[i].r, 0, Math.PI*2);
+        ctx.fillStyle = `rgba(79,110,247,${particles[i].op})`;
+        ctx.fill();
+      }
+      requestAnimationFrame(draw);
+    }
+
+    window.addEventListener('mousemove', e => {
+      const rect = canvas.getBoundingClientRect();
+      mouse.x = e.clientX - rect.left;
+      mouse.y = e.clientY - rect.top;
+    });
+    window.addEventListener('mouseleave', () => { mouse.x = -9999; mouse.y = -9999; });
+    window.addEventListener('resize', () => { resize(); init(); });
+    resize(); init(); draw();
+  })();
+
   /* Intersection Observer – fade in */
   const io = new IntersectionObserver((entries) => {
     entries.forEach(e => {
