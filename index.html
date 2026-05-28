@@ -580,49 +580,19 @@
     <a class="btn-ghost" href="#how">작동 방식 알아보기</a>
   </div>
 
-  <!-- Floating preview card -->
-  <div class="hero-preview">
+  <!-- Floating preview card (JS로 동적 렌더링) -->
+  <div class="hero-preview" id="hero-preview">
     <div class="preview-header">
       <span>⚾ 오늘의 KBO 예측</span>
       <span class="preview-live">● LIVE</span>
     </div>
-    <div class="preview-row">
-      <div>
-        <div class="preview-teams">두산 Bears vs 한화 Eagles</div>
-        <div class="preview-sub">배당 방향 투표 · 신뢰도 0.85</div>
-      </div>
-      <div class="preview-pred">
-        <span class="pred-label home">HOME</span>
-        <div class="pred-bar-wrap">
-          <div class="pred-mini-bar" style="width:68px"></div>
-          <span class="pred-pct">72%</span>
-        </div>
-      </div>
-    </div>
-    <div class="preview-row">
-      <div>
-        <div class="preview-teams">KIA Tigers vs NC Dinos</div>
-        <div class="preview-sub">Mirror 패턴 감지 · 신뢰도 0.78</div>
-      </div>
-      <div class="preview-pred">
-        <span class="pred-label away">AWAY</span>
-        <div class="pred-bar-wrap">
-          <div class="pred-mini-bar" style="width:52px"></div>
-          <span class="pred-pct">63%</span>
-        </div>
-      </div>
-    </div>
-    <div class="preview-row">
-      <div>
-        <div class="preview-teams">키움 Heroes vs LG Twins</div>
-        <div class="preview-sub">패턴 미감지 · 배당 중립</div>
-      </div>
-      <div class="preview-pred">
-        <span class="pred-label pass">PASS</span>
+    <div id="preview-body">
+      <div class="preview-row" style="justify-content:center; padding:1.4rem;">
+        <span style="font-size:.82rem; color:var(--muted);">불러오는 중...</span>
       </div>
     </div>
     <div class="preview-footer">
-      <span>2026-05-28 · 자동 업데이트 22:30 KST</span>
+      <span id="preview-date">—</span>
       <div class="preview-dot"></div>
     </div>
   </div>
@@ -921,6 +891,72 @@
 </footer>
 
 <script>
+  /* ── 오늘의 예측 카드 동적 렌더링 ── */
+  (function() {
+    const TEAM_KR = {
+      'Doosan Bears': '두산', 'KT Wiz Suwon': 'KT', 'NC Dinos': 'NC',
+      'Hanwha Eagles': '한화', 'Kiwoom Heroes': '키움', 'KIA Tigers': 'KIA',
+      'Lotte Giants': '롯데', 'LG Twins': 'LG', 'SSG Landers': 'SSG',
+      'Samsung Lions': '삼성'
+    };
+    function kr(name) { return TEAM_KR[name] || name; }
+
+    const RAW = 'https://raw.githubusercontent.com/seung-min-lee/seung-min-lee-kbo-predictor/main/kbo_predictions.json';
+
+    fetch(RAW)
+      .then(r => r.json())
+      .then(data => {
+        const slots = Object.values(data);
+        if (!slots.length) return;
+
+        const date = slots[0].pred_date || '';
+        document.getElementById('preview-date').textContent =
+          date + ' · 자동 업데이트 22:30 KST';
+
+        const body = document.getElementById('preview-body');
+        body.innerHTML = '';
+
+        slots.forEach(function(s) {
+          const rec = (s.recommendation || '').toUpperCase();
+          const conf = s.confidence ? Math.round(s.confidence * 100) : null;
+          const isHome = rec.startsWith('HOME');
+          const isAway = rec.startsWith('AWAY');
+          const isPass = !isHome && !isAway;
+
+          const prob = isHome
+            ? Math.round((s.ml_home_prob || 0.5) * 100)
+            : isAway
+              ? Math.round((s.ml_away_prob || 0.5) * 100)
+              : null;
+
+          const barW = prob ? Math.round(prob * 0.9) : 0;
+
+          const predHTML = isPass
+            ? '<span class="pred-label pass">PASS</span>'
+            : `<span class="pred-label ${isHome ? 'home' : 'away'}">${isHome ? 'HOME' : 'AWAY'}</span>
+               <div class="pred-bar-wrap">
+                 <div class="pred-mini-bar" style="width:${barW}px"></div>
+                 <span class="pred-pct">${prob}%</span>
+               </div>`;
+
+          const row = document.createElement('div');
+          row.className = 'preview-row';
+          row.innerHTML = `
+            <div>
+              <div class="preview-teams">${kr(s.home)} vs ${kr(s.away)}</div>
+              <div class="preview-sub">신뢰도 ${conf ? (conf/100).toFixed(2) : '-'}</div>
+            </div>
+            <div class="preview-pred">${predHTML}</div>`;
+          body.appendChild(row);
+        });
+      })
+      .catch(function() {
+        document.getElementById('preview-body').innerHTML =
+          '<div class="preview-row" style="justify-content:center;padding:1.2rem;">' +
+          '<span style="font-size:.8rem;color:var(--muted);">예측 데이터를 불러올 수 없습니다</span></div>';
+      });
+  })();
+
   /* ── Canvas Particle Network ── */
   (function() {
     const canvas = document.getElementById('hero-canvas');
