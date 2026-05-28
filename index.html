@@ -261,6 +261,57 @@
     .feature-card h3 { font-size: 1rem; font-weight: 700; margin-bottom: .4rem; }
     .feature-card p { font-size: .88rem; color: var(--muted); line-height: 1.6; }
 
+    /* ── BACKTESTING ── */
+    .backtest { background: var(--bg); }
+    .backtest-flow {
+      display: grid; grid-template-columns: repeat(auto-fit, minmax(220px,1fr));
+      gap: 0; margin-top: 3.5rem; position: relative;
+    }
+    .backtest-flow::before {
+      content: ''; position: absolute;
+      top: 36px; left: 10%; right: 10%; height: 1px;
+      background: linear-gradient(90deg, transparent, var(--accent), var(--accent2), transparent);
+      opacity: .3;
+    }
+    .bt-step {
+      display: flex; flex-direction: column; align-items: center; text-align: center;
+      padding: 2rem 1.2rem;
+      opacity: 0; transform: translateY(20px);
+      transition: opacity .5s, transform .5s;
+    }
+    .bt-step.visible { opacity: 1; transform: none; }
+    .bt-circle {
+      width: 72px; height: 72px; border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1.6rem;
+      background: var(--card);
+      border: 1px solid var(--border);
+      margin-bottom: 1.2rem; position: relative; z-index: 1;
+      transition: border-color .3s, box-shadow .3s;
+    }
+    .bt-step:hover .bt-circle {
+      border-color: var(--accent);
+      box-shadow: 0 0 24px var(--glow);
+    }
+    .bt-step h3 { font-size: .95rem; font-weight: 700; margin-bottom: .4rem; }
+    .bt-step p { font-size: .82rem; color: var(--muted); line-height: 1.6; max-width: 180px; }
+
+    .backtest-result {
+      display: grid; grid-template-columns: repeat(auto-fit, minmax(240px,1fr));
+      gap: 1rem; margin-top: 3rem;
+    }
+    .bt-result-card {
+      padding: 1.5rem 1.8rem; border-radius: 14px;
+      background: var(--card); border: 1px solid var(--border);
+      opacity: 0; transform: translateY(20px);
+      transition: opacity .5s, transform .5s, border-color .3s;
+    }
+    .bt-result-card.visible { opacity: 1; transform: none; }
+    .bt-result-card:hover { border-color: rgba(79,110,247,.35); }
+    .bt-result-card .label { font-size: .75rem; color: var(--muted); font-weight: 600; text-transform: uppercase; letter-spacing: 1px; margin-bottom: .5rem; }
+    .bt-result-card .value { font-size: 1.6rem; font-weight: 800; background: linear-gradient(135deg, var(--accent), var(--accent2)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+    .bt-result-card .desc { font-size: .82rem; color: var(--muted); margin-top: .3rem; line-height: 1.5; }
+
     /* ── ACCURACY BAR ── */
     .accuracy-section { background: var(--bg2); }
     .accuracy-wrap {
@@ -342,6 +393,7 @@
   <ul class="nav-links">
     <li><a href="#how">작동 방식</a></li>
     <li><a href="#features">기능</a></li>
+    <li><a href="#backtest">백테스팅</a></li>
     <li><a href="#accuracy">정확도</a></li>
   </ul>
   <a class="nav-cta" href="https://kbo-predictor.streamlit.app" target="_blank">앱 열기 →</a>
@@ -461,6 +513,65 @@
   </div>
 </section>
 
+<!-- BACKTESTING -->
+<section class="backtest" id="backtest">
+  <div class="section-inner">
+    <div class="reveal">
+      <span class="section-tag">Backtesting</span>
+      <h2 class="section-title">과거 데이터로 검증된 패턴</h2>
+      <p class="section-desc">
+        실제 배팅이나 추측이 아닌, 과거 경기 배당 데이터를 기반으로 패턴의 유효성을 먼저 검증했습니다.
+      </p>
+    </div>
+
+    <div class="backtest-flow">
+      <div class="bt-step">
+        <div class="bt-circle">🗄️</div>
+        <h3>과거 배당 수집</h3>
+        <p>2026 시즌 개막 이후 KBO 전 경기의 개장·마감 배당 데이터 수집</p>
+      </div>
+      <div class="bt-step" style="transition-delay:.1s">
+        <div class="bt-circle">🔎</div>
+        <h3>패턴 소급 적용</h3>
+        <p>과거 배당 수열에 8종 패턴 알고리즘을 소급 적용해 신호 생성</p>
+      </div>
+      <div class="bt-step" style="transition-delay:.2s">
+        <div class="bt-circle">⚖️</div>
+        <h3>실제 결과 대조</h3>
+        <p>패턴 기반 예측값을 실제 경기 승패와 비교해 패턴별 적중률 산출</p>
+      </div>
+      <div class="bt-step" style="transition-delay:.3s">
+        <div class="bt-circle">🔁</div>
+        <h3>모델 지속 개선</h3>
+        <p>축적된 검증 로그로 임계값·가중치를 조정하며 모델을 반복 개선</p>
+      </div>
+    </div>
+
+    <div class="backtest-result">
+      <div class="bt-result-card">
+        <div class="label">백테스팅 기간</div>
+        <div class="value">2026 시즌</div>
+        <div class="desc">개막일부터 현재까지 전 경기 대상</div>
+      </div>
+      <div class="bt-result-card" style="transition-delay:.08s">
+        <div class="label">검증 경기 수</div>
+        <div class="value">222경기</div>
+        <div class="desc">예측 수행 177건 / PASS 처리 45건</div>
+      </div>
+      <div class="bt-result-card" style="transition-delay:.16s">
+        <div class="label">베이스라인 대비</div>
+        <div class="value">+1.4%p</div>
+        <div class="desc">랜덤 50% 대비 실측 정확도 51.4%</div>
+      </div>
+      <div class="bt-result-card" style="transition-delay:.24s">
+        <div class="label">핵심 전략</div>
+        <div class="value">선택적 예측</div>
+        <div class="desc">신뢰도 미달 경기는 PASS로 수익률 보호</div>
+      </div>
+    </div>
+  </div>
+</section>
+
 <!-- ACCURACY -->
 <section class="accuracy-section" id="accuracy">
   <div class="section-inner">
@@ -522,7 +633,7 @@
     });
   }, { threshold: 0.12 });
 
-  document.querySelectorAll('.stat-card, .step, .feature-card, .reveal').forEach(el => io.observe(el));
+  document.querySelectorAll('.stat-card, .step, .feature-card, .reveal, .bt-step, .bt-result-card').forEach(el => io.observe(el));
 
   /* Counter animation */
   function animateCounter(el) {
