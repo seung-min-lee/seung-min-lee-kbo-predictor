@@ -1114,6 +1114,10 @@
 </footer>
 
 <script>
+  /* 페이지 로드 시 항상 최상단으로 */
+  if (history.scrollRestoration) history.scrollRestoration = 'manual';
+  window.scrollTo(0, 0);
+
   /* ── 오늘의 예측 카드 동적 렌더링 ── */
   (function() {
     const TEAM_KR = {
