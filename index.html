@@ -1,0 +1,566 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>KBO 승부 예측 시스템</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Noto+Sans+KR:wght@300;400;500;700;900&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg:        #07070f;
+      --bg2:       #0e0e1c;
+      --accent:    #4f6ef7;
+      --accent2:   #06d6a0;
+      --glow:      rgba(79, 110, 247, 0.35);
+      --text:      #f1f5f9;
+      --muted:     #94a3b8;
+      --card:      rgba(255,255,255,0.04);
+      --border:    rgba(255,255,255,0.08);
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: 'Inter', 'Noto Sans KR', sans-serif;
+      overflow-x: hidden;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    /* ── NAV ── */
+    nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 1.1rem 2.5rem;
+      background: rgba(7, 7, 15, 0.6);
+      backdrop-filter: blur(18px);
+      border-bottom: 1px solid var(--border);
+      transition: background .3s;
+    }
+    .nav-logo {
+      font-size: 1.1rem; font-weight: 700; letter-spacing: -.3px;
+      background: linear-gradient(90deg, var(--accent), var(--accent2));
+      -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+    }
+    .nav-links { display: flex; gap: 2rem; list-style: none; }
+    .nav-links a {
+      color: var(--muted); text-decoration: none; font-size: .9rem; font-weight: 500;
+      transition: color .2s;
+    }
+    .nav-links a:hover { color: var(--text); }
+    .nav-cta {
+      padding: .5rem 1.2rem; border-radius: 8px; font-size: .85rem; font-weight: 600;
+      background: var(--accent); color: #fff; text-decoration: none;
+      transition: opacity .2s, transform .15s;
+    }
+    .nav-cta:hover { opacity: .85; transform: translateY(-1px); }
+
+    /* ── HERO ── */
+    .hero {
+      position: relative; min-height: 100vh;
+      display: flex; flex-direction: column; align-items: center; justify-content: center;
+      text-align: center; padding: 8rem 1.5rem 4rem;
+      overflow: hidden;
+    }
+    .hero-bg {
+      position: absolute; inset: 0; z-index: 0;
+      background:
+        radial-gradient(ellipse 80% 60% at 50% 0%, rgba(79,110,247,.22) 0%, transparent 70%),
+        radial-gradient(ellipse 60% 40% at 80% 80%, rgba(6,214,160,.12) 0%, transparent 60%);
+    }
+    /* animated grid */
+    .hero-grid {
+      position: absolute; inset: 0; z-index: 0;
+      background-image:
+        linear-gradient(rgba(255,255,255,.03) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255,255,255,.03) 1px, transparent 1px);
+      background-size: 60px 60px;
+      mask-image: radial-gradient(ellipse 80% 70% at 50% 50%, black 30%, transparent 100%);
+    }
+    .badge {
+      position: relative; z-index: 1;
+      display: inline-flex; align-items: center; gap: .5rem;
+      padding: .4rem 1rem; border-radius: 99px;
+      border: 1px solid rgba(79,110,247,.4);
+      background: rgba(79,110,247,.1);
+      font-size: .78rem; font-weight: 600; color: #a5b4fc;
+      letter-spacing: .5px; text-transform: uppercase;
+      margin-bottom: 1.8rem;
+      animation: fadeUp .8s ease both;
+    }
+    .badge-dot {
+      width: 6px; height: 6px; border-radius: 50%;
+      background: var(--accent2);
+      animation: pulse 2s ease infinite;
+    }
+    @keyframes pulse {
+      0%,100% { opacity:1; transform:scale(1); }
+      50% { opacity:.5; transform:scale(1.4); }
+    }
+    h1 {
+      position: relative; z-index: 1;
+      font-size: clamp(2.6rem, 6vw, 5rem);
+      font-weight: 900; line-height: 1.08; letter-spacing: -1.5px;
+      animation: fadeUp .9s .1s ease both;
+    }
+    h1 .gradient {
+      background: linear-gradient(135deg, #fff 0%, var(--accent) 55%, var(--accent2) 100%);
+      -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+    }
+    .hero-sub {
+      position: relative; z-index: 1;
+      margin-top: 1.4rem; max-width: 560px;
+      font-size: 1.1rem; color: var(--muted); line-height: 1.7; font-weight: 400;
+      animation: fadeUp 1s .2s ease both;
+    }
+    .hero-btns {
+      position: relative; z-index: 1;
+      display: flex; gap: 1rem; margin-top: 2.5rem; flex-wrap: wrap; justify-content: center;
+      animation: fadeUp 1s .3s ease both;
+    }
+    .btn-primary {
+      padding: .85rem 2rem; border-radius: 10px; font-size: 1rem; font-weight: 700;
+      background: linear-gradient(135deg, var(--accent), #7c3aed);
+      color: #fff; text-decoration: none; border: none; cursor: pointer;
+      box-shadow: 0 0 30px var(--glow);
+      transition: transform .2s, box-shadow .2s;
+    }
+    .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 0 50px var(--glow); }
+    .btn-ghost {
+      padding: .85rem 2rem; border-radius: 10px; font-size: 1rem; font-weight: 600;
+      background: transparent; color: var(--text); text-decoration: none;
+      border: 1px solid var(--border);
+      transition: border-color .2s, background .2s;
+    }
+    .btn-ghost:hover { border-color: rgba(255,255,255,.25); background: rgba(255,255,255,.05); }
+
+    /* scroll indicator */
+    .scroll-hint {
+      position: absolute; bottom: 2.5rem; left: 50%; transform: translateX(-50%);
+      display: flex; flex-direction: column; align-items: center; gap: .4rem;
+      opacity: .4; animation: fadeUp 1s .6s ease both;
+    }
+    .scroll-hint span { font-size: .7rem; letter-spacing: 2px; text-transform: uppercase; color: var(--muted); }
+    .scroll-arrow {
+      width: 20px; height: 20px;
+      border-right: 1.5px solid var(--muted); border-bottom: 1.5px solid var(--muted);
+      transform: rotate(45deg);
+      animation: scrollBounce 1.6s ease infinite;
+    }
+    @keyframes scrollBounce { 0%,100%{transform:rotate(45deg) translate(0,0)} 50%{transform:rotate(45deg) translate(3px,3px)} }
+
+    /* ── STATS ── */
+    .stats {
+      padding: 5rem 1.5rem;
+      display: flex; justify-content: center; flex-wrap: wrap; gap: 1px;
+      background: linear-gradient(180deg, var(--bg) 0%, var(--bg2) 100%);
+    }
+    .stat-card {
+      flex: 1; min-width: 180px; max-width: 260px;
+      padding: 2.5rem 2rem; text-align: center;
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      margin: .5rem;
+      opacity: 0; transform: translateY(24px);
+      transition: opacity .5s, transform .5s, box-shadow .3s;
+    }
+    .stat-card.visible { opacity: 1; transform: none; }
+    .stat-card:hover { box-shadow: 0 0 30px rgba(79,110,247,.15); }
+    .stat-num {
+      font-size: 3rem; font-weight: 900; line-height: 1;
+      background: linear-gradient(135deg, var(--accent), var(--accent2));
+      -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+    }
+    .stat-unit { font-size: 1.5rem; font-weight: 700; }
+    .stat-label { margin-top: .6rem; font-size: .85rem; color: var(--muted); font-weight: 500; }
+
+    /* ── SECTION COMMON ── */
+    section { padding: 6rem 1.5rem; }
+    .section-inner { max-width: 1100px; margin: 0 auto; }
+    .section-tag {
+      display: inline-block; margin-bottom: 1rem;
+      font-size: .75rem; font-weight: 700; letter-spacing: 2px; text-transform: uppercase;
+      color: var(--accent);
+    }
+    .section-title {
+      font-size: clamp(1.8rem, 4vw, 2.8rem);
+      font-weight: 800; letter-spacing: -1px; line-height: 1.15;
+    }
+    .section-desc {
+      margin-top: .8rem; max-width: 520px;
+      font-size: 1rem; color: var(--muted); line-height: 1.7;
+    }
+
+    /* fade-in on scroll */
+    .reveal {
+      opacity: 0; transform: translateY(30px);
+      transition: opacity .6s ease, transform .6s ease;
+    }
+    .reveal.visible { opacity: 1; transform: none; }
+
+    /* ── HOW IT WORKS ── */
+    .how { background: var(--bg2); }
+    .steps {
+      display: grid; grid-template-columns: repeat(auto-fit, minmax(260px,1fr));
+      gap: 1.5rem; margin-top: 3.5rem;
+    }
+    .step {
+      position: relative; padding: 2rem;
+      background: var(--card); border: 1px solid var(--border);
+      border-radius: 16px; overflow: hidden;
+      opacity: 0; transform: translateY(24px);
+      transition: opacity .5s, transform .5s, box-shadow .3s;
+    }
+    .step.visible { opacity: 1; transform: none; }
+    .step:hover { box-shadow: 0 8px 40px rgba(79,110,247,.12); }
+    .step-num {
+      font-size: 4rem; font-weight: 900; line-height: 1;
+      color: rgba(79,110,247,.12);
+      position: absolute; top: 1rem; right: 1.2rem;
+    }
+    .step-icon {
+      width: 48px; height: 48px; border-radius: 12px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1.4rem;
+      background: linear-gradient(135deg, rgba(79,110,247,.2), rgba(6,214,160,.1));
+      border: 1px solid rgba(79,110,247,.3);
+      margin-bottom: 1.2rem;
+    }
+    .step h3 { font-size: 1.1rem; font-weight: 700; margin-bottom: .5rem; }
+    .step p { font-size: .9rem; color: var(--muted); line-height: 1.6; }
+    .step-connector {
+      display: none;
+    }
+
+    /* ── FEATURES ── */
+    .features-grid {
+      display: grid; grid-template-columns: repeat(auto-fit, minmax(300px,1fr));
+      gap: 1.2rem; margin-top: 3.5rem;
+    }
+    .feature-card {
+      padding: 2rem; border-radius: 16px;
+      background: var(--card); border: 1px solid var(--border);
+      transition: border-color .3s, box-shadow .3s, transform .25s;
+      opacity: 0; transform: translateY(24px);
+      transition: opacity .5s, transform .5s, border-color .3s, box-shadow .3s;
+    }
+    .feature-card.visible { opacity: 1; transform: none; }
+    .feature-card:hover {
+      border-color: rgba(79,110,247,.4);
+      box-shadow: 0 8px 40px rgba(79,110,247,.1);
+      transform: translateY(-3px);
+    }
+    .feature-icon {
+      font-size: 1.6rem; margin-bottom: 1rem;
+    }
+    .feature-card h3 { font-size: 1rem; font-weight: 700; margin-bottom: .4rem; }
+    .feature-card p { font-size: .88rem; color: var(--muted); line-height: 1.6; }
+
+    /* ── ACCURACY BAR ── */
+    .accuracy-section { background: var(--bg2); }
+    .accuracy-wrap {
+      display: grid; grid-template-columns: 1fr 1fr;
+      gap: 4rem; align-items: center; margin-top: 3rem;
+    }
+    @media(max-width:680px){ .accuracy-wrap{ grid-template-columns:1fr; gap:2rem; } }
+    .bar-group { margin-bottom: 1.5rem; }
+    .bar-label { display: flex; justify-content: space-between; margin-bottom: .5rem; }
+    .bar-label span:first-child { font-size: .9rem; font-weight: 600; }
+    .bar-label span:last-child { font-size: .9rem; color: var(--accent); font-weight: 700; }
+    .bar-track {
+      height: 8px; border-radius: 99px;
+      background: rgba(255,255,255,.07); overflow: hidden;
+    }
+    .bar-fill {
+      height: 100%; border-radius: 99px;
+      background: linear-gradient(90deg, var(--accent), var(--accent2));
+      width: 0; transition: width 1.2s cubic-bezier(.4,0,.2,1);
+    }
+    .accuracy-text { font-size: .9rem; color: var(--muted); line-height: 1.7; }
+    .accuracy-text strong { color: var(--text); }
+    .accuracy-highlight {
+      display: inline-block; margin-top: 1rem;
+      padding: .6rem 1.2rem; border-radius: 10px;
+      background: rgba(6,214,160,.1); border: 1px solid rgba(6,214,160,.25);
+      font-size: .88rem; color: var(--accent2); font-weight: 600;
+    }
+
+    /* ── CTA ── */
+    .cta-section {
+      text-align: center; padding: 7rem 1.5rem;
+      position: relative; overflow: hidden;
+    }
+    .cta-bg {
+      position: absolute; inset: 0; z-index: 0;
+      background: radial-gradient(ellipse 70% 60% at 50% 50%, rgba(79,110,247,.15) 0%, transparent 70%);
+    }
+    .cta-section .section-inner { position: relative; z-index: 1; }
+    .cta-section h2 {
+      font-size: clamp(2rem, 5vw, 3.5rem);
+      font-weight: 900; letter-spacing: -1.2px; line-height: 1.1;
+    }
+    .cta-section p {
+      margin-top: 1rem; font-size: 1.05rem; color: var(--muted); max-width: 480px; margin-inline: auto;
+    }
+    .cta-btns { display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap; margin-top: 2.5rem; }
+
+    /* ── FOOTER ── */
+    footer {
+      border-top: 1px solid var(--border);
+      padding: 2rem 2.5rem;
+      display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 1rem;
+    }
+    footer .logo { font-size: .95rem; font-weight: 700; color: var(--muted); }
+    footer p { font-size: .8rem; color: rgba(148,163,184,.5); }
+    footer .gh-link { font-size: .8rem; color: var(--muted); text-decoration: none; }
+    footer .gh-link:hover { color: var(--text); }
+
+    /* ── ANIMATIONS ── */
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(22px); }
+      to   { opacity: 1; transform: none; }
+    }
+
+    /* ── RESPONSIVE ── */
+    @media(max-width:600px){
+      nav { padding: 1rem 1.2rem; }
+      .nav-links { display: none; }
+      h1 { letter-spacing: -1px; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <div class="nav-logo">⚾ KBO Predictor</div>
+  <ul class="nav-links">
+    <li><a href="#how">작동 방식</a></li>
+    <li><a href="#features">기능</a></li>
+    <li><a href="#accuracy">정확도</a></li>
+  </ul>
+  <a class="nav-cta" href="https://kbo-predictor.streamlit.app" target="_blank">앱 열기 →</a>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-bg"></div>
+  <div class="hero-grid"></div>
+  <div class="badge"><span class="badge-dot"></span>2026 AI/빅데이터공학 캡스톤 프로젝트</div>
+  <h1><span class="gradient">배당 흐름으로<br>승부를 예측한다</span></h1>
+  <p class="hero-sub">
+    다수 해외 북메이커의 배당 변동 패턴을 실시간으로 분석해<br>
+    KBO 경기 결과를 예측하는 AI 시스템
+  </p>
+  <div class="hero-btns">
+    <a class="btn-primary" href="https://kbo-predictor.streamlit.app" target="_blank">예측 대시보드 보기</a>
+    <a class="btn-ghost" href="#how">작동 방식 알아보기</a>
+  </div>
+  <div class="scroll-hint">
+    <span>Scroll</span>
+    <div class="scroll-arrow"></div>
+  </div>
+</section>
+
+<!-- STATS -->
+<div class="stats">
+  <div class="stat-card">
+    <div class="stat-num"><span class="counter" data-target="222">0</span></div>
+    <div class="stat-label">분석된 KBO 경기 수</div>
+  </div>
+  <div class="stat-card" style="transition-delay:.1s">
+    <div class="stat-num"><span class="counter" data-target="15">0</span><span class="stat-unit">+</span></div>
+    <div class="stat-label">참조 해외 북메이커</div>
+  </div>
+  <div class="stat-card" style="transition-delay:.2s">
+    <div class="stat-num"><span class="counter" data-target="51" data-decimal="true">0</span><span class="stat-unit">.4%</span></div>
+    <div class="stat-label">예측 정확도 (베이스라인 50%)</div>
+  </div>
+  <div class="stat-card" style="transition-delay:.3s">
+    <div class="stat-num"><span class="counter" data-target="8">0</span></div>
+    <div class="stat-label">패턴 유형</div>
+  </div>
+</div>
+
+<!-- HOW IT WORKS -->
+<section class="how" id="how">
+  <div class="section-inner">
+    <div class="reveal">
+      <span class="section-tag">How It Works</span>
+      <h2 class="section-title">세 단계로 승부를 읽는다</h2>
+      <p class="section-desc">실시간 배당 데이터를 수집해 패턴을 감지하고, ML 앙상블로 최종 예측을 도출합니다.</p>
+    </div>
+    <div class="steps">
+      <div class="step">
+        <div class="step-num">01</div>
+        <div class="step-icon">📡</div>
+        <h3>배당 실시간 수집</h3>
+        <p>Playwright 기반 자동 스크래퍼가 OddsPortal에서 15개 이상의 해외 북메이커 배당(개장·마감)을 수집합니다.</p>
+      </div>
+      <div class="step" style="transition-delay:.1s">
+        <div class="step-num">02</div>
+        <div class="step-icon">🔍</div>
+        <h3>패턴 감지 & 앙상블</h3>
+        <p>Mirror, Palindrome, Alternating Pairs 등 8가지 시계열 패턴을 북메이커 투표 방식으로 감지합니다.</p>
+      </div>
+      <div class="step" style="transition-delay:.2s">
+        <div class="step-num">03</div>
+        <div class="step-icon">🤖</div>
+        <h3>ML 최종 예측</h3>
+        <p>Random Forest 모델이 패턴 신호와 배당 방향 투표를 결합해 승팀과 신뢰도를 최종 산출합니다.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FEATURES -->
+<section id="features">
+  <div class="section-inner">
+    <div class="reveal">
+      <span class="section-tag">Features</span>
+      <h2 class="section-title">주요 기능</h2>
+      <p class="section-desc">단순 통계를 넘어 시장 참여자의 심리와 정보 흐름까지 포착합니다.</p>
+    </div>
+    <div class="features-grid">
+      <div class="feature-card">
+        <div class="feature-icon">📊</div>
+        <h3>배당 방향 투표 (BM Dir Vote)</h3>
+        <p>개장 대비 마감 배당 변화 방향을 북메이커별로 집계해 시장 컨센서스를 도출합니다.</p>
+      </div>
+      <div class="feature-card" style="transition-delay:.07s">
+        <div class="feature-icon">🔄</div>
+        <h3>8종 시계열 패턴 인식</h3>
+        <p>Mirror, Tail Mirror, Palindrome, Repeat Blocks 등 배당 수열의 구조적 패턴을 자동으로 감지합니다.</p>
+      </div>
+      <div class="feature-card" style="transition-delay:.14s">
+        <div class="feature-icon">🌐</div>
+        <h3>멀티 북메이커 앙상블</h3>
+        <p>단일 북메이커에 의존하지 않고 15개 이상의 소스를 앙상블해 노이즈를 줄입니다.</p>
+      </div>
+      <div class="feature-card" style="transition-delay:.21s">
+        <div class="feature-icon">⚡</div>
+        <h3>GitHub Actions 자동화</h3>
+        <p>매일 22:30 KST에 배당 수집·예측 파이프라인이 자동 실행되어 항상 최신 상태를 유지합니다.</p>
+      </div>
+      <div class="feature-card" style="transition-delay:.28s">
+        <div class="feature-icon">📈</div>
+        <h3>백테스트 & 검증 로그</h3>
+        <p>경기 결과가 확정되면 자동으로 정확도를 기록하고 누적 성과를 트래킹합니다.</p>
+      </div>
+      <div class="feature-card" style="transition-delay:.35s">
+        <div class="feature-icon">🎯</div>
+        <h3>신뢰도 기반 PASS 필터</h3>
+        <p>신뢰도가 낮은 경기는 PASS 처리해 무분별한 예측을 지양하고 정밀도를 높입니다.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ACCURACY -->
+<section class="accuracy-section" id="accuracy">
+  <div class="section-inner">
+    <div class="reveal">
+      <span class="section-tag">Performance</span>
+      <h2 class="section-title">측정된 성과</h2>
+    </div>
+    <div class="accuracy-wrap">
+      <div class="reveal" style="transition-delay:.1s">
+        <div class="bar-group">
+          <div class="bar-label"><span>KBO Predictor</span><span>51.4%</span></div>
+          <div class="bar-track"><div class="bar-fill" data-width="51.4"></div></div>
+        </div>
+        <div class="bar-group">
+          <div class="bar-label"><span>랜덤 베이스라인</span><span>50.0%</span></div>
+          <div class="bar-track"><div class="bar-fill" data-width="50" style="background: rgba(255,255,255,.2)"></div></div>
+        </div>
+        <div class="bar-group">
+          <div class="bar-label"><span>고신뢰 예측 (≥0.85)</span><span>진행 중</span></div>
+          <div class="bar-track"><div class="bar-fill" data-width="55" style="opacity:.5"></div></div>
+        </div>
+      </div>
+      <div class="accuracy-text reveal" style="transition-delay:.2s">
+        <strong>222경기</strong>를 분석해 <strong>177건</strong>의 예측을 수행했습니다.<br><br>
+        현재 전체 정확도는 <strong>51.4%</strong>로, 랜덤 베이스라인(50%) 대비 향상된 수치입니다.
+        신뢰도 임계값을 높일수록 예측 수는 줄지만 정밀도가 향상되는 경향을 보입니다.<br><br>
+        배당 패턴 데이터가 축적될수록 모델 성능은 지속적으로 개선됩니다.
+        <div class="accuracy-highlight">📅 2026 시즌 실시간 추적 중</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA -->
+<section class="cta-section">
+  <div class="cta-bg"></div>
+  <div class="section-inner reveal">
+    <h2>지금 바로 오늘의<br>예측을 확인하세요</h2>
+    <p>실시간 배당 분석과 AI 예측 결과를 Streamlit 대시보드에서 무료로 확인할 수 있습니다.</p>
+    <div class="cta-btns">
+      <a class="btn-primary" href="https://kbo-predictor.streamlit.app" target="_blank">대시보드 열기 →</a>
+      <a class="btn-ghost" href="https://github.com/seung-min-lee/seung-min-lee-kbo-predictor" target="_blank">GitHub 보기</a>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="logo">⚾ KBO Predictor</div>
+  <p>2026 AI/빅데이터공학 캡스톤 디자인 · Built by seungmin</p>
+  <a class="gh-link" href="https://github.com/seung-min-lee/seung-min-lee-kbo-predictor" target="_blank">GitHub →</a>
+</footer>
+
+<script>
+  /* Intersection Observer – fade in */
+  const io = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if (e.isIntersecting) { e.target.classList.add('visible'); io.unobserve(e.target); }
+    });
+  }, { threshold: 0.12 });
+
+  document.querySelectorAll('.stat-card, .step, .feature-card, .reveal').forEach(el => io.observe(el));
+
+  /* Counter animation */
+  function animateCounter(el) {
+    const target = +el.dataset.target;
+    const duration = 1400;
+    const start = performance.now();
+    function tick(now) {
+      const p = Math.min((now - start) / duration, 1);
+      const ease = 1 - Math.pow(1 - p, 3);
+      el.textContent = Math.floor(ease * target);
+      if (p < 1) requestAnimationFrame(tick);
+      else el.textContent = target;
+    }
+    requestAnimationFrame(tick);
+  }
+
+  const statIo = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        e.target.querySelectorAll('.counter').forEach(animateCounter);
+        statIo.unobserve(e.target);
+      }
+    });
+  }, { threshold: 0.3 });
+  document.querySelectorAll('.stat-card').forEach(el => statIo.observe(el));
+
+  /* Bar animation */
+  const barIo = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        e.target.querySelectorAll('.bar-fill').forEach(bar => {
+          bar.style.width = bar.dataset.width + '%';
+        });
+        barIo.unobserve(e.target);
+      }
+    });
+  }, { threshold: 0.2 });
+  document.querySelectorAll('.accuracy-wrap').forEach(el => barIo.observe(el));
+</script>
+</body>
+</html>
