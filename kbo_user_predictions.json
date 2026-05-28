@@ -375,12 +375,20 @@
     "pick": "AWAY(Hanwha Eagles)",
     "saved_at": "2026-05-28T08:44:58"
   },
-  "2026-05-28|4.0|Lotte Giants|LG Twins": {
+  "2026-05-28|3.0|Kiwoom Heroes|KIA Tigers": {
     "date": "2026-05-28",
-    "slot": 4.0,
-    "home": "Lotte Giants",
-    "away": "LG Twins",
-    "pick": "AWAY(LG Twins)",
-    "saved_at": "2026-05-28T08:45:03"
+    "slot": 3.0,
+    "home": "Kiwoom Heroes",
+    "away": "KIA Tigers",
+    "pick": "HOME(Kiwoom Heroes)",
+    "saved_at": "2026-05-28T08:45:01"
+  },
+  "2026-05-28|5.0|SSG Landers|Samsung Lions": {
+    "date": "2026-05-28",
+    "slot": 5.0,
+    "home": "SSG Landers",
+    "away": "Samsung Lions",
+    "pick": "HOME(SSG Landers)",
+    "saved_at": "2026-05-28T08:45:04"
   }
 }
