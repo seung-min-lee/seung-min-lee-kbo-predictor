@@ -358,5 +358,13 @@
     "away": "Samsung Lions",
     "pick": "HOME(SSG Landers)",
     "saved_at": "2026-05-26T09:02:29"
+  },
+  "2026-05-28|1.0|Doosan Bears|KT Wiz Suwon": {
+    "date": "2026-05-28",
+    "slot": 1.0,
+    "home": "Doosan Bears",
+    "away": "KT Wiz Suwon",
+    "pick": "AWAY(KT Wiz Suwon)",
+    "saved_at": "2026-05-28T08:44:56"
   }
 }
