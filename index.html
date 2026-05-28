@@ -1158,91 +1158,95 @@
     }
 
     /* ── POSE DEFINITIONS ── */
-    /* PITCHER: follow-through — right arm released forward-low, left knee raised */
+
+    /* PITCHER: follow-through — throwing arm released forward-low, kick leg raised */
     function makePitcher() {
       return fill([
-        sph(0, 1.7, 0, .18, 55),           /* head */
-        seg(0,1.5,0, 0,.6,0, .09, 30),     /* torso */
-        /* throwing arm (R): shoulder → elbow extended right-forward, hand low */
+        sph(0, 1.7, 0, .18, 55),
+        seg(0,1.5,0, 0,.6,0, .09, 30),
         seg(0,1.3,.05, .5,1.0,.2, .07, 25),
         seg(.5,1.0,.2, .7,.6,.3, .07, 20),
-        sph(.72,.55,.32, .06, 10),          /* ball/fist */
-        /* glove arm (L): across body */
+        sph(.72,.55,.32, .06, 10),
         seg(0,1.3,-.05, -.35,1.1,-.1, .07, 20),
         seg(-.35,1.1,-.1, -.5,.9,-.15, .07, 15),
-        /* pivot leg (L): weight-bearing, straight down */
         seg(-.07,.6,0, -.1,0,0, .09, 25),
-        seg(-.1,0,0, -.12,-.05,.18, .07, 15),    /* foot */
-        /* kick leg (R): knee raised high front */
+        seg(-.1,0,0, -.12,-.05,.18, .07, 15),
         seg(.07,.6,0, .25,.2,.1, .09, 25),
         seg(.25,.2,.1, .15,-.1,.05, .08, 20),
-        /* scattered particles for depth */
         sph(0,.8,.05, .35, 20)
       ], N);
     }
 
-    /* BATTER: full swing contact — bat extended left, hips rotated */
-    function makeBatter() {
+    /* BATTER READY (Image 1): Loading stance — bat behind head, looking toward pitcher */
+    function makeBatterReady() {
       return fill([
-        sph(-.1, 1.7, 0, .18, 55),
-        seg(-.1,1.5,0, 0,.6,0, .09, 30),
-        /* arms: both extended in swing direction */
-        seg(0,1.2,0, -.6,1.0,.1, .07, 25),
-        seg(-.6,1.0,.1, -.9,.9,.2, .07, 20),
-        /* bat */
-        seg(-.9,.9,.2, -1.5,.7,.3, .04, 25),
-        /* trail arm */
-        seg(0,1.2,0, .3,1.1,-.05, .07, 18),
-        /* legs: stride stance */
-        seg(.08,.6,0, .2,0,.15, .09, 25),
-        seg(.2,0,.15, .22,-.05,.3, .07, 15),
-        seg(-.08,.6,0, -.15,0,-.05, .09, 25),
-        seg(-.15,0,-.05, -.2,-.05,-.1, .07, 15),
-        sph(0,.9,0, .3, 20)
+        sph(0.05, 1.72, 0.05, .18, 55),
+        seg(0.05, 1.52, 0.05, 0, .55, 0, .09, 35),
+        /* right arm: up and back to bat handle */
+        seg(0.05, 1.35, 0.05, 0.32, 1.5, -0.12, .07, 22),
+        seg(0.32, 1.5, -0.12, 0.18, 1.62, -0.06, .06, 15),
+        /* left arm: raised to bat handle */
+        seg(0.05, 1.35, 0.05, -0.18, 1.42, 0.1, .07, 18),
+        seg(-0.18, 1.42, 0.1, 0.14, 1.62, -0.06, .06, 15),
+        /* bat: hands → barrel angling up-back */
+        seg(0.14, 1.62, -0.06, 0.44, 2.18, -0.38, .038, 32),
+        /* front leg: stride toward pitcher */
+        seg(-0.08, .55, 0, -0.18, 0, 0.22, .09, 25),
+        seg(-0.18, 0, 0.22, -0.20, -0.05, 0.32, .07, 14),
+        /* back leg: weight-bearing */
+        seg(0.08, .55, 0, 0.22, 0, -0.12, .09, 25),
+        seg(0.22, 0, -0.12, 0.24, -0.05, -0.22, .07, 14),
+        sph(0.05, 1.0, 0, .28, 18)
       ], N);
     }
 
-    /* CATCHER: squat stance, glove up right */
-    function makeCatcher() {
+    /* BATTER CONTACT (Image 2): Bat meets ball — arms extended, hips fully rotated */
+    function makeBatterContact() {
       return fill([
-        sph(0, 1.3, 0, .2, 60),            /* head (+ mask) */
-        seg(0,1.1,0, 0,.65,0, .1, 30),     /* torso */
-        /* squat legs */
-        seg(0,.65,0, .25,.3,.1, .1, 25),
-        seg(.25,.3,.1, .2,.0,.2, .09, 20),
-        seg(0,.65,0, -.25,.3,-.1, .1, 25),
-        seg(-.25,.3,-.1, -.2,.0,-.15, .09, 20),
-        /* glove arm raised */
-        seg(0,.95,0, .45,1.2,.1, .08, 25),
-        seg(.45,1.2,.1, .55,1.4,.15, .07, 15),
-        sph(.57,1.43,.16, .1, 15),         /* glove */
-        /* throwing arm low */
-        seg(0,.95,0, -.4,.75,-.1, .08, 20),
-        sph(0,.8,0, .35, 20)
+        sph(0.02, 1.68, 0.18, .18, 55),
+        seg(0.02, 1.5, 0.15, 0, .52, 0, .1, 35),
+        /* right arm extended toward contact */
+        seg(0.1, 1.28, 0.12, -0.28, 1.12, 0.38, .08, 25),
+        /* left arm extended */
+        seg(-0.28, 1.12, 0.38, -0.52, 1.0, 0.5, .07, 20),
+        /* bat: horizontal through zone */
+        seg(-0.52, 1.0, 0.5, -1.12, 0.9, 0.65, .038, 32),
+        /* ball at contact point */
+        sph(-1.14, 0.9, 0.66, .09, 18),
+        /* front leg planted */
+        seg(-0.1, .52, 0, -0.2, 0, 0.18, .1, 25),
+        seg(-0.2, 0, 0.18, -0.22, -0.05, 0.28, .07, 14),
+        /* back leg: heel pivoting */
+        seg(0.1, .52, 0, 0.22, 0, -0.12, .1, 25),
+        seg(0.22, 0, -0.12, 0.24, -0.05, -0.22, .07, 14),
+        sph(0, 1.0, 0.1, .28, 18)
       ], N);
     }
 
-    /* DIVER: full horizontal dive, glove extended left */
-    function makeDiver() {
+    /* BATTER FOLLOW-THROUGH (Image 3): Full swing — back knee down, bat wrapped high */
+    function makeBatterFollowThrough() {
       return fill([
-        sph(-1.3, .3, 0, .18, 55),         /* head */
-        seg(-1.1,.3,0, .2,.1,0, .09, 40),  /* horizontal torso */
-        /* glove arm: fully extended left */
-        seg(-1.1,.35,0, -1.7,.35,.05, .07, 30),
-        sph(-1.75,.35,.06, .1, 15),        /* glove/ball */
-        /* trailing arm */
-        seg(.2,.15,0, .55,.2,.1, .08, 20),
-        /* legs: trailing behind, slight split */
-        seg(.2,.1,0, .85,-.05,.12, .1, 25),
-        seg(.85,-.05,.12, 1.2,-.1,.18, .09, 20),
-        seg(.2,.1,0, .8,.0,-.1, .1, 25),
-        seg(.8,.0,-.1, 1.1,-.08,-.15, .09, 20),
-        sph(0,.2,0, .4, 20)
+        sph(0.08, 1.62, 0.2, .18, 55),
+        seg(0.05, 1.45, 0.15, 0, .45, 0, .1, 35),
+        /* both arms wrapped high */
+        seg(0.08, 1.28, 0.15, 0.42, 1.45, -0.08, .08, 22),
+        seg(-0.05, 1.22, 0.12, 0.42, 1.45, -0.08, .07, 18),
+        /* bat: high wrap-around follow-through */
+        seg(0.42, 1.45, -0.08, 0.72, 1.88, -0.28, .038, 25),
+        seg(0.72, 1.88, -0.28, 0.88, 2.14, -0.4, .03, 20),
+        /* front leg: straight, pivoted on ball of foot */
+        seg(-0.12, .45, 0.05, -0.22, 0, 0.22, .1, 25),
+        seg(-0.22, 0, 0.22, -0.24, -0.05, 0.32, .07, 14),
+        /* back leg: knee down on ground */
+        seg(0.12, .45, 0, 0.28, 0.18, -0.1, .1, 22),
+        seg(0.28, 0.18, -0.1, 0.3, -0.02, -0.02, .08, 18),
+        sph(0.3, -0.02, -0.02, .12, 22),
+        sph(0.05, .95, 0.05, .28, 18)
       ], N);
     }
 
-    const POSES = [makePitcher(), makeBatter(), makeCatcher(), makeDiver()];
-    const LABELS = ['PITCHER', 'BATTER', 'CATCHER', 'DIVER'];
+    const POSES = [makePitcher(), makeBatterReady(), makeBatterContact(), makeBatterFollowThrough()];
+    const LABELS = ['PITCHER', 'READY', 'CONTACT', 'FOLLOW-THROUGH'];
 
     /* Three.js setup */
     const canvas3d = document.getElementById('scene-canvas');
