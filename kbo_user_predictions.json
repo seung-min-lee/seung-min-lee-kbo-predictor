@@ -366,5 +366,13 @@
     "away": "KT Wiz Suwon",
     "pick": "AWAY(KT Wiz Suwon)",
     "saved_at": "2026-05-28T08:44:56"
+  },
+  "2026-05-28|2.0|NC Dinos|Hanwha Eagles": {
+    "date": "2026-05-28",
+    "slot": 2.0,
+    "home": "NC Dinos",
+    "away": "Hanwha Eagles",
+    "pick": "AWAY(Hanwha Eagles)",
+    "saved_at": "2026-05-28T08:44:58"
   }
 }
