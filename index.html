@@ -503,6 +503,128 @@
     }
     .insight-box strong { color: var(--accent2); }
 
+    /* ── BASEBALL SCENES ── */
+    .baseball-scene {
+      position: absolute; pointer-events: none; z-index: 0;
+      opacity: 0; transition: opacity 1s ease;
+    }
+    .baseball-scene.playing { opacity: 1; }
+
+    .how              { position: relative; overflow: hidden; }
+    #features         { position: relative; overflow: hidden; }
+    .backtest         { position: relative; overflow: hidden; }
+    .accuracy-section { position: relative; overflow: hidden; }
+
+    .how .pitcher-scene        { right: -10px; bottom: 0;    width: 170px; }
+    #features .batter-scene    { right: -10px; top: 50%;     width: 165px; transform: translateY(-50%); }
+    .backtest .catcher-scene   { right: -10px; bottom: 10px; width: 170px; }
+    .accuracy-section .diver-scene { right: -10px; bottom: 20px; width: 220px; }
+
+    @media (max-width: 1260px) { .baseball-scene { display: none; } }
+
+    /* Pitcher */
+    .pitcher-arm { transform-origin: 100px 90px; }
+    .pitcher-leg { transform-origin: 104px 158px; }
+    .pitcher-scene.playing .pitcher-arm {
+      animation: pitcherArm 2.6s ease-in-out infinite;
+    }
+    @keyframes pitcherArm {
+      0%  { transform: rotate(-112deg); }
+      30% { transform: rotate(4deg); }
+      48% { transform: rotate(36deg); }
+      100%{ transform: rotate(-112deg); }
+    }
+    .pitcher-scene.playing .pitcher-ball {
+      animation: pitchFly 2.6s ease-in-out infinite;
+    }
+    @keyframes pitchFly {
+      0%,24%{ transform:translate(0,0); opacity:1; }
+      52%  { transform:translate(-190px,-75px); opacity:0; }
+      53%  { transform:translate(0,0); opacity:0; }
+      75%  { opacity:0; }
+      76%  { opacity:1; }
+      100% { opacity:1; transform:translate(0,0); }
+    }
+    .pitcher-scene.playing .pitcher-leg {
+      animation: legKick 2.6s ease-in-out infinite;
+    }
+    @keyframes legKick {
+      0%  { transform:rotate(0deg); }
+      24% { transform:rotate(32deg); }
+      52% { transform:rotate(0deg); }
+      100%{ transform:rotate(0deg); }
+    }
+
+    /* Batter */
+    .batter-swing { transform-origin: 95px 100px; }
+    .batter-scene.playing .batter-swing {
+      animation: swing 2.1s ease-in-out infinite;
+    }
+    @keyframes swing {
+      0%  { transform:rotate(55deg); }
+      38% { transform:rotate(-118deg); }
+      58% { transform:rotate(-122deg); }
+      100%{ transform:rotate(55deg); }
+    }
+    .batter-ball { opacity:0; }
+    .batter-scene.playing .batter-ball {
+      animation: ballLaunch 2.1s ease-in-out infinite;
+    }
+    @keyframes ballLaunch {
+      0%,33%{ transform:translate(0,0); opacity:0; }
+      38%  { opacity:1; transform:translate(0,0); }
+      66%  { transform:translate(82px,-105px); opacity:0.7; }
+      80%  { transform:translate(102px,-128px); opacity:0; }
+      100% { opacity:0; transform:translate(0,0); }
+    }
+
+    /* Catcher */
+    .catcher-glove-close { transform-origin: 100px 90px; }
+    .catcher-scene.playing .catcher-glove-close {
+      animation: gloveClose 2.3s ease-in-out infinite;
+    }
+    @keyframes gloveClose {
+      0%,42%{ transform:rotate(0deg); }
+      57%  { transform:rotate(-24deg); }
+      76%  { transform:rotate(0deg); }
+      100% { transform:rotate(0deg); }
+    }
+    .catcher-scene.playing .catcher-pitch {
+      animation: pitchDrop 2.3s ease-in-out infinite;
+    }
+    @keyframes pitchDrop {
+      0%  { transform:translate(0,-100px); opacity:0; }
+      14% { opacity:1; }
+      48% { transform:translate(0,0); opacity:1; }
+      58% { opacity:0; }
+      80% { transform:translate(0,-100px); opacity:0; }
+      100%{ transform:translate(0,-100px); opacity:0; }
+    }
+
+    /* Diver */
+    .diver-body { transform-origin: 120px 87px; }
+    .diver-scene.playing .diver-body {
+      animation: dive 2.9s ease-in-out infinite;
+    }
+    @keyframes dive {
+      0%,14%{ transform:rotate(0deg) translate(0,0); }
+      42%  { transform:rotate(-20deg) translate(24px,-18px); }
+      68%  { transform:rotate(-7deg) translate(48px,5px); }
+      86%  { transform:rotate(0deg) translate(52px,12px); }
+      100% { transform:rotate(0deg) translate(0,0); }
+    }
+    .diver-scene.playing .diver-ball {
+      animation: diverCatch 2.9s ease-in-out infinite;
+    }
+    @keyframes diverCatch {
+      0%  { transform:translate(74px,-54px); opacity:1; }
+      38% { transform:translate(37px,-27px); opacity:1; }
+      56% { transform:translate(0,0); opacity:0; }
+      62% { transform:translate(74px,-54px); opacity:0; }
+      82% { opacity:1; }
+      100%{ transform:translate(74px,-54px); opacity:1; }
+    }
+
     /* ── CTA ── */
     .cta-section {
       text-align: center; padding: 7rem 1.5rem;
@@ -652,6 +774,31 @@
       </div>
     </div>
   </div>
+  <!-- 투수 애니메이션 -->
+  <svg viewBox="0 0 200 300" class="baseball-scene pitcher-scene" aria-hidden="true">
+    <rect x="81" y="8" width="38" height="18" rx="8" fill="#4f6ef7" opacity=".9"/>
+    <rect x="72" y="22" width="56" height="6" rx="3" fill="#3b5bdb"/>
+    <circle cx="100" cy="46" r="20" fill="none" stroke="rgba(241,245,249,.75)" stroke-width="2.5"/>
+    <line x1="100" y1="66" x2="100" y2="158" stroke="rgba(241,245,249,.75)" stroke-width="4" stroke-linecap="round"/>
+    <line x1="100" y1="95" x2="58" y2="126" stroke="rgba(241,245,249,.75)" stroke-width="3.5" stroke-linecap="round"/>
+    <ellipse cx="52" cy="131" rx="11" ry="9" fill="rgba(6,214,160,.2)" stroke="#06d6a0" stroke-width="2.5"/>
+    <g class="pitcher-arm">
+      <line x1="100" y1="90" x2="145" y2="72" stroke="rgba(241,245,249,.75)" stroke-width="3.5" stroke-linecap="round"/>
+      <line x1="145" y1="72" x2="160" y2="52" stroke="rgba(241,245,249,.75)" stroke-width="3.5" stroke-linecap="round"/>
+      <g class="pitcher-ball">
+        <circle cx="165" cy="46" r="9" fill="white" opacity=".9"/>
+        <path d="M159,43 Q165,39 171,43" stroke="#ef4444" fill="none" stroke-width="1.3"/>
+        <path d="M159,49 Q165,53 171,49" stroke="#ef4444" fill="none" stroke-width="1.3"/>
+      </g>
+    </g>
+    <line x1="96" y1="158" x2="80" y2="248" stroke="rgba(241,245,249,.75)" stroke-width="4" stroke-linecap="round"/>
+    <line x1="80" y1="248" x2="62" y2="258" stroke="#4f6ef7" stroke-width="5" stroke-linecap="round"/>
+    <g class="pitcher-leg">
+      <line x1="104" y1="158" x2="124" y2="205" stroke="rgba(241,245,249,.75)" stroke-width="4" stroke-linecap="round"/>
+      <line x1="124" y1="205" x2="110" y2="238" stroke="rgba(241,245,249,.75)" stroke-width="4" stroke-linecap="round"/>
+      <line x1="110" y1="238" x2="92" y2="248" stroke="#4f6ef7" stroke-width="5" stroke-linecap="round"/>
+    </g>
+  </svg>
 </section>
 
 <!-- FEATURES -->
@@ -695,6 +842,28 @@
       </div>
     </div>
   </div>
+  <!-- 타자 애니메이션 -->
+  <svg viewBox="0 0 200 300" class="baseball-scene batter-scene" aria-hidden="true">
+    <path d="M78,32 Q95,5 112,32" fill="#3b5bdb"/>
+    <rect x="74" y="28" width="52" height="8" rx="4" fill="#3b5bdb"/>
+    <circle cx="95" cy="45" r="20" fill="none" stroke="rgba(241,245,249,.75)" stroke-width="2.5"/>
+    <line x1="95" y1="65" x2="95" y2="155" stroke="rgba(241,245,249,.75)" stroke-width="4" stroke-linecap="round"/>
+    <line x1="90" y1="155" x2="74" y2="245" stroke="rgba(241,245,249,.75)" stroke-width="4" stroke-linecap="round"/>
+    <line x1="74" y1="245" x2="52" y2="255" stroke="#4f6ef7" stroke-width="5" stroke-linecap="round"/>
+    <line x1="100" y1="155" x2="116" y2="245" stroke="rgba(241,245,249,.75)" stroke-width="4" stroke-linecap="round"/>
+    <line x1="116" y1="245" x2="138" y2="255" stroke="#4f6ef7" stroke-width="5" stroke-linecap="round"/>
+    <g class="batter-swing">
+      <line x1="95" y1="95" x2="68" y2="112" stroke="rgba(241,245,249,.75)" stroke-width="3.5" stroke-linecap="round"/>
+      <line x1="95" y1="95" x2="122" y2="105" stroke="rgba(241,245,249,.75)" stroke-width="3.5" stroke-linecap="round"/>
+      <line x1="90" y1="108" x2="90" y2="198" stroke="#a5b4fc" stroke-width="5" stroke-linecap="round"/>
+      <ellipse cx="90" cy="197" rx="6" ry="4" fill="#818cf8"/>
+    </g>
+    <g class="batter-ball">
+      <circle cx="90" cy="108" r="8" fill="white" opacity=".9"/>
+      <path d="M85,105 Q90,101 95,105" stroke="#ef4444" fill="none" stroke-width="1.3"/>
+      <path d="M85,111 Q90,115 95,111" stroke="#ef4444" fill="none" stroke-width="1.3"/>
+    </g>
+  </svg>
 </section>
 
 <!-- BACKTESTING -->
@@ -754,6 +923,33 @@
       </div>
     </div>
   </div>
+  <!-- 포수 애니메이션 -->
+  <svg viewBox="0 0 200 280" class="baseball-scene catcher-scene" aria-hidden="true">
+    <circle cx="100" cy="38" r="20" fill="none" stroke="rgba(241,245,249,.75)" stroke-width="2.5"/>
+    <line x1="84" y1="28" x2="84" y2="52" stroke="#4f6ef7" stroke-width="1.8"/>
+    <line x1="92" y1="24" x2="92" y2="56" stroke="#4f6ef7" stroke-width="1.8"/>
+    <line x1="100" y1="22" x2="100" y2="58" stroke="#4f6ef7" stroke-width="1.8"/>
+    <line x1="108" y1="24" x2="108" y2="56" stroke="#4f6ef7" stroke-width="1.8"/>
+    <line x1="116" y1="28" x2="116" y2="52" stroke="#4f6ef7" stroke-width="1.8"/>
+    <rect x="80" y="20" width="40" height="6" rx="3" fill="#3b5bdb"/>
+    <line x1="100" y1="58" x2="100" y2="138" stroke="rgba(241,245,249,.75)" stroke-width="4" stroke-linecap="round"/>
+    <line x1="95" y1="138" x2="68" y2="188" stroke="rgba(241,245,249,.75)" stroke-width="4" stroke-linecap="round"/>
+    <line x1="68" y1="188" x2="58" y2="228" stroke="rgba(241,245,249,.75)" stroke-width="4" stroke-linecap="round"/>
+    <line x1="58" y1="228" x2="42" y2="238" stroke="#4f6ef7" stroke-width="5" stroke-linecap="round"/>
+    <line x1="105" y1="138" x2="132" y2="188" stroke="rgba(241,245,249,.75)" stroke-width="4" stroke-linecap="round"/>
+    <line x1="132" y1="188" x2="142" y2="228" stroke="rgba(241,245,249,.75)" stroke-width="4" stroke-linecap="round"/>
+    <line x1="142" y1="228" x2="158" y2="238" stroke="#4f6ef7" stroke-width="5" stroke-linecap="round"/>
+    <line x1="100" y1="90" x2="58" y2="118" stroke="rgba(241,245,249,.75)" stroke-width="3.5" stroke-linecap="round"/>
+    <g class="catcher-glove-close">
+      <line x1="100" y1="90" x2="150" y2="148" stroke="rgba(241,245,249,.75)" stroke-width="3.5" stroke-linecap="round"/>
+      <ellipse cx="158" cy="155" rx="13" ry="10" fill="rgba(6,214,160,.2)" stroke="#06d6a0" stroke-width="2.5"/>
+    </g>
+    <g class="catcher-pitch">
+      <circle cx="158" cy="155" r="9" fill="white" opacity=".9"/>
+      <path d="M152,152 Q158,148 164,152" stroke="#ef4444" fill="none" stroke-width="1.3"/>
+      <path d="M152,158 Q158,162 164,158" stroke="#ef4444" fill="none" stroke-width="1.3"/>
+    </g>
+  </svg>
 </section>
 
 <!-- ACCURACY -->
@@ -868,6 +1064,27 @@
       </div>
     </div>
   </div>
+  <!-- 다이빙 캐치 애니메이션 -->
+  <svg viewBox="0 0 250 200" class="baseball-scene diver-scene" aria-hidden="true">
+    <g class="diver-body">
+      <rect x="48" y="52" width="34" height="16" rx="6" fill="#4f6ef7" opacity=".9"/>
+      <rect x="42" y="64" width="46" height="6" rx="3" fill="#3b5bdb"/>
+      <circle cx="65" cy="78" r="17" fill="none" stroke="rgba(241,245,249,.75)" stroke-width="2.5"/>
+      <line x1="82" y1="82" x2="158" y2="92" stroke="rgba(241,245,249,.75)" stroke-width="4" stroke-linecap="round"/>
+      <line x1="82" y1="82" x2="46" y2="97" stroke="rgba(241,245,249,.75)" stroke-width="3.5" stroke-linecap="round"/>
+      <ellipse cx="36" cy="102" rx="13" ry="10" fill="rgba(6,214,160,.2)" stroke="#06d6a0" stroke-width="2.5"/>
+      <line x1="118" y1="87" x2="148" y2="75" stroke="rgba(241,245,249,.75)" stroke-width="3.5" stroke-linecap="round"/>
+      <line x1="158" y1="92" x2="196" y2="76" stroke="rgba(241,245,249,.75)" stroke-width="4" stroke-linecap="round"/>
+      <line x1="162" y1="94" x2="200" y2="112" stroke="rgba(241,245,249,.75)" stroke-width="4" stroke-linecap="round"/>
+      <line x1="196" y1="76" x2="210" y2="67" stroke="#4f6ef7" stroke-width="5" stroke-linecap="round"/>
+      <line x1="200" y1="112" x2="215" y2="120" stroke="#4f6ef7" stroke-width="5" stroke-linecap="round"/>
+    </g>
+    <g class="diver-ball">
+      <circle cx="36" cy="102" r="9" fill="white" opacity=".9"/>
+      <path d="M30,99 Q36,95 42,99" stroke="#ef4444" fill="none" stroke-width="1.3"/>
+      <path d="M30,105 Q36,109 42,105" stroke="#ef4444" fill="none" stroke-width="1.3"/>
+    </g>
+  </svg>
 </section>
 
 <!-- CTA -->
@@ -1066,6 +1283,18 @@
     });
   }, { threshold: 0.3 });
   document.querySelectorAll('.stat-card').forEach(el => statIo.observe(el));
+
+  /* ── Baseball scene trigger ── */
+  const sceneIo = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      const scene = e.target.querySelector('.baseball-scene');
+      if (!scene) return;
+      if (e.isIntersecting) scene.classList.add('playing');
+      else scene.classList.remove('playing');
+    });
+  }, { threshold: 0.25 });
+  document.querySelectorAll('.how, #features, .backtest, .accuracy-section')
+    .forEach(el => sceneIo.observe(el));
 
   /* Bar animation */
   const barIo = new IntersectionObserver((entries) => {
