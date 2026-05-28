@@ -508,19 +508,25 @@
       position: absolute; pointer-events: none; z-index: 0;
       opacity: 0; transition: opacity 1s ease;
     }
-    .baseball-scene.playing { opacity: 1; }
+    .baseball-scene.playing { opacity: .8; }
 
-    .how              { position: relative; overflow: hidden; }
-    #features         { position: relative; overflow: hidden; }
-    .backtest         { position: relative; overflow: hidden; }
-    .accuracy-section { position: relative; overflow: hidden; }
+    .how              { position: relative; }
+    #features         { position: relative; }
+    .backtest         { position: relative; }
+    .accuracy-section { position: relative; }
 
-    .how .pitcher-scene        { right: -10px; bottom: 0;    width: 170px; }
-    #features .batter-scene    { right: -10px; top: 50%;     width: 165px; transform: translateY(-50%); }
-    .backtest .catcher-scene   { right: -10px; bottom: 10px; width: 170px; }
-    .accuracy-section .diver-scene { right: -10px; bottom: 20px; width: 220px; }
+    /* section-inner를 figures보다 위로 */
+    .how .section-inner,
+    #features .section-inner,
+    .backtest .section-inner,
+    .accuracy-section .section-inner { position: relative; z-index: 1; }
 
-    @media (max-width: 1260px) { .baseball-scene { display: none; } }
+    .how .pitcher-scene        { right: 20px; bottom: 0;    width: 160px; }
+    #features .batter-scene    { right: 20px; top: 50%;     width: 155px; transform: translateY(-50%); }
+    .backtest .catcher-scene   { right: 20px; bottom: 15px; width: 160px; }
+    .accuracy-section .diver-scene { right: 15px; bottom: 25px; width: 210px; }
+
+    @media (max-width: 880px) { .baseball-scene { display: none; } }
 
     /* Pitcher */
     .pitcher-arm { transform-origin: 100px 90px; }
