@@ -1114,219 +1114,214 @@
   (function() {
     if (typeof THREE === 'undefined') return;
 
-    const N = 700;
+    const N = 2000;
+    const S = 2.2; /* figure scale — multiply all coords before storing */
 
-    /* point cloud helpers */
+    /* ── helpers ── */
     function sph(cx, cy, cz, r, n) {
       const pts = [];
       for (let i = 0; i < n; i++) {
         const u = Math.random() * 2 * Math.PI;
         const v = Math.acos(2 * Math.random() - 1);
         const rr = r * Math.cbrt(Math.random());
-        pts.push(
-          cx + rr * Math.sin(v) * Math.cos(u),
-          cy + rr * Math.sin(v) * Math.sin(u),
-          cz + rr * Math.cos(v)
-        );
+        pts.push(cx + rr*Math.sin(v)*Math.cos(u), cy + rr*Math.sin(v)*Math.sin(u), cz + rr*Math.cos(v));
       }
       return pts;
     }
-
-    function seg(x1, y1, z1, x2, y2, z2, r, n) {
+    function seg(x1,y1,z1, x2,y2,z2, r, n) {
       const pts = [];
       for (let i = 0; i < n; i++) {
         const t = Math.random();
-        const mx = x1 + (x2 - x1) * t;
-        const my = y1 + (y2 - y1) * t;
-        const mz = z1 + (z2 - z1) * t;
-        const ang = Math.random() * 2 * Math.PI;
-        const rr = r * Math.sqrt(Math.random());
-        pts.push(mx + rr * Math.cos(ang), my + rr * Math.sin(ang), mz + (Math.random() - .5) * r);
+        const mx = x1+(x2-x1)*t, my = y1+(y2-y1)*t, mz = z1+(z2-z1)*t;
+        const ang = Math.random()*2*Math.PI, rr = r*Math.sqrt(Math.random());
+        pts.push(mx+rr*Math.cos(ang), my+rr*Math.sin(ang), mz+(Math.random()-.5)*r);
       }
       return pts;
     }
-
     function fill(parts, target) {
       let all = [];
       parts.forEach(p => { all = all.concat(p); });
-      const count = all.length / 3;
-      while (all.length / 3 < target) {
-        const i = Math.floor(Math.random() * count) * 3;
-        all.push(all[i] + (Math.random()-.5)*.2, all[i+1] + (Math.random()-.5)*.2, all[i+2] + (Math.random()-.5)*.2);
+      const count = all.length/3;
+      while (all.length/3 < target) {
+        const i = Math.floor(Math.random()*count)*3;
+        all.push(all[i]+(Math.random()-.5)*.12, all[i+1]+(Math.random()-.5)*.12, all[i+2]+(Math.random()-.5)*.12);
       }
-      return new Float32Array(all.slice(0, target * 3));
+      const arr = new Float32Array(all.slice(0, target*3));
+      for (let i = 0; i < arr.length; i++) arr[i] *= S; /* apply scale */
+      return arr;
     }
 
-    /* ── POSE DEFINITIONS ── */
-
-    /* PITCHER: follow-through — throwing arm released forward-low, kick leg raised */
+    /* ── POSES ── */
     function makePitcher() {
       return fill([
-        sph(0, 1.7, 0, .18, 55),
-        seg(0,1.5,0, 0,.6,0, .09, 30),
-        seg(0,1.3,.05, .5,1.0,.2, .07, 25),
-        seg(.5,1.0,.2, .7,.6,.3, .07, 20),
-        sph(.72,.55,.32, .06, 10),
-        seg(0,1.3,-.05, -.35,1.1,-.1, .07, 20),
-        seg(-.35,1.1,-.1, -.5,.9,-.15, .07, 15),
-        seg(-.07,.6,0, -.1,0,0, .09, 25),
-        seg(-.1,0,0, -.12,-.05,.18, .07, 15),
-        seg(.07,.6,0, .25,.2,.1, .09, 25),
-        seg(.25,.2,.1, .15,-.1,.05, .08, 20),
-        sph(0,.8,.05, .35, 20)
+        sph(0,1.7,0, .19,90),
+        seg(0,1.5,0, 0,.6,0, .11,55),
+        seg(0,1.3,.05, .5,1.0,.2, .09,45),
+        seg(.5,1.0,.2, .72,.58,.32, .08,35),
+        sph(.74,.54,.33, .08,22),
+        seg(0,1.3,-.05, -.38,1.1,-.1, .09,38),
+        seg(-.38,1.1,-.1, -.52,.88,-.16, .08,28),
+        seg(-.07,.6,0, -.1,0,0, .11,45),
+        seg(-.1,0,0, -.13,-.06,.2, .08,22),
+        seg(.07,.6,0, .28,.18,.14, .11,45),
+        seg(.28,.18,.14, .16,-.12,.06, .09,32),
+        sph(0,.88,.05, .38,35)
       ], N);
     }
 
-    /* BATTER READY (Image 1): Loading stance — bat behind head, looking toward pitcher */
     function makeBatterReady() {
       return fill([
-        sph(0.05, 1.72, 0.05, .18, 55),
-        seg(0.05, 1.52, 0.05, 0, .55, 0, .09, 35),
-        /* right arm: up and back to bat handle */
-        seg(0.05, 1.35, 0.05, 0.32, 1.5, -0.12, .07, 22),
-        seg(0.32, 1.5, -0.12, 0.18, 1.62, -0.06, .06, 15),
-        /* left arm: raised to bat handle */
-        seg(0.05, 1.35, 0.05, -0.18, 1.42, 0.1, .07, 18),
-        seg(-0.18, 1.42, 0.1, 0.14, 1.62, -0.06, .06, 15),
-        /* bat: hands → barrel angling up-back */
-        seg(0.14, 1.62, -0.06, 0.44, 2.18, -0.38, .038, 32),
-        /* front leg: stride toward pitcher */
-        seg(-0.08, .55, 0, -0.18, 0, 0.22, .09, 25),
-        seg(-0.18, 0, 0.22, -0.20, -0.05, 0.32, .07, 14),
-        /* back leg: weight-bearing */
-        seg(0.08, .55, 0, 0.22, 0, -0.12, .09, 25),
-        seg(0.22, 0, -0.12, 0.24, -0.05, -0.22, .07, 14),
-        sph(0.05, 1.0, 0, .28, 18)
+        sph(0.05,1.72,0.05, .19,90),
+        seg(0.05,1.52,0.05, 0,.55,0, .11,55),
+        seg(0.05,1.35,0.05, 0.32,1.5,-0.12, .09,40),
+        seg(0.32,1.5,-0.12, 0.18,1.62,-0.06, .07,22),
+        seg(0.05,1.35,0.05, -0.18,1.42,0.1, .09,35),
+        seg(-0.18,1.42,0.1, 0.14,1.62,-0.06, .07,22),
+        seg(0.14,1.62,-0.06, 0.46,2.2,-0.4, .05,50),
+        seg(-0.08,.55,0, -0.18,0,0.22, .11,45),
+        seg(-0.18,0,0.22, -0.20,-.05,0.32, .08,18),
+        seg(0.08,.55,0, 0.22,0,-0.12, .11,45),
+        seg(0.22,0,-0.12, 0.24,-.05,-0.22, .08,18),
+        sph(0.05,1.0,0, .3,30)
       ], N);
     }
 
-    /* BATTER CONTACT (Image 2): Bat meets ball — arms extended, hips fully rotated */
     function makeBatterContact() {
       return fill([
-        sph(0.02, 1.68, 0.18, .18, 55),
-        seg(0.02, 1.5, 0.15, 0, .52, 0, .1, 35),
-        /* right arm extended toward contact */
-        seg(0.1, 1.28, 0.12, -0.28, 1.12, 0.38, .08, 25),
-        /* left arm extended */
-        seg(-0.28, 1.12, 0.38, -0.52, 1.0, 0.5, .07, 20),
-        /* bat: horizontal through zone */
-        seg(-0.52, 1.0, 0.5, -1.12, 0.9, 0.65, .038, 32),
-        /* ball at contact point */
-        sph(-1.14, 0.9, 0.66, .09, 18),
-        /* front leg planted */
-        seg(-0.1, .52, 0, -0.2, 0, 0.18, .1, 25),
-        seg(-0.2, 0, 0.18, -0.22, -0.05, 0.28, .07, 14),
-        /* back leg: heel pivoting */
-        seg(0.1, .52, 0, 0.22, 0, -0.12, .1, 25),
-        seg(0.22, 0, -0.12, 0.24, -0.05, -0.22, .07, 14),
-        sph(0, 1.0, 0.1, .28, 18)
+        sph(0.02,1.68,0.18, .19,90),
+        seg(0.02,1.5,0.15, 0,.52,0, .12,55),
+        seg(0.1,1.28,0.12, -0.28,1.12,0.38, .1,50),
+        seg(-0.28,1.12,0.38, -0.52,1.0,0.5, .09,38),
+        seg(-0.52,1.0,0.5, -1.15,0.9,0.66, .05,55),
+        sph(-1.17,0.9,0.67, .11,30),
+        seg(-0.1,.52,0, -0.2,0,0.18, .12,45),
+        seg(-0.2,0,0.18, -0.22,-.05,0.28, .08,18),
+        seg(0.1,.52,0, 0.22,0,-0.12, .12,45),
+        seg(0.22,0,-0.12, 0.24,-.05,-0.22, .08,18),
+        sph(0,1.0,0.1, .3,30)
       ], N);
     }
 
-    /* BATTER FOLLOW-THROUGH (Image 3): Full swing — back knee down, bat wrapped high */
     function makeBatterFollowThrough() {
       return fill([
-        sph(0.08, 1.62, 0.2, .18, 55),
-        seg(0.05, 1.45, 0.15, 0, .45, 0, .1, 35),
-        /* both arms wrapped high */
-        seg(0.08, 1.28, 0.15, 0.42, 1.45, -0.08, .08, 22),
-        seg(-0.05, 1.22, 0.12, 0.42, 1.45, -0.08, .07, 18),
-        /* bat: high wrap-around follow-through */
-        seg(0.42, 1.45, -0.08, 0.72, 1.88, -0.28, .038, 25),
-        seg(0.72, 1.88, -0.28, 0.88, 2.14, -0.4, .03, 20),
-        /* front leg: straight, pivoted on ball of foot */
-        seg(-0.12, .45, 0.05, -0.22, 0, 0.22, .1, 25),
-        seg(-0.22, 0, 0.22, -0.24, -0.05, 0.32, .07, 14),
-        /* back leg: knee down on ground */
-        seg(0.12, .45, 0, 0.28, 0.18, -0.1, .1, 22),
-        seg(0.28, 0.18, -0.1, 0.3, -0.02, -0.02, .08, 18),
-        sph(0.3, -0.02, -0.02, .12, 22),
-        sph(0.05, .95, 0.05, .28, 18)
+        sph(0.08,1.62,0.2, .19,90),
+        seg(0.05,1.45,0.15, 0,.45,0, .12,55),
+        seg(0.08,1.28,0.15, 0.42,1.45,-0.08, .1,40),
+        seg(-0.05,1.22,0.12, 0.42,1.45,-0.08, .09,32),
+        seg(0.42,1.45,-0.08, 0.74,1.9,-0.3, .05,40),
+        seg(0.74,1.9,-0.3, 0.9,2.16,-0.42, .04,32),
+        seg(-0.12,.45,0.05, -0.22,0,0.22, .12,45),
+        seg(-0.22,0,0.22, -0.24,-.05,0.32, .08,18),
+        seg(0.12,.45,0, 0.28,0.18,-0.1, .12,40),
+        seg(0.28,0.18,-0.1, 0.3,-0.02,-0.02, .09,28),
+        sph(0.3,-0.02,-0.02, .14,30),
+        sph(0.05,.95,0.05, .3,30)
       ], N);
     }
 
     const POSES = [makePitcher(), makeBatterReady(), makeBatterContact(), makeBatterFollowThrough()];
-    const LABELS = ['PITCHER', 'READY', 'CONTACT', 'FOLLOW-THROUGH'];
+    const LABELS = ['PITCHER','READY','CONTACT','FOLLOW-THROUGH'];
 
-    /* Three.js setup */
+    /* ── Three.js setup ── */
     const canvas3d = document.getElementById('scene-canvas');
-    const renderer = new THREE.WebGLRenderer({ canvas: canvas3d, alpha: true, antialias: true });
+    const renderer = new THREE.WebGLRenderer({canvas: canvas3d, alpha: true, antialias: true});
     renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
     renderer.setSize(window.innerWidth, window.innerHeight);
 
     const scene = new THREE.Scene();
-    const camera = new THREE.PerspectiveCamera(55, window.innerWidth / window.innerHeight, .01, 100);
-    camera.position.set(0, .6, 3.8);
+    const camera = new THREE.PerspectiveCamera(52, window.innerWidth/window.innerHeight, .01, 200);
+    camera.position.set(0, 2.2, 7.5);
 
-    /* geometry */
     const geo = new THREE.BufferGeometry();
-    const pos = new Float32Array(N * 3);
+    const pos = new Float32Array(N*3);
     const posAttr = new THREE.BufferAttribute(pos, 3);
     geo.setAttribute('position', posAttr);
 
-    /* init: scatter particles randomly */
-    for (let i = 0; i < N * 3; i++) pos[i] = (Math.random() - .5) * 5;
+    /* vertex colors: blue (legs) → orange (torso/arms) → warm white (head) */
+    const cols = new Float32Array(N*3);
+    const colAttr = new THREE.BufferAttribute(cols, 3);
+    geo.setAttribute('color', colAttr);
+    (function() {
+      const p0 = POSES[0];
+      const yTop = 1.7*S, yBot = -0.12*S;
+      for (let i = 0; i < N; i++) {
+        const y = p0[i*3+1];
+        const t = Math.max(0, Math.min(1, (y - yBot) / (yTop - yBot)));
+        const sp = Math.random();
+        let r, g, b;
+        if (t < 0.3) {          /* legs: deep blue */
+          const u = t/0.3;
+          r = 0.08 + u*0.12 + sp*0.08;
+          g = 0.22 + u*0.28 + sp*0.08;
+          b = 0.82 + sp*0.18;
+        } else if (t < 0.72) {  /* torso/arms: blue → orange */
+          const u = (t-0.3)/0.42;
+          r = 0.20 + u*0.82 + sp*0.08;
+          g = 0.50 - u*0.05 + sp*0.08;
+          b = 0.82 - u*0.74 + sp*0.05;
+        } else {                /* head: orange → warm white */
+          const u = (t-0.72)/0.28;
+          r = 1.0;
+          g = 0.45 + u*0.45 + sp*0.08;
+          b = 0.08 + u*0.55 + sp*0.08;
+        }
+        if (sp > 0.94) { r = 1; g = 1; b = 1; } /* bright sparkle */
+        cols[i*3]   = Math.min(1, r);
+        cols[i*3+1] = Math.min(1, g);
+        cols[i*3+2] = Math.min(1, b);
+      }
+    })();
+
+    /* scatter on init */
+    for (let i = 0; i < N*3; i++) pos[i] = (Math.random()-.5)*14;
 
     const mat = new THREE.PointsMaterial({
-      size: .028,
-      color: 0x7b9fff,
+      size: 0.055,
+      vertexColors: true,
       transparent: true,
-      opacity: .85,
+      opacity: .9,
       sizeAttenuation: true,
       depthWrite: false
     });
     const points = new THREE.Points(geo, mat);
     scene.add(points);
 
-    /* spring velocity for each particle */
-    const vel = new Float32Array(N * 3);
-
-    /* scroll state */
-    let currentPose = 0;
+    const vel = new Float32Array(N*3);
     let scrollFrac = 0;
     const poseLabel = document.getElementById('pose-label');
 
     function getScrollFrac() {
       const docH = document.documentElement.scrollHeight - window.innerHeight;
-      return docH > 0 ? Math.min(window.scrollY / docH, 1) : 0;
+      return docH > 0 ? Math.min(window.scrollY/docH, 1) : 0;
     }
-
     function lerpTarget(sf) {
-      const t = sf * (POSES.length - 1);
-      const lo = Math.floor(t);
-      const hi = Math.min(lo + 1, POSES.length - 1);
-      const a = t - lo;
-      const result = new Float32Array(N * 3);
+      const t = sf*(POSES.length-1);
+      const lo = Math.floor(t), hi = Math.min(lo+1, POSES.length-1);
+      const a = t-lo;
+      const result = new Float32Array(N*3);
       const A = POSES[lo], B = POSES[hi];
-      for (let i = 0; i < N * 3; i++) result[i] = A[i] + (B[i] - A[i]) * a;
+      for (let i = 0; i < N*3; i++) result[i] = A[i]+(B[i]-A[i])*a;
       return result;
     }
 
     let lastLabel = -1;
-
     function animate() {
       requestAnimationFrame(animate);
-
       scrollFrac = getScrollFrac();
       const target = lerpTarget(scrollFrac);
-
-      /* spring physics */
-      const k = 0.045, damp = 0.82;
-      for (let i = 0; i < N * 3; i++) {
-        const f = (target[i] - pos[i]) * k;
-        vel[i] = vel[i] * damp + f;
+      const k = 0.048, damp = 0.80;
+      for (let i = 0; i < N*3; i++) {
+        vel[i] = vel[i]*damp + (target[i]-pos[i])*k;
         pos[i] += vel[i];
       }
       posAttr.needsUpdate = true;
 
-      /* slow camera rotation */
-      const t = Date.now() * .0003;
-      camera.position.x = Math.sin(t) * .3;
-      camera.position.y = .6 + Math.cos(t * .7) * .1;
-      camera.lookAt(0, .5, 0);
+      const tc = Date.now()*.00022;
+      camera.position.x = Math.sin(tc)*.55;
+      camera.position.y = 2.2 + Math.cos(tc*.65)*.18;
+      camera.lookAt(0, 1.8, 0);
 
-      /* pose label */
-      const pIdx = Math.round(scrollFrac * (POSES.length - 1));
+      const pIdx = Math.round(scrollFrac*(POSES.length-1));
       if (pIdx !== lastLabel) {
         lastLabel = pIdx;
         poseLabel.textContent = LABELS[pIdx];
@@ -1334,13 +1329,12 @@
         clearTimeout(poseLabel._t);
         poseLabel._t = setTimeout(() => poseLabel.classList.remove('show'), 1800);
       }
-
       renderer.render(scene, camera);
     }
 
     window.addEventListener('resize', () => {
       renderer.setSize(window.innerWidth, window.innerHeight);
-      camera.aspect = window.innerWidth / window.innerHeight;
+      camera.aspect = window.innerWidth/window.innerHeight;
       camera.updateProjectionMatrix();
     });
 
