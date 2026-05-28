@@ -312,34 +312,88 @@
     .bt-result-card .value { font-size: 1.6rem; font-weight: 800; background: linear-gradient(135deg, var(--accent), var(--accent2)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
     .bt-result-card .desc { font-size: .82rem; color: var(--muted); margin-top: .3rem; line-height: 1.5; }
 
-    /* ── ACCURACY BAR ── */
+    /* ── ACCURACY ── */
     .accuracy-section { background: var(--bg2); }
-    .accuracy-wrap {
-      display: grid; grid-template-columns: 1fr 1fr;
-      gap: 4rem; align-items: center; margin-top: 3rem;
+
+    .perf-kpi {
+      display: grid; grid-template-columns: repeat(auto-fit, minmax(200px,1fr));
+      gap: 1rem; margin-top: 3rem;
     }
-    @media(max-width:680px){ .accuracy-wrap{ grid-template-columns:1fr; gap:2rem; } }
-    .bar-group { margin-bottom: 1.5rem; }
-    .bar-label { display: flex; justify-content: space-between; margin-bottom: .5rem; }
-    .bar-label span:first-child { font-size: .9rem; font-weight: 600; }
-    .bar-label span:last-child { font-size: .9rem; color: var(--accent); font-weight: 700; }
+    .kpi-card {
+      padding: 1.6rem 1.8rem; border-radius: 14px;
+      background: var(--card); border: 1px solid var(--border);
+      position: relative; overflow: hidden;
+      opacity: 0; transform: translateY(20px);
+      transition: opacity .5s, transform .5s, border-color .3s;
+    }
+    .kpi-card.visible { opacity: 1; transform: none; }
+    .kpi-card:hover { border-color: rgba(79,110,247,.4); }
+    .kpi-card::before {
+      content: ''; position: absolute; top: 0; left: 0; right: 0; height: 2px;
+      background: linear-gradient(90deg, var(--accent), var(--accent2));
+      opacity: 0; transition: opacity .3s;
+    }
+    .kpi-card:hover::before { opacity: 1; }
+    .kpi-label { font-size: .72rem; font-weight: 700; letter-spacing: 1.2px; text-transform: uppercase; color: var(--muted); margin-bottom: .6rem; }
+    .kpi-value { font-size: 2.2rem; font-weight: 900; line-height: 1; background: linear-gradient(135deg, var(--accent), var(--accent2)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+    .kpi-sub { font-size: .78rem; color: var(--muted); margin-top: .4rem; }
+    .kpi-badge {
+      display: inline-block; margin-top: .6rem;
+      padding: .25rem .7rem; border-radius: 99px; font-size: .7rem; font-weight: 700;
+    }
+    .kpi-badge.up { background: rgba(6,214,160,.12); color: var(--accent2); border: 1px solid rgba(6,214,160,.25); }
+    .kpi-badge.neutral { background: rgba(79,110,247,.1); color: #a5b4fc; border: 1px solid rgba(79,110,247,.2); }
+
+    .perf-body {
+      display: grid; grid-template-columns: 1fr 1fr;
+      gap: 2.5rem; margin-top: 2rem; align-items: start;
+    }
+    @media(max-width:700px){ .perf-body{ grid-template-columns:1fr; } }
+
+    .perf-panel {
+      background: var(--card); border: 1px solid var(--border);
+      border-radius: 16px; padding: 2rem;
+      opacity: 0; transform: translateY(20px);
+      transition: opacity .5s, transform .5s;
+    }
+    .perf-panel.visible { opacity: 1; transform: none; }
+    .perf-panel h4 { font-size: .8rem; font-weight: 700; text-transform: uppercase; letter-spacing: 1px; color: var(--muted); margin-bottom: 1.4rem; }
+
+    .bar-group { margin-bottom: 1.4rem; }
+    .bar-label { display: flex; justify-content: space-between; align-items: center; margin-bottom: .5rem; }
+    .bar-label span:first-child { font-size: .88rem; font-weight: 600; }
+    .bar-label .bar-pct { font-size: .88rem; color: var(--accent); font-weight: 700; }
+    .bar-label .bar-cnt { font-size: .75rem; color: var(--muted); }
     .bar-track {
-      height: 8px; border-radius: 99px;
+      height: 7px; border-radius: 99px;
       background: rgba(255,255,255,.07); overflow: hidden;
     }
     .bar-fill {
       height: 100%; border-radius: 99px;
       background: linear-gradient(90deg, var(--accent), var(--accent2));
-      width: 0; transition: width 1.2s cubic-bezier(.4,0,.2,1);
+      width: 0; transition: width 1.3s cubic-bezier(.4,0,.2,1);
     }
-    .accuracy-text { font-size: .9rem; color: var(--muted); line-height: 1.7; }
-    .accuracy-text strong { color: var(--text); }
-    .accuracy-highlight {
-      display: inline-block; margin-top: 1rem;
-      padding: .6rem 1.2rem; border-radius: 10px;
-      background: rgba(6,214,160,.1); border: 1px solid rgba(6,214,160,.25);
-      font-size: .88rem; color: var(--accent2); font-weight: 600;
+    .bar-fill.grey { background: rgba(255,255,255,.18); }
+    .bar-fill.dim  { background: linear-gradient(90deg, rgba(79,110,247,.5), rgba(6,214,160,.4)); }
+
+    .dir-compare {
+      display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin-top: .5rem;
     }
+    .dir-box {
+      padding: 1.2rem; border-radius: 12px; text-align: center;
+      border: 1px solid var(--border); background: rgba(255,255,255,.02);
+    }
+    .dir-box .dir-icon { font-size: 1.4rem; margin-bottom: .4rem; }
+    .dir-box .dir-val { font-size: 1.5rem; font-weight: 800; background: linear-gradient(135deg, var(--accent), var(--accent2)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+    .dir-box .dir-label { font-size: .75rem; color: var(--muted); margin-top: .2rem; }
+    .dir-box .dir-cnt { font-size: .7rem; color: rgba(148,163,184,.6); }
+
+    .insight-box {
+      margin-top: 1.4rem; padding: 1rem 1.2rem; border-radius: 10px;
+      background: rgba(6,214,160,.06); border: 1px solid rgba(6,214,160,.2);
+      font-size: .82rem; color: var(--muted); line-height: 1.6;
+    }
+    .insight-box strong { color: var(--accent2); }
 
     /* ── CTA ── */
     .cta-section {
@@ -578,28 +632,109 @@
     <div class="reveal">
       <span class="section-tag">Performance</span>
       <h2 class="section-title">측정된 성과</h2>
+      <p class="section-desc">2026 KBO 시즌 실측 데이터 기반 · 실시간 업데이트 중</p>
     </div>
-    <div class="accuracy-wrap">
-      <div class="reveal" style="transition-delay:.1s">
+
+    <!-- KPI 카드 -->
+    <div class="perf-kpi">
+      <div class="kpi-card">
+        <div class="kpi-label">전체 예측 정확도</div>
+        <div class="kpi-value">51.4%</div>
+        <div class="kpi-sub">177건 예측 중 91건 적중</div>
+        <span class="kpi-badge up">▲ 베이스라인 +1.4%p</span>
+      </div>
+      <div class="kpi-card" style="transition-delay:.08s">
+        <div class="kpi-label">HOME팀 예측 적중률</div>
+        <div class="kpi-value">53.7%</div>
+        <div class="kpi-sub">95건 예측</div>
+        <span class="kpi-badge up">▲ 홈 우세 패턴 반영</span>
+      </div>
+      <div class="kpi-card" style="transition-delay:.16s">
+        <div class="kpi-label">AWAY팀 예측 적중률</div>
+        <div class="kpi-value">48.8%</div>
+        <div class="kpi-sub">82건 예측</div>
+        <span class="kpi-badge neutral">배당 역전 패턴 포착</span>
+      </div>
+      <div class="kpi-card" style="transition-delay:.24s">
+        <div class="kpi-label">PASS 처리 비율</div>
+        <div class="kpi-value">20.3%</div>
+        <div class="kpi-sub">222경기 중 45건 PASS</div>
+        <span class="kpi-badge neutral">저신뢰 경기 자동 제외</span>
+      </div>
+    </div>
+
+    <!-- 신뢰도별 · HOME/AWAY 패널 -->
+    <div class="perf-body">
+      <div class="perf-panel">
+        <h4>신뢰도 구간별 정확도</h4>
         <div class="bar-group">
-          <div class="bar-label"><span>KBO Predictor</span><span>51.4%</span></div>
-          <div class="bar-track"><div class="bar-fill" data-width="51.4"></div></div>
+          <div class="bar-label">
+            <span>저신뢰 (0.5 ~ 0.7)</span>
+            <span class="bar-pct">55.6%</span>
+            <span class="bar-cnt">36건</span>
+          </div>
+          <div class="bar-track"><div class="bar-fill" data-width="55.6"></div></div>
         </div>
         <div class="bar-group">
-          <div class="bar-label"><span>랜덤 베이스라인</span><span>50.0%</span></div>
-          <div class="bar-track"><div class="bar-fill" data-width="50" style="background: rgba(255,255,255,.2)"></div></div>
+          <div class="bar-label">
+            <span>중신뢰 (0.7 ~ 0.85)</span>
+            <span class="bar-pct">51.4%</span>
+            <span class="bar-cnt">72건</span>
+          </div>
+          <div class="bar-track"><div class="bar-fill dim" data-width="51.4"></div></div>
         </div>
         <div class="bar-group">
-          <div class="bar-label"><span>고신뢰 예측 (≥0.85)</span><span>진행 중</span></div>
-          <div class="bar-track"><div class="bar-fill" data-width="55" style="opacity:.5"></div></div>
+          <div class="bar-label">
+            <span>고신뢰 (0.85+)</span>
+            <span class="bar-pct">49.3%</span>
+            <span class="bar-cnt">69건</span>
+          </div>
+          <div class="bar-track"><div class="bar-fill dim" data-width="49.3"></div></div>
+        </div>
+        <div class="bar-group" style="margin-top:1.8rem">
+          <div class="bar-label">
+            <span>랜덤 베이스라인</span>
+            <span class="bar-pct">50.0%</span>
+          </div>
+          <div class="bar-track"><div class="bar-fill grey" data-width="50"></div></div>
+        </div>
+        <div class="insight-box">
+          신뢰도 임계값이 높을수록 예측 수는 줄지만, <strong>저신뢰 구간(0.5~0.7)에서 55.6%</strong>로 가장 높은 적중률을 보입니다. 신뢰도 점수 보정이 진행 중입니다.
         </div>
       </div>
-      <div class="accuracy-text reveal" style="transition-delay:.2s">
-        <strong>222경기</strong>를 분석해 <strong>177건</strong>의 예측을 수행했습니다.<br><br>
-        현재 전체 정확도는 <strong>51.4%</strong>로, 랜덤 베이스라인(50%) 대비 향상된 수치입니다.
-        신뢰도 임계값을 높일수록 예측 수는 줄지만 정밀도가 향상되는 경향을 보입니다.<br><br>
-        배당 패턴 데이터가 축적될수록 모델 성능은 지속적으로 개선됩니다.
-        <div class="accuracy-highlight">📅 2026 시즌 실시간 추적 중</div>
+
+      <div class="perf-panel" style="transition-delay:.12s">
+        <h4>예측 방향별 비교</h4>
+        <div class="dir-compare">
+          <div class="dir-box">
+            <div class="dir-icon">🏠</div>
+            <div class="dir-val">53.7%</div>
+            <div class="dir-label">HOME 예측</div>
+            <div class="dir-cnt">95건</div>
+          </div>
+          <div class="dir-box">
+            <div class="dir-icon">✈️</div>
+            <div class="dir-val">48.8%</div>
+            <div class="dir-label">AWAY 예측</div>
+            <div class="dir-cnt">82건</div>
+          </div>
+        </div>
+        <div class="insight-box" style="margin-top:1.2rem">
+          HOME 예측이 <strong>+4.9%p</strong> 더 높은 적중률을 기록합니다. 홈 경기장 이점을 배당 흐름이 반영하는 경향을 시스템이 포착하고 있습니다.
+        </div>
+
+        <h4 style="margin-top:1.8rem">분석 현황</h4>
+        <div class="bar-group">
+          <div class="bar-label"><span>예측 수행</span><span class="bar-pct">177건</span></div>
+          <div class="bar-track"><div class="bar-fill" data-width="79.7"></div></div>
+        </div>
+        <div class="bar-group">
+          <div class="bar-label"><span>PASS 처리</span><span class="bar-pct">45건</span></div>
+          <div class="bar-track"><div class="bar-fill grey" data-width="20.3"></div></div>
+        </div>
+        <div class="insight-box">
+          <strong>2026 시즌 실시간 추적 중</strong> — 매일 22:30 KST 자동 업데이트
+        </div>
       </div>
     </div>
   </div>
@@ -633,7 +768,7 @@
     });
   }, { threshold: 0.12 });
 
-  document.querySelectorAll('.stat-card, .step, .feature-card, .reveal, .bt-step, .bt-result-card').forEach(el => io.observe(el));
+  document.querySelectorAll('.stat-card, .step, .feature-card, .reveal, .bt-step, .bt-result-card, .kpi-card, .perf-panel').forEach(el => io.observe(el));
 
   /* Counter animation */
   function animateCounter(el) {
@@ -670,8 +805,8 @@
         barIo.unobserve(e.target);
       }
     });
-  }, { threshold: 0.2 });
-  document.querySelectorAll('.accuracy-wrap').forEach(el => barIo.observe(el));
+  }, { threshold: 0.15 });
+  document.querySelectorAll('.perf-panel, .perf-body').forEach(el => barIo.observe(el));
 </script>
 </body>
 </html>
