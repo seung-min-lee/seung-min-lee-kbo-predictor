@@ -1,43 +1,42 @@
 {
-  "2026-05-23|1|LG Twins|Kiwoom Heroes": {
-    "date": "2026-05-23",
+  "2026-05-29|1|Samsung Lions|Doosan Bears": {
+    "date": "2026-05-29",
     "slot": 1.0,
-    "home": "LG Twins",
-    "away": "Kiwoom Heroes",
-    "home_odds": 1.55,
-    "away_odds": 2.7
+    "home": "Samsung Lions",
+    "away": "Doosan Bears",
+    "home_odds": 1.86,
+    "away_odds": 2.06
   },
-  "2026-05-23|2|Hanwha Eagles|Doosan Bears": {
-    "date": "2026-05-23",
+  "2026-05-29|2|Hanwha Eagles|SSG Landers": {
+    "date": "2026-05-29",
     "slot": 2.0,
     "home": "Hanwha Eagles",
-    "away": "Doosan Bears",
-    "home_odds": 2.11,
-    "away_odds": 1.85
-  },
-  "2026-05-23|4|KT Wiz Suwon|NC Dinos": {
-    "date": "2026-05-23",
-    "slot": 4.0,
-    "home": "KT Wiz Suwon",
-    "away": "NC Dinos",
-    "home_odds": 1.95,
-    "away_odds": 1.95
-  },
-  "2026-05-23|5|Lotte Giants|Samsung Lions": {
-    "date": "2026-05-23",
-    "slot": 5.0,
-    "home": "Lotte Giants",
-    "away": "Samsung Lions",
-    "home_odds": 2.15,
-    "away_odds": 1.82
-  },
-  "2026-05-23_slot3": {
-    "date": "2026-05-23",
-    "slot": 3.0,
-    "home": "KIA Tigers",
     "away": "SSG Landers",
-    "home_odds": 1.75,
-    "away_odds": 2.07,
-    "match_url": ""
+    "home_odds": 1.74,
+    "away_odds": 2.22
+  },
+  "2026-05-29|3|LG Twins|KIA Tigers": {
+    "date": "2026-05-29",
+    "slot": 3.0,
+    "home": "LG Twins",
+    "away": "KIA Tigers",
+    "home_odds": 1.73,
+    "away_odds": 2.24
+  },
+  "2026-05-29|4|Kiwoom Heroes|KT Wiz Suwon": {
+    "date": "2026-05-29",
+    "slot": 4.0,
+    "home": "Kiwoom Heroes",
+    "away": "KT Wiz Suwon",
+    "home_odds": 2.68,
+    "away_odds": 1.56
+  },
+  "2026-05-29|5|NC Dinos|Lotte Giants": {
+    "date": "2026-05-29",
+    "slot": 5.0,
+    "home": "NC Dinos",
+    "away": "Lotte Giants",
+    "home_odds": 1.59,
+    "away_odds": 2.52
   }
 }
