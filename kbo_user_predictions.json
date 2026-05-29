@@ -398,5 +398,13 @@
     "away": "LG Twins",
     "pick": "AWAY(LG Twins)",
     "saved_at": "2026-05-28T08:45:18"
+  },
+  "2026-05-29|2.0|Hanwha Eagles|SSG Landers": {
+    "date": "2026-05-29",
+    "slot": 2.0,
+    "home": "Hanwha Eagles",
+    "away": "SSG Landers",
+    "pick": "AWAY(SSG Landers)",
+    "saved_at": "2026-05-29T08:24:58"
   }
 }
