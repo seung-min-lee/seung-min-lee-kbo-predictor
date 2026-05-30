@@ -539,7 +539,12 @@
         "home": 2.16,
         "away": 1.72
       }
-    }
+    },
+    "today_home_dir": 0,
+    "today_dir_ratio": 0.0,
+    "today_dir_count": 9,
+    "today_up_team": "KIA Tigers",
+    "today_down_team": "LG Twins"
   },
   "2026-05-30|4|Kiwoom Heroes|KT Wiz Suwon": {
     "date": "2026-05-30",
@@ -644,7 +649,12 @@
         "home": 2.19,
         "away": 1.7
       }
-    }
+    },
+    "today_home_dir": 1,
+    "today_dir_ratio": 1.0,
+    "today_dir_count": 11,
+    "today_up_team": "Kiwoom Heroes",
+    "today_down_team": "KT Wiz Suwon"
   },
   "2026-05-30|5|NC Dinos|Lotte Giants": {
     "date": "2026-05-30",
@@ -749,6 +759,11 @@
         "home": 1.4,
         "away": 2.95
       }
-    }
+    },
+    "today_home_dir": 1,
+    "today_dir_ratio": 1.0,
+    "today_dir_count": 11,
+    "today_up_team": "NC Dinos",
+    "today_down_team": "Lotte Giants"
   }
 }
