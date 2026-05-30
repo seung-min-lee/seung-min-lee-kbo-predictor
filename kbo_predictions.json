@@ -3,7 +3,7 @@
     "slot": 1.0,
     "home": "Samsung Lions",
     "away": "Doosan Bears",
-    "pred_date": "2026-05-29",
+    "pred_date": "2026-05-30",
     "home_direction": "1111001000001111111",
     "home_bm_agree": "1111111111111111111",
     "home_fav_win": "1111000010101101110",
@@ -27,9 +27,9 @@
     "home_is_fav": true,
     "slot_bm": {
       "10x10bet": {
-        "seq": "11001000P0100110N",
-        "rec": 1,
-        "desc": "다수결 ↑1 40/69(58%)",
+        "seq": "11001000P01001101",
+        "rec": 0,
+        "desc": "다수결 ↓0 47/70(67%)",
         "current_odds": 1.96
       },
       "1xBet": {
@@ -122,10 +122,10 @@
     "pattern_reason": "홈 승 패턴(85%) + 원정 패 패턴(85%) + 정배패턴일치(정배승 18경기(홈정배))",
     "home_win_desc": "다수결 ↑1 62/79(75%)",
     "away_win_desc": "다수결 ↓0 67/88(74%)",
-    "bm_label": "배당↑팀이김 7/9(78%) (방향미확인)",
+    "bm_label": "배당↑팀이김 8/9(89%) (방향미확인)",
     "bm_dir_vote": 0,
     "bm_team_rec": null,
-    "bm_dir_ratio": 0.778,
+    "bm_dir_ratio": 0.889,
     "ml_home_prob": 0.43,
     "ml_away_prob": 0.57,
     "home_pattern_log": [
@@ -974,7 +974,7 @@
     "slot": 2.0,
     "home": "Hanwha Eagles",
     "away": "SSG Landers",
-    "pred_date": "2026-05-29",
+    "pred_date": "2026-05-30",
     "home_direction": "0000011111101001011",
     "home_bm_agree": "1111111111111111111",
     "home_fav_win": "0010010111010001111",
@@ -1052,9 +1052,9 @@
         "current_odds": 1.6
       },
       "Melbet": {
-        "seq": "00111101P1000P01N",
-        "rec": null,
-        "desc": "균형(23↑:24↓) → 불규칙",
+        "seq": "00111101P1000P010",
+        "rec": 0,
+        "desc": "다수결 ↓0 42/59(72%)",
         "current_odds": 2.58
       },
       "Momobet": {
@@ -1088,15 +1088,15 @@
         "current_odds": 1.67
       }
     },
-    "recommendation": "AWAY(0)",
-    "confidence": 0.786,
-    "pattern_reason": "배당↑팀이김 11/14(79%) : SSG Landers (팀패턴 불규칙)",
+    "recommendation": "PASS",
+    "confidence": 0.0,
+    "pattern_reason": "팀승패 충돌 (둘 다 패 예측)",
     "home_win_desc": "다수결 ↓0 46/76(63%)",
     "away_win_desc": "다수결 ↓0 63/85(75%)",
-    "bm_label": "배당↑팀이김 11/14(79%) : SSG Landers",
+    "bm_label": "배당↑팀이김 12/15(80%) (방향미확인)",
     "bm_dir_vote": 0,
-    "bm_team_rec": 0,
-    "bm_dir_ratio": 0.786,
+    "bm_team_rec": null,
+    "bm_dir_ratio": 0.8,
     "ml_home_prob": 0.56,
     "ml_away_prob": 0.44,
     "home_pattern_log": [
@@ -1915,7 +1915,7 @@
     "slot": 3.0,
     "home": "LG Twins",
     "away": "KIA Tigers",
-    "pred_date": "2026-05-29",
+    "pred_date": "2026-05-30",
     "home_direction": "1111101111101111111",
     "home_bm_agree": "1111111111111111111",
     "home_fav_win": "0100000101000111101",
@@ -1935,8 +1935,8 @@
     "slot_fav_win": "011011101000110111",
     "slot_fav_rec": 0,
     "slot_fav_desc": "다수결 ↓0 55/75(74%)",
-    "slot_fav_team_rec": 0,
-    "home_is_fav": true,
+    "slot_fav_team_rec": 1,
+    "home_is_fav": false,
     "slot_bm": {
       "10x10bet": {
         "seq": "01NN1011P10001000",
@@ -1993,9 +1993,9 @@
         "current_odds": 1.62
       },
       "Melbet": {
-        "seq": "01111N11P1000111N",
-        "rec": 0,
-        "desc": "다수결 ↓0 42/66(62%)",
+        "seq": "01111N11P10001110",
+        "rec": null,
+        "desc": "균형(38↑:35↓) → 불규칙",
         "current_odds": 2.5
       },
       "Momobet": {
@@ -2029,15 +2029,15 @@
         "current_odds": 1.67
       }
     },
-    "recommendation": "AWAY(0)",
+    "recommendation": "HOME(1)",
     "confidence": 0.75,
-    "pattern_reason": "슬롯정배패턴(역배승 18경기(홈정배))",
+    "pattern_reason": "슬롯정배패턴(역배승 18경기(원정정배))",
     "home_win_desc": "다수결 ↑1 50/87(57%)",
     "away_win_desc": "다수결 ↑1 59/76(75%)",
-    "bm_label": "배당↓팀이김 10/12(83%) (방향미확인)",
+    "bm_label": "배당↓팀이김 10/11(91%) (방향미확인)",
     "bm_dir_vote": 1,
     "bm_team_rec": null,
-    "bm_dir_ratio": 0.833,
+    "bm_dir_ratio": 0.909,
     "ml_home_prob": 0.39,
     "ml_away_prob": 0.61,
     "home_pattern_log": [
@@ -2866,7 +2866,7 @@
     "slot": 4.0,
     "home": "Kiwoom Heroes",
     "away": "KT Wiz Suwon",
-    "pred_date": "2026-05-29",
+    "pred_date": "2026-05-30",
     "home_direction": "0000001110000001000",
     "home_bm_agree": "1111111111111111111",
     "home_fav_win": "1101011010000110111",
@@ -2890,9 +2890,9 @@
     "home_is_fav": false,
     "slot_bm": {
       "10x10bet": {
-        "seq": "101N1010000N1001N",
-        "rec": 0,
-        "desc": "다수결 ↓0 52/60(85%)",
+        "seq": "101N1010000N10010",
+        "rec": null,
+        "desc": "균형(22↑:25↓) → 불규칙",
         "current_odds": 2.12
       },
       "1xBet": {
@@ -2985,10 +2985,10 @@
     "pattern_reason": "슬롯정배패턴(역배승 18경기(원정정배))",
     "home_win_desc": "다수결 ↓0 68/104(65%)",
     "away_win_desc": "다수결 ↓0 42/57(75%)",
-    "bm_label": "배당↑팀이김 8/13(62%) (방향미확인)",
-    "bm_dir_vote": 0,
+    "bm_label": "불명확 5/7",
+    "bm_dir_vote": null,
     "bm_team_rec": null,
-    "bm_dir_ratio": 0.615,
+    "bm_dir_ratio": 0.583,
     "ml_home_prob": 0.345,
     "ml_away_prob": 0.655,
     "home_pattern_log": [
@@ -3807,7 +3807,7 @@
     "slot": 5.0,
     "home": "NC Dinos",
     "away": "Lotte Giants",
-    "pred_date": "2026-05-29",
+    "pred_date": "2026-05-30",
     "home_direction": "1000110000010011101",
     "home_bm_agree": "1111111111111111111",
     "home_fav_win": "0011011010101101110",
@@ -3885,15 +3885,15 @@
         "current_odds": 1.53
       },
       "Melbet": {
-        "seq": "11011010P0110P1NN",
-        "rec": null,
-        "desc": "균형(26↑:32↓) → 불규칙",
+        "seq": "11011010P0110P1N0",
+        "rec": 1,
+        "desc": "다수결 ↑1 59/70(82%)",
         "current_odds": 2.78
       },
       "Momobet": {
-        "seq": "11010110P0110P100",
-        "rec": 1,
-        "desc": "다수결 ↑1 33/37(89%)",
+        "seq": "11010110P0110P101",
+        "rec": 0,
+        "desc": "다수결 ↓0 49/75(63%)",
         "current_odds": 1.58
       },
       "Roobet": {
@@ -3926,10 +3926,10 @@
     "pattern_reason": "원정 패 패턴(85%) (홈 불규칙) + 정배패턴일치(정배승 18경기(홈정배))",
     "home_win_desc": "균형(55↑:51↓) → 불규칙",
     "away_win_desc": "다수결 ↓0 47/71(64%)",
-    "bm_label": "배당↓팀이김 10/13(77%) (방향미확인)",
+    "bm_label": "배당↓팀이김 10/14(71%) (방향미확인)",
     "bm_dir_vote": 1,
     "bm_team_rec": null,
-    "bm_dir_ratio": 0.769,
+    "bm_dir_ratio": 0.714,
     "ml_home_prob": 0.47,
     "ml_away_prob": 0.53,
     "home_pattern_log": [

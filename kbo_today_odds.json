@@ -430,5 +430,320 @@
     "today_dir_count": 13,
     "today_up_team": "Kiwoom Heroes",
     "today_down_team": "KT Wiz Suwon"
+  },
+  "2026-05-30|1|Samsung Lions|Doosan Bears": {
+    "date": "2026-05-30",
+    "slot": 1.0,
+    "home": "Samsung Lions",
+    "away": "Doosan Bears"
+  },
+  "2026-05-30|2|Hanwha Eagles|SSG Landers": {
+    "date": "2026-05-30",
+    "slot": 2.0,
+    "home": "Hanwha Eagles",
+    "away": "SSG Landers"
+  },
+  "2026-05-30|3|LG Twins|KIA Tigers": {
+    "date": "2026-05-30",
+    "slot": 3.0,
+    "home": "LG Twins",
+    "away": "KIA Tigers",
+    "bm_open": {
+      "10x10bet": {
+        "home": 2.2,
+        "away": 1.67
+      },
+      "1xBet": {
+        "home": 2.28,
+        "away": 1.71
+      },
+      "22Bet": {
+        "home": 2.2,
+        "away": 1.68
+      },
+      "Alphabet": {
+        "home": 2.2,
+        "away": 1.67
+      },
+      "BetInAsia": {
+        "home": 2.26,
+        "away": 1.68
+      },
+      "Bets.io": {
+        "home": 2.08,
+        "away": 1.62
+      },
+      "bwin": {
+        "home": 2.15,
+        "away": 1.67
+      },
+      "Momobet": {
+        "home": 2.2,
+        "away": 1.67
+      },
+      "Roobet": {
+        "home": 2.2,
+        "away": 1.65
+      },
+      "Stake.com": {
+        "home": 2.19,
+        "away": 1.68
+      },
+      "VOBET": {
+        "home": 2.2,
+        "away": 1.67
+      }
+    },
+    "match_url": "https://www.oddsportal.com/baseball/h2h/kia-tigers-rXhOpG8E/lg-twins-jglLOYoe/#88b1Bt5d",
+    "home_odds": 2.112,
+    "away_odds": 1.752,
+    "bm_close": {
+      "10x10bet": {
+        "home": 2.09,
+        "away": 1.78
+      },
+      "1xBet": {
+        "home": 2.11,
+        "away": 1.81
+      },
+      "22Bet": {
+        "home": 2.06,
+        "away": 1.77
+      },
+      "Alphabet": {
+        "home": 2.16,
+        "away": 1.72
+      },
+      "BetInAsia": {
+        "home": 2.07,
+        "away": 1.8
+      },
+      "Momobet": {
+        "home": 2.16,
+        "away": 1.72
+      },
+      "Roobet": {
+        "home": 2.08,
+        "away": 1.72
+      },
+      "Stake.com": {
+        "home": 2.12,
+        "away": 1.73
+      },
+      "VOBET": {
+        "home": 2.16,
+        "away": 1.72
+      }
+    }
+  },
+  "2026-05-30|4|Kiwoom Heroes|KT Wiz Suwon": {
+    "date": "2026-05-30",
+    "slot": 4.0,
+    "home": "Kiwoom Heroes",
+    "away": "KT Wiz Suwon",
+    "bm_open": {
+      "10x10bet": {
+        "home": 2.08,
+        "away": 1.77
+      },
+      "1xBet": {
+        "home": 2.1,
+        "away": 1.82
+      },
+      "22Bet": {
+        "home": 2.05,
+        "away": 1.77
+      },
+      "Alphabet": {
+        "home": 2.06,
+        "away": 1.79
+      },
+      "BetInAsia": {
+        "home": 2.08,
+        "away": 1.79
+      },
+      "Bets.io": {
+        "home": 1.98,
+        "away": 1.7
+      },
+      "bwin": {
+        "home": 2.15,
+        "away": 1.67
+      },
+      "Cloudbet": {
+        "home": 2.03,
+        "away": 1.75
+      },
+      "Kobet": {
+        "home": 2.13,
+        "away": 1.7
+      },
+      "Momobet": {
+        "home": 2.08,
+        "away": 1.77
+      },
+      "Stake.com": {
+        "home": 2.16,
+        "away": 1.71
+      },
+      "VOBET": {
+        "home": 2.08,
+        "away": 1.77
+      }
+    },
+    "match_url": "https://www.oddsportal.com/baseball/h2h/kiwoom-heroes-xjpHPEWl/kt-wiz-suwon-444SNVEe/#4fr4V1dS",
+    "home_odds": 2.191,
+    "away_odds": 1.685,
+    "bm_close": {
+      "10x10bet": {
+        "home": 2.19,
+        "away": 1.7
+      },
+      "1xBet": {
+        "home": 2.24,
+        "away": 1.73
+      },
+      "22Bet": {
+        "home": 2.18,
+        "away": 1.69
+      },
+      "Alphabet": {
+        "home": 2.19,
+        "away": 1.7
+      },
+      "BetInAsia": {
+        "home": 2.25,
+        "away": 1.68
+      },
+      "Bets.io": {
+        "home": 2.13,
+        "away": 1.62
+      },
+      "Cloudbet": {
+        "home": 2.2,
+        "away": 1.64
+      },
+      "Kobet": {
+        "home": 2.15,
+        "away": 1.69
+      },
+      "Momobet": {
+        "home": 2.19,
+        "away": 1.7
+      },
+      "Stake.com": {
+        "home": 2.19,
+        "away": 1.68
+      },
+      "VOBET": {
+        "home": 2.19,
+        "away": 1.7
+      }
+    }
+  },
+  "2026-05-30|5|NC Dinos|Lotte Giants": {
+    "date": "2026-05-30",
+    "slot": 5.0,
+    "home": "NC Dinos",
+    "away": "Lotte Giants",
+    "bm_open": {
+      "10x10bet": {
+        "home": 1.38,
+        "away": 3
+      },
+      "1xBet": {
+        "home": 1.4,
+        "away": 3.23
+      },
+      "22Bet": {
+        "home": 1.36,
+        "away": 3.15
+      },
+      "Alphabet": {
+        "home": 1.38,
+        "away": 3
+      },
+      "BetInAsia": {
+        "home": 1.39,
+        "away": 3.07
+      },
+      "Bets.io": {
+        "home": 1.35,
+        "away": 2.7
+      },
+      "bwin": {
+        "home": 1.38,
+        "away": 3
+      },
+      "Cloudbet": {
+        "home": 1.36,
+        "away": 3
+      },
+      "GambleCity": {
+        "home": 1.36,
+        "away": 2.94
+      },
+      "Roobet": {
+        "home": 1.39,
+        "away": 2.92
+      },
+      "Stake.com": {
+        "home": 1.39,
+        "away": 3
+      },
+      "VOBET": {
+        "home": 1.38,
+        "away": 3
+      }
+    },
+    "match_url": "https://www.oddsportal.com/baseball/h2h/lotte-giants-pGw4ggkO/nc-dinos-O6x8hD4U/#dUvdXNRF",
+    "home_odds": 1.408,
+    "away_odds": 2.878,
+    "bm_close": {
+      "10x10bet": {
+        "home": 1.4,
+        "away": 2.95
+      },
+      "1xBet": {
+        "home": 1.45,
+        "away": 2.96
+      },
+      "22Bet": {
+        "home": 1.42,
+        "away": 2.89
+      },
+      "Alphabet": {
+        "home": 1.4,
+        "away": 2.95
+      },
+      "BetInAsia": {
+        "home": 1.44,
+        "away": 2.88
+      },
+      "Bets.io": {
+        "home": 1.38,
+        "away": 2.76
+      },
+      "Cloudbet": {
+        "home": 1.4,
+        "away": 2.8
+      },
+      "GambleCity": {
+        "home": 1.37,
+        "away": 2.8
+      },
+      "Roobet": {
+        "home": 1.41,
+        "away": 2.82
+      },
+      "Stake.com": {
+        "home": 1.42,
+        "away": 2.9
+      },
+      "VOBET": {
+        "home": 1.4,
+        "away": 2.95
+      }
+    }
   }
 }
