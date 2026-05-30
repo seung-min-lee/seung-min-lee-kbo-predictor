@@ -441,7 +441,12 @@
     "date": "2026-05-30",
     "slot": 2.0,
     "home": "Hanwha Eagles",
-    "away": "SSG Landers"
+    "away": "SSG Landers",
+    "today_home_dir": 0,
+    "today_up_team": "SSG Landers",
+    "today_down_team": "Hanwha Eagles",
+    "today_dir_ratio": 1.0,
+    "today_dir_count": 1
   },
   "2026-05-30|3|LG Twins|KIA Tigers": {
     "date": "2026-05-30",
