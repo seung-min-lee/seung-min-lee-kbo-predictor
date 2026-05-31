@@ -1544,9 +1544,13 @@ def analyze_slot_bm_seqs(slot, before_date_order):
     for bm, data in sorted(bm_seqs.items()):
         seq       = data['seq']
         full_seq  = data.get('full_seq', [])
-        seq_clean  = preprocess_seq(seq)
-        full_clean = [x for x in full_seq if x in (0, 1)]
-        rec, desc = vote_pat_rec(seq_clean, full_history=full_clean if len(full_clean) > len(seq_clean) else None)
+        # 최근 값이 N/F이면 예측 불가 (데이터 없음)
+        if seq and seq[-1] in ('N', 'F'):
+            rec, desc = None, '최근데이터없음(N)'
+        else:
+            seq_clean  = preprocess_seq(seq)
+            full_clean = [x for x in full_seq if x in (0, 1)]
+            rec, desc = vote_pat_rec(seq_clean, full_history=full_clean if len(full_clean) > len(seq_clean) else None)
         results.append({
             'bm':           bm,
             'seq':          seq,
@@ -1565,7 +1569,11 @@ def analyze_bm_seqs(team, before_date_order, window=WINDOW):
     results = []
     for bm, data in sorted(bm_seqs.items()):
         seq  = data['seq']
-        rec, desc = vote_pat_rec(seq)
+        # 최근 값이 N/F이면 예측 불가
+        if seq and seq[-1] in ('N', 'F'):
+            rec, desc = None, '최근데이터없음(N)'
+        else:
+            rec, desc = vote_pat_rec(seq)
         results.append({
             'bm':          bm,
             'seq':         seq,

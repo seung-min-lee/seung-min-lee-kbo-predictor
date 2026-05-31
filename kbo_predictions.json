@@ -693,8 +693,8 @@
       },
       "bwin": {
         "seq": "0N11100P10N0P01NN",
-        "rec": 0,
-        "desc": "다수결 ↓0 30/40(72%)",
+        "rec": null,
+        "desc": "최근데이터없음(N)",
         "current_odds": 1.58
       }
     },
@@ -703,10 +703,10 @@
     "pattern_reason": "슬롯정배패턴(역배승 18경기(홈정배))",
     "home_win_desc": "다수결 ↓0 67/85(80%)",
     "away_win_desc": "다수결 ↓0 55/83(66%)",
-    "bm_label": "배당↑팀이김 11/15(73%) (방향미확인)",
+    "bm_label": "배당↑팀이김 11/14(79%) (방향미확인)",
     "bm_dir_vote": 1,
     "bm_team_rec": null,
-    "bm_dir_ratio": 0.733,
+    "bm_dir_ratio": 0.786,
     "ml_home_prob": 0.595,
     "ml_away_prob": 0.405,
     "home_pattern_log": [
@@ -1585,8 +1585,8 @@
     "slot_bm": {
       "10x10bet": {
         "seq": "1NN1011P10001000N",
-        "rec": 1,
-        "desc": "다수결 ↑1 39/51(78%)",
+        "rec": null,
+        "desc": "최근데이터없음(N)",
         "current_odds": 1.69
       },
       "1xBet": {
@@ -1640,7 +1640,7 @@
       "Melbet": {
         "seq": "1111N11P10001110N",
         "rec": null,
-        "desc": "균형(36↑:31↓) → 불규칙",
+        "desc": "최근데이터없음(N)",
         "current_odds": 1.76
       },
       "Momobet": {
@@ -1670,19 +1670,19 @@
       "bwin": {
         "seq": "N0NNNN1P11N01NN1N",
         "rec": null,
-        "desc": "균형(6↑:6↓) → 불규칙",
+        "desc": "최근데이터없음(N)",
         "current_odds": 2.15
       }
     },
     "recommendation": "HOME(1)",
-    "confidence": 0.75,
-    "pattern_reason": "슬롯정배패턴(정배승 18경기(홈정배))",
+    "confidence": 0.575,
+    "pattern_reason": "ML우선(BM불명확) 홈=57% [팀패턴: 슬롯정배패턴(정배승 18경기(홈정배))]",
     "home_win_desc": "다수결 ↑1 33/58(55%)",
     "away_win_desc": "다수결 ↑1 53/69(73%)",
-    "bm_label": "배당↑팀이김 5/8(62%) (방향미확인)",
-    "bm_dir_vote": 1,
+    "bm_label": "불명확 4/3",
+    "bm_dir_vote": null,
     "bm_team_rec": null,
-    "bm_dir_ratio": 0.625,
+    "bm_dir_ratio": 0.571,
     "ml_home_prob": 0.575,
     "ml_away_prob": 0.425,
     "home_pattern_log": [
@@ -2357,7 +2357,7 @@
       "10x10bet": {
         "seq": "01N1010000N10010N",
         "rec": null,
-        "desc": "균형(20↑:21↓) → 불규칙",
+        "desc": "최근데이터없음(N)",
         "current_odds": 2.12
       },
       "1xBet": {
@@ -2440,8 +2440,8 @@
       },
       "bwin": {
         "seq": "NN01N1NNN10N1NNNN",
-        "rec": 0,
-        "desc": "다수결 ↓0 11/14(80%)",
+        "rec": null,
+        "desc": "최근데이터없음(N)",
         "current_odds": 2.15
       }
     },
@@ -2450,10 +2450,10 @@
     "pattern_reason": "ML우선(BM불명확) 원정=59% [팀패턴: 원정 패 패턴(78%) (홈 불규칙)]",
     "home_win_desc": "균형(46↑:57↓) → 불규칙",
     "away_win_desc": "다수결 ↓0 46/64(73%)",
-    "bm_label": "불명확 5/5",
+    "bm_label": "불명확 5/4",
     "bm_dir_vote": null,
     "bm_team_rec": null,
-    "bm_dir_ratio": 0.5,
+    "bm_dir_ratio": 0.556,
     "ml_home_prob": 0.41,
     "ml_away_prob": 0.59,
     "home_pattern_log": [
@@ -3411,20 +3411,20 @@
       },
       "bwin": {
         "seq": "N01NN11P0110P1N0N",
-        "rec": 1,
-        "desc": "다수결 ↑1 34/36(94%)",
+        "rec": null,
+        "desc": "최근데이터없음(N)",
         "current_odds": 1.38
       }
     },
-    "recommendation": "HOME(1)",
-    "confidence": 0.555,
-    "pattern_reason": "ML우선(BM불명확) 홈=56% [팀패턴: 홈 패 패턴(85%) (원정 불규칙) + 정배패턴일치(정배승 18경기(원정정배))]",
+    "recommendation": "AWAY(0)",
+    "confidence": 0.71,
+    "pattern_reason": "홈 패 패턴(85%) (원정 불규칙) + 정배패턴일치(정배승 18경기(원정정배))",
     "home_win_desc": "다수결 ↓0 52/92(56%)",
     "away_win_desc": "균형(46↑:40↓) → 불규칙",
-    "bm_label": "불명확 6/8",
-    "bm_dir_vote": null,
+    "bm_label": "배당↓팀이김 8/13(62%) (방향미확인)",
+    "bm_dir_vote": 0,
     "bm_team_rec": null,
-    "bm_dir_ratio": 0.571,
+    "bm_dir_ratio": 0.615,
     "ml_home_prob": 0.555,
     "ml_away_prob": 0.445,
     "home_pattern_log": [
