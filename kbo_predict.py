@@ -1132,6 +1132,39 @@ def preprocess_seq(seq):
         result.pop()
     return [x for x in result if x in (0, 1)]
 
+def preprocess_seq_p_boundary(seq):
+    """P를 세그먼트 경계로 처리 → (recent_segment, full_history)
+    P는 연기 경기 표시로, 이전 시즌/기간과의 구분선으로 취급.
+    recent_segment: 마지막 P 이후 구간 (0/1만, trailing N/F 제거)
+    full_history: 전체 구간 연결 (older→recent 순)
+    """
+    segments = []
+    current = []
+    for v in seq:
+        if v == 'P':
+            s = current[:]
+            while s and s[-1] in ('N', 'F'):
+                s.pop()
+            cleaned = [x for x in s if x in (0, 1)]
+            if cleaned:
+                segments.append(cleaned)
+            current = []
+        else:
+            current.append(v)
+    # 마지막 세그먼트
+    s = current[:]
+    while s and s[-1] in ('N', 'F'):
+        s.pop()
+    cleaned = [x for x in s if x in (0, 1)]
+    if cleaned:
+        segments.append(cleaned)
+
+    if not segments:
+        return [], []
+    recent = segments[-1]
+    full   = [x for seg in segments for x in seg]
+    return recent, full
+
 def pat_rec(seq, full_history=None):
     """시퀀스 패턴 분석 → (추천값 or None, 설명문자열)"""
     if len(seq) < 3:
@@ -1547,6 +1580,15 @@ def analyze_slot_bm_seqs(slot, before_date_order):
         # 최근 값이 N/F이면 예측 불가 (데이터 없음)
         if seq and seq[-1] in ('N', 'F'):
             rec, desc = None, '최근데이터없음(N)'
+        elif 'P' in seq:
+            # P를 세그먼트 경계로 처리: 마지막 P 이후 구간으로 분석
+            recent, p_hist = preprocess_seq_p_boundary(seq)
+            if not recent:
+                rec, desc = None, '데이터 부족'
+            else:
+                extra = [x for x in full_seq if x in (0, 1)]
+                full_for_pat = (extra + p_hist) if extra else p_hist
+                rec, desc = vote_pat_rec(recent, full_history=full_for_pat if len(full_for_pat) > len(recent) else None)
         else:
             seq_clean  = preprocess_seq(seq)
             full_clean = [x for x in full_seq if x in (0, 1)]
@@ -1572,6 +1614,12 @@ def analyze_bm_seqs(team, before_date_order, window=WINDOW):
         # 최근 값이 N/F이면 예측 불가
         if seq and seq[-1] in ('N', 'F'):
             rec, desc = None, '최근데이터없음(N)'
+        elif 'P' in seq:
+            recent, p_hist = preprocess_seq_p_boundary(seq)
+            if not recent:
+                rec, desc = None, '데이터 부족'
+            else:
+                rec, desc = vote_pat_rec(recent, full_history=p_hist if len(p_hist) > len(recent) else None)
         else:
             rec, desc = vote_pat_rec(seq)
         results.append({
