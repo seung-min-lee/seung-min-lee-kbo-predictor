@@ -1902,6 +1902,16 @@ for i, game in enumerate(upcoming_games):
             _pat_conf = max(0.50, _pat_conf - 0.03)
             _pat_reason += f' ※정배패턴충돌({fav_label})'
 
+    # ML 먼저 계산 (최종판단 전에 사용)
+    feat = make_feat_team(home, away, max_date_order)
+    X_pred = np.array(feat).reshape(1, -1)
+    try:
+        ml_proba = model.predict_proba(X_pred)[0]
+    except:
+        ml_proba = [0.5, 0.5]
+    ml_home = float(ml_proba[1])
+    ml_away = float(ml_proba[0])
+
     # ── 최종판단: BM 패턴예측이 결정 ────────────────────────────
     final_rec = None
     pattern_confidence = 0.0
@@ -1918,27 +1928,33 @@ for i, game in enumerate(upcoming_games):
         else:
             agree_str = f'(팀패턴충돌: {_pat_reason})'
         pattern_reason = f'{bm_label} {agree_str}'
+    elif bm_dir_vote is None:
+        # BM 완전 불명확(5/5 동점 등): ML이 55% 이상이면 ML 우선
+        if ml_home >= 0.55:
+            final_rec = 1
+            pattern_confidence = ml_home
+            pattern_reason = f'ML우선(BM불명확) 홈={ml_home:.0%} [팀패턴: {_pat_reason or "불규칙"}]'
+        elif ml_away >= 0.55:
+            final_rec = 0
+            pattern_confidence = ml_away
+            pattern_reason = f'ML우선(BM불명확) 원정={ml_away:.0%} [팀패턴: {_pat_reason or "불규칙"}]'
+        else:
+            final_rec = _pat_rec
+            pattern_confidence = _pat_conf
+            pattern_reason = _pat_reason
     else:
-        # BM 데이터 없을 때만 팀 패턴/ML로 fallback
+        # BM 방향 있지만 today_home_dir 미확인: 팀 패턴으로 fallback
         final_rec = _pat_rec
         pattern_confidence = _pat_conf
         pattern_reason = _pat_reason
 
-    # ML 보조
-    feat = make_feat_team(home, away, max_date_order)
-    X_pred = np.array(feat).reshape(1, -1)
-    try:
-        ml_proba = model.predict_proba(X_pred)[0]
-    except:
-        ml_proba = [0.5, 0.5]
-
     if final_rec is None:
-        if ml_proba[1] >= 0.58:
+        if ml_home >= 0.58:
             final_rec = 1
-            pattern_confidence = float(ml_proba[1])
-        elif ml_proba[0] >= 0.58:
+            pattern_confidence = ml_home
+        elif ml_away >= 0.58:
             final_rec = 0
-            pattern_confidence = float(ml_proba[0])
+            pattern_confidence = ml_away
 
     print(f'  {"-"*60}')
     print(f'  패턴 판단: {pattern_reason}')

@@ -2445,9 +2445,9 @@
         "current_odds": 2.15
       }
     },
-    "recommendation": "HOME(1)",
-    "confidence": 0.624,
-    "pattern_reason": "원정 패 패턴(78%) (홈 불규칙)",
+    "recommendation": "AWAY(0)",
+    "confidence": 0.59,
+    "pattern_reason": "ML우선(BM불명확) 원정=59% [팀패턴: 원정 패 패턴(78%) (홈 불규칙)]",
     "home_win_desc": "균형(46↑:57↓) → 불규칙",
     "away_win_desc": "다수결 ↓0 46/64(73%)",
     "bm_label": "불명확 5/5",
@@ -3416,9 +3416,9 @@
         "current_odds": 1.38
       }
     },
-    "recommendation": "AWAY(0)",
-    "confidence": 0.71,
-    "pattern_reason": "홈 패 패턴(85%) (원정 불규칙) + 정배패턴일치(정배승 18경기(원정정배))",
+    "recommendation": "HOME(1)",
+    "confidence": 0.555,
+    "pattern_reason": "ML우선(BM불명확) 홈=56% [팀패턴: 홈 패 패턴(85%) (원정 불규칙) + 정배패턴일치(정배승 18경기(원정정배))]",
     "home_win_desc": "다수결 ↓0 52/92(56%)",
     "away_win_desc": "균형(46↑:40↓) → 불규칙",
     "bm_label": "불명확 6/8",
