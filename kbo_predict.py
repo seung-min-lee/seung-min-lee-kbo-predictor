@@ -459,6 +459,27 @@ def check_staircase_pattern(seq):
     nv = 1 - runs[-1][0]
     return nv, f'계단식[{s}] 런={lens}(Δ{step:+d}) → 다음런={nv}×{next_len}', 0.82
 
+def check_run_length_balancer(seq):
+    """런-길이 밸런서: 직전 런(N_prev)과 현재 런(N_cur)의 길이를 비교
+    N_cur < N_prev 이면 현재값이 계속돼 균형을 맞출 것으로 예측
+    예: [...,1,1,1,0,0] → N₁=3 > N₀=2, 부족=1 → 0 예측
+    예: [...,0,0,0,0,0,1,1,1] → N₀=5 > N₁=3, 부족=2 → 1 예측
+    """
+    runs = find_runs(seq)
+    if len(runs) < 2:
+        return None, None, 0.0
+    prev_val, prev_len = runs[-2]
+    cur_val,  cur_len  = runs[-1]
+    if cur_len < prev_len:
+        deficit = prev_len - cur_len
+        s = ''.join(str(x) for x in seq)
+        desc = (f'런밸런서[{prev_val}×{prev_len}→{cur_val}×{cur_len}'
+                f', 부족={deficit}→{cur_val}]')
+        score = min(0.80, 0.62 + deficit * 0.05)
+        return cur_val, desc, score
+    return None, None, 0.0
+
+
 def check_history_match(seq, full_history):
     """현재 seq tail을 전체 과거 히스토리에서 검색해 다음 값 예측
     - exact match: 히스토리에서 seq와 동일한 구간 찾기 → 그 다음 값
@@ -863,6 +884,13 @@ def analyze_pattern(seq, full_history=None):
                            'rec':  stair_val,
                            'score': stair_score})
 
+    rlb_val, rlb_desc, rlb_score = check_run_length_balancer(seq)
+    if rlb_val is not None:
+        candidates.append({'type':'런밸런서',
+                           'desc': rlb_desc,
+                           'rec':  rlb_val,
+                           'score': rlb_score})
+
     roll_val, roll_desc, roll_score = check_rolling_momentum(seq)
     if roll_val is not None:
         candidates.append({'type':'롤링모멘텀',
@@ -1238,6 +1266,11 @@ def collect_pattern_votes(seq, full_history=None):
         sv, sd, sw = check_staircase_pattern(sub)
         if sv is not None:
             add(sv, sw, f'계단식', m)
+
+        # 런밸런서
+        rlb_v, rlb_d, rlb_w = check_run_length_balancer(sub)
+        if rlb_v is not None:
+            add(rlb_v, rlb_w, rlb_d, m)
 
         # 런분할
         rv, rd, rw = check_run_mirror_pattern(sub)
