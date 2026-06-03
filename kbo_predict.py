@@ -695,10 +695,6 @@ def tail_recommendation(tail):
     if bs:
         _, f_val, _ = bs
         return f_val, f'꼬리[{s}]=연속블록→{f_val}'
-    for run_len in range(2, len(tail)+1):
-        if len(set(tail[-run_len:])) == 1:
-            val = tail[-1]
-            return 1-val, f'꼬리[{s}]=끝{run_len}연속{val}→{1-val}'
     return None, f'꼬리[{s}]=불규칙'
 
 def label_part(part):
@@ -770,14 +766,6 @@ def analyze_pattern(seq, full_history=None):
                            'desc':f'[{s}] 교대 패턴',
                            'rec': 1-seq[-1], 'score': 0.50, 'pass': True})
 
-    mir = check_mirror(seq)
-    if mir:
-        h, front, back = mir
-        next_val = 1 - seq[-h*2] if len(seq) > h*2 else 1-seq[0]
-        candidates.append({'type':'Mirror',
-                           'desc':f'[{s}] Mirror [{s[-h*2:-h]}|{s[-h:]}]',
-                           'rec': next_val, 'score': 0.85})
-
     rb = check_repeat_block(seq)
     if rb:
         bl, chunk = rb
@@ -803,23 +791,6 @@ def analyze_pattern(seq, full_history=None):
             candidates.append({'type':'연속블록',
                                'desc':f'[{s}] {f_val}×{f_len}|{b_val}×{b_len}',
                                'rec': b_val, 'score': 0.72})
-
-    shape = check_run_shape(seq)
-    if shape:
-        kind, lens = shape
-        runs = find_runs(seq)
-        desc_map = {'asc':'증가런','desc':'감소런','mountain':'산형','valley':'골형'}
-        candidates.append({'type': desc_map.get(kind,'런'),
-                           'desc':f'[{s}] {desc_map.get(kind,"")} 런={lens}',
-                           'rec': runs[-1][0], 'score': 0.65})
-
-    for run_len in range(2, min(n, 6)+1):
-        if len(set(seq[-run_len:])) == 1:
-            val = seq[-1]
-            candidates.append({'type':'끝연속',
-                               'desc':f'[{s}] 끝 {run_len}개 연속 {val}',
-                               'rec': 1-val, 'score': 0.58+run_len*0.04})
-            break
 
     fold_results = check_fold_mirror(seq)
     for (start, sp, end, front, back, tail) in fold_results:
@@ -863,26 +834,12 @@ def analyze_pattern(seq, full_history=None):
                            'rec':  fp_val,
                            'score': fp_score})
 
-    df_val, df_desc, df_score = check_double_fold(seq)
-    if df_val is not None:
-        candidates.append({'type':'이중접기',
-                           'desc': df_desc,
-                           'rec':  df_val,
-                           'score': df_score})
-
     run_mir_val, run_mir_desc, run_mir_score = check_run_mirror_pattern(seq)
     if run_mir_val is not None:
         candidates.append({'type':'런분할',
                            'desc': run_mir_desc,
                            'rec':  run_mir_val,
                            'score': run_mir_score})
-
-    stair_val, stair_desc, stair_score = check_staircase_pattern(seq)
-    if stair_val is not None:
-        candidates.append({'type':'계단식',
-                           'desc': stair_desc,
-                           'rec':  stair_val,
-                           'score': stair_score})
 
     rlb_val, rlb_desc, rlb_score = check_run_length_balancer(seq)
     if rlb_val is not None:
@@ -919,14 +876,6 @@ def analyze_pattern(seq, full_history=None):
                                'desc': sim_desc,
                                'rec':  sim_val,
                                'score': sim_score})
-
-        # 교대 메타패턴 (계단식↔짝맞춤 교대)
-        meta_val, meta_desc, meta_score = check_meta_alternating(seq, full_history)
-        if meta_val is not None:
-            candidates.append({'type':'교대메타',
-                               'desc': meta_desc,
-                               'rec':  meta_val,
-                               'score': meta_score})
 
     segs = segment_patterns(seq)
 
@@ -1238,12 +1187,6 @@ def collect_pattern_votes(seq, full_history=None):
         if check_alternating(sub):
             add(1 - sub[-1], 0.75, f'교차', m)
 
-        # Mirror
-        mr = check_mirror(sub)
-        if mr:
-            h, front, back = mr
-            add(front[0], 0.85, f'Mirror[{seq[start:start+h*2]}]', m)
-
         # 반복블록
         rb = check_repeat_block(sub)
         if rb:
@@ -1261,11 +1204,6 @@ def collect_pattern_votes(seq, full_history=None):
             tr, td = tail_recommendation(list(tail))
             if tr is not None:
                 add(tr, 0.85, f'Fold+꼬리({td})', m)
-
-        # 계단식
-        sv, sd, sw = check_staircase_pattern(sub)
-        if sv is not None:
-            add(sv, sw, f'계단식', m)
 
         # 런밸런서
         rlb_v, rlb_d, rlb_w = check_run_length_balancer(sub)
@@ -1297,11 +1235,6 @@ def collect_pattern_votes(seq, full_history=None):
         if fp_v is not None:
             add(fp_v, fp_w, fp_d, m)
 
-        # 이중 접기
-        df_v, df_d, df_w = check_double_fold(sub)
-        if df_v is not None:
-            add(df_v, df_w, df_d, m)
-
         # 교차 쌍 패턴 (11|00|11... 또는 00|11...)
         cv, cd, cw = check_alternating_pairs(sub)
         if cv is not None:
@@ -1327,9 +1260,6 @@ def collect_pattern_votes(seq, full_history=None):
         sim_v, sim_d, sim_w = check_similarity_match(seq, full_history)
         if sim_v is not None:
             add(sim_v, sim_w, f'유사:{sim_d}', n)
-        mv, md, mw = check_meta_alternating(seq, full_history)
-        if mv is not None:
-            add(mv, mw, f'교대메타:{md}', n)
 
     return votes
 
