@@ -13,20 +13,20 @@ TARGET_DATE = '2026-06-04'
 
 MATCHES = [
     {'match_id':'KUxtpMSI','slot':1.0,'home':'Doosan Bears','away':'Hanwha Eagles',
-     'winner':None,'winner_is_home':None,'home_score':None,'away_score':None,
+     'winner':'Doosan Bears','winner_is_home':True,'home_score':None,'away_score':None,
      'url':'https://www.oddsportal.com/baseball/south-korea/kbo/doosan-bears-hanwha-eagles-KUxtpMSI/#home-away;2'},
     {'match_id':'zJlGoZ3N','slot':2.0,'home':'KIA Tigers','away':'Lotte Giants',
-     'winner':None,'winner_is_home':None,'home_score':None,'away_score':None,
+     'winner':'KIA Tigers','winner_is_home':True,'home_score':None,'away_score':None,
      'url':'https://www.oddsportal.com/baseball/south-korea/kbo/kia-tigers-lotte-giants-zJlGoZ3N/#home-away;2'},
     {'match_id':'pAgiiwzn','slot':3.0,'home':'SSG Landers','away':'Kiwoom Heroes',
-     'winner':None,'winner_is_home':None,'home_score':None,'away_score':None,
+     'winner':'SSG Landers','winner_is_home':True,'home_score':None,'away_score':None,
      'url':'https://www.oddsportal.com/baseball/south-korea/kbo/ssg-landers-kiwoom-heroes-pAgiiwzn/#home-away;2'},
-    {'match_id':'Aonqhgqt','slot':4.0,'home':'Samsung Lions','away':'NC Dinos',
-     'winner':None,'winner_is_home':None,'home_score':None,'away_score':None,
-     'url':'https://www.oddsportal.com/baseball/south-korea/kbo/samsung-lions-nc-dinos-Aonqhgqt/#home-away;2'},
-    {'match_id':'vie7meZA','slot':5.0,'home':'KT Wiz Suwon','away':'LG Twins',
-     'winner':None,'winner_is_home':None,'home_score':None,'away_score':None,
+    {'match_id':'vie7meZA','slot':4.0,'home':'KT Wiz Suwon','away':'LG Twins',
+     'winner':'LG Twins','winner_is_home':False,'home_score':None,'away_score':None,
      'url':'https://www.oddsportal.com/baseball/south-korea/kbo/kt-wiz-suwon-lg-twins-vie7meZA/#home-away;2'},
+    {'match_id':'6Ps0kH4b','slot':5.0,'home':'Samsung Lions','away':'NC Dinos',
+     'winner':'NC Dinos','winner_is_home':False,'home_score':None,'away_score':None,
+     'url':'https://www.oddsportal.com/baseball/south-korea/kbo/samsung-lions-nc-dinos-6Ps0kH4b/#home-away;2'},
 ]
 
 CLICK_BMS = ['10x10bet','1xBet','22Bet','Alphabet','BetInAsia','Bets.io','bwin',
