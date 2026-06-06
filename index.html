@@ -6,6 +6,7 @@
   <title>KBO 승부 예측 시스템</title>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Noto+Sans+KR:wght@300;400;500;700;900&display=swap" rel="stylesheet" />
+  <script src="https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.min.js"></script>
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
@@ -503,6 +504,28 @@
     }
     .insight-box strong { color: var(--accent2); }
 
+    /* ── 3D PARTICLE CANVAS ── */
+    #scene-canvas {
+      position: fixed; top: 0; left: 0;
+      width: 100%; height: 100%;
+      pointer-events: none; z-index: 1;
+    }
+    /* 콘텐츠는 파티클 위에 */
+    nav { z-index: 100; }
+    .hero > *:not(canvas):not(.aurora) { position: relative; z-index: 2; }
+    .section-inner { position: relative; z-index: 2; }
+    .stats .stat-card { position: relative; z-index: 2; }
+    footer { position: relative; z-index: 2; }
+    /* 섹션 레이블 */
+    .pose-label {
+      position: fixed; left: 2rem; bottom: 2rem;
+      font-size: .7rem; font-weight: 700; letter-spacing: 2px;
+      text-transform: uppercase; color: rgba(79,110,247,.7);
+      z-index: 10; opacity: 0; transition: opacity .5s;
+      pointer-events: none;
+    }
+    .pose-label.show { opacity: 1; }
+
     /* ── CTA ── */
     .cta-section {
       text-align: center; padding: 7rem 1.5rem;
@@ -560,6 +583,9 @@
   </ul>
   <a class="nav-cta" href="https://seung-min-lee-kbo-predictor-olwfusfvwrg2up4qzgdrrp.streamlit.app/" target="_blank">앱 열기 →</a>
 </nav>
+
+<canvas id="scene-canvas"></canvas>
+<div class="pose-label" id="pose-label"></div>
 
 <!-- HERO -->
 <section class="hero">
@@ -750,7 +776,7 @@
       <div class="bt-result-card" style="transition-delay:.24s">
         <div class="label">핵심 전략</div>
         <div class="value">선택적 예측</div>
-        <div class="desc">신뢰도 미달 경기는 PASS로 적중률 보호</div>
+        <div class="desc">신뢰도 미달 경기는 PASS로 수익률 보호</div>
       </div>
     </div>
   </div>
