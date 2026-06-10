@@ -480,10 +480,26 @@ def check_run_length_balancer(seq):
     return None, None, 0.0
 
 
+def _wilson_lower(hits, total, z=1.96):
+    """Wilson score lower bound (95% CI). 작은 표본의 비율 과신 방지.
+    표본이 적을수록 보수적인 값 반환 (예: 2/2 → 0.66 not 1.0)."""
+    if total == 0:
+        return 0.0
+    p = hits / total
+    z2 = z * z
+    denom = 1.0 + z2 / total
+    center = p + z2 / (2.0 * total)
+    margin = z * ((p * (1 - p) + z2 / (4.0 * total)) / total) ** 0.5
+    return max(0.0, (center - margin) / denom)
+
+# P3: 히스토리 매칭 최소 표본 (저표본 과신 차단)
+HISTORY_MIN_MATCHES = 5  # 이전 2 → 5로 상향
+
 def check_history_match(seq, full_history):
     """현재 seq tail을 전체 과거 히스토리에서 검색해 다음 값 예측
     - exact match: 히스토리에서 seq와 동일한 구간 찾기 → 그 다음 값
     - complement match: seq의 비트반전을 검색 → 예측값도 반전
+    P3 적용: 최소 매치 수 5건 이상 + Wilson Lower Bound로 score 산출
     반환: (예측값 or None, 설명 or None, 점수)
     """
     clean_h = [x for x in full_history if x in (0, 1)]
@@ -511,16 +527,22 @@ def check_history_match(seq, full_history):
             complement = True
             label = '보수조회'
 
-    if not matches:
+    # P3: 최소 표본 게이트 — 2~4건 매칭의 과신 방지
+    if len(matches) < HISTORY_MIN_MATCHES:
         return None, None, 0.0
 
     ones = sum(matches)
     zeros = len(matches) - ones
     nv = 1 if ones > zeros else 0
-    vote_ratio = max(ones, zeros) / len(matches)
+    majority = max(ones, zeros)
+    vote_ratio = majority / len(matches)
+    # P3: Wilson Lower Bound (95% CI) 사용 — 표본 적을수록 보수적
+    lb = _wilson_lower(majority, len(matches))
+    if lb < 0.55:
+        return None, None, 0.0
     comp_tag = '(보수)' if complement else ''
-    desc = f'{label}{comp_tag}[{s}] {len(matches)}회매칭→{nv}({vote_ratio:.0%})'
-    score = 0.68 + vote_ratio * 0.16  # 0.68~0.84
+    desc = f'{label}{comp_tag}[{s}] {len(matches)}회매칭→{nv}({vote_ratio:.0%}, LB={lb:.0%})'
+    score = min(0.84, 0.55 + lb * 0.35)  # LB 기반 동적 점수
     return nv, desc, score
 
 def check_rolling_momentum(seq):
@@ -579,19 +601,23 @@ def check_similarity_match(seq, full_history):
             if same >= min_same:
                 matches.append((clean_h[i + tail_len], same / tail_len))
 
-        if len(matches) < 4:
+        # P3: 최소 표본 5건 (이전 4건 → 5건)
+        if len(matches) < 5:
             continue
 
         ones = sum(v for v, _ in matches)
         zeros = len(matches) - ones
         nv = 1 if ones > zeros else 0
-        vote_ratio = max(ones, zeros) / len(matches)
-        if vote_ratio < 0.60:
+        majority = max(ones, zeros)
+        vote_ratio = majority / len(matches)
+        # P3: Wilson Lower Bound 적용
+        lb = _wilson_lower(majority, len(matches))
+        if lb < 0.55:
             continue
 
         avg_sim = sum(sim for _, sim in matches) / len(matches)
-        score = min(0.82, 0.58 + vote_ratio * 0.16 + avg_sim * 0.08)
-        desc = f'유사매칭[{tail_len}] {len(matches)}회 sim{avg_sim:.0%}→{nv}({vote_ratio:.0%})'
+        score = min(0.80, 0.55 + lb * 0.25 + avg_sim * 0.05)
+        desc = f'유사매칭[{tail_len}] {len(matches)}회 sim{avg_sim:.0%}→{nv}({vote_ratio:.0%}, LB={lb:.0%})'
         if score > best[2]:
             best = (nv, desc, score)
 
@@ -1160,10 +1186,64 @@ def _extract_pattern_type(desc):
     return desc.split('[')[0].split('(')[0][:16]
 
 
+# P2: 무작위 시퀀스 기반 발화율 (information_factor = 1 - random_rate)
+# pattern_random_rate.json 측정값. 발화율 높을수록 정보량 낮음 → 가중치 페널티
+_RANDOM_RATE = {
+    '교차': 0.0000, '연속': 0.0000, '반복': 0.0034, '블록분할': 0.0001,
+    '교차쌍': 0.0005, '꼬리주기': 0.0798,
+    '런밸런서': 0.3292, '꼬리부분미러': 0.4135, '꼬리미러': 0.4135,
+    '롤링모멘텀': 0.4361, '접기팰꼬리': 0.5693,
+    '런분할': 0.6549, '팰린드롬확장': 0.9101, 'Fold+꼬리': 0.9831,
+}
+
+# P5: 적응형 가중치 — pattern_accuracy.json에서 누적 적중률 로드
+# 라플라스 스무딩 + 발화 횟수 < MIN_FIRES이면 하드코딩값과 블렌딩
+_PATTERN_ACC_PATH = 'pattern_accuracy.json'
+_ADAPTIVE_MIN_FIRES = 20  # 이 미만이면 하드코딩 비중 유지
+_PATTERN_ACC_CACHE = None
+
+def _load_pattern_accuracy():
+    global _PATTERN_ACC_CACHE
+    if _PATTERN_ACC_CACHE is not None:
+        return _PATTERN_ACC_CACHE
+    if os.path.exists(_PATTERN_ACC_PATH):
+        with open(_PATTERN_ACC_PATH, encoding='utf-8') as _f:
+            _PATTERN_ACC_CACHE = json.load(_f)
+    else:
+        _PATTERN_ACC_CACHE = {}
+    return _PATTERN_ACC_CACHE
+
+def _adaptive_factor(ptype, hardcoded_score):
+    """누적 적중률을 라플라스 스무딩 → 하드코딩값과 블렌딩 → 배율 반환.
+    50%를 기준으로 actual_acc/0.5 비율을 곱하면 적중률에 비례한 가중치.
+    """
+    acc = _load_pattern_accuracy()
+    st = acc.get(ptype)
+    if not st or st.get('total', 0) == 0:
+        return 1.0  # 데이터 없으면 하드코딩 유지
+    hits  = st['correct']
+    total = st['total']
+    laplace = (hits + 1) / (total + 2)  # 라플라스 스무딩
+    # 블렌딩 (fires가 적을수록 하드코딩 비중 ↑)
+    alpha = min(1.0, total / _ADAPTIVE_MIN_FIRES)
+    blended = alpha * laplace + (1 - alpha) * 0.5
+    # 50% 기준으로 배율 계산 (50%면 1.0, 60%면 1.2, 40%면 0.8)
+    return max(0.1, blended / 0.5)
+
+def _info_factor(desc):
+    """패턴 설명에서 random_rate를 조회해 정보량 배율 반환 (1 - rate).
+    P5: 추가로 누적 적중률 기반 적응형 배율을 곱함."""
+    ptype = _extract_pattern_type(desc)
+    rate = _RANDOM_RATE.get(ptype, 0.0)  # 미측정 패턴은 페널티 없음
+    random_factor = max(0.05, 1.0 - rate)
+    adaptive = _adaptive_factor(ptype, None)  # P5
+    return random_factor * adaptive
+
 def collect_pattern_votes(seq, full_history=None):
     """전체 + 모든 접미사 분할에서 패턴 탐색 → 투표 리스트 반환
     Returns list of (prediction, weight, description)
     길이 비율(length_factor)로 가중: 긴 매칭일수록 신뢰도 높음
+    P2 적용: information_factor (1 - random_baseline) 추가 페널티
     """
     votes = []
     n = len(seq)
@@ -1171,7 +1251,8 @@ def collect_pattern_votes(seq, full_history=None):
     def add(p, base_w, d, sub_len):
         if p is not None:
             lf = 0.5 + 0.5 * (sub_len / n)   # 길이 가중 0.5~1.0
-            votes.append((p, base_w * lf, d))
+            info = _info_factor(d)            # P2: 무작위 발화율 페널티
+            votes.append((p, base_w * lf * info, d))
 
     for start in range(n - 1, -1, -1):
         sub = list(seq[start:])
@@ -1205,10 +1286,10 @@ def collect_pattern_votes(seq, full_history=None):
             if tr is not None:
                 add(tr, 0.85, f'Fold+꼬리({td})', m)
 
-        # 런밸런서
-        rlb_v, rlb_d, rlb_w = check_run_length_balancer(sub)
-        if rlb_v is not None:
-            add(rlb_v, rlb_w, rlb_d, m)
+        # P4: 런밸런서 비활성화 (백테스트 47.8%, Wilson LB ≈ 41%, 노이즈)
+        # rlb_v, rlb_d, rlb_w = check_run_length_balancer(sub)
+        # if rlb_v is not None:
+        #     add(rlb_v, rlb_w, rlb_d, m)
 
         # 런분할
         rv, rd, rw = check_run_mirror_pattern(sub)
@@ -1240,10 +1321,10 @@ def collect_pattern_votes(seq, full_history=None):
         if cv is not None:
             add(cv, cw, cd, m)
 
-        # 롤링 모멘텀
-        roll_v, roll_d, roll_w = check_rolling_momentum(sub)
-        if roll_v is not None:
-            add(roll_v, roll_w, roll_d, m)
+        # P4: 롤링모멘텀 비활성화 (백테스트 46.0%, Wilson LB ≈ 43%, 노이즈)
+        # roll_v, roll_d, roll_w = check_rolling_momentum(sub)
+        # if roll_v is not None:
+        #     add(roll_v, roll_w, roll_d, m)
 
     # 분할 패턴 (full seq)
     for desc, part, rec in segment_patterns(seq):
@@ -1261,7 +1342,19 @@ def collect_pattern_votes(seq, full_history=None):
         if sim_v is not None:
             add(sim_v, sim_w, f'유사:{sim_d}', n)
 
-    return votes
+    # P1: 중복 투표 dedup — 같은 (패턴타입, 예측값)은 최대 가중치 1표만 유지
+    # 모든 접미사 검사로 동일 신호가 4~5번 발화하던 문제 해결
+    grouped = {}
+    for pred, weight, desc in votes:
+        ptype = _extract_pattern_type(desc)
+        key = (ptype, pred)
+        if key not in grouped or weight > grouped[key][1]:
+            grouped[key] = (pred, weight, desc)
+    return list(grouped.values())
+
+# P1: 증거량 최소 기준 (저증거 고비율 케이스 차단)
+MIN_VOTES_FOR_DECISION = 4    # 패턴 개수 최소치
+MIN_WEIGHT_FOR_DECISION = 2.0 # 가중치 합 최소치
 
 def vote_pat_rec(seq, full_history=None):
     """다수결 패턴 분석 (팀승패 / BM 방향 전용)"""
@@ -1281,6 +1374,12 @@ def vote_pat_rec(seq, full_history=None):
 
     if total_w == 0:
         return None, '불규칙'
+
+    # P1: 증거량 게이트
+    if total_n < MIN_VOTES_FOR_DECISION:
+        return None, f'증거부족(n={total_n}<{MIN_VOTES_FOR_DECISION})'
+    if total_w < MIN_WEIGHT_FOR_DECISION:
+        return None, f'증거부족(w={total_w:.1f}<{MIN_WEIGHT_FOR_DECISION})'
 
     ratio = max(w1, w0) / total_w
     if ratio < 0.55:
@@ -1317,6 +1416,12 @@ def vote_pat_rec_detailed(seq, full_history=None):
 
     if total_w == 0:
         return None, '불규칙', pattern_log
+
+    # P1: 증거량 게이트 (vote_pat_rec와 동일 기준)
+    if total_n < MIN_VOTES_FOR_DECISION:
+        return None, f'증거부족(n={total_n}<{MIN_VOTES_FOR_DECISION})', pattern_log
+    if total_w < MIN_WEIGHT_FOR_DECISION:
+        return None, f'증거부족(w={total_w:.1f}<{MIN_WEIGHT_FOR_DECISION})', pattern_log
 
     ratio = max(w1, w0) / total_w
     if ratio < 0.55:

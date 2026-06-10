@@ -1,0 +1,74 @@
+{
+  "블록분할": {
+    "total": 347,
+    "correct": 163
+  },
+  "런분할": {
+    "total": 2373,
+    "correct": 1157
+  },
+  "Fold+꼬리": {
+    "total": 2022,
+    "correct": 1074
+  },
+  "Mirror": {
+    "total": 4780,
+    "correct": 2405
+  },
+  "꼬리부분미러": {
+    "total": 1276,
+    "correct": 625
+  },
+  "팰린드롬확장": {
+    "total": 2958,
+    "correct": 1582
+  },
+  "롤링모멘텀": {
+    "total": 1333,
+    "correct": 613
+  },
+  "반복": {
+    "total": 324,
+    "correct": 150
+  },
+  "교차쌍": {
+    "total": 116,
+    "correct": 58
+  },
+  "연속": {
+    "total": 231,
+    "correct": 111
+  },
+  "교차": {
+    "total": 134,
+    "correct": 72
+  },
+  "분할:": {
+    "total": 24,
+    "correct": 11
+  },
+  "계단식": {
+    "total": 8,
+    "correct": 6
+  },
+  "접기팰꼬리": {
+    "total": 1169,
+    "correct": 595
+  },
+  "꼬리주기": {
+    "total": 319,
+    "correct": 151
+  },
+  "이중접기": {
+    "total": 9,
+    "correct": 6
+  },
+  "꼬리미러": {
+    "total": 6,
+    "correct": 0
+  },
+  "런밸런서": {
+    "total": 224,
+    "correct": 107
+  }
+}

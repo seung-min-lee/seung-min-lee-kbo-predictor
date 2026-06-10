@@ -1578,8 +1578,13 @@
 2026-06-07,Samsung Lions,KIA Tigers,6.0,7.0,KIA Tigers,True,3.0,hhKxKS9k
 2026-06-07,KT Wiz Suwon,SSG Landers,0.0,7.0,SSG Landers,True,4.0,hUyjTWn3
 2026-06-07,LG Twins,NC Dinos,6.0,7.0,NC Dinos,True,5.0,M9T6PlnS
-2026-06-09,Doosan Bears,Lotte Giants,,,,,1.0,K4eXuAW8
-2026-06-09,KIA Tigers,Hanwha Eagles,,,,,2.0,ro5MJJF6
-2026-06-09,NC Dinos,Kiwoom Heroes,,,,,3.0,nJBDLuof
-2026-06-09,Samsung Lions,KT Wiz Suwon,,,,,4.0,E5D5N1Gs
-2026-06-09,SSG Landers,LG Twins,,,,,5.0,E78oI6v2
+2026-06-09,Doosan Bears,Lotte Giants,6.0,5.0,Doosan Bears,False,1.0,K4eXuAW8
+2026-06-09,KIA Tigers,Hanwha Eagles,6.0,4.0,KIA Tigers,False,2.0,ro5MJJF6
+2026-06-09,NC Dinos,Kiwoom Heroes,6.0,7.0,Kiwoom Heroes,True,3.0,nJBDLuof
+2026-06-09,Samsung Lions,KT Wiz Suwon,2.0,5.0,KT Wiz Suwon,True,4.0,E5D5N1Gs
+2026-06-09,SSG Landers,LG Twins,2.0,8.0,LG Twins,True,5.0,E78oI6v2
+2026-06-10,Doosan Bears,Lotte Giants,,,,,1.0,UwoHu1xQ
+2026-06-10,KIA Tigers,Hanwha Eagles,,,,,2.0,U1T3WdaC
+2026-06-10,NC Dinos,Kiwoom Heroes,,,,,3.0,dlVeYIUa
+2026-06-10,Samsung Lions,KT Wiz Suwon,,,,,4.0,0Mymzu0m
+2026-06-10,SSG Landers,LG Twins,,,,,5.0,lr8UHcpJ
