@@ -2795,7 +2795,7 @@
     "slot": 5.0,
     "home": "Samsung Lions",
     "away": "SSG Landers",
-    "today_home_dir": null,
+    "today_home_dir": 1,
     "today_up_team": null,
     "today_down_team": null
   },
@@ -2956,7 +2956,7 @@
     "slot": 4.0,
     "home": "LG Twins",
     "away": "Lotte Giants",
-    "today_home_dir": null,
+    "today_home_dir": 0,
     "today_up_team": null,
     "today_down_team": null
   }
