@@ -1090,6 +1090,30 @@ def get_team_fav_seq(team, before_date_order, window=WINDOW):
     direction, _, _, _ = get_team_triple_seq(team, before_date_order, window)
     return direction
 
+def get_recent_h2h_form(home, away, before_date_order, lookback=5):
+    """P4: 같은 두 팀의 최근 H2H 경기에서 home_team 승률 반환.
+    KBO 3연전 구조에서 모멘텀/시리즈 흐름 반영.
+    반환: home 입장 승률 (0.0~1.0) 또는 None (데이터 부족 시)
+    """
+    mask = (
+        (((game_df['home']==home) & (game_df['away']==away)) |
+         ((game_df['home']==away) & (game_df['away']==home))) &
+        (game_df['date_order'] < before_date_order) &
+        (game_df['winner_is_home'].notna())
+    )
+    h2h = game_df[mask].sort_values('date_order').tail(lookback)
+    if len(h2h) < 2:
+        return None, 0
+    home_wins = 0
+    for _, g in h2h.iterrows():
+        # g['home']이 검색 대상 home이고 winner_is_home → home(우리 home) 승
+        # g['away']가 검색 대상 home이고 not winner_is_home → home 승
+        if g['home'] == home and g['winner_is_home']:
+            home_wins += 1
+        elif g['away'] == home and not g['winner_is_home']:
+            home_wins += 1
+    return home_wins / len(h2h), len(h2h)
+
 def make_feat_team(home, away, before_date_order):
     """홈팀 + 원정팀 시퀀스 피처 벡터 (6 × WINDOW)"""
     def pad(seq):
@@ -1878,6 +1902,17 @@ for i, game in enumerate(upcoming_games):
     home_score = home_pa['score'] if home_pa else 0.5
     away_score = away_pa['score'] if away_pa else 0.5
 
+    # P3: 소표본 가중치 (n<20이면 score를 50%쪽으로 수렴)
+    SMALL_SAMPLE_THRESHOLD = 20
+    SMALL_SAMPLE_FACTOR = 0.5  # n=0 시 무효, n=20 시 원본 유지
+    def _shrink(score, n):
+        if n >= SMALL_SAMPLE_THRESHOLD:
+            return score
+        alpha = (n / SMALL_SAMPLE_THRESHOLD) * SMALL_SAMPLE_FACTOR + (1 - SMALL_SAMPLE_FACTOR)
+        return 0.5 + (score - 0.5) * alpha
+    home_score = _shrink(home_score, len(h_team_win))
+    away_score = _shrink(away_score, len(a_team_win))
+
     # ── 팀 패턴 분석 (참고용) ─────────────────────────────────
     _pat_rec = None
     _pat_reason = ''
@@ -1974,6 +2009,58 @@ for i, game in enumerate(upcoming_games):
         elif ml_away >= 0.58:
             final_rec = 0
             pattern_confidence = ml_away
+
+    # ── 개선책 P1·P2: 반대 신호 페널티 + 신뢰도 캡 ─────────────────
+    CONFIDENCE_CAP = 0.85
+    OPPOSITE_THRESHOLD = 0.70
+    OPPOSITE_PENALTY = 0.15
+
+    if final_rec is not None:
+        opposite_signals = []
+        # final_rec=1 (홈 승 예측) → 원정승 방향 신호가 반대
+        # final_rec=0 (원정 승 예측) → 홈승 방향 신호가 반대
+        if final_rec == 1:  # 홈 승 예측 — 원정승/홈패 신호가 반대
+            if a_win_rec == 1 and away_score >= OPPOSITE_THRESHOLD:
+                opposite_signals.append(f'원정승{away_score:.0%}')
+            if h_win_rec == 0 and home_score >= OPPOSITE_THRESHOLD:
+                opposite_signals.append(f'홈패{home_score:.0%}')
+            if slot_fav_team_rec == 0 and slot_fav_rec is not None:
+                opposite_signals.append('슬롯원정')
+        else:  # 원정 승 예측 — 홈승/원정패 신호가 반대
+            if h_win_rec == 1 and home_score >= OPPOSITE_THRESHOLD:
+                opposite_signals.append(f'홈승{home_score:.0%}')
+            if a_win_rec == 0 and away_score >= OPPOSITE_THRESHOLD:
+                opposite_signals.append(f'원정패{away_score:.0%}')
+            if slot_fav_team_rec == 1 and slot_fav_rec is not None:
+                opposite_signals.append('슬롯홈')
+
+        if opposite_signals:
+            pattern_confidence = max(0.50, pattern_confidence - OPPOSITE_PENALTY)
+            pattern_reason += f' ※반대신호[{"+".join(opposite_signals)}] -15%'
+
+        # P4: 최근 H2H 폼 가중치 (KBO 3연전 모멘텀 반영)
+        H2H_LOOKBACK = 5
+        H2H_THRESHOLD = 0.60       # 60% 이상 한쪽 우세
+        H2H_BOOST = 0.05           # 일치 시 +5%
+        H2H_PENALTY = 0.05         # 충돌 시 -5%
+        h2h_form, h2h_n = get_recent_h2h_form(home, away, max_date_order, lookback=H2H_LOOKBACK)
+        if h2h_form is not None and h2h_n >= 2:
+            if h2h_form >= H2H_THRESHOLD and final_rec == 1:
+                pattern_confidence = min(1.0, pattern_confidence + H2H_BOOST)
+                pattern_reason += f' +H2H홈우세({int(h2h_form*100)}%n={h2h_n})'
+            elif h2h_form <= (1-H2H_THRESHOLD) and final_rec == 0:
+                pattern_confidence = min(1.0, pattern_confidence + H2H_BOOST)
+                pattern_reason += f' +H2H원정우세({int((1-h2h_form)*100)}%n={h2h_n})'
+            elif h2h_form >= H2H_THRESHOLD and final_rec == 0:
+                pattern_confidence = max(0.50, pattern_confidence - H2H_PENALTY)
+                pattern_reason += f' -H2H역상관(홈{int(h2h_form*100)}%우세)'
+            elif h2h_form <= (1-H2H_THRESHOLD) and final_rec == 1:
+                pattern_confidence = max(0.50, pattern_confidence - H2H_PENALTY)
+                pattern_reason += f' -H2H역상관(원정{int((1-h2h_form)*100)}%우세)'
+
+        # 신뢰도 캡 85% (100% 표시 금지 — 통계적 정직성)
+        if pattern_confidence > CONFIDENCE_CAP:
+            pattern_confidence = CONFIDENCE_CAP
 
     print(f'  {"-"*60}')
     print(f'  패턴 판단: {pattern_reason}')
