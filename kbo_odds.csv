@@ -1,4 +1,4 @@
-﻿match_id,date,slot,home,away,winner,winner_is_home,home_score,away_score,bookmaker,home_open,home_close,home_change,home_direction,away_open,away_close,away_change,away_direction,winner_direction,odds_ratio,consensus,consensus_win
+match_id,date,slot,home,away,winner,winner_is_home,home_score,away_score,bookmaker,home_open,home_close,home_change,home_direction,away_open,away_close,away_change,away_direction,winner_direction,odds_ratio,consensus,consensus_win
 zNjZ4nJr,2026-03-28,1.0,NC Dinos,Doosan Bears,NC Dinos,True,6.0,0.0,10x10bet,,1.79,,,,2.12,,,,0.8443,home,
 zNjZ4nJr,2026-03-28,1.0,NC Dinos,Doosan Bears,NC Dinos,True,6.0,0.0,1xBet,,1.71,,,,2.16,,,,0.7917,home,
 zNjZ4nJr,2026-03-28,1.0,NC Dinos,Doosan Bears,NC Dinos,True,6.0,0.0,22Bet,,1.7,,,,2.14,,,,0.7944,home,
@@ -4524,7 +4524,7 @@ GhrLeDSN,2026-06-12,2.0,Kiwoom Heroes,Hanwha Eagles,Kiwoom Heroes,True,4.0,3.0,B
 GhrLeDSN,2026-06-12,2.0,Kiwoom Heroes,Hanwha Eagles,Kiwoom Heroes,True,4.0,3.0,Cloudbet,2.25,2.2,-0.05,0.0,1.61,1.67,0.06,1.0,0.0,1.3174,away,
 GhrLeDSN,2026-06-12,2.0,Kiwoom Heroes,Hanwha Eagles,Kiwoom Heroes,True,4.0,3.0,GambleCity,2.2,2.27,0.07,1.0,1.6,1.6,0.0,,1.0,1.4187,away,
 GhrLeDSN,2026-06-12,2.0,Kiwoom Heroes,Hanwha Eagles,Kiwoom Heroes,True,4.0,3.0,Kobet,2.26,2.18,-0.08,0.0,1.62,1.61,-0.01,0.0,,1.354,away,
-GhrLeDSN,2026-06-12,2.0,Kiwoom Heroes,Hanwha Eagles,Kiwoom Heroes,True,4.0,3.0,Melbet,1.65,1.65,0.0,1.0,1.65,1.65,0.0,0.0,,1.4049,away,
+GhrLeDSN,2026-06-12,2.0,Kiwoom Heroes,Hanwha Eagles,Kiwoom Heroes,True,4.0,3.0,Melbet,1.65,1.65,0.0,1.0,1.65,1.65,0.0,0.0,1.0,1.4049,away,
 GhrLeDSN,2026-06-12,2.0,Kiwoom Heroes,Hanwha Eagles,Kiwoom Heroes,True,4.0,3.0,Momobet,2.27,2.35,0.08,1.0,1.65,1.65,0.0,,1.0,1.4242,away,
 GhrLeDSN,2026-06-12,2.0,Kiwoom Heroes,Hanwha Eagles,Kiwoom Heroes,True,4.0,3.0,Roobet,2.24,2.22,-0.02,0.0,1.62,1.63,0.01,1.0,0.0,1.362,away,
 GhrLeDSN,2026-06-12,2.0,Kiwoom Heroes,Hanwha Eagles,Kiwoom Heroes,True,4.0,3.0,Stake.com,2.26,2.34,0.08,1.0,1.65,1.63,-0.02,0.0,1.0,1.4356,away,
