@@ -88,3 +88,39 @@ def recalc_winner_direction(df):
 
     df.loc[update, 'winner_direction'] = new_vals
     return df
+
+
+def backfill_winner_direction(df, min_valid=5, agreement_threshold=0.80):
+    """winner_direction이 NaN인 행을 같은 (date, slot) 그룹 내 다수결로 보정.
+
+    조건:
+      - 그룹 내 valid한 winner_direction이 min_valid개 이상
+      - valid한 값 중 한 방향이 agreement_threshold 이상
+
+    보정된 행은 wd_inferred=True 플래그 추가 (실측값과 구분).
+    """
+    df = df.copy()
+    if 'wd_inferred' not in df.columns:
+        df['wd_inferred'] = False
+
+    backfilled = 0
+    for (date, slot), grp in df.groupby(['date', 'slot']):
+        valid = grp['winner_direction'].dropna()
+        if len(valid) < min_valid:
+            continue
+        mode_val = valid.mode()
+        if len(mode_val) == 0:
+            continue
+        mode_val = mode_val.iloc[0]
+        agreement = (valid == mode_val).mean()
+        if agreement < agreement_threshold:
+            continue
+        mask = (df['date'] == date) & (df['slot'] == slot) & df['winner_direction'].isna()
+        n_fill = mask.sum()
+        if n_fill == 0:
+            continue
+        df.loc[mask, 'winner_direction'] = mode_val
+        df.loc[mask, 'wd_inferred'] = True
+        backfilled += n_fill
+
+    return df, backfilled
