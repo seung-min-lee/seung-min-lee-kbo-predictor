@@ -1,4 +1,4 @@
-﻿date,slot,home,away,prediction,actual_winner,correct,confidence,ml_home_prob,ml_away_prob,ml_intervened,pattern_reason,home_win_desc,away_win_desc,slot_fav_desc,bm_label,actual,home_score,away_score,winner
+date,slot,home,away,prediction,actual_winner,correct,confidence,ml_home_prob,ml_away_prob,ml_intervened,pattern_reason,home_win_desc,away_win_desc,slot_fav_desc,bm_label,actual,home_score,away_score,winner
 2026-04-03,1.0,Doosan Bears,Hanwha Eagles,PASS,Hanwha Eagles,,0.0,0.5,0.5,False,,,,,,,,,
 2026-04-03,2.0,KIA Tigers,NC Dinos,PASS,NC Dinos,,0.0,0.5,0.5,False,,,,,,,,,
 2026-04-03,3.0,Kiwoom Heroes,LG Twins,AWAY(LG Twins),Kiwoom Heroes,0.0,0.85,0.5,0.5,False,,,,,,,,,
@@ -280,3 +280,13 @@
 2026-06-11,3.0,Kiwoom Heroes,NC Dinos,AWAY(0),AWAY(0),1.0,0.84,0.54,0.46,,홈 패 패턴(78%) + 원정 승 패턴(84%) + 정배패턴일치(정배승 18경기(원정정배)),다수결 ↓0 62/71(86%),다수결 ↑1 68/82(83%),다수결 ↑1 32/46(67%),배당↓팀이김 7/11(64%) (방향미확인),,,,
 2026-06-11,4.0,KT Wiz Suwon,Samsung Lions,HOME(1),AWAY(0),0.0,1.0,0.5,0.5,,배당↓팀이김 10/10(100%) : KT Wiz Suwon (팀패턴충돌: 원정 승 패턴(84%) (홈 불규칙) ※정배패턴충돌(역배승 18경기(원정정배))),균형(36↑:40↓) → 불규칙,다수결 ↑1 49/67(74%),다수결 ↓0 50/84(61%),배당↓팀이김 10/10(100%) : KT Wiz Suwon,,,,
 2026-06-11,5.0,LG Twins,SSG Landers,AWAY(0),HOME(1),0.0,0.917,0.51,0.49,,배당↑팀이김 11/12(92%) : SSG Landers (팀패턴일치: 홈 패 패턴(78%) + 원정 승 패턴(78%) ※정배패턴충돌(정배승 18경기(홈정배))),다수결 ↓0 64/99(64%),다수결 ↑1 8/11(71%),다수결 ↑1 46/82(57%),배당↑팀이김 11/12(92%) : SSG Landers,,,,
+2026-06-12,1.0,KIA Tigers,Doosan Bears,AWAY(0),Doosan Bears,1.0,0.81,0.475,0.525,,홈 패 패턴(78%) + 원정 승 패턴(78%) + 정배패턴일치(정배승 18경기(원정정배)),다수결 ↓0 34/50(72%),다수결 ↑1 31/55(61%),다수결 ↑1 40/64(66%),배당↑팀이김 7/11(64%) (방향미확인),,2.0,4.0,Doosan Bears
+2026-06-12,2.0,Kiwoom Heroes,Hanwha Eagles,AWAY(0),Kiwoom Heroes,0.0,0.8,0.515,0.485,,홈 패 패턴(78%) + 원정 승 패턴(82%),다수결 ↓0 53/80(68%),다수결 ↑1 30/52(56%),균형(20↑:21↓) → 불규칙,배당↓팀이김 5/7(71%) (방향미확인),,4.0,3.0,Kiwoom Heroes
+2026-06-12,3.0,KT Wiz Suwon,NC Dinos,HOME(1),KT Wiz Suwon,1.0,0.658,0.49,0.51,,원정 패 패턴(86%) (홈 불규칙) ※정배패턴충돌(정배승 18경기(원정정배)),균형(56↑:48↓) → 불규칙,다수결 ↓0 78/99(81%),다수결 ↑1 30/37(83%),불명확 6/8,,3.0,2.0,KT Wiz Suwon
+2026-06-12,4.0,LG Twins,Lotte Giants,HOME(1),Lotte Giants,0.0,0.75,0.605,0.395,,슬롯정배패턴(정배승 18경기(홈정배)),다수결 ↓0 51/82(62%),다수결 ↓0 46/60(75%),다수결 ↑1 54/76(70%),배당↑팀이김 11/14(79%) (방향미확인),,5.0,16.0,Lotte Giants
+2026-06-12,5.0,Samsung Lions,SSG Landers,HOME(1),SSG Landers,0.0,0.75,0.665,0.335,,슬롯정배패턴(역배승 18경기(원정정배)),다수결 ↑1 48/82(59%),다수결 ↑1 34/44(76%),다수결 ↓0 49/77(64%),배당↓팀이김 14/14(100%) (방향미확인),,3.0,5.0,SSG Landers
+2026-06-13,1.0,KIA Tigers,Doosan Bears,AWAY(0),KIA Tigers,0.0,0.718,0.545,0.455,,배당↓팀이김 9/11(82%) : Doosan Bears (팀패턴충돌: 슬롯정배패턴(정배승 18경기(홈정배))) ※반대신호[홈승77%+슬롯홈] -15% +H2H원정우세(60%n=5),다수결 ↑1 50/59(85%),다수결 ↑1 30/44(68%),다수결 ↑1 60/85(67%),배당↓팀이김 9/11(82%) : Doosan Bears,,2.0,1.0,KIA Tigers
+2026-06-13,2.0,Kiwoom Heroes,Hanwha Eagles,HOME(1),Kiwoom Heroes,1.0,0.657,0.61,0.39,,배당↓팀이김 12/14(86%) : Kiwoom Heroes (팀패턴일치: 홈 승 패턴(77%) (원정 불규칙) ※정배패턴충돌(정배승 18경기(원정정배))) ※반대신호[슬롯원정] -15% -H2H역상관(원정60%우세),다수결 ↑1 65/88(74%),균형(48↑:55↓) → 불규칙,다수결 ↑1 58/73(79%),배당↓팀이김 12/14(86%) : Kiwoom Heroes,,3.0,1.0,Kiwoom Heroes
+2026-06-13,3.0,KT Wiz Suwon,NC Dinos,HOME(1),KT Wiz Suwon,1.0,0.686,0.45,0.55,,배당↓팀이김 7/11(64%) : KT Wiz Suwon (팀패턴일치: 홈 승 패턴(77%) (원정 불규칙) + 정배패턴일치(정배승 18경기(홈정배))) +H2H홈우세(80%n=5),다수결 ↑1 48/79(62%),균형(59↑:59↓) → 불규칙,다수결 ↑1 29/41(74%),배당↓팀이김 7/11(64%) : KT Wiz Suwon,,11.0,9.0,KT Wiz Suwon
+2026-06-13,4.0,LG Twins,Lotte Giants,HOME(1),LG Twins,1.0,0.65,0.635,0.365,,배당↓팀이김 3/4(75%) : LG Twins (팀패턴충돌: 슬롯정배패턴(역배승 18경기(홈정배))) ※반대신호[홈패81%+슬롯원정] -15% +H2H홈우세(60%n=5),다수결 ↓0 62/94(66%),다수결 ↓0 46/62(70%),다수결 ↓0 42/67(61%),배당↓팀이김 3/4(75%) : LG Twins,,5.0,3.0,LG Twins
+2026-06-13,5.0,Samsung Lions,SSG Landers,AWAY(0),Samsung Lions,0.0,0.85,0.685,0.315,,배당↓팀이김 14/14(100%) : SSG Landers (팀패턴일치: 슬롯정배패턴(역배승 18경기(홈정배))) ※반대신호[원정패81%] -15% +H2H원정우세(60%n=5),다수결 ↓0 54/69(77%),다수결 ↓0 50/90(55%),다수결 ↓0 62/78(81%),배당↓팀이김 14/14(100%) : SSG Landers,,7.0,6.0,Samsung Lions
