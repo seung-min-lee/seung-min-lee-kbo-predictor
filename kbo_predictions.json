@@ -942,9 +942,9 @@
         "current_odds": 1.88
       },
       "Melbet": {
-        "seq": "P010010N0100101NN",
-        "rec": null,
-        "desc": "최근데이터없음(N)",
+        "seq": "P010010N0100101N1",
+        "rec": 0,
+        "desc": "다수결 ↓0 27/34(78%)",
         "current_odds": 1.92
       },
       "Momobet": {
@@ -980,13 +980,13 @@
     },
     "recommendation": "HOME(1)",
     "confidence": 0.55,
-    "pattern_reason": "ML우선(BM불명확) 홈=60% [팀패턴: 홈 승 패턴(81%) (원정 불규칙) ※정배패턴충돌(정배승 18경기(원정정배))] ※반대신호[슬롯원정] -15% +H2H홈우세(60%n=5)",
+    "pattern_reason": "홈 승 패턴(81%) (원정 불규칙) ※정배패턴충돌(정배승 18경기(원정정배)) ※반대신호[슬롯원정] -15% +H2H홈우세(60%n=5)",
     "home_win_desc": "다수결 ↑1 69/91(76%)",
     "away_win_desc": "균형(38↑:40↓) → 불규칙",
-    "bm_label": "불명확 0/0",
-    "bm_dir_vote": null,
+    "bm_label": "배당↓팀이김 1/1(100%) (방향미확인)",
+    "bm_dir_vote": 0,
     "bm_team_rec": null,
-    "bm_dir_ratio": 0.0,
+    "bm_dir_ratio": 1.0,
     "ml_home_prob": 0.6,
     "ml_away_prob": 0.4,
     "home_pattern_log": [
@@ -2759,9 +2759,9 @@
         "current_odds": 1.41
       },
       "Melbet": {
-        "seq": "0100110000011N11N",
-        "rec": null,
-        "desc": "최근데이터없음(N)",
+        "seq": "0100110000011N110",
+        "rec": 0,
+        "desc": "다수결 ↓0 47/67(70%)",
         "current_odds": 1.42
       },
       "Momobet": {
@@ -2797,10 +2797,10 @@
     },
     "recommendation": "HOME(1)",
     "confidence": 0.85,
-    "pattern_reason": "배당↓팀이김 8/8(100%) : LG Twins (팀패턴일치: 홈 승 패턴(77%) + 원정 패 패턴(77%) ※정배패턴충돌(역배승 18경기(홈정배))) ※반대신호[슬롯원정] -15% +H2H홈우세(60%n=5)",
+    "pattern_reason": "배당↓팀이김 9/9(100%) : LG Twins (팀패턴일치: 홈 승 패턴(77%) + 원정 패 패턴(77%) ※정배패턴충돌(역배승 18경기(홈정배))) ※반대신호[슬롯원정] -15% +H2H홈우세(60%n=5)",
     "home_win_desc": "다수결 ↑1 45/68(67%)",
     "away_win_desc": "다수결 ↓0 37/62(63%)",
-    "bm_label": "배당↓팀이김 8/8(100%) : LG Twins",
+    "bm_label": "배당↓팀이김 9/9(100%) : LG Twins",
     "bm_dir_vote": 0,
     "bm_team_rec": 1,
     "bm_dir_ratio": 1.0,
