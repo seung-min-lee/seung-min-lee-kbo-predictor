@@ -1613,8 +1613,8 @@ date,away,home,away_score,home_score,winner,winner_is_home,slot,match_id
 2026-06-16,Hanwha Eagles,NC Dinos,5.0,6.0,NC Dinos,True,3.0,6087f2bf
 2026-06-16,Kiwoom Heroes,Samsung Lions,1.0,4.0,Samsung Lions,True,4.0,2720dc12
 2026-06-16,Lotte Giants,SSG Landers,10.0,6.0,Lotte Giants,False,5.0,74bc2027
-2026-06-17,KT Wiz Suwon,Doosan Bears,,,,,1.0,
-2026-06-17,Hanwha Eagles,NC Dinos,,,,,2.0,
-2026-06-17,LG Twins,KIA Tigers,,,,,3.0,
-2026-06-17,Kiwoom Heroes,Samsung Lions,,,,,4.0,
-2026-06-17,Lotte Giants,SSG Landers,,,,,5.0,
+2026-06-17,KT Wiz Suwon,Doosan Bears,8.0,1.0,KT Wiz Suwon,False,1.0,
+2026-06-17,Hanwha Eagles,NC Dinos,4.0,5.0,NC Dinos,True,2.0,
+2026-06-17,LG Twins,KIA Tigers,4.0,5.0,KIA Tigers,True,3.0,
+2026-06-17,Kiwoom Heroes,Samsung Lions,0.0,1.0,Samsung Lions,True,4.0,
+2026-06-17,Lotte Giants,SSG Landers,2.0,1.0,Lotte Giants,False,5.0,
