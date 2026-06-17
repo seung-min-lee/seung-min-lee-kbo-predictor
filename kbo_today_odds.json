@@ -24,7 +24,7 @@
     "away": "LG Twins",
     "home_odds": 1.67,
     "away_odds": 2.39,
-    "today_home_dir": 1
+    "today_home_dir": 0
   },
   "2026-06-17|4|Samsung Lions|Kiwoom Heroes": {
     "date": "2026-06-17",
@@ -32,7 +32,8 @@
     "home": "Samsung Lions",
     "away": "Kiwoom Heroes",
     "home_odds": 1.37,
-    "away_odds": 3.43
+    "away_odds": 3.43,
+    "today_home_dir": 0
   },
   "2026-06-17|5|SSG Landers|Lotte Giants": {
     "date": "2026-06-17",
@@ -41,6 +42,6 @@
     "away": "Lotte Giants",
     "home_odds": 1.86,
     "away_odds": 2.05,
-    "today_home_dir": 1
+    "today_home_dir": 0
   }
 }
