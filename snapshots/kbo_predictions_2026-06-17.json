@@ -69,13 +69,13 @@
         "current_odds": 2.01
       },
       "GambleCity": {
-        "seq": "01101N0011001010F",
+        "seq": "01101N0011001011F",
         "rec": null,
         "desc": "최근데이터없음(N)",
         "current_odds": 2.07
       },
       "Kobet": {
-        "seq": "01101N1001110110F",
+        "seq": "01101N1001110111F",
         "rec": null,
         "desc": "최근데이터없음(N)",
         "current_odds": 2.1
@@ -87,7 +87,7 @@
         "current_odds": 2.06
       },
       "Momobet": {
-        "seq": "01101N0011001010F",
+        "seq": "01101N0011001011F",
         "rec": null,
         "desc": "최근데이터없음(N)",
         "current_odds": 2.13
@@ -111,7 +111,7 @@
         "current_odds": 2.11
       },
       "bwin": {
-        "seq": "01101N00N1001010F",
+        "seq": "01101N00N100101NF",
         "rec": null,
         "desc": "최근데이터없음(N)",
         "current_odds": 2.1
@@ -2637,7 +2637,7 @@
         "current_odds": 1.56
       },
       "Stake.com": {
-        "seq": "1101000001111100F",
+        "seq": "1101000001111101F",
         "rec": null,
         "desc": "최근데이터없음(N)",
         "current_odds": 1.6
@@ -2649,7 +2649,7 @@
         "current_odds": 1.61
       },
       "bwin": {
-        "seq": "1001000001111100F",
+        "seq": "100100000111110NF",
         "rec": null,
         "desc": "최근데이터없음(N)",
         "current_odds": 1.55
