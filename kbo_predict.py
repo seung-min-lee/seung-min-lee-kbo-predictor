@@ -1747,7 +1747,7 @@ print('\n' + '='*60)
 print(f'패턴 분석 및 예측 ({pred_date})')
 print('='*60)
 
-max_date_order = game_df['date_order'].max() + 1  # 미래 date_order
+max_date_order = date_map.get(pred_date, game_df['date_order'].max() + 1)  # pred_date의 date_order (strict <), 없으면 미래
 
 predictions = {}
 
