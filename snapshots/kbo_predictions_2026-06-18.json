@@ -39,9 +39,9 @@
         "current_odds": 2.37
       },
       "22Bet": {
-        "seq": "1100N001100101000",
+        "seq": "1100N0011001010N0",
         "rec": 1,
-        "desc": "다수결 ↑1 23/38(60%)",
+        "desc": "다수결 ↑1 21/33(65%)",
         "current_odds": 2.31
       },
       "Alphabet": {
@@ -51,27 +51,27 @@
         "current_odds": 2.42
       },
       "BetInAsia": {
-        "seq": "110NN0001N0101000",
-        "rec": 0,
-        "desc": "다수결 ↓0 30/54(59%)",
+        "seq": "110NN0001N01010N0",
+        "rec": null,
+        "desc": "균형(16↑:14↓) → 불규칙",
         "current_odds": 2.45
       },
       "Bets.io": {
-        "seq": "1101N001100101000",
+        "seq": "1101N0011001010N0",
         "rec": 1,
-        "desc": "다수결 ↑1 24/40(58%)",
+        "desc": "다수결 ↑1 22/33(68%)",
         "current_odds": 2.27
       },
       "Cloudbet": {
-        "seq": "110NN000100101000",
+        "seq": "110NN0001001010N0",
         "rec": null,
-        "desc": "균형(19↑:16↓) → 불규칙",
+        "desc": "균형(16↑:15↓) → 불규칙",
         "current_odds": 2.4
       },
       "GambleCity": {
-        "seq": "1101N0011N0101100",
-        "rec": null,
-        "desc": "균형(24↑:22↓) → 불규칙",
+        "seq": "1101N0011N01011N0",
+        "rec": 0,
+        "desc": "다수결 ↓0 40/63(65%)",
         "current_odds": 2.32
       },
       "Kobet": {
@@ -87,33 +87,33 @@
         "current_odds": 2.31
       },
       "Momobet": {
-        "seq": "1101N001100101101",
+        "seq": "1101N0011001011N0",
         "rec": 1,
-        "desc": "다수결 ↑1 37/64(58%)",
+        "desc": "다수결 ↑1 45/79(58%)",
         "current_odds": 2.35
       },
       "Roobet": {
-        "seq": "1101N000100101000",
-        "rec": null,
-        "desc": "균형(22↑:17↓) → 불규칙",
+        "seq": "1101N0001001010N0",
+        "rec": 0,
+        "desc": "다수결 ↓0 19/34(56%)",
         "current_odds": 2.28
       },
       "Stake.com": {
-        "seq": "1101N000100101000",
-        "rec": 1,
-        "desc": "다수결 ↑1 23/39(58%)",
+        "seq": "1101N0001001010N0",
+        "rec": null,
+        "desc": "균형(17↑:17↓) → 불규칙",
         "current_odds": 2.38
       },
       "VOBET": {
-        "seq": "1101N001101101001",
-        "rec": null,
-        "desc": "균형(40↑:44↓) → 불규칙",
+        "seq": "1101N0011011010N0",
+        "rec": 1,
+        "desc": "다수결 ↑1 27/36(74%)",
         "current_odds": 2.35
       },
       "bwin": {
-        "seq": "110NN0NN1NN101000",
+        "seq": "110NN0NN1NN1010N0",
         "rec": 1,
-        "desc": "다수결 ↑1 19/24(79%)",
+        "desc": "다수결 ↑1 12/17(69%)",
         "current_odds": 2.25
       }
     },
@@ -122,10 +122,10 @@
     "pattern_reason": "슬롯정배패턴(정배승 18경기(원정정배)) ※반대신호[홈승77%] -15% +H2H원정우세(80%n=5)",
     "home_win_desc": "다수결 ↑1 42/49(85%)",
     "away_win_desc": "다수결 ↑1 42/66(63%)",
-    "bm_label": "배당↑팀이김 9/11(82%) (방향미확인)",
+    "bm_label": "배당↑팀이김 9/12(75%) (방향미확인)",
     "bm_dir_vote": 1,
     "bm_team_rec": null,
-    "bm_dir_ratio": 0.818,
+    "bm_dir_ratio": 0.75,
     "ml_home_prob": 0.47,
     "ml_away_prob": 0.53,
     "home_pattern_log": [
@@ -750,9 +750,9 @@
         "current_odds": 1.82
       },
       "22Bet": {
-        "seq": "0010101001011N000",
-        "rec": 1,
-        "desc": "다수결 ↑1 39/51(76%)",
+        "seq": "0010101001011N0N0",
+        "rec": null,
+        "desc": "균형(25↑:24↓) → 불규칙",
         "current_odds": 1.78
       },
       "Alphabet": {
@@ -762,27 +762,27 @@
         "current_odds": 1.82
       },
       "BetInAsia": {
-        "seq": "0010N010110N0N000",
-        "rec": null,
-        "desc": "균형(29↑:28↓) → 불규칙",
+        "seq": "0010N010110N0N0N0",
+        "rec": 0,
+        "desc": "다수결 ↓0 35/53(67%)",
         "current_odds": 1.81
       },
       "Bets.io": {
-        "seq": "0000N010010011000",
+        "seq": "0000N0100100110N0",
         "rec": 1,
-        "desc": "다수결 ↑1 41/62(66%)",
+        "desc": "다수결 ↑1 56/72(78%)",
         "current_odds": 1.74
       },
       "Cloudbet": {
-        "seq": "0010101001010N000",
-        "rec": 0,
-        "desc": "다수결 ↓0 31/50(61%)",
+        "seq": "0010101001010N0N0",
+        "rec": 1,
+        "desc": "다수결 ↑1 28/46(59%)",
         "current_odds": 1.79
       },
       "GambleCity": {
-        "seq": "0000101001011N000",
-        "rec": 1,
-        "desc": "다수결 ↑1 40/52(76%)",
+        "seq": "0000101001011N0N0",
+        "rec": null,
+        "desc": "균형(24↑:23↓) → 불규칙",
         "current_odds": 1.76
       },
       "Kobet": {
@@ -798,33 +798,33 @@
         "current_odds": 1.78
       },
       "Momobet": {
-        "seq": "0000N010010N1N000",
+        "seq": "0000N010010N1N0N0",
         "rec": null,
-        "desc": "균형(18↑:15↓) → 불규칙",
+        "desc": "균형(14↑:14↓) → 불규칙",
         "current_odds": 1.82
       },
       "Roobet": {
-        "seq": "0000N01001000N001",
-        "rec": 0,
-        "desc": "다수결 ↓0 34/56(60%)",
+        "seq": "0000N01001000N0N0",
+        "rec": null,
+        "desc": "균형(22↑:26↓) → 불규칙",
         "current_odds": 1.82
       },
       "Stake.com": {
-        "seq": "0000N01001001N000",
-        "rec": null,
-        "desc": "균형(26↑:27↓) → 불규칙",
+        "seq": "0000N01001001N0N0",
+        "rec": 1,
+        "desc": "다수결 ↑1 44/66(66%)",
         "current_odds": 1.82
       },
       "VOBET": {
-        "seq": "0000N010010N1N000",
-        "rec": 1,
-        "desc": "다수결 ↑1 19/33(56%)",
+        "seq": "0000N010010N1N0N0",
+        "rec": null,
+        "desc": "균형(14↑:14↓) → 불규칙",
         "current_odds": 1.82
       },
       "bwin": {
-        "seq": "NNNN101NN10NNN000",
-        "rec": 0,
-        "desc": "다수결 ↓0 19/28(69%)",
+        "seq": "NNNN101NN10NNN0N0",
+        "rec": 1,
+        "desc": "다수결 ↑1 14/21(65%)",
         "current_odds": 1.75
       }
     },
@@ -833,10 +833,10 @@
     "pattern_reason": "홈 패 패턴(83%) + 원정 승 패턴(79%) -H2H역상관(홈80%우세)",
     "home_win_desc": "다수결 ↓0 67/94(70%)",
     "away_win_desc": "다수결 ↑1 39/70(57%)",
-    "bm_label": "배당↑팀이김 7/10(70%) (방향미확인)",
+    "bm_label": "배당↑팀이김 7/8(88%) (방향미확인)",
     "bm_dir_vote": 1,
     "bm_team_rec": null,
-    "bm_dir_ratio": 0.7,
+    "bm_dir_ratio": 0.875,
     "ml_home_prob": 0.49,
     "ml_away_prob": 0.51,
     "home_pattern_log": [
@@ -2702,8 +2702,8 @@
     "verified": false,
     "actual": null
   },
-  "slot_5.0": {
-    "slot": 5.0,
+  "slot_4": {
+    "slot": 4,
     "home": "Samsung Lions",
     "away": "Kiwoom Heroes",
     "pred_date": "2026-06-18",
@@ -2723,112 +2723,112 @@
     "away_agr_rec": 1,
     "away_fav_rec": 1,
     "away_win_rec": null,
-    "slot_fav_win": "101011000011101110",
-    "slot_fav_rec": 0,
-    "slot_fav_desc": "다수결 ↓0 46/78(60%)",
-    "slot_fav_team_rec": 0,
+    "slot_fav_win": "011111110000101101",
+    "slot_fav_rec": 1,
+    "slot_fav_desc": "다수결 ↑1 38/64(60%)",
+    "slot_fav_team_rec": 1,
     "home_is_fav": true,
     "slot_bm": {
       "10x10bet": {
-        "seq": "10001101000011111",
-        "rec": null,
-        "desc": "균형(36↑:36↓) → 불규칙",
-        "current_odds": 1.83
+        "seq": "N0100000111110010",
+        "rec": 0,
+        "desc": "다수결 ↓0 29/46(63%)",
+        "current_odds": 1.37
       },
       "1xBet": {
-        "seq": "01001101000011110",
+        "seq": "00100000111110010",
         "rec": 0,
-        "desc": "다수결 ↓0 49/79(62%)",
-        "current_odds": 1.85
+        "desc": "다수결 ↓0 32/50(64%)",
+        "current_odds": 1.36
       },
       "22Bet": {
-        "seq": "01001101000011110",
-        "rec": 0,
-        "desc": "다수결 ↓0 49/79(62%)",
-        "current_odds": 1.8
+        "seq": "001000001111100N0",
+        "rec": null,
+        "desc": "균형(38↑:35↓) → 불규칙",
+        "current_odds": 1.33
       },
       "Alphabet": {
-        "seq": "10001101000011111",
-        "rec": null,
-        "desc": "균형(35↑:37↓) → 불규칙",
-        "current_odds": 1.83
+        "seq": "00100000111110010",
+        "rec": 0,
+        "desc": "다수결 ↓0 32/50(64%)",
+        "current_odds": 1.37
       },
       "BetInAsia": {
-        "seq": "01001101000011110",
-        "rec": 0,
-        "desc": "다수결 ↓0 49/79(62%)",
-        "current_odds": 1.8
+        "seq": "001000000111100N0",
+        "rec": 1,
+        "desc": "다수결 ↑1 45/76(59%)",
+        "current_odds": 1.36
       },
       "Bets.io": {
-        "seq": "10001N01000011111",
-        "rec": null,
-        "desc": "균형(39↑:35↓) → 불규칙",
-        "current_odds": 1.75
+        "seq": "0010000N1111100N0",
+        "rec": 1,
+        "desc": "다수결 ↑1 38/65(57%)",
+        "current_odds": 1.32
       },
       "Cloudbet": {
-        "seq": "0100N101000011111",
-        "rec": null,
-        "desc": "균형(36↑:37↓) → 불규칙",
-        "current_odds": 1.78
+        "seq": "101000001111101N0",
+        "rec": 1,
+        "desc": "다수결 ↑1 39/53(71%)",
+        "current_odds": 1.35
       },
       "GambleCity": {
-        "seq": "01001101000011111",
-        "rec": null,
-        "desc": "균형(35↑:38↓) → 불규칙",
-        "current_odds": 1.78
+        "seq": "0010000N1111100N0",
+        "rec": 1,
+        "desc": "다수결 ↑1 39/65(59%)",
+        "current_odds": 1.33
       },
       "Kobet": {
-        "seq": "01001101000001110",
+        "seq": "00000000111000110",
         "rec": 0,
-        "desc": "다수결 ↓0 50/71(70%)",
-        "current_odds": 1.8
+        "desc": "다수결 ↓0 62/85(72%)",
+        "current_odds": 1.28
       },
       "Melbet": {
-        "seq": "N1001N01000011110",
+        "seq": "0110000011N110010",
         "rec": 0,
-        "desc": "다수결 ↓0 38/67(55%)",
-        "current_odds": 1.8
+        "desc": "다수결 ↓0 30/47(64%)",
+        "current_odds": 1.33
       },
       "Momobet": {
-        "seq": "00001101N00011111",
+        "seq": "001000001111100N0",
         "rec": null,
-        "desc": "균형(32↑:33↓) → 불규칙",
-        "current_odds": 1.83
+        "desc": "균형(38↑:35↓) → 불규칙",
+        "current_odds": 1.37
       },
       "Roobet": {
-        "seq": "01001101000011110",
-        "rec": 0,
-        "desc": "다수결 ↓0 49/79(62%)",
-        "current_odds": 1.8
+        "seq": "001000001111100N0",
+        "rec": null,
+        "desc": "균형(37↑:36↓) → 불규칙",
+        "current_odds": 1.36
       },
       "Stake.com": {
-        "seq": "00001101000011111",
-        "rec": null,
-        "desc": "균형(36↑:36↓) → 불규칙",
-        "current_odds": 1.83
+        "seq": "101000001111101N0",
+        "rec": 1,
+        "desc": "다수결 ↑1 41/54(74%)",
+        "current_odds": 1.37
       },
       "VOBET": {
-        "seq": "1000NN01000011111",
-        "rec": null,
-        "desc": "균형(36↑:31↓) → 불규칙",
-        "current_odds": 1.83
+        "seq": "0010000N1111100N0",
+        "rec": 1,
+        "desc": "다수결 ↑1 39/65(59%)",
+        "current_odds": 1.37
       },
       "bwin": {
-        "seq": "0NNNNN0N0N0N1111N",
-        "rec": null,
-        "desc": "최근데이터없음(N)",
-        "current_odds": 1.8
+        "seq": "NN1NN0NN11N11NNN0",
+        "rec": 1,
+        "desc": "다수결 ↑1 14/19(77%)",
+        "current_odds": 1.35
       }
     },
     "recommendation": "HOME(1)",
-    "confidence": 0.55,
-    "pattern_reason": "홈 승 패턴(74%) (원정 불규칙) ※정배패턴충돌(역배승 18경기(홈정배)) ※반대신호[슬롯원정] -15% +H2H홈우세(100%n=5)",
+    "confidence": 0.685,
+    "pattern_reason": "ML우선(BM불명확) 홈=64% [팀패턴: 홈 승 패턴(74%) (원정 불규칙) + 정배패턴일치(정배승 18경기(홈정배))] +H2H홈우세(100%n=5)",
     "home_win_desc": "다수결 ↑1 35/44(80%)",
     "away_win_desc": "균형(49↑:51↓) → 불규칙",
-    "bm_label": "배당↓팀이김 6/6(100%) (방향미확인)",
-    "bm_dir_vote": 0,
+    "bm_label": "불명확 7/5",
+    "bm_dir_vote": null,
     "bm_team_rec": null,
-    "bm_dir_ratio": 1.0,
+    "bm_dir_ratio": 0.583,
     "ml_home_prob": 0.635,
     "ml_away_prob": 0.365,
     "home_pattern_log": [
@@ -3542,6 +3542,577 @@
       {
         "type": "Mirror",
         "pred": 1,
+        "weight": 0.78
+      },
+      {
+        "type": "Mirror",
+        "pred": 1,
+        "weight": 0.78
+      },
+      {
+        "type": "Mirror",
+        "pred": 1,
+        "weight": 0.78
+      }
+    ],
+    "verified": false,
+    "actual": null
+  },
+  "slot_5": {
+    "slot": 5,
+    "home": "SSG Landers",
+    "away": "Lotte Giants",
+    "pred_date": "2026-06-18",
+    "home_direction": "0000011110000000001",
+    "home_bm_agree": "1111110011101011111",
+    "home_fav_win": "1111101111011101110",
+    "home_team_win": "0000001110100010000",
+    "home_dir_rec": 0,
+    "home_agr_rec": 1,
+    "home_fav_rec": 1,
+    "home_win_rec": 0,
+    "away_direction": "0000101000100000010",
+    "away_bm_agree": "1111111011111111111",
+    "away_fav_win": "1001011111010101110",
+    "away_team_win": "0110001000001010011",
+    "away_dir_rec": 0,
+    "away_agr_rec": 1,
+    "away_fav_rec": 0,
+    "away_win_rec": 0,
+    "slot_fav_win": "101011000011101110",
+    "slot_fav_rec": 0,
+    "slot_fav_desc": "다수결 ↓0 46/78(60%)",
+    "slot_fav_team_rec": 0,
+    "home_is_fav": true,
+    "slot_bm": {
+      "10x10bet": {
+        "seq": "10001101000011111",
+        "rec": null,
+        "desc": "균형(36↑:36↓) → 불규칙",
+        "current_odds": 1.83
+      },
+      "1xBet": {
+        "seq": "01001101000011111",
+        "rec": null,
+        "desc": "균형(35↑:37↓) → 불규칙",
+        "current_odds": 1.85
+      },
+      "22Bet": {
+        "seq": "010011010000111N1",
+        "rec": 1,
+        "desc": "다수결 ↑1 39/69(58%)",
+        "current_odds": 1.8
+      },
+      "Alphabet": {
+        "seq": "10001101000011111",
+        "rec": null,
+        "desc": "균형(35↑:37↓) → 불규칙",
+        "current_odds": 1.83
+      },
+      "BetInAsia": {
+        "seq": "010011010000111N1",
+        "rec": 1,
+        "desc": "다수결 ↑1 39/69(58%)",
+        "current_odds": 1.8
+      },
+      "Bets.io": {
+        "seq": "10001N010000111N1",
+        "rec": null,
+        "desc": "균형(31↑:30↓) → 불규칙",
+        "current_odds": 1.75
+      },
+      "Cloudbet": {
+        "seq": "0100N1010000111N1",
+        "rec": null,
+        "desc": "균형(30↑:32↓) → 불규칙",
+        "current_odds": 1.78
+      },
+      "GambleCity": {
+        "seq": "010011010000111N1",
+        "rec": 1,
+        "desc": "다수결 ↑1 40/69(59%)",
+        "current_odds": 1.78
+      },
+      "Kobet": {
+        "seq": "01001101000001110",
+        "rec": 0,
+        "desc": "다수결 ↓0 50/71(70%)",
+        "current_odds": 1.8
+      },
+      "Melbet": {
+        "seq": "N1001N01000011111",
+        "rec": null,
+        "desc": "균형(35↑:33↓) → 불규칙",
+        "current_odds": 1.8
+      },
+      "Momobet": {
+        "seq": "00001101N000111N1",
+        "rec": null,
+        "desc": "균형(28↑:23↓) → 불규칙",
+        "current_odds": 1.83
+      },
+      "Roobet": {
+        "seq": "010011010000111N1",
+        "rec": 1,
+        "desc": "다수결 ↑1 39/68(59%)",
+        "current_odds": 1.8
+      },
+      "Stake.com": {
+        "seq": "000011010000111N1",
+        "rec": 1,
+        "desc": "다수결 ↑1 39/68(59%)",
+        "current_odds": 1.83
+      },
+      "VOBET": {
+        "seq": "1000NN010000111N1",
+        "rec": null,
+        "desc": "균형(26↑:29↓) → 불규칙",
+        "current_odds": 1.83
+      },
+      "bwin": {
+        "seq": "0NNNNN0N0N0N111NN",
+        "rec": null,
+        "desc": "최근데이터없음(N)",
+        "current_odds": 1.8
+      }
+    },
+    "recommendation": "AWAY(0)",
+    "confidence": 0.65,
+    "pattern_reason": "슬롯정배패턴(역배승 18경기(홈정배)) ※반대신호[원정패77%] -15% +H2H원정우세(100%n=5)",
+    "home_win_desc": "다수결 ↓0 41/54(76%)",
+    "away_win_desc": "다수결 ↓0 22/33(63%)",
+    "bm_label": "배당↑팀이김 5/6(83%) (방향미확인)",
+    "bm_dir_vote": 1,
+    "bm_team_rec": null,
+    "bm_dir_ratio": 0.833,
+    "ml_home_prob": 0.605,
+    "ml_away_prob": 0.395,
+    "home_pattern_log": [
+      {
+        "type": "연속",
+        "pred": 1,
+        "weight": 0.405
+      },
+      {
+        "type": "반복",
+        "pred": 0,
+        "weight": 0.463
+      },
+      {
+        "type": "연속",
+        "pred": 1,
+        "weight": 0.424
+      },
+      {
+        "type": "반복",
+        "pred": 0,
+        "weight": 0.484
+      },
+      {
+        "type": "팰린드롬확장",
+        "pred": 0,
+        "weight": 0.46
+      },
+      {
+        "type": "블록분할",
+        "pred": 1,
+        "weight": 0.518
+      },
+      {
+        "type": "팰린드롬확장",
+        "pred": 0,
+        "weight": 0.48
+      },
+      {
+        "type": "런분할",
+        "pred": 0,
+        "weight": 0.559
+      },
+      {
+        "type": "팰린드롬확장",
+        "pred": 0,
+        "weight": 0.5
+      },
+      {
+        "type": "팰린드롬확장",
+        "pred": 0,
+        "weight": 0.52
+      },
+      {
+        "type": "롤링모멘텀",
+        "pred": 0,
+        "weight": 0.506
+      },
+      {
+        "type": "팰린드롬확장",
+        "pred": 0,
+        "weight": 0.54
+      },
+      {
+        "type": "롤링모멘텀",
+        "pred": 0,
+        "weight": 0.526
+      },
+      {
+        "type": "팰린드롬확장",
+        "pred": 0,
+        "weight": 0.56
+      },
+      {
+        "type": "롤링모멘텀",
+        "pred": 0,
+        "weight": 0.545
+      },
+      {
+        "type": "런분할",
+        "pred": 1,
+        "weight": 0.549
+      },
+      {
+        "type": "팰린드롬확장",
+        "pred": 0,
+        "weight": 0.58
+      },
+      {
+        "type": "롤링모멘텀",
+        "pred": 0,
+        "weight": 0.565
+      },
+      {
+        "type": "런분할",
+        "pred": 1,
+        "weight": 0.568
+      },
+      {
+        "type": "팰린드롬확장",
+        "pred": 0,
+        "weight": 0.6
+      },
+      {
+        "type": "롤링모멘텀",
+        "pred": 0,
+        "weight": 0.584
+      },
+      {
+        "type": "팰린드롬확장",
+        "pred": 0,
+        "weight": 0.62
+      },
+      {
+        "type": "롤링모멘텀",
+        "pred": 0,
+        "weight": 0.604
+      },
+      {
+        "type": "Fold+꼬리",
+        "pred": 0,
+        "weight": 0.716
+      },
+      {
+        "type": "팰린드롬확장",
+        "pred": 0,
+        "weight": 0.64
+      },
+      {
+        "type": "접기팰꼬리",
+        "pred": 1,
+        "weight": 0.657
+      },
+      {
+        "type": "롤링모멘텀",
+        "pred": 0,
+        "weight": 0.623
+      },
+      {
+        "type": "Fold+꼬리",
+        "pred": 0,
+        "weight": 0.738
+      },
+      {
+        "type": "Fold+꼬리",
+        "pred": 0,
+        "weight": 0.738
+      },
+      {
+        "type": "런분할",
+        "pred": 0,
+        "weight": 0.738
+      },
+      {
+        "type": "팰린드롬확장",
+        "pred": 0,
+        "weight": 0.66
+      },
+      {
+        "type": "접기팰꼬리",
+        "pred": 1,
+        "weight": 0.695
+      },
+      {
+        "type": "롤링모멘텀",
+        "pred": 0,
+        "weight": 0.643
+      },
+      {
+        "type": "팰린드롬확장",
+        "pred": 0,
+        "weight": 0.68
+      },
+      {
+        "type": "접기팰꼬리",
+        "pred": 1,
+        "weight": 0.716
+      },
+      {
+        "type": "롤링모멘텀",
+        "pred": 0,
+        "weight": 0.662
+      },
+      {
+        "type": "런분할",
+        "pred": 1,
+        "weight": 0.663
+      },
+      {
+        "type": "팰린드롬확장",
+        "pred": 0,
+        "weight": 0.7
+      },
+      {
+        "type": "접기팰꼬리",
+        "pred": 1,
+        "weight": 0.737
+      },
+      {
+        "type": "롤링모멘텀",
+        "pred": 0,
+        "weight": 0.682
+      },
+      {
+        "type": "팰린드롬확장",
+        "pred": 0,
+        "weight": 0.72
+      },
+      {
+        "type": "접기팰꼬리",
+        "pred": 1,
+        "weight": 0.758
+      },
+      {
+        "type": "롤링모멘텀",
+        "pred": 0,
+        "weight": 0.701
+      },
+      {
+        "type": "팰린드롬확장",
+        "pred": 0,
+        "weight": 0.74
+      },
+      {
+        "type": "접기팰꼬리",
+        "pred": 1,
+        "weight": 0.779
+      },
+      {
+        "type": "롤링모멘텀",
+        "pred": 0,
+        "weight": 0.721
+      },
+      {
+        "type": "팰린드롬확장",
+        "pred": 0,
+        "weight": 0.76
+      },
+      {
+        "type": "접기팰꼬리",
+        "pred": 1,
+        "weight": 0.8
+      },
+      {
+        "type": "롤링모멘텀",
+        "pred": 0,
+        "weight": 0.74
+      },
+      {
+        "type": "Mirror",
+        "pred": 0,
+        "weight": 0.78
+      },
+      {
+        "type": "Mirror",
+        "pred": 0,
+        "weight": 0.78
+      },
+      {
+        "type": "Mirror",
+        "pred": 0,
+        "weight": 0.78
+      },
+      {
+        "type": "Mirror",
+        "pred": 0,
+        "weight": 0.78
+      },
+      {
+        "type": "Mirror",
+        "pred": 0,
+        "weight": 0.78
+      }
+    ],
+    "away_pattern_log": [
+      {
+        "type": "블록분할",
+        "pred": 0,
+        "weight": 0.475
+      },
+      {
+        "type": "블록분할",
+        "pred": 0,
+        "weight": 0.496
+      },
+      {
+        "type": "런분할",
+        "pred": 0,
+        "weight": 0.484
+      },
+      {
+        "type": "꼬리부분미러",
+        "pred": 0,
+        "weight": 0.484
+      },
+      {
+        "type": "교차쌍",
+        "pred": 0,
+        "weight": 0.484
+      },
+      {
+        "type": "꼬리부분미러",
+        "pred": 1,
+        "weight": 0.505
+      },
+      {
+        "type": "런분할",
+        "pred": 1,
+        "weight": 0.559
+      },
+      {
+        "type": "꼬리부분미러",
+        "pred": 0,
+        "weight": 0.526
+      },
+      {
+        "type": "런분할",
+        "pred": 0,
+        "weight": 0.493
+      },
+      {
+        "type": "꼬리부분미러",
+        "pred": 1,
+        "weight": 0.547
+      },
+      {
+        "type": "런분할",
+        "pred": 0,
+        "weight": 0.512
+      },
+      {
+        "type": "꼬리부분미러",
+        "pred": 0,
+        "weight": 0.568
+      },
+      {
+        "type": "꼬리부분미러",
+        "pred": 0,
+        "weight": 0.589
+      },
+      {
+        "type": "꼬리부분미러",
+        "pred": 0,
+        "weight": 0.611
+      },
+      {
+        "type": "꼬리부분미러",
+        "pred": 0,
+        "weight": 0.632
+      },
+      {
+        "type": "꼬리부분미러",
+        "pred": 0,
+        "weight": 0.653
+      },
+      {
+        "type": "꼬리부분미러",
+        "pred": 0,
+        "weight": 0.674
+      },
+      {
+        "type": "런분할",
+        "pred": 0,
+        "weight": 0.625
+      },
+      {
+        "type": "꼬리부분미러",
+        "pred": 0,
+        "weight": 0.695
+      },
+      {
+        "type": "꼬리부분미러",
+        "pred": 0,
+        "weight": 0.716
+      },
+      {
+        "type": "꼬리부분미러",
+        "pred": 0,
+        "weight": 0.737
+      },
+      {
+        "type": "꼬리부분미러",
+        "pred": 0,
+        "weight": 0.758
+      },
+      {
+        "type": "Mirror",
+        "pred": 1,
+        "weight": 0.828
+      },
+      {
+        "type": "Mirror",
+        "pred": 1,
+        "weight": 0.828
+      },
+      {
+        "type": "꼬리부분미러",
+        "pred": 0,
+        "weight": 0.779
+      },
+      {
+        "type": "Mirror",
+        "pred": 1,
+        "weight": 0.85
+      },
+      {
+        "type": "Mirror",
+        "pred": 1,
+        "weight": 0.85
+      },
+      {
+        "type": "꼬리부분미러",
+        "pred": 0,
+        "weight": 0.8
+      },
+      {
+        "type": "Mirror",
+        "pred": 1,
+        "weight": 0.78
+      },
+      {
+        "type": "Mirror",
+        "pred": 1,
+        "weight": 0.78
+      },
+      {
+        "type": "Mirror",
+        "pred": 0,
         "weight": 0.78
       },
       {
