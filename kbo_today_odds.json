@@ -1,44 +1,47 @@
 {
-  "2026-06-18|1|Doosan Bears|KT Wiz Suwon": {
-    "date": "2026-06-18",
+  "2026-06-19|1|LG Twins|Doosan Bears": {
+    "date": "2026-06-19",
     "slot": 1.0,
-    "home": "Doosan Bears",
-    "away": "KT Wiz Suwon",
-    "home_odds": 2.62,
-    "away_odds": 1.57
+    "home": "LG Twins",
+    "away": "Doosan Bears",
+    "home_odds": 2.02,
+    "away_odds": 1.91,
+    "today_home_dir": 1
   },
-  "2026-06-18|2|NC Dinos|Hanwha Eagles": {
-    "date": "2026-06-18",
+  "2026-06-19|2|Hanwha Eagles|Samsung Lions": {
+    "date": "2026-06-19",
     "slot": 2.0,
-    "home": "NC Dinos",
-    "away": "Hanwha Eagles",
-    "home_odds": 2.09,
-    "away_odds": 1.85
+    "home": "Hanwha Eagles",
+    "away": "Samsung Lions",
+    "home_odds": 2.97,
+    "away_odds": 1.46,
+    "today_home_dir": 1
   },
-  "2026-06-18|3|KIA Tigers|LG Twins": {
-    "date": "2026-06-18",
+  "2026-06-19|3|KT Wiz Suwon|KIA Tigers": {
+    "date": "2026-06-19",
     "slot": 3.0,
-    "home": "KIA Tigers",
-    "away": "LG Twins",
-    "home_odds": 2.65,
-    "away_odds": 1.55
+    "home": "KT Wiz Suwon",
+    "away": "KIA Tigers",
+    "home_odds": 2.09,
+    "away_odds": 1.85,
+    "today_home_dir": 0
   },
-  "2026-06-18|4|Samsung Lions|Kiwoom Heroes": {
-    "date": "2026-06-18",
-    "slot": 4,
-    "home": "Samsung Lions",
-    "away": "Kiwoom Heroes",
-    "home_odds": 1.53,
-    "away_odds": 2.78,
-    "today_home_dir": null
-  },
-  "2026-06-18|5|SSG Landers|Lotte Giants": {
-    "date": "2026-06-18",
-    "slot": 5,
-    "home": "SSG Landers",
+  "2026-06-19|4|Kiwoom Heroes|Lotte Giants": {
+    "date": "2026-06-19",
+    "slot": 4.0,
+    "home": "Kiwoom Heroes",
     "away": "Lotte Giants",
-    "home_odds": null,
-    "away_odds": null,
-    "today_home_dir": null
+    "home_odds": 1.8,
+    "away_odds": 2.16,
+    "today_home_dir": 0
+  },
+  "2026-06-19|5|NC Dinos|SSG Landers": {
+    "date": "2026-06-19",
+    "slot": 5.0,
+    "home": "NC Dinos",
+    "away": "SSG Landers",
+    "home_odds": 2.01,
+    "away_odds": 1.91,
+    "today_home_dir": 0
   }
 }
