@@ -1,37 +1,47 @@
 {
   "2026-06-20|1|LG Twins|Doosan Bears": {
     "date": "2026-06-20",
-    "slot": 1.0,
+    "slot": 1,
     "home": "LG Twins",
     "away": "Doosan Bears",
-    "home_odds": 1.75,
-    "away_odds": 2.21
-  },
-  "2026-06-20|3|Hanwha Eagles|Samsung Lions": {
-    "date": "2026-06-20",
-    "slot": 3.0,
-    "home": "Hanwha Eagles",
-    "away": "Samsung Lions",
-    "home_odds": 1.73,
-    "away_odds": 2.24,
+    "home_odds": null,
+    "away_odds": null,
     "today_home_dir": 0
   },
-  "2026-06-20|4|KT Wiz Suwon|KIA Tigers": {
+  "2026-06-20|2|Hanwha Eagles|Samsung Lions": {
     "date": "2026-06-20",
-    "slot": 4.0,
+    "slot": 2,
+    "home": "Hanwha Eagles",
+    "away": "Samsung Lions",
+    "home_odds": null,
+    "away_odds": null,
+    "today_home_dir": 0
+  },
+  "2026-06-20|3|KT Wiz Suwon|KIA Tigers": {
+    "date": "2026-06-20",
+    "slot": 3,
     "home": "KT Wiz Suwon",
     "away": "KIA Tigers",
-    "home_odds": 1.9,
-    "away_odds": 2,
+    "home_odds": null,
+    "away_odds": null,
     "today_home_dir": 1
   },
-  "2026-06-20|5|Kiwoom Heroes|Lotte Giants": {
+  "2026-06-20|4|Kiwoom Heroes|Lotte Giants": {
     "date": "2026-06-20",
-    "slot": 5.0,
+    "slot": 4,
     "home": "Kiwoom Heroes",
     "away": "Lotte Giants",
-    "home_odds": 2.03,
-    "away_odds": 1.88,
+    "home_odds": null,
+    "away_odds": null,
+    "today_home_dir": 0
+  },
+  "2026-06-20|5|NC Dinos|SSG Landers": {
+    "date": "2026-06-20",
+    "slot": 5,
+    "home": "NC Dinos",
+    "away": "SSG Landers",
+    "home_odds": null,
+    "away_odds": null,
     "today_home_dir": 0
   }
 }
