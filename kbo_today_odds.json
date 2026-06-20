@@ -15,7 +15,7 @@
     "away": "Samsung Lions",
     "home_odds": null,
     "away_odds": null,
-    "today_home_dir": 0
+    "today_home_dir": 1
   },
   "2026-06-20|3|KT Wiz Suwon|KIA Tigers": {
     "date": "2026-06-20",
@@ -33,7 +33,7 @@
     "away": "Lotte Giants",
     "home_odds": null,
     "away_odds": null,
-    "today_home_dir": 0
+    "today_home_dir": null
   },
   "2026-06-20|5|NC Dinos|SSG Landers": {
     "date": "2026-06-20",
