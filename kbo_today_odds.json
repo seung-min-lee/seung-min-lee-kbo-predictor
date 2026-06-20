@@ -33,7 +33,7 @@
     "away": "Lotte Giants",
     "home_odds": null,
     "away_odds": null,
-    "today_home_dir": null
+    "today_home_dir": 0
   },
   "2026-06-20|5|NC Dinos|SSG Landers": {
     "date": "2026-06-20",
@@ -42,6 +42,6 @@
     "away": "SSG Landers",
     "home_odds": null,
     "away_odds": null,
-    "today_home_dir": 0
+    "today_home_dir": 1
   }
 }
