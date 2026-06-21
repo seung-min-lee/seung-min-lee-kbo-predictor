@@ -1,47 +1,47 @@
 {
-  "2026-06-20|1|LG Twins|Doosan Bears": {
-    "date": "2026-06-20",
-    "slot": 1,
-    "home": "LG Twins",
-    "away": "Doosan Bears",
-    "home_odds": null,
-    "away_odds": null,
-    "today_home_dir": 0
-  },
-  "2026-06-20|2|Hanwha Eagles|Samsung Lions": {
-    "date": "2026-06-20",
-    "slot": 2,
-    "home": "Hanwha Eagles",
-    "away": "Samsung Lions",
-    "home_odds": null,
-    "away_odds": null,
-    "today_home_dir": 1
-  },
-  "2026-06-20|3|KT Wiz Suwon|KIA Tigers": {
-    "date": "2026-06-20",
-    "slot": 3,
-    "home": "KT Wiz Suwon",
-    "away": "KIA Tigers",
-    "home_odds": null,
-    "away_odds": null,
-    "today_home_dir": 1
-  },
-  "2026-06-20|4|Kiwoom Heroes|Lotte Giants": {
-    "date": "2026-06-20",
-    "slot": 4,
+  "2026-06-21|1|Kiwoom Heroes|Lotte Giants": {
+    "date": "2026-06-21",
+    "slot": 1.0,
     "home": "Kiwoom Heroes",
     "away": "Lotte Giants",
-    "home_odds": null,
-    "away_odds": null,
+    "home_odds": 2.63,
+    "away_odds": 1.63,
+    "today_home_dir": 1
+  },
+  "2026-06-21|2|LG Twins|Doosan Bears": {
+    "date": "2026-06-21",
+    "slot": 2.0,
+    "home": "LG Twins",
+    "away": "Doosan Bears",
+    "home_odds": 1.7,
+    "away_odds": 2.33,
     "today_home_dir": 0
   },
-  "2026-06-20|5|NC Dinos|SSG Landers": {
-    "date": "2026-06-20",
-    "slot": 5,
+  "2026-06-21|3|Hanwha Eagles|Samsung Lions": {
+    "date": "2026-06-21",
+    "slot": 3.0,
+    "home": "Hanwha Eagles",
+    "away": "Samsung Lions",
+    "home_odds": 1.68,
+    "away_odds": 2.33,
+    "today_home_dir": null
+  },
+  "2026-06-21|4|KT Wiz Suwon|KIA Tigers": {
+    "date": "2026-06-21",
+    "slot": 4.0,
+    "home": "KT Wiz Suwon",
+    "away": "KIA Tigers",
+    "home_odds": 1.62,
+    "away_odds": 2.54,
+    "today_home_dir": 0
+  },
+  "2026-06-21|5|NC Dinos|SSG Landers": {
+    "date": "2026-06-21",
+    "slot": 5.0,
     "home": "NC Dinos",
     "away": "SSG Landers",
-    "home_odds": null,
-    "away_odds": null,
-    "today_home_dir": 1
+    "home_odds": 1.92,
+    "away_odds": 2.12,
+    "today_home_dir": 0
   }
 }
