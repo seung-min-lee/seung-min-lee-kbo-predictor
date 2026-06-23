@@ -1,4 +1,4 @@
-date,slot,home,away,prediction,actual_winner,correct,confidence,ml_home_prob,ml_away_prob,ml_intervened,pattern_reason,home_win_desc,away_win_desc,slot_fav_desc,bm_label,actual,home_score,away_score,winner
+﻿date,slot,home,away,prediction,actual_winner,correct,confidence,ml_home_prob,ml_away_prob,ml_intervened,pattern_reason,home_win_desc,away_win_desc,slot_fav_desc,bm_label,actual,home_score,away_score,winner
 2026-04-03,1.0,Doosan Bears,Hanwha Eagles,PASS,Hanwha Eagles,,0.0,0.5,0.5,False,,,,,,,,,
 2026-04-03,2.0,KIA Tigers,NC Dinos,PASS,NC Dinos,,0.0,0.5,0.5,False,,,,,,,,,
 2026-04-03,3.0,Kiwoom Heroes,LG Twins,AWAY(LG Twins),Kiwoom Heroes,0.0,0.85,0.5,0.5,False,,,,,,,,,
@@ -318,3 +318,8 @@ date,slot,home,away,prediction,actual_winner,correct,confidence,ml_home_prob,ml_
 2026-06-20,3.0,KT Wiz Suwon,KIA Tigers,HOME(1),KT Wiz Suwon,1.0,0.789,0.835,0.165,,배당↑팀이김 8/9(89%) : KT Wiz Suwon (팀패턴 불규칙) ※반대신호[홈패77%] -15% +H2H홈우세(60%n=5),다수결 ↓0 44/66(70%),다수결 ↓0 44/59(73%),균형(23↑:26↓) → 불규칙,배당↑팀이김 8/9(89%) : KT Wiz Suwon,,10.0,9.0,KT Wiz Suwon
 2026-06-20,4.0,Kiwoom Heroes,Lotte Giants,AWAY(0),Lotte Giants,1.0,0.85,0.215,0.785,,배당↑팀이김 14/14(100%) : Lotte Giants (팀패턴충돌: 원정 패 패턴(77%) (홈 불규칙)) ※반대신호[원정패77%] -15% +H2H원정우세(60%n=5),균형(31↑:31↓) → 불규칙,다수결 ↓0 42/75(57%),균형(47↑:47↓) → 불규칙,배당↑팀이김 14/14(100%) : Lotte Giants,,1.0,7.0,Lotte Giants
 2026-06-20,5.0,NC Dinos,SSG Landers,AWAY(0),SSG Landers,1.0,0.8,0.21,0.79,,배당↓팀이김 14/14(100%) : SSG Landers (팀패턴충돌: 홈 승 패턴(79%) + 원정 패 패턴(83%) + 정배패턴일치(정배승 18경기(홈정배))) ※반대신호[홈승79%+원정패83%+슬롯홈] -15% -H2H역상관(홈60%우세),다수결 ↑1 43/73(58%),다수결 ↓0 57/70(82%),다수결 ↑1 51/64(79%),배당↓팀이김 14/14(100%) : SSG Landers,,5.0,12.0,SSG Landers
+2026-06-21,1.0,Kiwoom Heroes,Lotte Giants,AWAY(0),AWAY(0),1.0,0.85,0.4,0.6,,배당↓팀이김 13/13(100%) : Lotte Giants (팀패턴충돌: 홈 승 패턴(79%) + 원정 패 패턴(77%) ※정배패턴충돌(정배승 18경기(원정정배))) ※반대신호[홈승79%+원정패77%] -15% +H2H원정우세(80%n=5),다수결 ↑1 45/72(64%),다수결 ↓0 62/66(94%),다수결 ↑1 60/86(70%),배당↓팀이김 13/13(100%) : Lotte Giants,,,,
+2026-06-21,2.0,LG Twins,Doosan Bears,HOME(1),HOME(1),1.0,0.55,0.6,0.4,,ML우선(BM불명확) 홈=60% [팀패턴: 팀승패 충돌 (둘 다 승 예측)] ※반대신호[원정승77%] -15% +H2H홈우세(80%n=5),다수결 ↑1 61/96(64%),다수결 ↑1 60/81(75%),균형(32↑:28↓) → 불규칙,불명확 6/7,,,,
+2026-06-21,3.0,Hanwha Eagles,Samsung Lions,HOME(1),AWAY(0),0.0,0.763,0.52,0.48,,홈 승 패턴(79%) + 원정 패 패턴(77%) + 정배패턴일치(정배승 18경기(홈정배)) -H2H역상관(원정60%우세),다수결 ↑1 48/73(69%),다수결 ↓0 35/54(69%),다수결 ↑1 24/33(74%),배당↓팀이김 8/11(73%) (방향미확인),,,,
+2026-06-21,4.0,KT Wiz Suwon,KIA Tigers,AWAY(0),AWAY(0),1.0,0.6,0.565,0.435,,배당↑팀이김 12/15(80%) : KIA Tigers (팀패턴충돌: 홈 승 패턴(77%) + 원정 패 패턴(77%) ※정배패턴충돌(역배승 18경기(홈정배))) ※반대신호[홈승77%+원정패77%] -15% -H2H역상관(홈60%우세),다수결 ↑1 77/89(87%),다수결 ↓0 62/86(73%),다수결 ↓0 27/47(60%),배당↑팀이김 12/15(80%) : KIA Tigers,,,,
+2026-06-21,5.0,NC Dinos,SSG Landers,HOME(1),AWAY(0),0.0,0.85,0.64,0.36,,배당↓팀이김 14/14(100%) : NC Dinos (팀패턴일치: 슬롯정배패턴(정배승 18경기(홈정배))) ※반대신호[홈패83%] -15% +H2H홈우세(60%n=5),다수결 ↓0 59/83(71%),다수결 ↓0 44/70(62%),다수결 ↑1 40/46(88%),배당↓팀이김 14/14(100%) : NC Dinos,,,,
