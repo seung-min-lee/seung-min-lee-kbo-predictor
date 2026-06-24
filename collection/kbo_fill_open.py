@@ -123,6 +123,12 @@ finally:
 
 if updated > 0:
     df = recalc_winner_direction(df)
+    # consensus 누락 보정: home_close/away_close 있고 consensus NaN인 행 채움
+    cons_mask = df['home_close'].notna() & df['away_close'].notna() & df['consensus'].isna()
+    if cons_mask.any():
+        df.loc[cons_mask, 'consensus'] = df.loc[cons_mask].apply(
+            lambda r: 'home' if r['home_close'] < r['away_close'] else 'away', axis=1)
+        print(f'consensus 보정: {cons_mask.sum()}건')
     df.to_csv(CSV_PATH, index=False, encoding='utf-8-sig')
     print(f'\n완료: {updated}개 북메이커 open 데이터 업데이트 → {CSV_PATH} 저장')
 else:
