@@ -834,6 +834,20 @@ def analyze_pattern(seq, full_history=None):
                            'rec':  fp_val,
                            'score': fp_score})
 
+    pb_val, pb_desc, pb_score = check_palindrome_build(seq)
+    if pb_val is not None:
+        candidates.append({'type':'팰린드롬확장',
+                           'desc': pb_desc,
+                           'rec':  pb_val,
+                           'score': pb_score})
+
+    tsm_val, tsm_desc, tsm_score = check_tail_split_mirror(seq)
+    if tsm_val is not None:
+        candidates.append({'type':'꼬리미러',
+                           'desc': tsm_desc,
+                           'rec':  tsm_val,
+                           'score': tsm_score})
+
     run_mir_val, run_mir_desc, run_mir_score = check_run_mirror_pattern(seq)
     if run_mir_val is not None:
         candidates.append({'type':'런분할',
