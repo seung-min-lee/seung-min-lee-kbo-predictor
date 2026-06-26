@@ -470,8 +470,8 @@ try:
         if not m['finished']:
             continue
         norm_date_check = normalize_date(m['date'])
-        if norm_date_check >= today_str_main:
-            print(f"  오늘 경기 스킵(예측 대상): {norm_date_check} {m['home']} vs {m['away']}")
+        if norm_date_check > today_str_main:
+            print(f"  미래 경기 스킵(예측 대상): {norm_date_check} {m['home']} vs {m['away']}")
             continue
         if m['match_id'] in existing_ids:
             print(f"  스킵: {m['date']} slot{m['slot']} {m['home']} vs {m['away']}")

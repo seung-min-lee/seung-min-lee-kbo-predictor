@@ -1,4 +1,4 @@
-﻿date,away,home,away_score,home_score,winner,winner_is_home,slot,match_id
+date,away,home,away_score,home_score,winner,winner_is_home,slot,match_id
 2024-04-02,KIA Tigers,KT Wiz Suwon,6.0,10.0,KT Wiz Suwon,True,,
 2024-04-02,Kiwoom Heroes,Samsung Lions,8.0,3.0,Kiwoom Heroes,False,,
 2024-04-02,Doosan Bears,SSG Landers,6.0,13.0,SSG Landers,True,,
@@ -1653,8 +1653,8 @@
 2026-06-25,SSG Landers,KT Wiz Suwon,7.0,12.0,KT Wiz Suwon,True,3.0,
 2026-06-25,Samsung Lions,LG Twins,13.0,6.0,Samsung Lions,False,4.0,
 2026-06-25,NC Dinos,Lotte Giants,8.0,2.0,NC Dinos,False,5.0,
-2026-06-26,KIA Tigers,Doosan Bears,,,,,1.0,
-2026-06-26,Hanwha Eagles,SSG Landers,,,,,2.0,
-2026-06-26,Kiwoom Heroes,NC Dinos,,,,,3.0,
-2026-06-26,KT Wiz Suwon,Samsung Lions,,,,,4.0,
-2026-06-26,LG Twins,Lotte Giants,,,,,5.0,
+2026-06-26,KIA Tigers,Doosan Bears,2.0,3.0,Doosan Bears,True,1.0,
+2026-06-26,Hanwha Eagles,SSG Landers,9.0,2.0,Hanwha Eagles,False,2.0,
+2026-06-26,Kiwoom Heroes,NC Dinos,4.0,11.0,NC Dinos,True,3.0,
+2026-06-26,KT Wiz Suwon,Samsung Lions,1.0,9.0,Samsung Lions,True,4.0,
+2026-06-26,LG Twins,Lotte Giants,2.0,3.0,Lotte Giants,True,5.0,
