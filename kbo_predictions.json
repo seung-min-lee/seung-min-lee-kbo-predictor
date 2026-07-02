@@ -2810,33 +2810,33 @@
     "home_is_fav": false,
     "slot_bm": {
       "10x10bet": {
-        "seq": "1001001110000101N",
+        "seq": "10010011100001011",
         "rec": null,
-        "desc": "최근데이터없음(N)",
+        "desc": "균형(5↑:7↓) → 불규칙",
         "current_odds": 2.3
       },
       "1xBet": {
-        "seq": "100N001110000101N",
-        "rec": null,
-        "desc": "최근데이터없음(N)",
+        "seq": "100N0011100001011",
+        "rec": 0,
+        "desc": "다수결 ↓0 8/12(65%)",
         "current_odds": 2.26
       },
       "22Bet": {
-        "seq": "100N001110000101N",
+        "seq": "100N0011100001011",
         "rec": null,
-        "desc": "최근데이터없음(N)",
+        "desc": "균형(5↑:7↓) → 불규칙",
         "current_odds": 2.2
       },
       "Alphabet": {
-        "seq": "1000001110000101N",
-        "rec": null,
-        "desc": "최근데이터없음(N)",
+        "seq": "10000011100001011",
+        "rec": 0,
+        "desc": "다수결 ↓0 8/12(65%)",
         "current_odds": 2.3
       },
       "BetInAsia": {
-        "seq": "100N001110000101N",
+        "seq": "100N0011100001010",
         "rec": null,
-        "desc": "최근데이터없음(N)",
+        "desc": "균형(29↑:30↓) → 불규칙",
         "current_odds": 2.43
       },
       "Bets.io": {
@@ -2846,51 +2846,51 @@
         "current_odds": 2.17
       },
       "Cloudbet": {
-        "seq": "1011001110000101N",
+        "seq": "10110011100001010",
         "rec": null,
-        "desc": "최근데이터없음(N)",
+        "desc": "균형(32↑:30↓) → 불규칙",
         "current_odds": 2.4
       },
       "GambleCity": {
-        "seq": "1001001110000101N",
-        "rec": null,
-        "desc": "최근데이터없음(N)",
+        "seq": "10010011100001011",
+        "rec": 0,
+        "desc": "다수결 ↓0 8/12(65%)",
         "current_odds": 2.22
       },
       "Kobet": {
-        "seq": "0010001110100101N",
+        "seq": "00100011101001011",
         "rec": null,
-        "desc": "최근데이터없음(N)",
+        "desc": "균형(28↑:37↓) → 불규칙",
         "current_odds": 2.14
       },
       "Melbet": {
-        "seq": "100N001110000101N",
+        "seq": "100N0011100001011",
         "rec": null,
-        "desc": "최근데이터없음(N)",
+        "desc": "균형(5↑:7↓) → 불규칙",
         "current_odds": 2.2
       },
       "Momobet": {
-        "seq": "1000001110000101N",
-        "rec": null,
-        "desc": "최근데이터없음(N)",
+        "seq": "10000011100001011",
+        "rec": 0,
+        "desc": "다수결 ↓0 8/12(65%)",
         "current_odds": 2.3
       },
       "Roobet": {
-        "seq": "1001001110000101N",
+        "seq": "10010011100001010",
         "rec": null,
-        "desc": "최근데이터없음(N)",
+        "desc": "균형(33↑:29↓) → 불규칙",
         "current_odds": 2.3
       },
       "Stake.com": {
-        "seq": "1010001110000101N",
-        "rec": null,
-        "desc": "최근데이터없음(N)",
+        "seq": "10100011100001011",
+        "rec": 0,
+        "desc": "다수결 ↓0 9/14(62%)",
         "current_odds": 2.26
       },
       "VOBET": {
-        "seq": "1000001110000101N",
-        "rec": null,
-        "desc": "최근데이터없음(N)",
+        "seq": "10000011100001011",
+        "rec": 0,
+        "desc": "다수결 ↓0 8/12(65%)",
         "current_odds": 2.3
       },
       "bwin": {
@@ -2901,14 +2901,14 @@
       }
     },
     "recommendation": "AWAY(0)",
-    "confidence": 0.605,
-    "pattern_reason": "ML우선(BM불명확) 원정=56% [팀패턴: 홈 패 패턴(78%) + 원정 승 패턴(81%) + 정배패턴일치(정배승 18경기(원정정배))] +H2H원정우세(60%n=5)",
+    "confidence": 0.85,
+    "pattern_reason": "배당↓팀이김 6/6(100%) : LG Twins (팀패턴일치: 홈 패 패턴(78%) + 원정 승 패턴(81%) + 정배패턴일치(정배승 18경기(원정정배))) +H2H원정우세(60%n=5)",
     "home_win_desc": "다수결 ↓0 33/59(59%)",
     "away_win_desc": "다수결 ↑1 70/109(65%)",
-    "bm_label": "불명확 0/0",
-    "bm_dir_vote": null,
-    "bm_team_rec": null,
-    "bm_dir_ratio": 0.0,
+    "bm_label": "배당↓팀이김 6/6(100%) : LG Twins",
+    "bm_dir_vote": 0,
+    "bm_team_rec": 0,
+    "bm_dir_ratio": 1.0,
     "ml_home_prob": 0.445,
     "ml_away_prob": 0.555,
     "home_pattern_log": [
@@ -3876,14 +3876,14 @@
         "current_odds": 2.42
       }
     },
-    "recommendation": "HOME(1)",
-    "confidence": 0.829,
-    "pattern_reason": "배당↓팀이김 13/14(93%) : NC Dinos (팀패턴충돌: 슬롯정배패턴(정배승 18경기(원정정배))) ※반대신호[홈패81%+슬롯원정] -15% +H2H홈우세(60%n=5)",
+    "recommendation": "AWAY(0)",
+    "confidence": 0.729,
+    "pattern_reason": "배당↓팀이김 13/14(93%) : Samsung Lions (팀패턴일치: 슬롯정배패턴(정배승 18경기(원정정배))) ※반대신호[원정패84%] -15% -H2H역상관(홈60%우세)",
     "home_win_desc": "다수결 ↓0 48/80(57%)",
     "away_win_desc": "다수결 ↓0 54/80(69%)",
-    "bm_label": "배당↓팀이김 13/14(93%) : NC Dinos",
+    "bm_label": "배당↓팀이김 13/14(93%) : Samsung Lions",
     "bm_dir_vote": 0,
-    "bm_team_rec": 1,
+    "bm_team_rec": 0,
     "bm_dir_ratio": 0.929,
     "ml_home_prob": 0.535,
     "ml_away_prob": 0.465,

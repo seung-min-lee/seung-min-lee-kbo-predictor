@@ -2775,7 +2775,7 @@
         "away": 1.97
       }
     },
-    "today_home_dir": 1
+    "today_home_dir": 0
   },
   "2026-07-02|3|KIA Tigers|SSG Landers": {
     "date": "2026-07-02",
@@ -3149,6 +3149,6 @@
         "away": 1.86
       }
     },
-    "today_home_dir": 0
+    "today_home_dir": 1
   }
 }
