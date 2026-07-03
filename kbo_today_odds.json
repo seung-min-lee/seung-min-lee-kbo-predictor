@@ -3150,5 +3150,142 @@
       }
     },
     "today_home_dir": 1
+  },
+  "2026-07-03|1|Kiwoom Heroes|Doosan Bears": {
+    "date": "2026-07-03",
+    "slot": 1.0,
+    "home": "Kiwoom Heroes",
+    "away": "Doosan Bears",
+    "today_home_dir": 0
+  },
+  "2026-07-03|2|LG Twins|Hanwha Eagles": {
+    "date": "2026-07-03",
+    "slot": 2.0,
+    "home": "LG Twins",
+    "away": "Hanwha Eagles",
+    "today_home_dir": 1
+  },
+  "2026-07-03|3|KIA Tigers|NC Dinos": {
+    "date": "2026-07-03",
+    "slot": 3.0,
+    "home": "KIA Tigers",
+    "away": "NC Dinos",
+    "today_home_dir": 0
+  },
+  "2026-07-03|4|KT Wiz Suwon|Lotte Giants": {
+    "date": "2026-07-03",
+    "slot": 4.0,
+    "home": "KT Wiz Suwon",
+    "away": "Lotte Giants",
+    "bm_open": {
+      "10x10bet": {
+        "home": 1.74,
+        "away": 2.11
+      },
+      "1xBet": {
+        "home": 1.78,
+        "away": 2.15
+      },
+      "22Bet": {
+        "home": 1.74,
+        "away": 2.1
+      },
+      "Alphabet": {
+        "home": 1.74,
+        "away": 2.11
+      },
+      "bwin": {
+        "home": 1.75,
+        "away": 2.05
+      },
+      "Cloudbet": {
+        "home": 1.71,
+        "away": 2.09
+      }
+    },
+    "match_url": "https://www.oddsportal.com/baseball/h2h/kt-wiz-suwon-444SNVEe/lotte-giants-pGw4ggkO/#CpZG8Ttg",
+    "home_odds": 1.747,
+    "away_odds": 2.1,
+    "bm_close": {
+      "10x10bet": {
+        "home": 1.76,
+        "away": 2.09
+      },
+      "Alphabet": {
+        "home": 1.76,
+        "away": 2.09
+      },
+      "Cloudbet": {
+        "home": 1.72,
+        "away": 2.12
+      }
+    },
+    "today_home_dir": 1
+  },
+  "2026-07-03|5|SSG Landers|Samsung Lions": {
+    "date": "2026-07-03",
+    "slot": 5.0,
+    "home": "SSG Landers",
+    "away": "Samsung Lions",
+    "bm_open": {
+      "10x10bet": {
+        "home": 2.55,
+        "away": 1.5
+      },
+      "1xBet": {
+        "home": 2.6,
+        "away": 1.56
+      },
+      "22Bet": {
+        "home": 2.53,
+        "away": 1.52
+      },
+      "Alphabet": {
+        "home": 2.55,
+        "away": 1.5
+      },
+      "BetInAsia": {
+        "home": 2.63,
+        "away": 1.51
+      },
+      "Bets.io": {
+        "home": 2.4,
+        "away": 1.45
+      },
+      "bwin": {
+        "home": 2.55,
+        "away": 1.5
+      },
+      "Cloudbet": {
+        "home": 2.55,
+        "away": 1.48
+      },
+      "GambleCity": {
+        "home": 2.53,
+        "away": 1.47
+      }
+    },
+    "match_url": "https://www.oddsportal.com/baseball/h2h/samsung-lions-O6nTMCG7/ssg-landers-fRfCQfHr/#4KV8AkCt",
+    "home_odds": 2.625,
+    "away_odds": 1.51,
+    "bm_close": {
+      "1xBet": {
+        "home": 2.66,
+        "away": 1.54
+      },
+      "22Bet": {
+        "home": 2.59,
+        "away": 1.5
+      },
+      "BetInAsia": {
+        "home": 2.65,
+        "away": 1.51
+      },
+      "Cloudbet": {
+        "home": 2.6,
+        "away": 1.49
+      }
+    },
+    "today_home_dir": 1
   }
 }
