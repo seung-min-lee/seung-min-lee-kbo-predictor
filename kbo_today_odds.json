@@ -3742,5 +3742,50 @@
     "today_home_dir": 0,
     "bm_open": {},
     "bm_close": {}
+  },
+  "2026-07-09|1|Doosan Bears|SSG Landers": {
+    "date": "2026-07-09",
+    "slot": 1.0,
+    "home": "Doosan Bears",
+    "away": "SSG Landers",
+    "today_home_dir": 0,
+    "bm_open": {},
+    "bm_close": {}
+  },
+  "2026-07-09|2|Hanwha Eagles|NC Dinos": {
+    "date": "2026-07-09",
+    "slot": 2.0,
+    "home": "Hanwha Eagles",
+    "away": "NC Dinos",
+    "today_home_dir": null,
+    "bm_open": {},
+    "bm_close": {}
+  },
+  "2026-07-09|3|Lotte Giants|KIA Tigers": {
+    "date": "2026-07-09",
+    "slot": 3.0,
+    "home": "Lotte Giants",
+    "away": "KIA Tigers",
+    "today_home_dir": 0,
+    "bm_open": {},
+    "bm_close": {}
+  },
+  "2026-07-09|4|KT Wiz Suwon|Kiwoom Heroes": {
+    "date": "2026-07-09",
+    "slot": 4.0,
+    "home": "KT Wiz Suwon",
+    "away": "Kiwoom Heroes",
+    "today_home_dir": 0,
+    "bm_open": {},
+    "bm_close": {}
+  },
+  "2026-07-09|5|Samsung Lions|LG Twins": {
+    "date": "2026-07-09",
+    "slot": 5.0,
+    "home": "Samsung Lions",
+    "away": "LG Twins",
+    "today_home_dir": 0,
+    "bm_open": {},
+    "bm_close": {}
   }
 }
